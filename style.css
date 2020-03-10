@@ -20,6 +20,10 @@ body{
 }
 
 
+.navbar{
+    font-family: 'Bellota', cursive;
+}
+
 .navbar-brand{
     font-family: 'Bellota', cursive;
     font-size: 45px;
@@ -41,7 +45,6 @@ body{
 
 .user-img{
     margin-top: -100px;
-    margin-bottom: 60px;
 }
 
 .form-group{
