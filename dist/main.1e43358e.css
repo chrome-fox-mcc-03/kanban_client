@@ -1,0 +1,97 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+#navbar {
+  border-radius: 0;
+  background-color: whitesmoke;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ui.button, .ui.buttons .button, .ui.buttons .or {
+  font-size: 20px;
+}
+
+#logo {
+  color:teal;
+  font-family:Palatino, URW Palladio L, serif;
+  font-size: 20px;
+}
+
+.register, .login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 85vh;
+}
+
+.ui.large.form {
+  padding-bottom: 20vh;
+  padding-top: 22vh;
+}
+
+.home{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100vw;
+  height: 80vh;
+}
+
+.ui.buttons {
+  width: 13vw;
+}
+
+.ui.buttons .button {
+  font-size: 1.2rem;
+  padding: 0;
+  margin: 0;
+}
+
+.template {
+  width: 40vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  margin: 5vh 0;
+  /* background-color: gray; */
+}
+
+.title {
+  /* height: 5vh; */
+  width: 40vh;
+  /* background-color: wheat; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1vh;
+}
+
+.category {
+  overflow: auto;
+  max-height: 60vh;
+  -ms-overflow-style: none;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+.category::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  padding: 15px 20px;
+}
+
+.ui.cards {
+  margin: 0;
+}
+
+/*# sourceMappingURL=/main.1e43358e.css.map */
