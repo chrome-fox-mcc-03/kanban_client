@@ -1,4 +1,4 @@
-#homepage-container, #cards-container, #add-task-container, #login-container, #register-container {
+#homepage-one, #homepage-two, #cards-container, #add-task-container, #login-container, #register-container {
   width: 95vw;
   height: 100vh;
 }
@@ -262,13 +262,130 @@
 }
 
 /* homepage style */
-#homepage-container {
-  background-image: url("./img/home2.svg");
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: 75%;
+#homepage-one, #homepage-two {
   background-color: #fcf9ea;
-  background-position: center;
+}
+
+#homepage-image {
+  height: 70%;
+  width: 100%;
+  margin: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#homepage-words {
+  height: 30%;
+  width: 100%;
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#terms {
+  margin: 0px;
+}
+
+.homepage {
+  height: 50%;
+  width: 100%;
+  display: flex;
+}
+
+.section-words {
+  width: 30%;
+  height: 50%;
+}
+
+.section-image {
+  background-size: cover;
+  height: 100%;
+  width: 70%;
+}
+
+.section-img-one {
+  background-image: url("./img/organized.jpg");
+}
+
+.section-img-two {
+  background-image: url("./img/teamgroup.jpg");
+}
+
+.section-img-three {
+  background-image: url("./img/workflow.jpg");
+}
+
+.section {
+  font-size: 0.9rem;
+  padding: 1rem;
+  padding-bottom: 0rem;
+  margin-bottom: 5px;
+}
+
+.section-title {
+  padding: 20px;
+  margin: 0px;
+}
+
+.section-list {
+  padding: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  list-style-type: square;
+}
+
+.container-section-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-button {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 15px;
+  width: 10rem;
+  height: 2rem;
+  padding-bottom: 20px;
+}
+
+.section-review {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-bottom: 2rem;
+}
+
+.reviewer {
+  height: 80%;
+  width: 25%;
+}
+
+.review-image {
+  height: 30%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.review-content {
+  height: 60%;
+  width: 100%;
+  text-align: center;
+}
+
+.review-position {
+  height: 10%;
+  width: 100%;
+  text-align: center;
+}
+
+.reviewer-picture {
+  font-size: 3rem;
 }
 
 /*# sourceMappingURL=style.css.map */
