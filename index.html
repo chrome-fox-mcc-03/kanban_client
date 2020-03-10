@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--Bootstrap-->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!---->
     <!--Paper CSS CDN Framework-->
     <link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" rel="stylesheet">
@@ -15,6 +15,7 @@
     <!---->
     <!--Google Fonts-->
     <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Coming+Soon&display=swap" rel="stylesheet"> 
     <!---->
     <link rel="stylesheet" href="./index.css">
     <title>Kanban</title>
@@ -22,7 +23,7 @@
 <body>
     <!--Navbar Section-->
     <section>
-        <nav class="border fixed split-nav">
+        <nav class="border border-5 border-primary fixed split-nav">
             <a class="navbar-brand" href="#">KANBAN - PROJECT 51</a>
 
             <div class="collapsible-body">
@@ -41,6 +42,7 @@
 
     <!--Content Section-->
     <section class="content-section">
+       
         <!--Board Div-->
         <div class="board">
             <!--Phase Div-->
@@ -50,7 +52,7 @@
                 </div>
                 <div class="phase-body overflow-auto">
                     <!--Card Div-->
-                    <div class="card text-white bg-primary mb-3 border border-5 border-primary">
+                    <div class="card mb-3 border border-5 border-primary">
                         <div class="left-content">
                             <p>project desc.</p>
                             <h5>action</h5>
@@ -64,7 +66,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card text-white bg-primary mb-3 border border-5 border-primary">
+                    <div class="card mb-3 border border-5 border-primary">
                         <div class="left-content">
                             <p>project desc.</p>
                             <h5>action</h5>
@@ -95,8 +97,8 @@
                     <!---->
                 </div>
                 <div class="add-btn-div">
-                    <input id="addProjectField" type="text" placeholder="add new project...">
-                    <button popover-top="Add new task" class="btn-small"><i class="fas fa-plus"></i></button>
+                    <input id="addProjectField" class="" type="text" placeholder="add new project...">
+                    <button popover-top="Add new task" class="btn-small paper-btn"><i class="fas fa-plus"></i></button>
                 </div>
             </div>
             <div class="outer-card phase-1 border border-primary shadow shadow-large">
@@ -174,49 +176,59 @@
     </section>
     <!---->
 
-    <section class="form-section">
-        <!--Login Form Section-->
-        <section class="login-section">
-            <div class="form-group border border-primary shadow shadow-large">
-                <div>
-                    <h4>Login Form</h4>
-                </div>
-                <div>
-                    <label for="username">Username :</label>
-                    <input type="text" placeholder="username...">
-                    <label for="password">Password :</label>
-                    <input type="password" placeholder="password...">
-                </div>
-                <div>
-                    <button>Login</button>
-                </div>
-            </div>
-        </section>
-        <!---->
-    
-        <!--Register Form Section-->
-        <section class="register-section">
-            <div class="form-group border border-primary shadow shadow-large">
-                <div>
-                    <h4>Register Form</h4>
-                </div>
-                <div>
-                    <label for="username">Username :</label>
-                    <input type="text" placeholder="username...">
-                    <label for="password">Password :</label>
-                    <input type="password" placeholder="password...">
-                </div>
-                <div>
-                    <button>Register</button>
-                </div>
-            </div>
-        </section>
-        <!---->
+    <section class="home-section">
+            <section class="form-section">
+                <!--Login Form Section-->
+                <section class="login-section">
+                    <div class=" form-reglog form-group border border-primary shadow shadow-large">
+                        <div style="margin-bottom: 10px;">
+                            <h4>Login Form</h4>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <label class="label-form" for="email">Email :</label>
+                            <input type="text" id="email" placeholder="email..."><br>
+                            <label class="label-form" for="password">Password :</label>
+                            <input type="password" id="password" placeholder="password..."><br>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <button>Login</button>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <p>don't have an account? register</p>
+                        </div>
+                    </div>
+                </section>
+                <!---->
+            
+                <!--Register Form Section-->
+                <section class="register-section">
+                    <div class=" form-reglog form-group border border-primary shadow shadow-large">
+                        <div style="margin-bottom: 10px;">
+                            <h4>Register Form</h4>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <label class="label-form" for="name">Name :</label>
+                            <input type="text" id="name" placeholder="Your name..."><br>
+                            <label class="label-form" for="email">Email :</label>
+                            <input type="text" id="email" placeholder="email..."><br>
+                            <label class="label-form" for="password">Password :</label>
+                            <input type="password" id="password" placeholder="password..."><br>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <button>Register</button>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <p>already have an account? login</p>
+                        </div>
+                    </div>
+                </section>
+                <!---->
+            </section>
     </section>
 
     <!--Footer Section-->
     <section class="footer-section">
-        <footer class="footer border border-5 border-primary">
+        <footer class="fixed-bottom page-footer text-center border border-5 border-primary">
             <p>Kanban Project : For Educational Purpose Only, 2020 Hacktiv8</p>
         </footer>
     </section>
@@ -224,9 +236,9 @@
 
     
     <!--JS BOOTSTRAP-->
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script> -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <!---->
 </body>
 </html>

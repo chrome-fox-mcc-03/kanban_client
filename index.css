@@ -4,20 +4,45 @@
 }
 
 body {
+    background-image: url('https://images.unsplash.com/photo-1583142262682-8bd4063c2a3b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjczMTc0fQ&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-repeat: no-repeat;
     -webkit-font-smoothing: antialiased;
 }
 
+footer {
+    background-color: ivory;
+}
 
 .content-section {
-    background-color: grey;
+    /* background-color: grey; */
     width: 100vw;
     height: 80vh;
     margin-top: 50px;
+    display: none;
+}
+
+.form-reglog {
+    background-color: ivory;
+}
+
+.label-form {
+    font-family: 'Coming Soon', cursive;
+}
+
+.home-section {
+    /* display: none; */
+    /* background-color: khaki; */
+    width: 100vw;
+    height: 90vh;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .board {
-    background-image: url('https://images.unsplash.com/photo-1583142262682-8bd4063c2a3b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjczMTc0fQ&auto=format&fit=crop&w=1350&q=80');
-    background-size: cover;
     width: 100vw;
     height: 90vh;
     display: flex;
@@ -40,7 +65,7 @@ body {
 
 
 .phase-0 {
-    border-radius: 5%;
+    /* border-radius: 5%; */
     opacity: 0.9;
     width: 20vw;
     height: 80vh;
@@ -50,7 +75,7 @@ body {
 
 
 .phase-1 {
-    border-radius: 5%;
+    /* border-radius: 5%; */
     opacity: 0.9;
     width: 20vw;
     height: 80vh;
@@ -59,7 +84,7 @@ body {
 }
 
 .phase-2 {
-    border-radius: 5%;
+    /* border-radius: 5%; */
     opacity: 0.9;
     width: 20vw;
     height: 80vh;
@@ -68,7 +93,7 @@ body {
 }
 
 .phase-3 {
-    border-radius: 5%;
+    /* border-radius: 5%; */
     opacity: 0.9;
     width: 20vw;
     height: 80vh;
@@ -101,22 +126,25 @@ body {
 .add-btn-div {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     align-items: center;
-    justify-content: space-evenly;
 }
 
 .btn{
     padding: 5px 5px;
 }
 
-.footer {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 1rem;
-    background-color: #efefef;
-    text-align: center;
+.form-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.page-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 #addProjectField {
@@ -167,8 +195,4 @@ FORM CUSTOMIZATION
     align-items: center;
     padding-top: 10px;
     padding-bottom: 10px;;
-}
-
-.form-section {
-    display: none;
 }
