@@ -1,0 +1,81 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* background-color: #21D4FD;
+    background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%); */
+    background-image: url("https://assets.website-files.com/5bfd1275cc56e15ce750b18e/5c289afb9a15758624893a33_11.%20Fuchsia.jpg");
+    background-size: 100%;
+}
+
+#page-register {
+    padding: 2px;
+    text-align: center;
+    background-color: wheat;
+}
+
+#page-login {
+    padding: 2px;
+    text-align: center;
+    background-color: wheat;
+}
+
+.container {
+    display: flex;
+    height: 84vh;
+    width: 100vw;
+    justify-content: space-evenly;
+}
+
+.col.s3 {
+    display: flex;
+    flex-direction: column;
+    margin-top: 6px;
+}
+
+.col.s2 {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.column-container {
+    margin: 4px;
+    padding: 4px;
+    width: 24vw;
+}
+
+.column-body {
+    padding-left: 12px;
+    overflow-y: scroll;
+    height: 92%;
+}
+
+.column-header {
+    font-size: 22px;
+}
+
+#btn-create{
+    position: fixed;
+    bottom: 4px;
+    right: 4px;
+}
+
+.waves-effect.waves-yellow.btn-small {
+    background-color: tomato;
+}
+
+.waves-effect.waves-teal.btn-small {
+    background-color: limegreen
+}
+
+.nav-wrapper {
+    background-image: linear-gradient(90deg, #020024 0%, #090979 35%, #00d4ff 100%);
+}
+
+#logo {
+    padding-left: 8px;
+    padding-top: 8px;
+}
