@@ -1,0 +1,579 @@
+%flex-center-col
+    display: flex
+    flex-direction: column
+    align-items: center
+
+%flex-center-row
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: center
+
+$main-title: 'Open Sans', sans-serif
+$mini-title: 'Roboto', sans-serif
+$text: 'Raleway', sans-serif
+$color-theme:  #5abf78
+$color-theme-dark: #427852
+$color-theme-light: #cdfada
+
+body
+    padding: 0
+    margin: 0
+
+::-webkit-scrollbar 
+    width: 4px
+::-webkit-scrollbar-track 
+    background: rgb(255,255,255,0.2) 
+::-webkit-scrollbar-thumb 
+    background: rgb(255,255,255,0.2)
+::-webkit-scrollbar-thumb:hover 
+    background: #555 
+
+#landing-page
+    display: none
+    background-color: white
+
+    #nav-landing-bg
+        @extend %flex-center-row
+        background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3) ), url(https://trainingindustry.com/content/uploads/2019/10/Soft-Skills-as-a-Differentiator_Business-of-Learning-Episode-22.jpg)
+        background-size: cover
+        background-attachment: fixed
+
+        #nav-landing-container
+            @extend %flex-center-col
+            width: 48vw
+            color: white
+
+            #nav-landing
+                height: 60px
+                align-items: center
+                width: 48vw
+                margin-top: 10px
+
+                .nav-logo
+                    width: 200px
+                    filter: brightness(0) invert(1)
+            
+            .signin-btn
+                margin: 0
+                cursor: pointer
+                border:  2px solid rgba(255, 255, 255, .3)
+                border-radius: 5px
+                padding: 4px 32px
+                margin-right: 80px
+                font-family: $mini-title
+        
+        .jumbotron
+            background: none
+            height: 60vh
+            text-align: center
+            margin-top: 40px
+            margin-bottom: 0
+
+            h1
+                font-family: $main-title
+                font-size: 72px
+                font-weight: 700
+            
+            p
+                font-family: $text
+                margin-top: 60px
+                font-size: 22px
+
+            .btn-lg
+                margin-top: 72px
+                width: 16vw
+                background-color: $color-theme
+                border: 0
+
+    .landing-content
+        @extend %flex-center-col
+        margin-top: 54px
+        
+        .landing-intro
+            @extend %flex-center-row
+            justify-content: space-around
+            width: 72vw
+
+            .landing-img
+                width: 32vw
+
+            .landing-intro-text
+                @extend %flex-center-col
+                text-align: center
+                flex-wrap: wrap
+                width: 32vw
+
+                .h1
+                    margin-bottom: 54px
+                    font-family: $mini-title
+                p
+                    font-family: $text
+    
+    .landing-content-2
+        @extend %flex-center-row
+        margin-top: 54px
+
+        .landing-intro
+            @extend %flex-center-row
+            justify-content: space-around
+            width: 72vw
+            
+            .landing-ico-card
+                @extend %flex-center-col
+                text-align: center
+                width: 12vw
+                .landing-ico
+                    width: 4vw
+                    margin-bottom: 2vw
+                p 
+                    font-size: 16px
+                    font-family: $text
+
+            .landing-intro-text
+                @extend %flex-center-col
+                text-align: center
+                flex-wrap: wrap
+                width: 32vw
+
+                .h1
+                    margin-bottom: 54px
+                    font-family: $mini-title
+                p
+                    font-family: $text
+        
+    .footer
+        @extend %flex-center-col
+        justify-content: center
+        margin-top: 56px
+        height: 8vh
+        background: #212121
+        color: white
+        font-family: $text
+
+        p
+            margin-top: 28px
+
+#login-page 
+    display: none
+    .login-bg
+        @extend %flex-center-row
+        justify-content: flex-start
+        align-items: flex-end
+        height: 100vh
+        width: 100vw    
+        position: fixed
+        left: 0
+        right: 0
+        z-index: 1
+        filter: brightness(80%)
+        background-color: rgb(0,0,0,0.2)
+        img
+            height: 90vh
+
+    .login-container
+        @extend %flex-center-col
+        justify-content: center
+        height: 80vh
+
+        img
+            width: 24px
+            margin: 24px
+            align-self: start
+        
+        .login-form
+            @extend %flex-center-col
+            background-color: white
+            margin-left: 20px
+            margin-right: 20px
+            z-index: 9999
+            border-radius: 20px
+            padding-bottom: 40px
+            height: 68vh
+            text-align: center
+
+            form
+                margin: 24px 30px 60px 30px  
+                h2
+                    font-family: $main-title
+                    margin-bottom: 48px
+                    font-size: 48px
+                
+                .form-group
+                    margin: 20px 30px
+                    width: 30vw
+                
+                .form-control
+                    border: 1px #ced4da
+                    border-bottom: 1px  solid #ced4da
+                    font-family: $text
+                    text-align: center
+                
+                .btn
+                    width: 30vw
+                    margin-top: 15px
+                    background-color: $color-theme
+                    border: 0
+
+            hr
+                border: 0.5px solid #ced4da
+                width: 85%
+
+            a
+                margin-top: 20px
+            
+#sign-up-page 
+    display: none
+    .sign-up-bg
+        @extend %flex-center-row
+        justify-content: flex-start
+        align-items: flex-end
+        height: 100vh
+        width: 100vw    
+        position: fixed
+        left: 0
+        right: 0
+        z-index: 1
+        filter: brightness(80%)
+        background-color: rgb(0,0,0,0.2)
+        img
+            height: 90vh
+
+    .sign-up-container
+        @extend %flex-center-col
+        justify-content: center
+        align-items: center
+        height: 80vh
+
+        img
+            width: 24px
+            margin: 24px
+            align-self: start
+        
+        .sign-up-form
+            @extend %flex-center-col
+            background-color: white
+            margin-left: 20px
+            margin-right: 20px
+            z-index: 9999
+            border-radius: 20px
+            height: 72vh
+            text-align: center
+
+            form
+                margin: 24px 30px 60px 30px 
+                h2
+                    font-family: $main-title
+                    margin-bottom: 48px
+                    font-size: 48px
+                
+                .form-group
+                    margin: 20px 30px
+                    width: 30vw
+                
+                .form-control
+                    border: 1px #ced4da
+                    border-bottom: 1px  solid #ced4da
+                    font-family: $text
+                
+                .btn
+                    width: 30vw
+                    margin-top: 30px
+                    background-color: $color-theme
+                    border: 0
+
+            hr
+                border: 0.5px solid #ced4da
+                width: 85%
+
+            a
+                margin-top: 20px
+            
+#sign-up-google-page 
+    display: none
+    .sign-up-google-bg
+        @extend %flex-center-row
+        justify-content: flex-start
+        align-items: flex-end
+        height: 100vh
+        width: 100vw    
+        position: fixed
+        left: 0
+        right: 0
+        z-index: 1
+        filter: brightness(80%)
+        background-color: rgb(0,0,0,0.2)
+        img
+            height: 90vh
+
+    .sign-up-google-container
+        @extend %flex-center-col
+        justify-content: center
+        align-items: center
+        height: 80vh
+
+        img
+            width: 24px
+            margin: 24px
+            align-self: start
+        
+        .sign-up-google-form
+            @extend %flex-center-col
+            background-color: white
+            margin-left: 20px
+            margin-right: 20px
+            z-index: 9999
+            border-radius: 20px
+            height: 72vh
+            text-align: center
+
+            form
+                margin: 24px 30px 60px 30px 
+                h2
+                    font-family: $main-title
+                    margin-bottom: 16px
+                    font-size: 48px
+
+                h3
+                    font-family: $text
+                    margin-bottom: 48px
+                    font-size: 16px
+                
+                .form-group
+                    margin: 20px 30px
+                    width: 30vw
+                
+                .form-control
+                    border: 1px #ced4da
+                    border-bottom: 1px  solid #ced4da
+                    font-family: $text
+                
+                .btn
+                    width: 30vw
+                    margin-top: 30px
+                    background-color: $color-theme
+                    border: 0
+
+            hr
+                border: 0.5px solid #ced4da
+                width: 85%
+
+            a
+                margin-top: 20px
+            
+#dashboard-home
+    display: none
+    .nav-container
+        @extend %flex-center-row
+        position: fixed
+        background-color: $color-theme
+        color: white
+        padding: 0 30px
+        height: 6vh
+        width: 100vw
+        .nav
+            @extend %flex-center-row
+            align-items: center
+            width: 100vw
+        img
+            width: 36px
+            border-radius: 10px
+        
+        h2
+            margin-right:20px
+
+        .nav-item
+            @extend %flex-center-row
+            form
+                background-color: $color-theme-light
+                border-radius: 10px
+                .form-control
+                    background-color: $color-theme-light
+                    border: 0
+                .form-control:focus 
+                    box-shadow: none
+
+    .profile-option
+        @extend %flex-center-col
+        align-items: flex-end
+        background-color: white
+        position: fixed
+        top: 5vh
+        right: 3vw
+        z-index: 2
+        padding: 20px
+        img
+            width: 12px
+            height: 12px
+            margin-bottom: 10px
+        h2
+            font-size: 14px
+            font-weight: bold
+
+
+    .dashboard-container
+        @extend %flex-center-row
+        padding-top: 6vh
+        .dashboard-content
+            min-height: 94vh
+            width: 60vw
+            margin-top: 3vw
+
+    h2
+        font-family: $mini-title
+        font-weight: 300
+        font-size: 32px
+
+    .your-kanban-board
+
+        .your-kanban-board-container
+            @extend %flex-center-row
+            margin-top: 20px
+            justify-content: flex-start
+            flex-wrap: wrap
+            .board
+                background-size: cover
+                margin: 0 10px
+                width: 240px
+                height: 160px
+                border-radius: 20px
+                padding: 16px
+                padding-top: 20px
+                color: white
+                margin-top: 20px
+                h3
+                    font-size: 16px
+                    font-family: $text
+                    font-weight: bold
+
+            .board-1
+                background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3) ), url(https://s.yimg.com/uu/api/res/1.2/DdytqdFTgtQuxVrHLDdmjQ--~B/aD03MTY7dz0xMDgwO3NtPTE7YXBwaWQ9eXRhY2h5b24-/https://media-mbst-pub-ue1.s3.amazonaws.com/creatr-uploaded-images/2019-11/7b5b5330-112b-11ea-a77f-7c019be7ecae)
+                
+            .board-2
+                background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1) ), url(https://static01.nyt.com/images/2020/03/06/learning/VTS03-09-20LN/VTS03-09-20LN-jumbo.jpg)
+
+    .shared-kanban
+        margin-top: 40px
+                
+                
+    .footer
+        @extend %flex-center-col
+        justify-content: center
+        margin-top: 56px
+        height: 8vh
+        background: #212121
+        color: white
+        font-family: $text
+
+        p
+            margin-top: 28px
+
+#kanban-board
+    background-image: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3) ), url(https://images.pexels.com/photos/158827/field-corn-air-frisch-158827.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260)
+    background-size: cover
+    background-attachment: fixed
+    .nav-container
+        background-color: rgb(255,255,255, 0.3)
+        @extend %flex-center-row
+        color: white
+        padding: 0 30px
+        height: 6vh
+        width: 100vw
+        .nav
+            @extend %flex-center-row
+            align-items: center
+            width: 100vw
+            .nav-item
+                div
+                    @extend %flex-center-row
+                    img
+                        margin-right: 20px
+                        width: 28px
+        img
+            width: 36px
+            border-radius: 10px
+        
+        h2
+            margin-right:20px
+
+    .kanban-content
+        @extend %flex-center-col
+        .row
+            width: 96vw
+            align-items: flex-start
+            .kanban-card
+                .kanban-title
+                    @extend %flex-center-row
+                    h1
+                        font-family: $main-title
+                        font-size: 20px
+                        color: white
+                        text-align: center
+                    margin-top: 3vh
+                    height: 5vh
+                .kanban-content    
+                    min-height: 15vh
+                    border-radius: 10px
+                    padding:10px
+                    max-height: 86vh
+                    .kanban-content-card
+                        margin-top: 20px
+                        .icon-div
+                            margin-top: 10px
+                            margin-left:10px
+                        .row
+                            height: 100%
+                            padding: 0 8px
+                            width: 100%
+                        padding: 16px
+                        border-radius: 5px
+                        background-color: rgb(255,255,255, 0.6)
+                        width: 100%
+                        img
+                            width: 16px
+
+                        .bottom-icon
+                            width: 24px
+
+                        p
+                            font-family: $text
+                            font-weight: bold
+                            font-size: 12px
+                            margin:0
+                            padding:0
+                            margin-top: 6px
+                        
+                        .kanban-card-title
+                            font-size: 20px
+                            margin-left: 16px
+
+                        .kanban-card-desc
+                            font-family: $text
+                            font-weight: lighter
+                            font-size: 14px
+                            margin-left: 16px
+    .kanban-detail
+        height: 100vh
+        width: 20vw
+        position: fixed
+        background-color: whitesmoke
+        z-index: 99
+        right:0
+        text-align: left
+        padding: 20px
+        .close
+            width:20px
+        .row
+            width: 80%
+            margin-bottom: 5vh
+            img
+                border-radius: 120px
+            p
+                font-size: 10px
+                margin-bottom: 0
+            .name
+                font-size: 20px
+
+        .detail-desc
+            font-family: $text
+            font-weight: light
