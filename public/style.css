@@ -93,17 +93,17 @@ body::-webkit-scrollbar-thumb {
 
 .item-btn, .item-btn-backlog {
     display: flex;
-    /* justify-content: space-between; */
+    justify-content: space-between;
     font-weight: normal;
 }
 
-.item-btn {
+/* .item-btn {
     justify-content: space-between;
 }
 
 .item-btn-backlog {
     justify-content: flex-end;
-}
+} */
 
 .left, .right {
     cursor: pointer;
