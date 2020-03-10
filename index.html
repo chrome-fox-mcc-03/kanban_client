@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+</head>
+<body>
+    <!-- LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOGGGGGGGGGGIN  -->
+
+    <div class="login_container">
+        <div id="login_left">
+            <div id="login_text"> Welcome Back</div>
+            <div id="login_description"> please sign-in to catch up </div>
+            <div id="signup_container"> 
+                <div style="margin-right: 0.5vw;">or </div> 
+                <div id="signup_button"> sign up</div> 
+            </div>
+        </div>
+        <div id="login-right">
+            <form id="sign_in_form" onsubmit="signin(event)">
+                <div id="sign_in_header">Sign In</div>
+                <input type="email" id="sign_in_email" placeholder="email"><br><br>
+                <input type="password" id="sign_in_password" placeholder="password"></input><br><br>
+                <div type="submit" id="signin_button">Sign in</div>
+            </form>
+        </div>
+    </div>
+
+     <!-- SIGN UPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP  -->
+
+     <div class="sign_up_container">
+        <div id="sign_up_left">
+            <div id="sign_up_text"> Welcome </div>
+            <div id="sign_up_description"> please sign-up to start </div>
+            <div id="signup_container"> 
+                <div style="margin-right: 0.5vw;">or </div> 
+                <div id="signup_button"> sign in</div> 
+            </div>
+        </div>
+        <div id="sign_up_right">
+            <form id="sign_up_form" onsubmit="signup(event)">
+                <div id="sign_up_header">Sign Up</div>
+                <input type="email" id="sign_up_email" placeholder="email"><br><br>
+                <input type="password" id="sign_up_password" placeholder="password"></input><br><br>
+                <div type="submit" id="signin_button">Sign up</div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMAAAAAAAAAAAAAAAIIIIIIIIIIIIIIIIIIIINNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN  -->
+    <div class="page_container">
+
+        <div id="main_container">
+            <div id="main_head">
+                <div id="header">KANBAN</div> 
+                <div id="logout">LOGOUT</div>  
+            </div>
+            <div id="card_container">
+                <div id="card">
+                    <div id="card_content">
+                        <div id="task">
+                            <div id="task_head"> TODO: </div> 
+                            <!-- <div id="task_text_container">
+                                <div id="task_text">makan</div>
+                                <div id="next_back_button">
+                                    <div id="next_button">></div>
+                                    <div id="back_button"><</div>
+                                </div>
+                            </div> -->
+                            <div id="task_text_container">
+                                <div id=task_text_heading>
+                                    <div id="task_text">makan</div>
+                                    <div id="next_back_button"> 
+                                        <div id="dropdown_button">=</div>
+                                        <div id=dropdown>
+                                            <div id="next_button">></div>
+                                            <div id="back_button"><</div>
+                                            <div id="delete_button">x</div>
+                                            <div id="edit_button">e</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="task_description">
+                                    <div>text_description awiuasfjaskfh ab lfisadfaywefbadjkh</div>
+                                </div>
+                            </div>
+                            <div id="task_text_container">
+                                <div id=task_text_heading>
+                                    <div id="task_text">makan</div>
+                                    <div id="next_back_button"> 
+                                        <div id="dropdown_button">=</div>
+                                        <div id=dropdown>
+                                            <div id="next_button">></div>
+                                            <div id="back_button"><</div>
+                                            <div id="delete_button">x</div>
+                                            <div id="edit_button">e</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="task_description">
+                                    <div>text_description awiuasfjaskfh ab lfisadfaywefbadjkh</div>
+                                </div>
+                            </div>
+                            <div id="task_text_container">
+                                <div id=task_text_heading>
+                                    <div id="task_text">makan</div>
+                                    <div id="next_back_button"> 
+                                        <div id="dropdown_button">=</div>
+                                        <div id=dropdown>
+                                            <div id="next_button">></div>
+                                            <div id="back_button"><</div>
+                                            <div id="delete_button">x</div>
+                                            <div id="edit_button">e</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="task_description">
+                                    <div>text_description awiuasfjaskfh ab lfisadfaywefbadjkh</div>
+                                </div>
+                            </div>
+                            <div id="task_text_container">
+                                <div id=task_text_heading>
+                                    <div id="task_text">makan</div>
+                                    <div id="next_back_button"> 
+                                        <div id="dropdown_button">=</div>
+                                        <div id=dropdown>
+                                            <div id="next_button">></div>
+                                            <div id="back_button"><</div>
+                                            <div id="delete_button">x</div>
+                                            <div id="edit_button">e</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="task_description">
+                                    <div>text_description awiuasfjaskfh ab lfisadfaywefbadjkh</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="card_bottom">
+                        <input placeholder="input new task" id="create"></input>
+                        <div id="add_button">ADD</div>
+                    </div>
+                    
+                </div>
+                <div id="card">
+                    <div id="card_content">
+                        <div id="task">
+                            <div id="task_head"> PROCESS: </div> 
+                            <!-- <div id="task_text_container">
+                                <div id="task_text">makan</div>
+                                <div id="next_back_button">
+                                    <div id="next_button">></div>
+                                    <div id="back_button"><</div>
+                                </div>
+                            </div> -->
+                            <div id="task_text_container">
+                                <div id=task_text_heading>
+                                    <div id="task_text">makan</div>
+                                    <div id="next_back_button"> 
+                                        <div id="dropdown_button">=</div>
+                                        <div id=dropdown>
+                                            <div id="next_button">></div>
+                                            <div id="back_button"><</div>
+                                            <div id="delete_button">x</div>
+                                            <div id="edit_button">e</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="task_description">
+                                    <div>text_description awiuasfjaskfh ab lfisadfaywefbadjkh</div>
+                                </div>
+                            </div>
+                            <div id="task_text_container">
+                                <div id=task_text_heading>
+                                    <div id="task_text">makan</div>
+                                    <div id="next_back_button"> 
+                                        <div id="dropdown_button">=</div>
+                                        <div id=dropdown>
+                                            <div id="next_button">></div>
+                                            <div id="back_button"><</div>
+                                            <div id="delete_button">x</div>
+                                            <div id="edit_button">e</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="task_description">
+                                    <div>text_description awiuasfjaskfh ab lfisadfaywefbadjkh</div>
+                                </div>
+                            </div>
+                            <div id="task_text_container">
+                                <div id=task_text_heading>
+                                    <div id="task_text">makan</div>
+                                    <div id="next_back_button"> 
+                                        <div id="dropdown_button">=</div>
+                                        <div id=dropdown>
+                                            <div id="next_button">></div>
+                                            <div id="back_button"><</div>
+                                            <div id="delete_button">x</div>
+                                            <div id="edit_button">e</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="task_description">
+                                    <div>text_description awiuasfjaskfh ab lfisadfaywefbadjkh</div>
+                                </div>
+                            </div>
+                            <div id="task_text_container">
+                                <div id=task_text_heading>
+                                    <div id="task_text">makan</div>
+                                    <div id="next_back_button"> 
+                                        <div id="dropdown_button">=</div>
+                                        <div id=dropdown>
+                                            <div id="next_button">></div>
+                                            <div id="back_button"><</div>
+                                            <div id="delete_button">x</div>
+                                            <div id="edit_button">e</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="task_description">
+                                    <div>text_description awiuasfjaskfh ab lfisadfaywefbadjkh</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="card_bottom">
+                        <input placeholder="input new task" id="create"></input>
+                        <div id="add_button">ADD</div>
+                    </div>
+                    
+                </div>
+                <div id="card">
+                    <div id="card_content">
+                        <div id="task">
+                            <div id="task_head"> TO REVIEW: </div> 
+                            <!-- <div id="task_text_container">
+                                <div id="task_text">makan</div>
+                                <div id="next_back_button">
+                                    <div id="next_button">></div>
+                                    <div id="back_button"><</div>
+                                </div>
+                            </div> -->
+                            <div id="task_text_container">
+                                <div id=task_text_heading>
+                                    <div id="task_text">makan</div>
+                                    <div id="next_back_button"> 
+                                        <div id="dropdown_button">=</div>
+                                        <div id=dropdown>
+                                            <div id="next_button">></div>
+                                            <div id="back_button"><</div>
+                                            <div id="delete_button">x</div>
+                                            <div id="edit_button">e</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="task_description">
+                                    <div>text_description awiuasfjaskfh ab lfisadfaywefbadjkh</div>
+                                </div>
+                            </div>
+                            <div id="task_text_container">
+                                <div id=task_text_heading>
+                                    <div id="task_text">makan</div>
+                                    <div id="next_back_button"> 
+                                        <div id="dropdown_button">=</div>
+                                        <div id=dropdown>
+                                            <div id="next_button">></div>
+                                            <div id="back_button"><</div>
+                                            <div id="delete_button">x</div>
+                                            <div id="edit_button">e</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="task_description">
+                                    <div>text_description awiuasfjaskfh ab lfisadfaywefbadjkh</div>
+                                </div>
+                            </div>
+                            <div id="task_text_container">
+                                <div id=task_text_heading>
+                                    <div id="task_text">makan</div>
+                                    <div id="next_back_button"> 
+                                        <div id="dropdown_button">=</div>
+                                        <div id=dropdown>
+                                            <div id="next_button">></div>
+                                            <div id="back_button"><</div>
+                                            <div id="delete_button">x</div>
+                                            <div id="edit_button">e</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="task_description">
+                                    <div>text_description awiuasfjaskfh ab lfisadfaywefbadjkh</div>
+                                </div>
+                            </div>
+                            <div id="task_text_container">
+                                <div id=task_text_heading>
+                                    <div id="task_text">makan</div>
+                                    <div id="next_back_button"> 
+                                        <div id="dropdown_button">=</div>
+                                        <div id=dropdown>
+                                            <div id="next_button">></div>
+                                            <div id="back_button"><</div>
+                                            <div id="delete_button">x</div>
+                                            <div id="edit_button">e</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="task_description">
+                                    <div>text_description awiuasfjaskfh ab lfisadfaywefbadjkh</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="card_bottom">
+                        <input placeholder="input new task" id="create"></input>
+                        <div id="add_button">ADD</div>
+                    </div>
+                    
+                </div>
+                <div id="card">
+                    <div id="card_content">
+                        <div id="task">
+                            <div id="task_head"> DONE: </div> 
+                            <!-- <div id="task_text_container">
+                                <div id="task_text">makan</div>
+                                <div id="next_back_button">
+                                    <div id="next_button">></div>
+                                    <div id="back_button"><</div>
+                                </div>
+                            </div> -->
+                            <div id="task_text_container">
+                                <div id=task_text_heading>
+                                    <div id="task_text">makan</div>
+                                    <div id="next_back_button"> 
+                                        <div id="dropdown_button">=</div>
+                                        <div id=dropdown>
+                                            <div id="next_button">></div>
+                                            <div id="back_button"><</div>
+                                            <div id="delete_button">x</div>
+                                            <div id="edit_button">e</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="task_description">
+                                    <div>text_description awiuasfjaskfh ab lfisadfaywefbadjkh</div>
+                                </div>
+                            </div>
+                            <div id="task_text_container">
+                                <div id=task_text_heading>
+                                    <div id="task_text">makan</div>
+                                    <div id="next_back_button"> 
+                                        <div id="dropdown_button">=</div>
+                                        <div id=dropdown>
+                                            <div id="next_button">></div>
+                                            <div id="back_button"><</div>
+                                            <div id="delete_button">x</div>
+                                            <div id="edit_button">e</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="task_description">
+                                    <div>text_description awiuasfjaskfh ab lfisadfaywefbadjkh</div>
+                                </div>
+                            </div>
+                            <div id="task_text_container">
+                                <div id=task_text_heading>
+                                    <div id="task_text">makan</div>
+                                    <div id="next_back_button"> 
+                                        <div id="dropdown_button">=</div>
+                                        <div id=dropdown>
+                                            <div id="next_button">></div>
+                                            <div id="back_button"><</div>
+                                            <div id="delete_button">x</div>
+                                            <div id="edit_button">e</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="task_description">
+                                    <div>text_description awiuasfjaskfh ab lfisadfaywefbadjkh</div>
+                                </div>
+                            </div>
+                            <div id="task_text_container">
+                                <div id=task_text_heading>
+                                    <div id="task_text">makan</div>
+                                    <div id="next_back_button"> 
+                                        <div id="dropdown_button">=</div>
+                                        <div id=dropdown>
+                                            <div id="next_button">></div>
+                                            <div id="back_button"><</div>
+                                            <div id="delete_button">x</div>
+                                            <div id="edit_button">e</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="task_description">
+                                    <div>text_description awiuasfjaskfh ab lfisadfaywefbadjkh</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="card_bottom">
+                        <input placeholder="input new task" id="create"></input>
+                        <div id="add_button">ADD</div>
+                    </div>
+                    
+                </div>
+            </div>
+        </divid>
+    </div>
+</body>
+</html>

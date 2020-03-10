@@ -1,0 +1,26 @@
+@import url("navbar.css");
+@import url("main.css");
+@import url("login.css");
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: #222222;
+}
+
+.page_container {   
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: 'navbar main';
+    background-color: rgb(85, 114, 85);
+    min-height: 80vh;
+    height: 100vh;
+    /* display: none; */
+}
+
+
+
+
+
