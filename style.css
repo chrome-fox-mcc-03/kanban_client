@@ -1,17 +1,61 @@
-body{
+body {
     background-color: #f5f5f5;
     height: 100vh;
-    
-}
-#dashboard{
-    /* display: none; */
-}
-.nav-menu{
-    padding: 10px 15px;
-    background-color:  darkcyan;
 }
 
-.header{
+#landing-page {
+    background-image: url(./img/asset1.svg);
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.landing-items {
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 10vh;
+    flex-wrap: wrap;
+}
+
+.kiri {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #0AA4C1; */
+    text-align: center;
+
+    width: 30%;
+    height: 50%;
+}
+
+.field {
+    width: 70%;
+}
+
+.field button {
+    background-color: #0AA4C1;
+}
+
+.kanan {
+    width: 40%;
+    height: 70%;
+}
+
+#dashboard {
+    display: none;
+}
+
+.nav-menu {
+    padding: 10px 15px;
+    background-color: darkcyan;
+}
+
+.header {
     background-color: darkcyan;
     color: #f4f4f4;
     margin-bottom: 10px;
@@ -19,34 +63,35 @@ body{
     cursor: pointer;
 }
 
-.layout-column{
+.layout-column {
     background: transparent;
     margin-bottom: 5px;
     margin-right: 10px;
     height: 100%;
 }
 
-.list-content{  
+.list-content {
     /* opacity: 0.5px; */
     /* width: 100vw; */
     margin-top: 10vh;
 }
 
-.box{
+.box {
     background-color: #f4f4f4;
     width: 100%;
     text-align: left;
 }
 
-.delete-div{
+.delete-div {
     display: flex;
     justify-content: flex-end;
 }
-.delete:hover{
+
+.delete:hover {
     color: tomato;
 }
 
-.footer-todo{
+.footer-todo {
     margin-top: 5px;
     /* background-color: darkcyan; */
     display: flex;
@@ -54,16 +99,18 @@ body{
     justify-content: space-between;
 }
 
-.tombol{
+.tombol {
     cursor: pointer;
 }
-.tombol:hover{
+
+.tombol:hover {
     color: darkcyan;
 }
 
-.tombol-new{
+.tombol-new {
     cursor: pointer;
 }
-.tombol-new:hover{
+
+.tombol-new:hover {
     color: darkcyan;
 }
