@@ -1,0 +1,261 @@
+$display-flex: flex
+
+%main-item
+    width: 95vw
+    height: 100vh
+
+%form
+    width: 80%
+    height: 80%
+
+%form-input-write
+    width: 60%
+    height: 30px
+    background-color: #fcf9ea
+    border-color: transparent
+    border-bottom-color: #ff5e3a
+    color: #2c365d
+
+%form-label
+    font-size: 1.8rem
+
+%title
+    font-size: 3rem
+    margin: 0
+    color: #2c365d
+
+%card-section
+    border-radius: 15px
+    width: 23%
+    height: 90%
+
+*
+    margin: 0px
+    padding: 0px
+    box-sizing: border-box
+
+#main-container
+    display: $display-flex
+    flex-direction: row
+    
+
+/* Navbar style */
+
+#navbar-container
+    display: $display-flex
+    flex-direction: column
+    height: 100vh
+    width: 5vw
+    background-color: #badfdb
+
+.navbar-item
+    display: $display-flex
+    flex-direction: column
+    list-style-type: none
+    height:100%
+    li
+        padding-top: 20px
+        padding-bottom: 20px
+        margin: 5px
+        color: #ff5e3a
+        cursor: pointer
+
+.icon
+    color: #f8a978
+    font-size: 1.8rem
+
+.navbar-div
+    height: 50%
+
+.up
+    align-items: center
+    justify-content: flex-start
+
+.down
+    align-items: center
+    justify-content: flex-end
+
+/* Login and Register style */
+
+#login-container,#register-container
+    @extend %main-item
+    display: $display-flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    background-color: #fcf9ea
+    
+
+
+#login-form, #register-form
+    @extend %form
+    display: $display-flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+.username-input,.password-input
+    @extend %form-input-write 
+
+.username-label, .password-label
+    @extend %form-label
+
+.title 
+    @extend %title
+
+.submit
+    -moz-appearance: none
+    -webkit-appearance: none
+    appearance: none
+    width: 20rem
+    height: 2rem
+    border-radius: 10px
+    cursor: pointer
+    background-color: #ffc5a1
+    color: #2c365d
+
+.submit:hover
+    background-color: #ff8a5c
+    color: #2c365d
+/* Add Task style */
+
+#add-task-container
+    @extend %main-item
+    display: $display-flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    background-color: #fcf9ea
+
+#add_task-form
+    @extend %form
+    display: $display-flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+.title-input,.category-input
+    @extend %form-input-write 
+
+.title-label, .category-label
+    @extend %form-label
+
+/* cards container style */
+
+#cards-container
+    @extend %main-item
+    display: $display-flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    background-color: #fcf9ea 
+
+#main-cards-container
+    height: 90%
+    width: 100%
+    display: $display-flex
+    flex-direction: row
+    justify-content: space-evenly
+    align-items: center
+
+.cards-section
+    @extend %card-section
+    background-color: rgba(255,197,161,0.7)
+
+
+#backlog-container, #product-container, #development-container, #done-container
+    width: 100%
+    height: 85%
+    overflow: scroll
+    background-color: transparent
+    display: $display-flex
+    flex-direction: column
+    align-items: center
+
+.card-header-word, .card-footer-word
+    padding: 10px
+    color: #2c365d
+
+.card-header-div
+    border-top-right-radius: 15px
+    border-top-left-radius: 15px
+    background-color: #badfdb
+    margin: 0
+    padding: 0
+
+.card-footer-div
+    border-bottom-right-radius: 15px
+    border-bottom-left-radius: 15px
+    background-color: #badfdb
+    margin: 0
+    padding: 0
+/* cards small style */
+
+.w-90
+    width: 90% !important
+
+.card-body-color
+    background-color: #badfdb
+
+.border-radius-card
+    border-radius: 15px
+
+.border-radius-body
+    border-top-right-radius: 15px
+    border-bottom-right-radius: 15px
+
+.card-content
+    display: flex
+    flex-direction: row
+
+.card-image
+    display: flex
+    justify-content: center
+    align-items: center
+    height: 100%
+    width: 30%
+    background-color: #fcf9ea
+    border-radius: 15px
+
+.card-option
+    display: flex
+    justify-content: space-evenly
+
+/* cards small style */
+
+.modal-content
+    border-radius: 15px
+
+.modal-header
+    background-color: #ffc5a1
+    border-top-right-radius: 15px
+    border-top-left-radius: 15px
+
+.modal-body
+    background-color: #badfdb
+
+.modal-footer
+    background-color: #ffc5a1
+    display: flex
+    border-bottom-right-radius: 15px
+    border-bottom-left-radius: 15px
+
+.profpict
+    font-size: 1.5rem
+
+#profpict-modal
+    font-size: 2rem
+    margin-right: 10px
+
+#card-detail-icon
+    width: 80%
+
+/* homepage style */
+#homepage-container
+    @extend %main-item
+    background-image: url("./img/home2.svg")
+    background-attachment: fixed
+    background-repeat: no-repeat
+    background-size: 75%
+    background-color: #fcf9ea
+    background-position: center
