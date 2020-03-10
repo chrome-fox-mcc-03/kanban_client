@@ -1,0 +1,140 @@
+body{
+    background: url("https://wallpaperaccess.com/full/84248.png") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+}
+.main-section {
+    margin:0 auto;
+    margin-top: 150px;
+    padding: 0;
+}
+
+.bg-costum{
+    padding: 20px;
+    background-color: #e7b2a5;
+    position: relative;
+}
+
+
+.navbar-brand{
+    font-family: 'Bellota', cursive;
+    font-size: 45px;
+    font-weight: 800;
+}
+
+.modal-content {
+    background-color: #c06c84;
+    opacity: .85;
+    margin: 0;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.user-img img{
+    height: 220px;
+    width: 250px;
+}
+
+.user-img{
+    margin-top: -100px;
+    margin-bottom: 60px;
+}
+
+.form-group{
+    margin-bottom: 25px;
+}
+
+.form-group input{
+    border-radius: 10px;
+    height: 50px;
+    font-size: 21px;
+    padding-left: 54px;
+    border: 0px;
+}
+/* 
+.form-group::before {
+    font-family: 'Font Awesome\ 5 Free';
+    content: :"\fifa";
+    position: absolute;
+    font-size: 22px;
+}
+
+.form-group::last {
+    font-family: 'Font Awesome\ 5 Free';
+    content:"\fifa";
+    position: absolute;
+    font-size: 22px;
+    left: 28px;
+    padding-top: 4px;
+} */
+.form-input button{
+    width: 50%;
+    background-color: #6c567b;
+    border: none;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    align-content: flex-end;
+}
+
+.form-input h1{
+    padding: 20px;
+    font-weight: 800;
+    font-family: 'Bellota', cursive;
+    /* text-align: left; */
+}
+
+.form-input a{
+    padding-top: 10p;
+    padding: 50px;
+    font-weight: 800;
+    /* text-align: left; */
+    color: azure;
+}
+
+
+.main-board{
+    background-color: #e9e1cc6b;
+    padding-top: 10px;
+    margin: 60px auto;
+    width: 1800px;
+    max-width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background-size: cover;
+}
+
+.main-board .categories{
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.main-board .category{
+    padding-top: 10px;
+    width: 400px;
+    border-radius: 10px;
+    border: none;
+    margin: 0 auto;
+    text-align: center;
+    color: antiquewhite;
+    max-height: 100%;
+}
+
+.task{
+    background-color: #f4dada;
+    margin: 20px 10px;
+    font-size: 18px;
+    color: black;
+    text-align: left;
+}
+.task button{
+    background-color: #f4dada;
+    /* margin: 20px 10px; */
+    font-size: 18px;
+    color: rgb(93, 62, 117);
+    border: none;
+}
