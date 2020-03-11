@@ -17,222 +17,221 @@
     <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Coming+Soon&display=swap" rel="stylesheet"> 
     <!---->
+    
     <link rel="stylesheet" href="./index.css">
     <title>Kanban</title>
 </head>
+
 <body>
-    <!--Navbar Section-->
-    <section>
-        <nav class="border border-5 border-primary fixed split-nav">
-            <a class="navbar-brand" href="#">KANBAN - PROJECT 51</a>
+    <div class="main-container" id="app">
+        <!--Navbar Section-->
+        <section>
+            <nav class="topbar border border-5 border-primary fixed-top split-nav">
+                <div class="navbar-brand">
+                    <p >KANBAN - PROJECT 51</p>
+                </div>
+                <div class="collapsible">
+                    <ul class="inline">
+                        <li class="paper-btn btn-small">Documentation</li>
+                        <li class="paper-btn btn-small">About</li>
+                        <li class="paper-btn btn-small">Github</li>
+                        <li v-if="currentPage == 'content-section'" v-on:click="changePage('home')" class="paper-btn btn-small">Logout</li>
+                    </ul>
+                </div>
+            </nav>
+        </section>
+        <!---->
 
-            <div class="collapsible-body">
-                <ul class="inline">
-                  <li><a href="#">Documentation</a></li>
-                  <li><a href="#">About</a></li>
-                  <li><a href="#">Github</a></li>
-                  <li><a href="#">Login</a></li>
-                  <li><a href="#">Register</a></li>
-                </ul>
-            </div>
-            
-        </nav>
-    </section>
-    <!---->
-
-    <!--Content Section-->
-    <section class="content-section">
-       
-        <!--Board Div-->
-        <div class="board">
-            <!--Phase Div-->
-            <div class="outer-card phase-0 border border-primary shadow shadow-large">
-                <div class="phase-header">
-                    <h4 class="phase">Backlog <span class="badge secondary"> <i class="fas fa-file-signature"></i> </span> </h4>
-                </div>
-                <div class="phase-body overflow-auto">
-                    <!--Card Div-->
-                    <div class="card mb-3 border border-5 border-primary">
-                        <div class="left-content">
-                            <p>project desc.</p>
-                            <h5>action</h5>
+        <!--Content Section-->
+        <section v-if="currentPage == 'content-section'" class="content-section">
+            <!--Board Div-->
+            <div class="board">
+                <!--Phase Div-->
+                <div class="outer-card phase-0 border border-3 border-primary shadow shadow-large">
+                    <div class="phase-header">
+                        <h4 class="phase">Backlog <span class="badge secondary"> <i class="fas fa-file-signature"></i> </span> </h4>
+                    </div>
+                    <div class="phase-body overflow-auto">
+                        <!--Card Div-->
+                        <div class="card mb-3 border border-5 border-primary">
+                            <div class="left-content">
+                                <p>project desc.</p>
+                                <i class="fas fa-caret-right"></i>
+                            </div>
+                            <div class="right-content">
+                                <div class="user-photo">
+                                    <i class="fas fa-user-tie fa-1x"></i>
+                                </div>
+                                <div>
+                                    <a href=""><i class="fas fa-edit fa-1x"></i></a> | <a href=""><i class="fas fa-eraser"></i></a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="right-content">
-                            <div class="user-photo">
-                                <i class="fas fa-user-tie fa-3x"></i>
+                        <div class="card mb-3 border border-5 border-primary">
+                            <div class="left-content">
+                                <p>project desc.</p>
+                                <i class="fas fa-caret-right"></i>
                             </div>
-                            <div>
-                                <h5>action</h5>
+                            <div class="right-content">
+                                <div class="user-photo">
+                                    <i class="fas fa-user-tie fa-1x"></i>
+                                </div>
+                                <div>
+                                    <a href=""><i class="fas fa-edit fa-1x"></i></a> | <a href=""><i class="fas fa-eraser"></i></a>
+                                </div>
                             </div>
+                        </div>
+                        <!---->
+                    </div>
+                    <div class="add-task-section">
+                        <div class="add-btn-div">
+                            <input id="addProjectField" type="text" placeholder="add new project..." style="width: 10vw; height: 1vh;">
+                        </div>
+                        <div>
+                            <button popover-top="Add new task" class="btn-small paper-btn"><i class="fas fa-plus"></i></button>
                         </div>
                     </div>
-                    <div class="card mb-3 border border-5 border-primary">
-                        <div class="left-content">
-                            <p>project desc.</p>
-                            <h5>action</h5>
-                        </div>
-                        <div class="right-content">
-                            <div class="user-photo">
-                                <i class="fas fa-user-tie fa-3x"></i>
-                            </div>
-                            <div>
+                </div>
+                <div class="outer-card phase-1 border border-primary shadow shadow-large">
+                    <div class="phase-header">
+                        <h4 class="phase">Product <span class="badge secondary"> <i class="fas fa-angle-double-right"></i> </span> </h4>
+                    </div>
+                    <div class="phase-body overflow-auto">
+                        <!--Card Div-->
+                        <div class="card border border-5 border-primary">
+                            <div class="left-content">
+                                <p>project desc.</p>
                                 <h5>action</h5>
                             </div>
-                        </div>
-                    </div>
-                    <div class="card border border-5 border-primary">
-                        <div class="left-content">
-                            <p>project desc.</p>
-                            <h5>action</h5>
-                        </div>
-                        <div class="right-content">
-                            <div class="user-photo">
-                                <i class="fas fa-user-tie fa-3x"></i>
+                            <div class="right-content">
+                                <div class="user-photo">
+                                    <i class="fas fa-user-tie fa-3x"></i>
+                                </div>
+                                <div>
+                                    <h5>action</h5>
+                                </div>
                             </div>
-                            <div>
+                        </div>
+                        <!---->
+                    </div>
+                </div>
+                <div class="outer-card phase-2 border border-primary shadow shadow-large">
+                    <div class="phase-header">
+                        <h4 class="phase">Development <span class="badge secondary"> <i class="fas fa-code"></i> </span> </h4>
+                    </div>
+                    <div class="phase-body overflow-auto">
+                        <!--Card Div-->
+                        <div class="card border border-5 border-primary">
+                            <div class="left-content">
+                                <p>project desc.</p>
                                 <h5>action</h5>
                             </div>
-                        </div>
-                    </div>
-                    <!---->
-                </div>
-                <div class="add-btn-div">
-                    <input id="addProjectField" class="" type="text" placeholder="add new project...">
-                    <button popover-top="Add new task" class="btn-small paper-btn"><i class="fas fa-plus"></i></button>
-                </div>
-            </div>
-            <div class="outer-card phase-1 border border-primary shadow shadow-large">
-                <div class="phase-header">
-                    <h4 class="phase">Product <span class="badge secondary"> <i class="fas fa-angle-double-right"></i> </span> </h4>
-                </div>
-                <div class="phase-body overflow-auto">
-                    <!--Card Div-->
-                    <div class="card border border-5 border-primary">
-                        <div class="left-content">
-                            <p>project desc.</p>
-                            <h5>action</h5>
-                        </div>
-                        <div class="right-content">
-                            <div class="user-photo">
-                                <i class="fas fa-user-tie fa-3x"></i>
+                            <div class="right-content">
+                                <div class="user-photo">
+                                    <i class="fas fa-user-tie fa-3x"></i>
+                                </div>
+                                <div>
+                                    <h5>action</h5>
+                                </div>
                             </div>
-                            <div>
+                        </div>
+                        <!---->
+                    </div>
+                </div>
+                <div class="outer-card phase-3 border border-primary shadow shadow-large">
+                    <div class="phase-header">
+                        <h4 class="phase">Done <span class="badge secondary"> <i class="fas fa-check-double"></i> </span> </h4>
+                    </div>
+                    <div class="phase-body overflow-auto">
+                        <!--Card Div-->
+                        <div class="card border border-5 border-primary">
+                            <div class="left-content">
+                                <p>project desc.</p>
                                 <h5>action</h5>
                             </div>
+                            <div class="right-content">
+                                <div class="user-photo">
+                                    <i class="fas fa-user-tie fa-3x"></i>
+                                </div>
+                                <div>
+                                    <h5>action</h5>
+                                </div>
+                            </div>
                         </div>
+                        <!---->
                     </div>
-                    <!---->
                 </div>
-            </div>
-            <div class="outer-card phase-2 border border-primary shadow shadow-large">
-                <div class="phase-header">
-                    <h4 class="phase">Development <span class="badge secondary"> <i class="fas fa-code"></i> </span> </h4>
-                </div>
-                <div class="phase-body overflow-auto">
-                    <!--Card Div-->
-                    <div class="card border border-5 border-primary">
-                        <div class="left-content">
-                            <p>project desc.</p>
-                            <h5>action</h5>
-                        </div>
-                        <div class="right-content">
-                            <div class="user-photo">
-                                <i class="fas fa-user-tie fa-3x"></i>
-                            </div>
-                            <div>
-                                <h5>action</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!---->
-                </div>
-            </div>
-            <div class="outer-card phase-3 border border-primary shadow shadow-large">
-                <div class="phase-header">
-                    <h4 class="phase">Done <span class="badge secondary"> <i class="fas fa-check-double"></i> </span> </h4>
-                </div>
-                <div class="phase-body overflow-auto">
-                    <!--Card Div-->
-                    <div class="card border border-5 border-primary">
-                        <div class="left-content">
-                            <p>project desc.</p>
-                            <h5>action</h5>
-                        </div>
-                        <div class="right-content">
-                            <div class="user-photo">
-                                <i class="fas fa-user-tie fa-3x"></i>
-                            </div>
-                            <div>
-                                <h5>action</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!---->
-                </div>
+                <!---->
             </div>
             <!---->
-        </div>
+        </section>
         <!---->
-    </section>
-    <!---->
-
-    <section class="home-section">
-            <section class="form-section">
-                <!--Login Form Section-->
-                <section class="login-section">
-                    <div class=" form-reglog form-group border border-primary shadow shadow-large">
-                        <div style="margin-bottom: 10px;">
-                            <h4>Login Form</h4>
+    
+        <!--HOME SECTION-->
+        <section v-if="currentPage == 'home'" class="home-section">
+            <!-- <h1>TESSSSST</h1> -->
+                <section class="form-section">
+                    <!--Login Form Section-->
+                    <section class="login-section">
+                        <div class="form-reglog form-group border border-secondary shadow shadow-large">
+                            <div style="margin-bottom: 10px;">
+                                <h4>Login Form</h4>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <label class="label-form" for="email">Email :</label>
+                                <input class="input-form" type="text" id="email" placeholder="email..."><br>
+                                <label class="label-form" for="password">Password :</label>
+                                <input class="input-form" type="password" id="password" placeholder="password..."><br>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <button v-on:click="changePage('content-section')" >Login</button>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <p>or login with:</p>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <p>don't have an account? <a class="paper-btn btn-small" v-on:click="changePage('register-section')">Register</a></p>
+                            </div>
                         </div>
-                        <div style="margin-bottom: 10px;">
-                            <label class="label-form" for="email">Email :</label>
-                            <input type="text" id="email" placeholder="email..."><br>
-                            <label class="label-form" for="password">Password :</label>
-                            <input type="password" id="password" placeholder="password..."><br>
-                        </div>
-                        <div style="margin-bottom: 10px;">
-                            <button>Login</button>
-                        </div>
-                        <div style="margin-bottom: 10px;">
-                            <p>don't have an account? register</p>
-                        </div>
-                    </div>
+                    </section>
+                    <!---->
                 </section>
-                <!---->
-            
-                <!--Register Form Section-->
-                <section class="register-section">
-                    <div class=" form-reglog form-group border border-primary shadow shadow-large">
-                        <div style="margin-bottom: 10px;">
-                            <h4>Register Form</h4>
-                        </div>
-                        <div style="margin-bottom: 10px;">
-                            <label class="label-form" for="name">Name :</label>
-                            <input type="text" id="name" placeholder="Your name..."><br>
-                            <label class="label-form" for="email">Email :</label>
-                            <input type="text" id="email" placeholder="email..."><br>
-                            <label class="label-form" for="password">Password :</label>
-                            <input type="password" id="password" placeholder="password..."><br>
-                        </div>
-                        <div style="margin-bottom: 10px;">
-                            <button>Register</button>
-                        </div>
-                        <div style="margin-bottom: 10px;">
-                            <p>already have an account? login</p>
-                        </div>
-                    </div>
-                </section>
-                <!---->
-            </section>
-    </section>
-
-    <!--Footer Section-->
-    <section class="footer-section">
-        <footer class="fixed-bottom page-footer text-center border border-5 border-primary">
-            <p>Kanban Project : For Educational Purpose Only, 2020 Hacktiv8</p>
-        </footer>
-    </section>
-    <!---->
+        </section>
+    
+        <!--Register Form Section-->
+        <section v-if="currentPage == 'register-section'" class="register-section">
+            <div class=" form-reglog form-group border border-secondary shadow shadow-large">
+                <div style="margin-bottom: 10px;">
+                    <h4>Register Form</h4>
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <label class="label-form" for="name">Name :</label>
+                    <input class="input-form" type="text" id="name" placeholder="Your name..."><br>
+                    <label class="label-form" for="email">Email :</label>
+                    <input class="input-form" type="text" id="email" placeholder="email..."><br>
+                    <label class="label-form" for="password">Password :</label>
+                    <input class="input-form" type="password" id="password" placeholder="password..."><br>
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <button v-on:click="changePage('home')">Register</button>
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <p>already have an account? <a class="paper-btn btn-small" v-on:click="changePage('home')">Login</a></p>
+                </div>
+                </div>
+            </div>
+        </section>
+        <!---->
+        <!--Footer Section-->
+        <section class="footer-section">
+            <footer class="fixed-bottom page-footer text-center border border-5 border-primary">
+                <div class="footer-text sm-12 col align-middle">            
+                    <p>Kanban Project : For Educational Purpose Only, 2020 Hacktiv8</p>
+                </div>
+            </footer>
+        </section>
+        <!---->
+    </div>
 
     
     <!--JS BOOTSTRAP-->
@@ -240,5 +239,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <!---->
+    
+    <!--GOOGLE API SIGN IN-->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <!---->
+
+    <!--vuejs-->
+        <!--Development-->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <!---->
+    <!---->
+
+    <!--Vue JS-->
+    <script src="./main.js"></script>
+    <!---->
+
 </body>
 </html>

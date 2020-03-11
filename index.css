@@ -8,26 +8,68 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
 }
 
 footer {
     background-color: ivory;
+    width: 100vw;
+    height: 5vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.topbar {
+    background-color: ivory;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    /* justify-content: space-between; */
+    
+}
+
+
+.footer-text {
+    width: inherit;
+    height: inherit;
+    padding-bottom: 2.5rem;
+}
+
+.collapsible-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-end;
 }
 
 .content-section {
     /* background-color: grey; */
     width: 100vw;
     height: 80vh;
-    margin-top: 50px;
-    display: none;
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
-.form-reglog {
-    background-color: ivory;
+.add-task-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
-.label-form {
-    font-family: 'Coming Soon', cursive;
+.register-section {
+    margin-top: 10rem;
 }
 
 .home-section {
@@ -50,6 +92,19 @@ footer {
     flex-wrap: wrap;
     justify-content: space-evenly;
     padding: 40px;
+}
+
+.form-reglog {
+    background-color: ivory;
+}
+
+.label-form {
+    font-family: 'Coming Soon', cursive;
+}
+
+.input-form {
+    width: 15vw;
+    height: 5vh;
 }
 
 .outer-card {
@@ -111,24 +166,31 @@ footer {
     margin-top: 0px;
     height: 85vh;
     padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: baseline;
 }
 
 .card {
+    width: 15vw;
+    height: 10vh;
     max-width: 50rem;
     max-height: fit-content;
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 5px;
     justify-content: space-evenly;
 }
-
+/* 
 .add-btn-div {
+    background-color: khaki;
+    width: 10vw;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-}
+} */
 
 .btn{
     padding: 5px 5px;
@@ -184,12 +246,8 @@ FORM CUSTOMIZATION
 */
 
 
-.login-section {
-    width: fit-content;
-}
-
 .form-group {
-    width: 15vw;
+    width: 20vw;
     display: flex;
     flex-direction: column;
     align-items: center;
