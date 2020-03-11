@@ -13,166 +13,142 @@
     <title>Kanban</title>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav>
-        <div class="nav-wrapper">
-          <a href="#" id="logo" class="brand-logo"><image src="image/logo.png"></image></a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-              <li><a id="btn-register" href="#">Register</a></li>
-              <li><a id="btn-login" href="#">Login</a></li>
-              <li><a id="btn-logout" href="#">Logout</a></li>
-              <li><image id="avatar" src="image/avatar-sample.png"></image></li>
-          </ul>
-        </div>
-    </nav>
-    <!-- Landing Page -->
-    <section id="page-landing">
- 
-        <div class="container-landing">
-            <div class="col s1">
-                <image src="/image/logo-300x100.png"></image>
+    <div id='app'>
+        <!-- Navigation Bar -->
+        <nav>
+            <div class="nav-wrapper">
+            <a v-on:click="changePage('landingPage')" href="#" id="logo" class="brand-logo"><image src="image/logo.png"></image></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li v-if="!isLogin" v-on:click="changePage('regisPage')" ><a id="btn-register" href="#">Register</a></li>
+                <li v-if="!isLogin" v-on:click="changePage('loginPage')" ><a id="btn-login" href="#">Login</a></li>
+                <li v-if="isLogin"><a id="btn-logout" href="#">Logout</a></li>
+                <li v-if="isLogin"><image id="avatar" src="image/avatar-sample.png"></image></li>
+            </ul>
             </div>
-            <blockquote>
-                A kanban board is an agile project management tool designed to help visualize work, limit work-in-progress, and maximize efficiency.
-            </blockquote>
-            <blockquote>
-                Kanban boards use cards, columns, and continuous improvement to help technology and service teams commit to the right amount of work, and get it done!
-            </blockquote>
-        </div>
-        <div class="illustration-landing">
-            <image id="illustration" src="/image/illustration.svg"></image>
-        </div>
-    </section>
+        </nav>
+        <!-- Landing Page -->
+        <section v-if="!isLogin && currentPage == 'landingPage'" id="page-landing">
+    
+            <div class="container-landing">
+                <div class="col s1">
+                    <image src="/image/logo-300x100.png"></image>
+                </div>
+                <blockquote>
+                    A kanban board is an agile project management tool designed to help visualize work, limit work-in-progress, and maximize efficiency.
+                </blockquote>
+                <blockquote>
+                    Kanban boards use cards, columns, and continuous improvement to help technology and service teams commit to the right amount of work, and get it done!
+                </blockquote>
+            </div>
+            <div class="illustration-landing">
+                <image id="illustration" src="/image/illustration.svg"></image>
+            </div>
+        </section>
+
+        <!-- <div v-for="task in tasks" :key="task.id">
+            {{ task.title }}
+        </div> -->
 
 
-
-
-    <!-- Main Page -->
-    <section id="page-main">
-        <div class="container">
-            <!-- Container per column/phase -->
-            <div class="column-container">
-                <div id="header-1" class="column-header">
-                    <div class="col s3">Backlog</div>
-                </div>
-                <div class="column-body">
-                    <!-- Card per title -->
-                    <div class="col s12 m7">
-                        <div class="card horizontal">
-                            <div class="card-stacked">
-                                <div class="card-content">
-                                    <p>I am a very simple card.</p>
-                                </div>
-                                <div class="card-action">
-                                    <div class="col s2">
-                                        <a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_back</i></a><a class="waves-effect waves-teal btn-small" href="#"> <i class="large material-icons">edit</i></a><a class="waves-effect waves-yellow btn-small" hlightref="#"> <i class="large material-icons">delete</i></a><a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_forward</i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <!-- Main Page -->
+        <section v-if="isLogin" id="page-main">
+            <div class="container">
+                <!-- Container per column/phase -->
+                <div class="column-container">
+                    <div id="header-1" class="column-header">
+                        <div class="col s3">Backlog</div>
                     </div>
-                    <!-- ---------- -->
-                    <div class="col s12 m7">
-                        <div class="card horizontal">
-                            <div class="card-stacked">
-                                <div class="card-content">
-                                    <p>I am good at containing small bits of information.</p>
-                                </div>
-                                <div class="card-action">
-                                    <div class="col s2">
-                                        <a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_back</i></a><a class="waves-effect waves-teal btn-small" href="#"> <i class="large material-icons">edit</i></a><a class="waves-effect waves-yellow btn-small" hlightref="#"> <i class="large material-icons">delete</i></a><a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_forward</i></a>
+                    <div class="column-body">
+                        <!-- Card per title -->
+                        <div v-for="task in tasks" :key="task.id" class="col s12 m7">
+                            <div class="card horizontal">
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                        <p>{{ task.title}}</p>
+                                    </div>
+                                    <div class="card-action">
+                                        <div class="col s2">
+                                            <a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_back</i></a><a class="waves-effect waves-teal btn-small" href="#"> <i class="large material-icons">edit</i></a><a class="waves-effect waves-yellow btn-small" hlightref="#"> <i class="large material-icons">delete</i></a><a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_forward</i></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col s12 m7">
-                        <div class="card horizontal">
-                            <div class="card-stacked">
-                                <div class="card-content">
-                                    <p>I am a very simple card. I am good at containing small bits of information.</p>
-                                </div>
-                                <div class="card-action">
-                                    <div class="col s2">
-                                        <a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_back</i></a><a class="waves-effect waves-teal btn-small" href="#"> <i class="large material-icons">edit</i></a><a class="waves-effect waves-yellow btn-small" hlightref="#"> <i class="large material-icons">delete</i></a><a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_forward</i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- ---------- -->
                     </div>
                 </div>
-            </div>
-            <!-- ---------- -->
-            <div class="column-container">
-                <div id="header-2" class="column-header">
-                    <div class="col s3">To Do</div>
-                </div>
-                <div class="column-body">
-                    <div class="col s12 m7">
-                        <div class="card horizontal">
-                            <div class="card-stacked">
-                                <div class="card-content">
-                                    <p>I am a very simple card. I am good at containing small bits of information.</p>
-                                </div>
-                                <div class="card-action">
-                                    <div class="col s2">
-                                        <a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_back</i></a><a class="waves-effect waves-teal btn-small" href="#"> <i class="large material-icons">edit</i></a><a class="waves-effect waves-yellow btn-small" hlightref="#"> <i class="large material-icons">delete</i></a><a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_forward</i></a>
+                <!-- ---------- -->
+                <div class="column-container">
+                    <div id="header-2" class="column-header">
+                        <div class="col s3">To Do</div>
+                    </div>
+                    <div class="column-body">
+                        <div class="col s12 m7">
+                            <div class="card horizontal">
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                        <p>I am a very simple card. I am good at containing small bits of information.</p>
+                                    </div>
+                                    <div class="card-action">
+                                        <div class="col s2">
+                                            <a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_back</i></a><a class="waves-effect waves-teal btn-small" href="#"> <i class="large material-icons">edit</i></a><a class="waves-effect waves-yellow btn-small" hlightref="#"> <i class="large material-icons">delete</i></a><a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_forward</i></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col s12 m7">
-                        <div class="card horizontal">
-                            <div class="card-stacked">
-                                <div class="card-content">
-                                    <p>I am a very simple card. I am good at containing small bits of information.</p>
-                                </div>
-                                <div class="card-action">
-                                    <div class="col s2">
-                                        <a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_back</i></a><a class="waves-effect waves-teal btn-small" href="#"> <i class="large material-icons">edit</i></a><a class="waves-effect waves-yellow btn-small" hlightref="#"> <i class="large material-icons">delete</i></a><a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_forward</i></a>
+                        <div class="col s12 m7">
+                            <div class="card horizontal">
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                        <p>I am a very simple card. I am good at containing small bits of information.</p>
+                                    </div>
+                                    <div class="card-action">
+                                        <div class="col s2">
+                                            <a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_back</i></a><a class="waves-effect waves-teal btn-small" href="#"> <i class="large material-icons">edit</i></a><a class="waves-effect waves-yellow btn-small" hlightref="#"> <i class="large material-icons">delete</i></a><a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_forward</i></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="column-container">
-                <div id="header-3" class="column-header">
-                    <div class="col s3">Doing</div>
-                </div>
-                <div class="column-body">
-                    <div class="col s12 m7">
-                        <div class="card horizontal">
-                            <div class="card-stacked">
-                                <div class="card-content">
-                                    <p>I am a very simple card.</p>
-                                </div>
-                                <div class="card-action">
-                                    <div class="col s2">
-                                        <a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_back</i></a><a class="waves-effect waves-teal btn-small" href="#"> <i class="large material-icons">edit</i></a><a class="waves-effect waves-yellow btn-small" hlightref="#"> <i class="large material-icons">delete</i></a><a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_forward</i></a>
+                <div class="column-container">
+                    <div id="header-3" class="column-header">
+                        <div class="col s3">Done</div>
+                    </div>
+                    <div class="column-body">
+                        <div class="col s12 m7">
+                            <div class="card horizontal">
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                        <p>I am a very simple card.</p>
+                                    </div>
+                                    <div class="card-action">
+                                        <div class="col s2">
+                                            <a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_back</i></a><a class="waves-effect waves-teal btn-small" href="#"> <i class="large material-icons">edit</i></a><a class="waves-effect waves-yellow btn-small" hlightref="#"> <i class="large material-icons">delete</i></a><a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_forward</i></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="column-container">
-                <div id="header-4" class="column-header">
-                    <div class="col s3">Done</div>
-                </div>
-                <div class="column-body">
-                    <div class="col s12 m7">
-                        <div class="card horizontal">
-                            <div class="card-stacked">
-                                <div class="card-content">
-                                    <p>I am a very simple card</p>
-                                </div>
-                                <div class="card-action">
-                                    <div class="col s2">
-                                        <a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_back</i></a><a class="waves-effect waves-teal btn-small" href="#"> <i class="large material-icons">edit</i></a><a class="waves-effect waves-yellow btn-small" hlightref="#"> <i class="large material-icons">delete</i></a><a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_forward</i></a>
+                <div class="column-container">
+                    <div id="header-4" class="column-header">
+                        <div class="col s3">Completed</div>
+                    </div>
+                    <div class="column-body">
+                        <div class="col s12 m7">
+                            <div class="card horizontal">
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                        <p>I am a very simple card</p>
+                                    </div>
+                                    <div class="card-action">
+                                        <div class="col s2">
+                                            <a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_back</i></a><a class="waves-effect waves-teal btn-small" href="#"> <i class="large material-icons">edit</i></a><a class="waves-effect waves-yellow btn-small" hlightref="#"> <i class="large material-icons">delete</i></a><a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_forward</i></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -180,101 +156,69 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Registration Page -->
-    <section id="page-register">
-        <h1>Registration Form</h1>
-        <div class="row">
-            <form class="col s12">
-                <div class="row">
-                    <div class="input-field col s4">
-                    <i class="material-icons prefix">account_circle</i>
-                    <input id="name-register" type="text" class="validate">
-                    <label for="name-register">Name</label>
+        <!-- Registration Page -->
+        <section  v-if="!isLogin && currentPage == 'regisPage'" id="page-register">
+            <h1>Registration Form</h1>
+            <div class="row">
+                <form @submit.prevent="register()" class="col s12">
+                    <div class="row">
+                        <div class="input-field col s4">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input v-model="userData.name" id="name-register" type="text" class="validate">
+                        <label for="name-register">Name</label>
+                        </div>
+                        <div class="input-field col s4">
+                        <i class="material-icons prefix">email</i>
+                        <input v-model="userData.email" id="email-register" type="email" class="validate">
+                        <label for="email-register">Email</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <i class="material-icons prefix">lock</i>
+                            <input v-model="userData.password" id="password-register" type="password" class="validate">
+                            <label for="password-register">Password</label>
+                        </div>
                     </div>
-                    <div class="input-field col s4">
-                    <i class="material-icons prefix">email</i>
-                    <input id="Email-register" type="email" class="validate">
-                    <label for="Email-register">Email</label>
-                    </div>
-                    <div class="input-field col s4">
-                        <i class="material-icons prefix">lock</i>
-                        <input id="password-register" type="password" class="validate">
-                        <label for="password-register">Password</label>
-                    </div>
-                </div>
-                <button class="btn waves-effect waves-light" type="submit" name="action">Register
-                    <i class="material-icons right">send</i>
-                </button>
-            </form>
-          </div>
-    </section>
-
-    <br>
-
-    <!-- Login Page -->
-    <section id="page-login">
-        <h1>Login Form</h1>
-        <div class="row">
-            <form class="col s12">
-                <div class="row">
-                    <div class="input-field col s6">
-                    <i class="material-icons prefix">email</i>
-                    <input id="email-login" type="email" class="validate">
-                    <label for="email-login">Email</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">lock</i>
-                        <input id="password-login" type="password" class="validate">
-                        <label for="password-login">Password</label>
-                    </div>
-                </div>
-                <button class="btn waves-effect waves-light" type="submit" name="action">Login
-                    <i class="material-icons right">send</i>
-                </button>
-            </form>
-          </div>
-    </section>
-
-    <!-- Create new card -->
-    <div id="id01" class="modal">
-        <form class="modal-content animate">
-            <div class="imgcontainer">
-                <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Register
+                        <i class="material-icons right">send</i>
+                    </button>
+                </form>
             </div>
+        </section>
 
-            <div class="container-modal">
-                <label for="title-new"><b>New Card</b></label>
-                <input type="text" placeholder="Title" name="title-new" required>     
-                <button type="submit">Create</button>
-                <!-- <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button> -->
+        <br>
+
+        <!-- Login Page -->
+        <section v-if="!isLogin && currentPage == 'loginPage'" id="page-login">
+            <h1>Login Form</h1>
+            <div class="row">
+                <form @submit.prevent="login()" class="col s12">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">email</i>
+                            <input v-model="userData.email" id="email-login" type="email" class="validate">
+                            <label for="email-login">Email</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">lock</i>
+                            <input v-model="userData.password" id="password-login" type="password" class="validate">
+                            <label for="password-login">Password</label>
+                        </div>
+                    </div>
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Login
+                        <i class="material-icons right">send</i>
+                    </button>
+                </form>
             </div>
-        </form>
+        </section>
     </div>
-
-    <a onclick="document.getElementById('id01').style.display='block'" id="btn-create" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
-  
-
-
-
-
-    <script>
-        // Get the modal
-        var modal = document.getElementById('id01');
-        
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
+    <!-- Vue JS -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- Materialize CSS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
     <!-- Popper JS -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
     <!-- Latest compiled JavaScript -->
