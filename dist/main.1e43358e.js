@@ -9016,7 +9016,7 @@ var staticRenderFns = [
       "a",
       {
         staticClass: "header item",
-        staticStyle: { "padding-left": "42%" },
+        staticStyle: { "padding-left": "40vw" },
         attrs: { id: "logo" }
       },
       [_c("p", [_vm._v("QanbaN")])]
@@ -9051,7 +9051,7 @@ render._withStripped = true
         
       }
     })();
-},{"_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/User/Register.vue":[function(require,module,exports) {
+},{"_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/Form/Register.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9098,14 +9098,14 @@ var _default = {
   name: 'Register'
 };
 exports.default = _default;
-        var $4e2e4e = exports.default || module.exports;
+        var $2677e1 = exports.default || module.exports;
       
-      if (typeof $4e2e4e === 'function') {
-        $4e2e4e = $4e2e4e.options;
+      if (typeof $2677e1 === 'function') {
+        $2677e1 = $2677e1.options;
       }
     
         /* template */
-        Object.assign($4e2e4e, (function () {
+        Object.assign($2677e1, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -9135,7 +9135,7 @@ exports.default = _default;
                   attrs: {
                     type: "text",
                     max: "10",
-                    name: "email",
+                    name: "username",
                     placeholder: "Username"
                   }
                 })
@@ -9158,7 +9158,7 @@ exports.default = _default;
               _c("label", [_vm._v("Password")]),
               _vm._v(" "),
               _c("div", { staticClass: "ui left icon input" }, [
-                _c("i", { staticClass: "lock icon" }),
+                _c("i", { staticClass: "user secret icon" }),
                 _vm._v(" "),
                 _c("input", {
                   attrs: {
@@ -9206,9 +9206,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$4e2e4e', $4e2e4e);
+            api.createRecord('$2677e1', $2677e1);
           } else {
-            api.reload('$4e2e4e', $4e2e4e);
+            api.reload('$2677e1', $2677e1);
           }
         }
 
@@ -9219,7 +9219,7 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/User/Login.vue":[function(require,module,exports) {
+},{"_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/Form/Login.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9259,14 +9259,14 @@ var _default = {
   name: 'Login'
 };
 exports.default = _default;
-        var $a20b64 = exports.default || module.exports;
+        var $ff193e = exports.default || module.exports;
       
-      if (typeof $a20b64 === 'function') {
-        $a20b64 = $a20b64.options;
+      if (typeof $ff193e === 'function') {
+        $ff193e = $ff193e.options;
       }
     
         /* template */
-        Object.assign($a20b64, (function () {
+        Object.assign($ff193e, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -9302,7 +9302,7 @@ exports.default = _default;
               _c("label", [_vm._v("Password")]),
               _vm._v(" "),
               _c("div", { staticClass: "ui left icon input" }, [
-                _c("i", { staticClass: "lock icon" }),
+                _c("i", { staticClass: "user secret icon" }),
                 _vm._v(" "),
                 _c("input", {
                   attrs: {
@@ -9350,9 +9350,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$a20b64', $a20b64);
+            api.createRecord('$ff193e', $ff193e);
           } else {
-            api.reload('$a20b64', $a20b64);
+            api.reload('$ff193e', $ff193e);
           }
         }
 
@@ -11342,19 +11342,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "title" }, [_c("h1", [_vm._v("BACKLOG")])])
+    return _c("div", { staticClass: "title" }, [_c("h1", [_vm._v("TODO")])])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "title" }, [_c("h1", [_vm._v("BACKLOG")])])
+    return _c("div", { staticClass: "title" }, [_c("h1", [_vm._v("DONE")])])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "title" }, [_c("h1", [_vm._v("BACKLOG")])])
+    return _c("div", { staticClass: "title" }, [_c("h1", [_vm._v("COMPLETE")])])
   }
 ]
 render._withStripped = true
@@ -11385,6 +11385,187 @@ render._withStripped = true
         
       }
     })();
+},{"_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/Form/Create.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'Create',
+  data: function data() {
+    return {
+      open: false
+    };
+  },
+  methods: {
+    toggle: function toggle() {
+      this.open = !this.open;
+    }
+  }
+};
+exports.default = _default;
+        var $84527f = exports.default || module.exports;
+      
+      if (typeof $84527f === 'function') {
+        $84527f = $84527f.options;
+      }
+    
+        /* template */
+        Object.assign($84527f, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "sui-button",
+        {
+          nativeOn: {
+            click: function($event) {
+              return _vm.toggle($event)
+            }
+          }
+        },
+        [_vm._v("Show Modal")]
+      ),
+      _vm._v(" "),
+      _c(
+        "sui-modal",
+        {
+          model: {
+            value: _vm.open,
+            callback: function($$v) {
+              _vm.open = $$v
+            },
+            expression: "open"
+          }
+        },
+        [
+          _c("sui-modal-header", { attrs: { id: "modal-header" } }, [
+            _c("h1", [_vm._v("Create QanbaN")])
+          ]),
+          _vm._v(" "),
+          _c(
+            "sui-modal-content",
+            { attrs: { form: "" } },
+            [
+              _c(
+                "sui-form",
+                [
+                  _c("sui-form-field", [
+                    _c("label", [_vm._v("Title")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "ui left icon input" }, [
+                      _c("i", { staticClass: "user icon" }),
+                      _vm._v(" "),
+                      _c("input", {
+                        attrs: {
+                          type: "text",
+                          max: "10",
+                          name: "title",
+                          placeholder: "Title"
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("sui-form-field", [
+                    _c("label", [_vm._v("Description")]),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      staticStyle: { resize: "none" },
+                      attrs: {
+                        type: "text",
+                        name: "description",
+                        placeholder: "Description"
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "ui fluid large teal submit button",
+                      attrs: { type: "submit" }
+                    },
+                    [_vm._v("Submit")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$84527f', $84527f);
+          } else {
+            api.reload('$84527f', $84527f);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
 },{"_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
 "use strict";
 
@@ -11395,14 +11576,17 @@ exports.default = void 0;
 
 var _Navbar = _interopRequireDefault(require("./components/Navbar/Navbar"));
 
-var _Register = _interopRequireDefault(require("./components/User/Register"));
+var _Register = _interopRequireDefault(require("./components/Form/Register"));
 
-var _Login = _interopRequireDefault(require("./components/User/Login"));
+var _Login = _interopRequireDefault(require("./components/Form/Login"));
 
 var _Card = _interopRequireDefault(require("./components/Card/Card"));
 
+var _Create = _interopRequireDefault(require("./components/Form/Create"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
 //
 //
 //
@@ -11425,7 +11609,8 @@ var _default = {
     Navbar: _Navbar.default,
     Register: _Register.default,
     Login: _Login.default,
-    Card: _Card.default
+    Card: _Card.default,
+    Create: _Create.default
   }
 };
 exports.default = _default;
@@ -11441,11 +11626,7 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("nav", [_c("Navbar")], 1),
-    _vm._v(" "),
-    _c("div", [_c("Card")], 1)
-  ])
+  return _c("div", [_c("nav", [_c("Navbar")], 1), _vm._v(" "), _c("div")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -11480,7 +11661,7 @@ render._withStripped = true
       
       }
     })();
-},{"./components/Navbar/Navbar":"src/components/Navbar/Navbar.vue","./components/User/Register":"src/components/User/Register.vue","./components/User/Login":"src/components/User/Login.vue","./components/Card/Card":"src/components/Card/Card.vue","_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"node_modules/semantic-ui-vue/dist/commonjs/semantic-ui-vue.js":[function(require,module,exports) {
+},{"./components/Navbar/Navbar":"src/components/Navbar/Navbar.vue","./components/Form/Register":"src/components/Form/Register.vue","./components/Form/Login":"src/components/Form/Login.vue","./components/Card/Card":"src/components/Card/Card.vue","./components/Form/Create":"src/components/Form/Create.vue","_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"node_modules/semantic-ui-vue/dist/commonjs/semantic-ui-vue.js":[function(require,module,exports) {
 module.exports = function (e) {
   var t = {};
 
@@ -18163,7 +18344,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53928" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52848" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

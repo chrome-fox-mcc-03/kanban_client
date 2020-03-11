@@ -3,19 +3,21 @@
     <nav>
       <Navbar />
     </nav>
-    <div>
+    <div >
       <!-- <Register /> -->
       <!-- <Login /> -->
-      <Card />
+      <!-- <Card /> -->
+      <!-- <Create /> -->
     </div>
   </div>
 </template>
 
 <script>
 import Navbar from './components/Navbar/Navbar'
-import Register from './components/User/Register'
-import Login from './components/User/Login'
+import Register from './components/Form/Register'
+import Login from './components/Form/Login'
 import Card from './components/Card/Card'
+import Create from './components/Form/Create'
 
 export default {
   name: 'App',
@@ -27,7 +29,8 @@ export default {
     Navbar,
     Register,
     Login,
-    Card
+    Card,
+    Create
   }
 };
 </script>

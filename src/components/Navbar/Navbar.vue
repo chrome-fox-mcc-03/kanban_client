@@ -8,7 +8,7 @@
         </sui-button-content>
       </sui-button>
     </div>
-    <a class="header item" style="padding-left: 42%" id="logo"><p>QanbaN</p></a>
+    <a class="header item" style="padding-left: 40vw" id="logo"><p>QanbaN</p></a>
     <div class="right menu">
       <sui-button animated="vertical" style="background:none;" >
         <sui-button-content style="color: red;" hidden>Logout</sui-button-content>

@@ -98,7 +98,7 @@
     </div>
     <div class="template">
       <div class="title">
-        <h1>BACKLOG</h1>
+        <h1>TODO</h1>
       </div>
       <div class="category">
         <div class="card">
@@ -195,7 +195,7 @@
     </div>
     <div class="template">
       <div class="title">
-        <h1>BACKLOG</h1>
+        <h1>DONE</h1>
       </div>
       <div class="category">
         <div class="card">
@@ -292,7 +292,7 @@
     </div>
     <div class="template">
       <div class="title">
-        <h1>BACKLOG</h1>
+        <h1>COMPLETE</h1>
       </div>
       <div class="category">
         <div class="card">

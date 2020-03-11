@@ -3,6 +3,13 @@
   padding: 0;
 }
 
+body {
+  background-image: url('https://wallpaperaccess.com/full/32839.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+}
+
 
 #navbar {
   border-radius: 0;
@@ -30,9 +37,14 @@
   height: 85vh;
 }
 
+.column {
+  background-color: white;
+  width: 25vw;
+  border-radius: 20px;
+}
+
 .ui.large.form {
-  padding-bottom: 20vh;
-  padding-top: 22vh;
+  padding: 6vh 2vw;
 }
 
 .home{
@@ -60,17 +72,20 @@
   display: flex;
   flex-direction: column;
   margin: 5vh 0;
-  /* background-color: gray; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .title {
-  /* height: 5vh; */
-  width: 40vh;
-  /* background-color: wheat; */
+  height: 5vh;
+  width: 25vh;
+  background-color: whitesmoke;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 1vh;
+  border-radius: 20px;
 }
 
 .category {
@@ -92,6 +107,19 @@
 
 .ui.cards {
   margin: 0;
+}
+
+.ui.modal {
+  width: 20vw;
+}
+
+#modal-header {
+  display: flex;
+  justify-content: center;
+}
+
+.home .template .title h1 {
+  font-family: American Typewriter, serif;
 }
 
 /*# sourceMappingURL=/main.1e43358e.css.map */
