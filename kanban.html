@@ -60,7 +60,7 @@
                     </div>
                     <div class="column-body">
                         <!-- Card per title -->
-                        <div v-for="task in tasks" :key="task.id" class="col s12 m7">
+                        <div v-for="task in tasks" v-if="task.category=='backlog'" :key="task.id" class="col s12 m7">
                             <div class="card horizontal">
                                 <div class="card-stacked">
                                     <div class="card-content">
@@ -83,11 +83,12 @@
                         <div class="col s3">To Do</div>
                     </div>
                     <div class="column-body">
-                        <div class="col s12 m7">
+                        <!-- Card per title -->
+                        <div v-for="task in tasks" v-if="task.category=='todo'" :key="task.id" class="col s12 m7">
                             <div class="card horizontal">
                                 <div class="card-stacked">
                                     <div class="card-content">
-                                        <p>I am a very simple card. I am good at containing small bits of information.</p>
+                                        <p>{{ task.title}}</p>
                                     </div>
                                     <div class="card-action">
                                         <div class="col s2">
@@ -97,32 +98,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col s12 m7">
-                            <div class="card horizontal">
-                                <div class="card-stacked">
-                                    <div class="card-content">
-                                        <p>I am a very simple card. I am good at containing small bits of information.</p>
-                                    </div>
-                                    <div class="card-action">
-                                        <div class="col s2">
-                                            <a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_back</i></a><a class="waves-effect waves-teal btn-small" href="#"> <i class="large material-icons">edit</i></a><a class="waves-effect waves-yellow btn-small" hlightref="#"> <i class="large material-icons">delete</i></a><a class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_forward</i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- ---------- -->
                     </div>
                 </div>
+                <!-- ---------- -->
                 <div class="column-container">
                     <div id="header-3" class="column-header">
                         <div class="col s3">Done</div>
                     </div>
                     <div class="column-body">
-                        <div class="col s12 m7">
+                        <!-- Card per title -->
+                        <div v-for="task in tasks" v-if="task.category=='done'" :key="task.id" class="col s12 m7">
                             <div class="card horizontal">
                                 <div class="card-stacked">
                                     <div class="card-content">
-                                        <p>I am a very simple card.</p>
+                                        <p>{{ task.title}}</p>
                                     </div>
                                     <div class="card-action">
                                         <div class="col s2">
@@ -132,18 +122,21 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- ---------- -->
                     </div>
                 </div>
+                <!-- ---------- -->
                 <div class="column-container">
                     <div id="header-4" class="column-header">
                         <div class="col s3">Completed</div>
                     </div>
                     <div class="column-body">
-                        <div class="col s12 m7">
+                        <!-- Card per title -->
+                        <div v-for="task in tasks" v-if="task.category=='completed'" :key="task.id" class="col s12 m7">
                             <div class="card horizontal">
                                 <div class="card-stacked">
                                     <div class="card-content">
-                                        <p>I am a very simple card</p>
+                                        <p>{{ task.title}}</p>
                                     </div>
                                     <div class="card-action">
                                         <div class="col s2">
@@ -153,8 +146,10 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- ---------- -->
                     </div>
                 </div>
+                <!-- ---------- -->
             </div>
         </section>
 
