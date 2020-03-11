@@ -3,32 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Kanbanology</title>
+    <link href="https://fonts.googleapis.com/css?family=Sen:400,700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/0393dbf2c4.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <div id="main-container">
+    <div id="app">
         <div id="navbar-container">
             <div class="navbar-div">
                 <ul class="navbar-item up">
-                    <li><i class="icon fas fa-sign-in-alt"></i></li>
-                    <li><i class="icon fas fa-home"></i></li>
-                    <li><i class="icon fas fa-plus-square"></i></li>
-                    <li><i class="icon far fa-list-alt"></i></li>
+                    <li><i @click="changePage('loginDisplay')" class="icon fas fa-sign-in-alt"></i></li>
+                    <li><i @click="changePage('homepageDisplay')" class="icon fas fa-home"></i></li>
+                    <li><i  @click="changePage('addTaskDisplay')" class="icon fas fa-plus-square"></i></li>
+                    <li><i @click="changePage('cardsDisplay')" class="icon far fa-list-alt"></i></li>
                     <li>#navbar4</li>
                     <li>#navbar5</li>
                 </ul>
             </div>
             <div class="navbar-div">
                 <ul class="navbar-item down">
-                    <li><i class="icon fas fa-sign-out-alt"></i></li>
+                    <li><i @click="logout()" class="icon fas fa-sign-out-alt"></i></li>
                 </ul>
             </div>
         </div>
         <div id="content-container">
-            <div id="homepage-container">
+            <div v-if="currentPage == 'cardsDisplay'" id="cards-container">
+                <h1 class="title">Tasks </h1>
+                <div id="main-cards-container">          
+                    <div class="cards-section">
+                        <div class="card-header-div">
+                            <p class="card-header-word">Backlog</p>
+                        </div>
+                        <div id="backlog-container" style="overflow: scroll;">
+                            <div class="card-content border-radius-card h-25 w-90 card">
+                                <div class="card-image">
+                                    <i class="profpict fas fa-user-circle"></i>
+                                </div>
+                                <div class="border-radius-body card-body card-body-color" style="overflow: scroll;">
+                                  <p class="card-text">Some quick example text to </p>
+                                  <div class="card-option">
+                                      <i type="button" class="fas fa-info-circle" data-toggle="modal" data-target="#exampleModal">
+                                      </i>
+                                      <i type="button" class="fas fa-arrow-circle-left"></i>
+                                      <i type="button" class="fas fa-arrow-circle-right"></i>
+                                      <i type="button" class="fas fa-trash-alt"></i>
+                                  </div>
+                                </div>
+                            </div>
+                            
+
+                        </div>
+                        <div class="card-footer-div">
+                            <p class="card-footer-word">Add a card...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="cards-section">
+                        <div class="card-header-div">
+                            <p class="card-header-word">Product</p>
+                        </div>
+                        <div id="product-container">
+                            
+                        </div>
+
+                        <div class="card-footer-div">
+                            <p class="card-footer-word">Add a card...</p>
+                        </div>
+                    </div>
+
+                    <div class="cards-section">
+                        <div class="card-header-div">
+                            <p class="card-header-word">Development</p>
+                        </div>
+                        <div id="development-container">
+                            <div class="card-content border-radius-card h-25 w-90 card">
+                                <div class="card-image">
+                                    <i class="profpict fas fa-user-circle"></i>
+                                </div>
+                                <div class="border-radius-body card-body card-body-color" style="overflow: scroll;">
+                                  <p class="card-text">Some quick example text to </p>
+                                  <div class="card-option">
+                                      <i type="button" class="fas fa-info-circle" data-toggle="modal" data-target="#exampleModal">
+                                      </i>
+                                      <i type="button" class="fas fa-arrow-circle-left"></i>
+                                      <i type="button" class="fas fa-arrow-circle-right"></i>
+                                      <i type="button" class="fas fa-trash-alt"></i>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer-div">
+                            <p class="card-footer-word">Add a card...</p>
+                        </div>
+
+                    </div>
+                    <div class="cards-section">
+                        <div class="card-header-div">
+                            <p class="card-header-word">Done</p>
+                        </div>
+                        <div id="done-container">   
+                            <div class="card-content border-radius-card h-25 w-90 card">
+                                <div class="card-image">
+                                    <i class="profpict fas fa-user-circle"></i>
+                                </div>
+                                <div class="border-radius-body card-body card-body-color" style="overflow: scroll;">
+                                  <p class="card-text">Some quick example text to </p>
+                                  <div class="card-option">
+                                      <i type="button" class="fas fa-info-circle" data-toggle="modal" data-target="#exampleModal">
+                                      </i>
+                                      <i type="button" class="fas fa-arrow-circle-left"></i>
+                                      <i type="button" class="fas fa-arrow-circle-right"></i>
+                                      <i type="button" class="fas fa-trash-alt"></i>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer-div">
+                            <p class="card-footer-word">Add a card...</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <div v-else-if="currentPage == 'loginDisplay'" id="login-container" >
+                <h1 class="login title">Login</h1>
+                <form @submit.prevent="authenticate()" id="login-form">
+                    <label class="username-label login" for="username">Username:</label><br>
+                    <input v-model="userLogin.username" class="username-input login" type="text" id="username-login" name="username" ><br>
+                    <label class="password-label login" for="password">Password:</label><br>
+                    <input v-model="userLogin.password" class="password-input login" type="password" id="password-login" name="password"><br><br>
+                    <input class="submit" type="submit" value="Login">
+                    <a id="register-word" @click="changePage('registerDisplay')">Doesn't have an account yet? Register here</a>
+                  </form>
+            </div>
+            <div v-else-if="currentPage == 'registerDisplay'" id="register-container">
+                <h1 class="register title">Register</h1>
+                <form @submit.prevent="getLogin()" id="register-form">
+                    <label class="username-label register" for="username">Username:</label><br>
+                    <input v-model="userRegister.username" class="username-input register" type="text" id="username-register" name="username" ><br>
+                    <label class="password-label register" for="password">Password:</label><br>
+                    <input v-model="userRegister.password" class="password-input register" type="password" id="password-register" name="password"><br><br>
+                    <input class="submit" type="submit" value="Register">
+                  </form>
+                
+            </div>
+            <div v-else-if="currentPage == 'addTaskDisplay'" id="add-task-container">
+                <h1 class="add_task title">Add Task</h1>
+                <form id="add_task-form">
+                    <label class="title-label add_task" for="title">Title:</label><br>
+                    <input class="title-input add_task" type="text" id="title-add_task" name="title" value="John"><br>
+                    <label class="category-label add_task" for="category">Category:</label><br>
+                    <input class="category-input add_task" type="category" id="category-add_task" name="password" value="Doe"><br><br>
+                    <input class="submit" type="submit" value="Add Task">
+                  </form>
+            </div>
+            <div v-else id="homepage-container">
                 <div id="homepage-one">
                     <div id="homepage-words">
                         <h2>OPEN BETA</h2>
@@ -37,13 +169,13 @@
                             Create a business model. Develop your idea.
                             Validate the concept. Get a business plan
                         </p>
-                        <button>
+                        <button onclick="window.location.href='#homepage-two'">
                             Start Now - It's Free
                         </button>
                         <p id="terms">Seriously. No credit card required</p>
                     </div>
                     <div id="homepage-image">
-                        <img src="./img/home2.svg">
+                        <img id="img-tag-home" src="./img/home3.svg">
                     </div>
                 </div>
                 <div id="homepage-two">
@@ -66,7 +198,7 @@
                                 </ul>
                             </div>
                             <div class="container-section-button">
-                                <button class="section-button">Learn More</button>
+                                <button class="section-button" onclick="window.location.href='#homepage-three'">Learn More</button>
                             </div>
                         </div>
                     </div>
@@ -87,7 +219,7 @@
                                 </ul>
                             </div>
                             <div class="container-section-button">
-                                <button class="section-button">Learn More</button>
+                                <button class="section-button" onclick="window.location.href='#homepage-three'">Learn More</button>
                             </div>
                         </div>
                         <div class="section-image section-img-two">
@@ -95,7 +227,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="homepage-two">
+                <div id="homepage-three">
                     <div class="homepage section-three">
                         <div class="section-image section-img-three">
                         </div>
@@ -160,134 +292,6 @@
                     </div>
                 </div>
             </div>
-            <div id="login-container" >
-                <h1 class="login title">Login</h1>
-                <form id="login-form">
-                    <label class="username-label login" for="username">Username:</label><br>
-                    <input class="username-input login" type="text" id="username-login" name="username" value="John"><br>
-                    <label class="password-label login" for="password">Password:</label><br>
-                    <input class="password-input login" type="password" id="password-login" name="password" value="Doe"><br><br>
-                    <input class="submit" type="submit" value="Login">
-                  </form>
-            </div>
-            <div id="register-container">
-                <h1 class="register title">Register</h1>
-                <form id="register-form">
-                    <label class="username-label register" for="username">Username:</label><br>
-                    <input class="username-input register" type="text" id="username-register" name="username" value="John"><br>
-                    <label class="password-label register" for="password">Password:</label><br>
-                    <input class="password-input register" type="password" id="password-register" name="password" value="Doe"><br><br>
-                    <input class="submit" type="submit" value="Register">
-                  </form>
-            </div>
-            <div id="add-task-container">
-                <h1 class="add_task title">Add Task</h1>
-                <form id="add_task-form">
-                    <label class="title-label add_task" for="title">Title:</label><br>
-                    <input class="title-input add_task" type="text" id="title-add_task" name="title" value="John"><br>
-                    <label class="category-label add_task" for="category">Category:</label><br>
-                    <input class="category-input add_task" type="category" id="category-add_task" name="password" value="Doe"><br><br>
-                    <input class="submit" type="submit" value="Add Task">
-                  </form>
-            </div>
-            <div id="cards-container">
-                <h1 class="title">Tasks </h1>
-                <div id="main-cards-container">          
-                    <div class="cards-section">
-                        <div class="card-header-div">
-                            <p class="card-header-word">Backlog</p>
-                        </div>
-                        <div id="backlog-container" style="overflow: scroll;">
-                            <div class="card-content border-radius-card h-25 w-90 card">
-                                <div class="card-image">
-                                    <i class="profpict fas fa-user-circle"></i>
-                                </div>
-                                <div class="border-radius-body card-body card-body-color" style="overflow: scroll;">
-                                  <p class="card-text">Some quick example text to </p>
-                                  <div class="card-option">
-                                      <i type="button" class="fas fa-info-circle" data-toggle="modal" data-target="#exampleModal">
-                                      </i>
-                                      <i class="fas fa-arrow-circle-left"></i>
-                                      <i class="fas fa-arrow-circle-right"></i>
-                                      <i class="fas fa-trash-alt"></i>
-                                  </div>
-                                </div>
-                            </div>
-                            
-
-                        </div>
-                        <div class="card-footer-div">
-                            <p class="card-footer-word">Add a card...</p>
-                        </div>
-                    </div>
-                    
-                    <div class="cards-section">
-                        <div class="card-header-div">
-                            <p class="card-header-word">Product</p>
-                        </div>
-                        <div id="product-container">
-                            
-                        </div>
-
-                        <div class="card-footer-div">
-                            <p class="card-footer-word">Add a card...</p>
-                        </div>
-                    </div>
-
-                    <div class="cards-section">
-                        <div class="card-header-div">
-                            <p class="card-header-word">Development</p>
-                        </div>
-                        <div id="development-container">
-                            <div class="card-content border-radius-card h-25 w-90 card">
-                                <div class="card-image">
-                                    <i class="profpict fas fa-user-circle"></i>
-                                </div>
-                                <div class="border-radius-body card-body card-body-color" style="overflow: scroll;">
-                                  <p class="card-text">Some quick example text to </p>
-                                  <div class="card-option">
-                                      <i type="button" class="fas fa-info-circle" data-toggle="modal" data-target="#exampleModal">
-                                      </i>
-                                      <i class="fas fa-arrow-circle-left"></i>
-                                      <i class="fas fa-arrow-circle-right"></i>
-                                      <i class="fas fa-trash-alt"></i>
-                                  </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer-div">
-                            <p class="card-footer-word">Add a card...</p>
-                        </div>
-
-                    </div>
-                    <div class="cards-section">
-                        <div class="card-header-div">
-                            <p class="card-header-word">Done</p>
-                        </div>
-                        <div id="done-container">   
-                            <div class="card-content border-radius-card h-25 w-90 card">
-                                <div class="card-image">
-                                    <i class="profpict fas fa-user-circle"></i>
-                                </div>
-                                <div class="border-radius-body card-body card-body-color" style="overflow: scroll;">
-                                  <p class="card-text">Some quick example text to </p>
-                                  <div class="card-option">
-                                      <i type="button" class="fas fa-info-circle" data-toggle="modal" data-target="#exampleModal">
-                                      </i>
-                                      <i class="fas fa-arrow-circle-left"></i>
-                                      <i class="fas fa-arrow-circle-right"></i>
-                                      <i class="fas fa-trash-alt"></i>
-                                  </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer-div">
-                            <p class="card-footer-word">Add a card...</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
             <div id="modal-container">  
                   <!-- Modal -->
                   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -322,8 +326,13 @@
             
         </div>
     </div>
+    <!-- bootstrap cdn -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!-- vue cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- main js -->
+    <script src="./main.js"></script>
 </body>
 </html>

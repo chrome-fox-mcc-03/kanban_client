@@ -3,6 +3,7 @@ $display-flex: flex
 %main-item
     width: 95vw
     height: 100vh
+    margin-left: 5vw
 
 %form
     width: 80%
@@ -33,8 +34,9 @@ $display-flex: flex
     margin: 0px
     padding: 0px
     box-sizing: border-box
+    font-family: 'Sen', sans-serif
 
-#main-container
+#app
     display: $display-flex
     flex-direction: row
     
@@ -47,6 +49,7 @@ $display-flex: flex
     height: 100vh
     width: 5vw
     background-color: #badfdb
+    position: fixed
 
 .navbar-item
     display: $display-flex
@@ -63,6 +66,9 @@ $display-flex: flex
 .icon
     color: #f8a978
     font-size: 1.8rem
+    
+.icon:hover
+        color: #ff5e3a
 
 .navbar-div
     height: 50%
@@ -93,6 +99,9 @@ $display-flex: flex
     flex-direction: column
     justify-content: center
     align-items: center
+    #register-word
+        padding-top: 1rem
+        cursor: pointer
 
 .username-input,.password-input
     @extend %form-input-write 
@@ -102,6 +111,7 @@ $display-flex: flex
 
 .title 
     @extend %title
+
 
 .submit
     -moz-appearance: none
@@ -251,7 +261,7 @@ $display-flex: flex
     width: 80%
 
 /* homepage style */
-#homepage-one, #homepage-two
+#homepage-one, #homepage-two, #homepage-three
     @extend %main-item
     background-color: #fcf9ea
 
@@ -271,9 +281,39 @@ $display-flex: flex
     display: flex
     flex-direction: column
     align-items: center
+    h2
+        font-size: 1.5rem
+        margin: 0px
+        padding-top: 1.5rem
+    h1
+        margin-bottom: 10px
+        padding-bottom: 1rem
+    p
+        font-size: 1rem
+        padding-bottom: 1rem
+    #terms
+        font-size: 0.5rem
+        margin: 0px
+    button
+        padding: 0.5rem
+        height: 2.4rem
+        width: 12rem
+        margin-bottom: 0.5rem
+        border-radius: 15px
+        -moz-appearance: none
+        -webkit-appearance: none
+        appearance: none
+        background-color: #ffc5a1
+        color: #2c365d
+    button:hover
+        background-color: #ff8a5c
+        color: #2c365d
 
-#terms
-    margin: 0px
+        
+    
+#img-tag-home
+    height: 90%
+
 
 .homepage
     height: 50%
@@ -282,31 +322,39 @@ $display-flex: flex
 
 .section-words
     width: 30%
-    height: 50%
+    height: 100%
 
 .section-image
-    background-size: cover
+    background-size: 75%
+    background-repeat: no-repeat
     height: 100%
     width: 70%
 
 .section-img-one
-    background-image: url("./img/organized.jpg")
+    background-image: url("./img/organized.svg")
+    background-position: left center
 
 .section-img-two
-    background-image: url("./img/teamgroup.jpg")
+    background-image: url("./img/teamwork.svg")
+    background-position: right center
 
 .section-img-three
-    background-image: url("./img/workflow.jpg")
+    background-image: url("./img/work-flow.svg")
+    background-position: left center
 
 .section
     font-size: 0.9rem
     padding: 1rem
     padding-bottom: 0rem
+    padding-top: 0rem
     margin-bottom: 5px
 
 .section-title
     padding: 20px
+    padding-bottom: 10px
+    padding-top: 10px
     margin: 0px
+    height: 20%
 
 .section-list
     padding: 20px
@@ -326,7 +374,13 @@ $display-flex: flex
     border-radius: 15px
     width: 10rem
     height: 2rem
-    padding-bottom: 20px
+    padding-bottom: 15px
+    background-color: #ffc5a1
+    color: #2c365d
+
+.section-button:hover
+        background-color: #ff8a5c
+        color: #2c365d
 
 .section-review
     display: flex
