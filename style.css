@@ -58,7 +58,7 @@ body {
 
 .column-body {
     padding-left: 12px;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 92%;
 }
 
