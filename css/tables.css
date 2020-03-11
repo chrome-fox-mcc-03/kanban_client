@@ -1,0 +1,30 @@
+.task-entry {
+    list-style-type: none;
+    border: 0.5px solid black;
+    background-color: white;
+}
+
+li:first-child {
+    font-size: larger;
+    font-weight: bold;
+    display: inline-flexbox;
+    background-color: rosybrown;
+    border: 0.5px dashed black;
+}
+
+li:nth-child(4) {
+    color:blue;
+    font-weight: bold;
+}
+
+li[data-status="pending"] {
+    color: red;
+    background-color: yellow;
+    font-weight: bold;
+    font-style: italic;
+}
+
+li[data-status="done"] {
+    color: green;
+    font-weight: bold;
+}
