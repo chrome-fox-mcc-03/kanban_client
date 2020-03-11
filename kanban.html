@@ -25,6 +25,16 @@
           </ul>
         </div>
     </nav>
+    <!-- Landing Page -->
+    <section id="page-landing">
+        <div class="container-landing">
+            <image src="/image/logo-300x100.png"></image>
+        </div>
+    </section>
+
+
+
+
     <!-- Main Page -->
     <section id="page-main">
         <div class="container">
@@ -198,17 +208,12 @@
         <div class="row">
             <form class="col s12">
                 <div class="row">
-                    <div class="input-field col s4">
-                        <i class="material-icons prefix">account_circle</i>
-                        <input id="name-login" type="text" class="validate">
-                        <label for="name-login">Name</label>
-                    </div>
-                    <div class="input-field col s4">
+                    <div class="input-field col s6">
                     <i class="material-icons prefix">email</i>
-                    <input id="Email-login" type="email" class="validate">
-                    <label for="Email-login">Email</label>
+                    <input id="email-login" type="email" class="validate">
+                    <label for="email-login">Email</label>
                     </div>
-                    <div class="input-field col s4">
+                    <div class="input-field col s6">
                         <i class="material-icons prefix">lock</i>
                         <input id="password-login" type="password" class="validate">
                         <label for="password-login">Password</label>
@@ -220,17 +225,48 @@
             </form>
           </div>
     </section>
- 
-    <a id="btn-create" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+
+    <!-- Create new card -->
+    <div id="id01" class="modal">
+        <form class="modal-content animate">
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+            </div>
+
+            <div class="container-modal">
+                <label for="title-new"><b>New Card</b></label>
+                <input type="text" placeholder="Title" name="title-new" required>     
+                <button type="submit">Create</button>
+                <!-- <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button> -->
+            </div>
+        </form>
+    </div>
+
+    <a onclick="document.getElementById('id01').style.display='block'" id="btn-create" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
   
 
+
+
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById('id01');
+        
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
     <!-- Materialize CSS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- jQuery library -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- Popper JS -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
     <!-- Latest compiled JavaScript -->
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+    <script src="index.js"></script>
 </body>
 </html>
