@@ -17,7 +17,7 @@
                     <li><i @click="changePage('loginDisplay')" class="icon fas fa-sign-in-alt"></i></li>
                     <li><i @click="changePage('homepageDisplay')" class="icon fas fa-home"></i></li>
                     <li><i  @click="changePage('addTaskDisplay')" class="icon fas fa-plus-square"></i></li>
-                    <li><i @click="changePage('cardsDisplay')" class="icon far fa-list-alt"></i></li>
+                    <li><i @click="fetchCards()" class="icon far fa-list-alt"></i></li>
                     <li>#navbar4</li>
                     <li>#navbar5</li>
                 </ul>
@@ -32,23 +32,23 @@
             <div v-if="currentPage == 'cardsDisplay'" id="cards-container">
                 <h1 class="title">Tasks </h1>
                 <div id="main-cards-container">          
-                    <div class="cards-section">
+                    <div v-for="category in categories" class="cards-section">
                         <div class="card-header-div">
-                            <p class="card-header-word">Backlog</p>
+                            <p class="card-header-word">{{ category }}</p>
                         </div>
                         <div id="backlog-container" style="overflow: scroll;">
-                            <div class="card-content border-radius-card h-25 w-90 card">
+                            <div v-for="el in onCategory(category, cards)" :key="el.id" class="card-content border-radius-card h-25 w-90 card">
                                 <div class="card-image">
                                     <i class="profpict fas fa-user-circle"></i>
                                 </div>
                                 <div class="border-radius-body card-body card-body-color" style="overflow: scroll;">
-                                  <p class="card-text">Some quick example text to </p>
+                                  <p class="card-text">{{ el.title }}</p>
                                   <div class="card-option">
-                                      <i type="button" class="fas fa-info-circle" data-toggle="modal" data-target="#exampleModal">
+                                      <i @click="showDetail(el)" type="button" class="fas fa-info-circle" data-toggle="modal" data-target="#exampleModal">
                                       </i>
-                                      <i type="button" class="fas fa-arrow-circle-left"></i>
-                                      <i type="button" class="fas fa-arrow-circle-right"></i>
-                                      <i type="button" class="fas fa-trash-alt"></i>
+                                      <i @click="updateArrow(el, -1)" v-if="!el.firstIndex || el.lastIndex" type="button" class="fas fa-arrow-circle-left"></i>
+                                      <i @click="updateArrow(el, 1)" v-if="!el.lastIndex || el.firstIndex" type="button" class="fas fa-arrow-circle-right"></i>
+                                      <i @click="deleteTask(el)" type="button" class="fas fa-trash-alt"></i>
                                   </div>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     
-                    <div class="cards-section">
+                    <!-- <div class="cards-section">
                         <div class="card-header-div">
                             <p class="card-header-word">Product</p>
                         </div>
@@ -123,40 +123,49 @@
                         <div class="card-footer-div">
                             <p class="card-footer-word">Add a card...</p>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>
             
             <div v-else-if="currentPage == 'loginDisplay'" id="login-container" >
                 <h1 class="login title">Login</h1>
-                <form @submit.prevent="authenticate()" id="login-form">
-                    <label class="username-label login" for="username">Username:</label><br>
-                    <input v-model="userLogin.username" class="username-input login" type="text" id="username-login" name="username" ><br>
+                <form @submit.prevent="login()" id="login-form">
+                    <label class="email-label login" for="email">Email:</label><br>
+                    <input v-model="userData.email" class="email-input login" type="text" id="email-login" name="email" ><br>
                     <label class="password-label login" for="password">Password:</label><br>
-                    <input v-model="userLogin.password" class="password-input login" type="password" id="password-login" name="password"><br><br>
+                    <input v-model="userData.password" class="password-input login" type="password" id="password-login" name="password"><br><br>
                     <input class="submit" type="submit" value="Login">
                     <a id="register-word" @click="changePage('registerDisplay')">Doesn't have an account yet? Register here</a>
                   </form>
             </div>
             <div v-else-if="currentPage == 'registerDisplay'" id="register-container">
-                <h1 class="register title">Register</h1>
-                <form @submit.prevent="getLogin()" id="register-form">
-                    <label class="username-label register" for="username">Username:</label><br>
-                    <input v-model="userRegister.username" class="username-input register" type="text" id="username-register" name="username" ><br>
+                <h1 class=" title">Register</h1>
+                <form @submit.prevent="register()" id="register-form">
+                    <label class="first_name-label register" for="first_name">First Name:</label><br>
+                    <input v-model="userData.first_name" class="first_name-input register" type="text" id="first_name-register" name="first_name" ><br>
+                    <label class="last_name-label register" for="last_name">Last Name:</label><br>
+                    <input v-model="userData.last_name" class="last_name-input register" type="last_name" id="last_name-register" name="last_name"><br><br>
+                    <label class="email-label register" for="email">Email:</label><br>
+                    <input v-model="userData.email" class="email-input register" type="text" id="email-register" name="email" ><br>
                     <label class="password-label register" for="password">Password:</label><br>
-                    <input v-model="userRegister.password" class="password-input register" type="password" id="password-register" name="password"><br><br>
-                    <input class="submit" type="submit" value="Register">
-                  </form>
-                
+                    <input v-model="userData.password" class="password-input register" type="password" id="password-register" name="password"><br><br>
+                    <label class="role-label register" for="role">Role:</label><br>
+                    <select v-model="userData.role" class="role-input" id="role">
+                        <option value="">---Select---</option>
+                        <option value="admin">Admin</option>
+                        <option value="staff">Staff</option>
+                    </select>
+                    <input id="submit-register" class="submit" type="submit" value="Register">
+                  </form>     
             </div>
             <div v-else-if="currentPage == 'addTaskDisplay'" id="add-task-container">
                 <h1 class="add_task title">Add Task</h1>
-                <form id="add_task-form">
+                <form @submit.prevent="addTask()" id="add_task-form">
                     <label class="title-label add_task" for="title">Title:</label><br>
-                    <input class="title-input add_task" type="text" id="title-add_task" name="title" value="John"><br>
+                    <input v-model="taskData.title" class="title-input add_task" type="text" id="title-add_task" name="title" ><br>
                     <label class="category-label add_task" for="category">Category:</label><br>
-                    <input class="category-input add_task" type="category" id="category-add_task" name="password" value="Doe"><br><br>
+                    <input v-model="taskData.category" class="category-input add_task" type="category" id="category-add_task" name="password" ><br><br>
                     <input class="submit" type="submit" value="Add Task">
                   </form>
             </div>
@@ -299,7 +308,7 @@
                       <div class="modal-content">
                         <div class="modal-header">
                           <i id="profpict-modal" class="profpict fas fa-user-circle"></i>
-                          <h5 class="modal-title" id="exampleModalLabel"> Some quick example text to</h5>
+                          <h5 class="modal-title" id="exampleModalLabel"> {{ taskDetail.title }}</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -313,9 +322,9 @@
                             <div id="card-detail-icon" class="card-option">
                               <i type="button" class="fas fa-info-circle" data-toggle="modal" data-target="#exampleModal">
                               </i>
-                              <i class="fas fa-arrow-circle-left"></i>
-                              <i class="fas fa-arrow-circle-right"></i>
-                              <i class="fas fa-trash-alt"></i>
+                              <i @click="updateArrow(taskDetail, -1)" v-if="!taskDetail.firstIndex || taskDetail.lastIndex" type="button" class="fas fa-arrow-circle-left"></i>
+                              <i @click="updateArrow(taskDetail, 1)" v-if="!taskDetail.lastIndex || taskDetail.firstIndex" type="button" class="fas fa-arrow-circle-right"></i>
+                              <i @click="deleteTask(taskDetail)" type="button" class="fas fa-trash-alt" data-dismiss="modal"></i>
                           </div>
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
@@ -330,6 +339,8 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!-- axios cdn -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- vue cdn -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- main js -->

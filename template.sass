@@ -103,15 +103,22 @@ $display-flex: flex
         padding-top: 1rem
         cursor: pointer
 
-.username-input,.password-input
+.email-input,.password-input,.first_name-input,.last_name-input,.role-input
     @extend %form-input-write 
 
-.username-label, .password-label
+.email-label, .password-label,.first_name-label,.last_name-label,.role-label
     @extend %form-label
 
 .title 
     @extend %title
 
+.register
+    padding: 0px
+    margin: 0px
+    font-size: 1rem
+
+#register-form
+    overflow: scroll
 
 .submit
     -moz-appearance: none
@@ -123,6 +130,7 @@ $display-flex: flex
     cursor: pointer
     background-color: #ffc5a1
     color: #2c365d
+    margin-top: 10px
 
 .submit:hover
     background-color: #ff8a5c

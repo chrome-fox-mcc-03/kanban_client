@@ -9,7 +9,7 @@
   height: 80%;
 }
 
-.title-input, .category-input, .username-input, .password-input {
+.title-input, .category-input, .email-input, .password-input, .first_name-input, .last_name-input, .role-input {
   width: 60%;
   height: 30px;
   background-color: #fcf9ea;
@@ -18,7 +18,7 @@
   color: #2c365d;
 }
 
-.title-label, .category-label, .username-label, .password-label {
+.title-label, .category-label, .email-label, .password-label, .first_name-label, .last_name-label, .role-label {
   font-size: 1.8rem;
 }
 
@@ -113,6 +113,16 @@
   cursor: pointer;
 }
 
+.register {
+  padding: 0px;
+  margin: 0px;
+  font-size: 1rem;
+}
+
+#register-form {
+  overflow: scroll;
+}
+
 .submit {
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -123,6 +133,7 @@
   cursor: pointer;
   background-color: #ffc5a1;
   color: #2c365d;
+  margin-top: 10px;
 }
 
 .submit:hover {
