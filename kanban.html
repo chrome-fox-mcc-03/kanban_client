@@ -10,183 +10,180 @@
     <script src="https://kit.fontawesome.com/d979fc4f1d.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div id="login-page">
-        <div class="container" id="container">
-            <div class="form-container sign-up-container">
-                <form class="log-form" action="#">
-                    <h1>Create Account</h1>
-                    <div class="social-container">
-                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                    <span>or use your email for registration</span>
-                    <input type="text" placeholder="Name" />
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                    <button>Sign Up</button>
-                </form>
-            </div>
-            <div class="form-container sign-in-container">
-                <form class="log-form" action="#">
-                    <h1>Sign in</h1>
-                    <div class="social-container">
-                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                    </div>
-                    <span>or use your account</span>
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                    <div class="signin-buttons">
-                        <button>Sign In</button>
-                    </div>
-                </form>
-            </div>
-            <div class="overlay-container">
-                <div class="overlay">
-                    <div class="overlay-panel overlay-left">
-                        <h1>Welcome Back!</h1>
-                        <p>To keep connected with us please login with your personal info</p>
-                        <button class="ghost" id="signIn">Sign In</button>
-                    </div>
-                    <div class="overlay-panel overlay-right">
-                        <h1>Get Started!</h1>
-                        <p>Start journey with us and level up your way of organizing tasks</p>
-                        <button class="ghost" id="signUp">Sign Up</button>
+    <div id="app">
+        <!-- <div class="kanban-card" :class="{ act: isActive }">hehehe</div> -->
+        <!-- :class="{ right-panel-active: !isActive }" -->
+        <div id="login-page" v-if="!isAuthenticated">
+            <div class="container" id="container">
+                <div class="form-container sign-up-container">
+                    <form class="log-form" action="#">
+                        <h1>Create Account</h1>
+                        <input type="text" placeholder="Name" />
+                        <input type="email" placeholder="Email" />
+                        <input type="password" placeholder="Password" />
+                        <button @click="authenticate()">Sign Up</button>
+                    </form>
+                </div>
+                <div class="form-container sign-in-container">
+                    <form class="log-form" action="#">
+                        <h1>Sign in</h1>
+                        <div class="social-container">
+                            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                        </div>
+                        <span>or use your account</span>
+                        <input type="email" placeholder="Email" />
+                        <input type="password" placeholder="Password" />
+                        <div class="signin-buttons">
+                            <button @click="authenticate()">Sign In</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="overlay-container">
+                    <div class="overlay">
+                        <div class="overlay-panel overlay-left">
+                            <h1>Welcome Back!</h1>
+                            <p>To keep connected with us please login with your personal info</p>
+                            <button class="ghost" id="signIn">Sign In</button>
+                        </div>
+                        <div class="overlay-panel overlay-right">
+                            <h1>Get Started!</h1>
+                            <p>Start journey with us and level up your way of organizing tasks</p>
+                            <button class="ghost" id="signUp">Sign Up</button>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    
+        <div id="main-page" v-else>
+            <div class="navbar">
+                <div></div>
+                <div id="app-title">
+                    <img src="kanban-logo-simple (1).png" alt="">
+                </div>
+                <div class="account">
+                    <div id="account-letter">
+                        E
+                    </div>
+                    <div @click="signOut()" class="account-menu">
+                        <p>Sign Out</p>
+                    </div>
+                </div>
+            </div>
+            <div class="main-space">
+                <div class="kanban-card">
+                    <div class="title-and-act">
+                        <div class="card-title">Backlog</div>
+                        <div v-for="backlog in backlogs" :key="backlog.id" class="act" @click="showEditForm()">
+                            <p>{{ backlog.title }}</p>
+                            <!-- right button -->
+                            <div class="option-space">
+                                <i class="fas fa-angle-right fa-sm"></i>
+                            </div>
+                            <!-- right button -->
+                        </div>
+                    </div>
+                    <div class="add-div">
+                        <form @submit.prevent="addNewAct()" class="add-act">
+                            <input v-model="newActivity" type="text" placeholder="New Activity">
+                        </form>
+                    </div>
+                </div>
+                <div class="kanban-card">
+                    <div class="title-and-act">
+                        <div class="card-title">On Progress</div>
+                        <div class="act">
+
+                            <!-- left button -->
+                            <div class="option-space">
+                                <i class="fas fa-angle-left fa-sm"></i>
+                            </div>
+                            <!-- left button -->
+
+                            <!-- activity title -->
+                            <p style="color: orange;">Dummy</p>
+                            <!-- activity title -->
+
+                            <!-- right button -->
+                            <div class="option-space">
+                                <i class="fas fa-angle-right fa-sm"></i>
+                            </div>
+                            <!-- right button -->
+
+                        </div>
+                    </div>
+                </div>
+                <div class="kanban-card">
+                    <div class="title-and-act">
+                        <div class="card-title">Needs Review</div>
+                        <div class="act">
+                        
+                            <!-- left button -->
+                            <div class="option-space">
+                                <i class="fas fa-angle-left fa-sm"></i>
+                            </div>
+                            <!-- left button -->
+
+                            <!-- activity title -->
+                            <p style="color: orange;">Dummy</p>
+                            <!-- activity title -->
+
+                            <!-- right button -->
+                            <div class="option-space">
+                                <i class="fas fa-angle-right fa-sm"></i>
+                            </div>
+                            <!-- right button -->
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="kanban-card">
+                    <div class="title-and-act">
+                        <div class="card-title">Finished</div>
+                        <div class="act">
+
+                            <!-- activity title -->
+                            <p style="color: orange;">Dummy</p>
+                            <!-- activity title -->
+                            
+                            <!-- left button -->
+                            <div class="option-space">
+                                <i class="fas fa-angle-left fa-sm"></i>
+                            </div>
+                            <!-- left button -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div id="edit-form" v-if="wannaEdit">
+            <div class="card-form">
+                <form class="signup">
+                  <div class="form-title">Edit</div>
+                  <div class="form-body">
+                    <div class="row">
+                      <input type="text" placeholder="Title">
+                    </div>
+                    <div class="row">
+                      <input type="text" placeholder="Category">
+                    </div>
+                  </div>
+                  <div class="rule"></div>
+                  <div class="form-footer">
+                    <a>Save</a>
+                    <a id="cancelEdit" @click="backToMainPage()">Cancel</a>
+                    <a>Delete</a>
+                  </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <div id="main-page">
-        <div class="navbar">
-            <div></div>
-            <div id="app-title">
-                <img src="kanban-logo-simple (1).png" alt="">
-            </div>
-            <div class="account">
-                <div id="account-letter">
-                    E
-                </div>
-                <div class="account-menu">
-                    <p>LOGOUT</p>
-                </div>
-            </div>
-        </div>
-        <div class="main-space">
-            <div class="kanban-card">
-                <div class="title-and-act">
-                    <div class="card-title">Backlog</div>
-                    <div class="act">
-                        <p>Plan holiday trip</p>
-                        <!-- option button -->
-                        <div id="drop-btn" class="option-space" onclick="displayMenu()">
-                            <i class="fas fa-ellipsis-v fa-sm"></i>
-                            <div class="option-menus">
-                                <i class="fas fa-angle-right"></i>
-                                <i class="fas fa-angle-left"></i>
-                                <i class="fas fa-trash"></i>
-                                <i class="fas fa-pen-square"></i>
-                            </div>
-                        </div>
-                        <!-- option button -->
-                    </div>
-                    <div class="act">
-                        <p>Upload Article</p>
-                        <div id="drop-btn" class="option-space" onclick="displayMenu()">
-                            <i class="fas fa-ellipsis-v fa-sm"></i>
-                            <div class="option-menus">
-                                <i class="fas fa-angle-right"></i>
-                                <i class="fas fa-angle-left"></i>
-                                <i class="fas fa-trash"></i>
-                                <i class="fas fa-pen-square"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="act">
-                        <p>Feed your cat</p>
-                        <div id="drop-btn" class="option-space" onclick="displayMenu()">
-                            <i class="fas fa-ellipsis-v fa-sm"></i>
-                            <div class="option-menus">
-                                <i class="fas fa-angle-right"></i>
-                                <i class="fas fa-angle-left"></i>
-                                <i class="fas fa-trash"></i>
-                                <i class="fas fa-pen-square"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="add-div">
-                    <form class="add-act">
-                        <input type="text" placeholder="New Activity">
-                    </form>
-                </div>
-            </div>
-            <div class="kanban-card">
-                <div class="title-and-act">
-                    <div class="card-title">On Progress</div>
-                    <div class="act"><p>February interview report</p></div>
-                    <div class="act"><p>Recruit new member</p></div>
-                </div>
-                <div class="add-div">
-                    <form class="add-act">
-                        <input type="text" placeholder="New Activity">
-                    </form>
-                </div>
-            </div>
-            <div class="kanban-card">
-                <div class="title-and-act">
-                    <div class="card-title">Needs Review</div>
-                    <div class="act"><p>Book flight to Vietnam</p></div>
-                    <div class="act"><p>Make soup</p></div>
-                    <div class="act"><p>Get a new haircut</p></div>
-                    <div class="act"><p>Read Narnia</p></div>
-                    <div class="act"><p>Make dentist appointment</p></div>
-                    <div class="act"><p>Pay electricity bill</p></div>
-                    <div class="act"><p>Reserve Coachella ticket</p></div>
-                    <div class="act"><p>Check Youtube comments</p></div>
-                </div>
-                <div class="add-div">
-                    <form class="add-act">
-                        <input type="text" placeholder="New Activity">
-                    </form>
-                </div>
-            </div>
-            <div class="kanban-card">
-                <div class="title-and-act">
-                    <div class="card-title">Finished</div>
-                    <div class="act"><p>Reply tweets</p></div>
-                    <div class="act"><p>January interview report</p></div>
-                </div>
-                <div class="add-div">
-                    <form class="add-act">
-                        <input type="text" placeholder="New Activity">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="edit-form">
-        <div class="card-form">
-            <form class="signup">
-              <div class="form-title">Edit</div>
-              <div class="form-body">
-                <div class="row">
-                  <input type="text" placeholder="Title">
-                </div>
-                <div class="row">
-                  <input type="text" placeholder="Category">
-                </div>
-              </div>
-              <div class="rule"></div>
-              <div class="form-footer">
-                <a>Save</a>
-                <a>Cancel</a>
-              </div>
-            </form>
-        </div>
-    </div>
+    <!-- CDN VUE -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="index.js"></script>
 </body>

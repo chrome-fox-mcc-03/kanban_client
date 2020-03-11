@@ -20,8 +20,7 @@ body {
 	align-items: center;
 	flex-direction: column;
 	font-family: 'Nunito', sans-serif;
-	height: 100vh;
-	margin: -20px 0 50px;
+    margin: -20px 0 50px;
     h1 {
         font-weight: bold;
         margin: 0;
@@ -296,7 +295,7 @@ body {
     display: none;
     // position: absolute;
     background-color: rgba(239,131,84,1);
-    // min-width: 160px;
+    min-width: 300px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 12px 16px;
     z-index: 1;
@@ -401,7 +400,7 @@ body {
 }
 
 .option-menus {
-    display: none;
+    // display: none;
     position: absolute;
     background-color: rgb(239,131,84);
     // min-width: 160px;
@@ -511,6 +510,13 @@ body {
             span{
                 margin-left: 8px;
             }
+        }
+
+        #cancelEdit {
+            cursor: pointer;
+            &:hover {
+                background-color: green;
+            };
         }
     
     }

@@ -1,15 +1,60 @@
+let app = new Vue({
+    el: '#app',
+    data: {
+        testmsg: '>>>>VUE<<<<',
+        isAuthenticated: false,
+        wannaEdit: false,
+        signUp: false,
+        isActive: true,
+        backlogs: [
+            {id: 1, title: 'Book flight to Vietnam', category: 'backlog'},
+            {id: 2, title: 'Recruit new member', category: 'backlog'},
+            {id: 3, title: 'Read Narnia', category: 'backlog'},
+            {id: 4, title: 'Make dentist appointment', category: 'backlog'},
+            {id: 5, title: "Reply followers' tweets", category: 'backlog'},
+        ],
+        newActivity: '',
+    },
+    methods: {
+        authenticate: function() {
+            this.isAuthenticated = true
+        },
+        signOut: function() {
+            this.isAuthenticated = !this.isAuthenticated
+        },
+        slide: function() {
 
-function displayMenu() {
-    document.querySelector(".option-menus").classList.toggle("show");
-}
-
-window.onclick = function(event) {
-    if (!event.target.matches('.option-space')) {
-        if (document.querySelector(".option-menus").classList.contains('show')) {
-            document.querySelector(".option-menus").classList.remove('show');
+        },
+        addNewAct: function() {
+            console.log('new act!');
+            this.backlogs.push({
+                id: 6,
+                title: this.newActivity,
+                category: 'Backlog'
+            })
+        },
+        showEditForm: function() {
+            console.log('edit!!!');
+            this.wannaEdit = true
+        },
+        backToMainPage: function() {
+            console.log('back to main please');
         }
     }
-}
+})
+
+
+// function displayMenu() {
+//     document.querySelector(".option-menus").classList.toggle("show");
+// }
+
+// window.onclick = function(event) {
+//     if (!event.target.matches('.option-space')) {
+//         if (document.querySelector(".option-menus").classList.contains('show')) {
+//             document.querySelector(".option-menus").classList.remove('show');
+//         }
+//     }
+// }
 
 const signUpButton = document.getElementById('signUp');
 const signInButton = document.getElementById('signIn');
