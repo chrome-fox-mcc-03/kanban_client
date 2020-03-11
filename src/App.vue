@@ -6,9 +6,12 @@
 
       <LoginPanel
         v-if="currentPage === 'login'"
+        @changePage="changePage"
         ></LoginPanel>
+
       <RegisterPanel
         v-if="currentPage === 'register'"
+        @changePage="changePage"
         ></RegisterPanel>
   </div>
 </template>
@@ -23,13 +26,18 @@ export default {
     name: "App",
     data() {
         return {
-            currentPage : 'dashboard'
+            currentPage : 'login'
         }
     },
     components: {
         Dashboard,
         LoginPanel,
         RegisterPanel
+    },
+    methods: {
+      changePage(status) {
+        this.currentPage = status
+      }
     }
 }
 </script>

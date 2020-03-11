@@ -1,5 +1,8 @@
 <template>
-    <div class="modal-dialog text-center">
+    <div 
+    class="modal-dialog text-center"
+    @submit.prevent="register"
+    >
         <div class="col-sm-20 main-section">
             <div class="modal-content">
                 <div class="col-12 user-img">
@@ -9,10 +12,10 @@
                     <form >
                         <h1>REGISTER</h1>
                         <div class="form-group">
-                          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" aria-describedby="emailHelp">
+                          <input type="email" class="form-control" placeholder="Email" aria-describedby="emailHelp" v-model="emailRegister">
                         </div>
                         <div class="form-group">
-                          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                          <input type="password" class="form-control" placeholder="Password" v-model="passwordRegister">
                         </div>
                         
                         <a href="#">Register</a>
@@ -25,8 +28,38 @@
 </template>
 
 <script>
+import axiosKanban from '../config'
 export default {
-    name: 'RegisterPanel'
+    name: 'RegisterPanel',
+    data() {
+        return {
+            emailRegister: "",
+            passwordRegister: ""
+        }
+    },
+    methods: {
+        register(){
+            let userRegister = {
+                email : this.emailRegister,
+                password : this.passwordRegister
+            }
+            console.log('masuk register');
+            
+
+            axiosKanban({
+                method: 'POST',
+                url: '/register',
+                data: userRegister
+            })
+                .then(user => {
+                    this.$emit('changePage', 'login')
+                })
+                .catch(err => {
+                    console.log('masuk errorrr')
+                    console.log(err)
+                })
+        }
+    }
 }
 </script>
 
