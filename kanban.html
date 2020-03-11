@@ -19,15 +19,15 @@
             <div class="nav-wrapper">
             <a v-on:click="changePage('landingPage')" href="#" id="logo" class="brand-logo"><image src="image/logo.png"></image></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li v-if="!isLogin" v-on:click="changePage('regisPage')" ><a id="btn-register" href="#">Register</a></li>
-                <li v-if="!isLogin" v-on:click="changePage('loginPage')" ><a id="btn-login" href="#">Login</a></li>
-                <li v-if="isLogin"><a id="btn-logout" href="#">Logout</a></li>
-                <li v-if="isLogin"><image id="avatar" src="image/avatar-sample.png"></image></li>
+                <li v-if="!userData.isLogin" v-on:click="changePage('regisPage')" ><a id="btn-register" href="#">Register</a></li>
+                <li v-if="!userData.isLogin" v-on:click="changePage('loginPage')" ><a id="btn-login" href="#">Login</a></li>
+                <li v-if="userData.isLogin" v-on:click="logout()"><a id="btn-logout" href="#">Logout</a></li>
+                <li v-if="userData.isLogin"><image id="avatar" :src="userData.avatarUrl"></image></li>
             </ul>
             </div>
         </nav>
         <!-- Landing Page -->
-        <section v-if="!isLogin && currentPage == 'landingPage'" id="page-landing">
+        <section v-if="!userData.isLogin && currentPage == 'landingPage'" id="page-landing">
     
             <div class="container-landing">
                 <div class="col s1">
@@ -51,7 +51,7 @@
 
 
         <!-- Main Page -->
-        <section v-if="isLogin" id="page-main">
+        <section v-if="userData.isLogin" id="page-main">
             <div class="container">
                 <!-- Container per column/phase -->
                 <div class="column-container">
@@ -154,7 +154,7 @@
         </section>
 
         <!-- Registration Page -->
-        <section  v-if="!isLogin && currentPage == 'regisPage'" id="page-register">
+        <section  v-if="!userData.isLogin && currentPage == 'regisPage'" id="page-register">
             <h1>Registration Form</h1>
             <div class="row">
                 <form @submit.prevent="register()" class="col s12">
@@ -185,7 +185,7 @@
         <br>
 
         <!-- Login Page -->
-        <section v-if="!isLogin && currentPage == 'loginPage'" id="page-login">
+        <section v-if="!userData.isLogin && currentPage == 'loginPage'" id="page-login">
             <h1>Login Form</h1>
             <div class="row">
                 <form @submit.prevent="login()" class="col s12">
@@ -208,6 +208,9 @@
             </div>
         </section>
     </div>
+
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- Vue JS -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- Materialize CSS -->

@@ -1,12 +1,15 @@
+const baseUrl = 'http://localhost:3000'
+
 const app = new Vue ({
     el : '#app',
     data : {
-        isLogin : false,
         currentPage : 'landingPage',
         userData : {
             name : '',
             email : '',
             password : '',
+            avatarUrl : '',
+            isLogin : false
         },
         tasks : [
             {
@@ -46,18 +49,65 @@ const app = new Vue ({
         changePage (page) {
             this.currentPage = page 
         },
-        login() {
-            if (this.userData.password == 'secret') {
-                this.isLogin = true
-            } else {
-                this.isLogin = false
-            }
-        },
         register () {
-            console.log(this.userData.name);
-            console.log(this.userData.email);
-            console.log(this.userData.password);
-        }
+            const name = this.userData.name;
+            const email = this.userData.email;
+            const password = this.userData.password;
 
+            axios({
+                method : 'post',
+                url : baseUrl+'/users/register',
+                data : {
+                    name,
+                    email,
+                    password
+                }
+            })
+                .then(({data})=>{
+                    const access_token = data.access_token ;
+                    localStorage.setItem('access_token', access_token) ;
+                    localStorage.setItem('avatar', data.access_avatarUrl ) ;
+                    this.userData.avatarUrl = localStorage.getItem('avatar') ;
+                    this.userData.isLogin = true ;
+
+                })
+                .catch((error)=>{
+                    console.log(error.response.data.errorMessage);
+                })
+        },
+        login() {
+            const email = this.userData.email;
+            const password = this.userData.password;
+
+            axios({
+                method : 'post',
+                url : baseUrl+'/users/login',
+                data : {
+                    email,
+                    password
+                }
+            })
+                .then(({data})=>{
+                    const access_token = data.access_token ; 
+                    localStorage.setItem('access_token', access_token) ;
+                    localStorage.setItem('avatar', data.access_avatarUrl ) ;
+                    this.userData.avatarUrl = localStorage.getItem('avatar') ;
+                    this.userData.isLogin = true ;
+                })
+                .catch((error)=>{
+                    console.log(error.response.data.errorMessage);
+                })
+        },
+        logout(){
+            localStorage.clear() ;
+            this.userData.isLogin = false ;
+        }
+    },
+    created(){
+        const access_token = localStorage.getItem('access_token') ;
+        if (access_token) {
+            this.userData.isLogin = true
+            this.userData.avatarUrl = localStorage.getItem('avatar') ;
+        }
     }
 })
