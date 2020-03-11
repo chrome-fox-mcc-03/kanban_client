@@ -14,8 +14,35 @@ let app = new Vue({
             {id: 5, title: "Reply followers' tweets", category: 'backlog'},
         ],
         newActivity: '',
+        // for signing up ---------
+        userData: {
+            regName: '',
+            regEmail: '',
+            regPassword: ''
+        }
+        // ------------------------
     },
     methods: {
+        createNewUser: function() {
+            const name = this.userData.regName;
+            const email = this.userData.regEmail;
+            const password = this.userData.regPassword;
+
+            axios.post('http://localhost:3000/signup',
+                {
+                    name,
+                    email,
+                    password
+                })
+                    .then(access_token => {
+                        console.log(access_token.data.access_token);
+                        localStorage.setItem('access_token', access_token.data.access_token);
+                        this.isAuthenticated = true
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+        },
         authenticate: function() {
             this.isAuthenticated = true
         },
