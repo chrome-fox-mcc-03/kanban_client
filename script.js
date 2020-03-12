@@ -4,7 +4,7 @@ const app = new Vue({
     el: '#app', 
     data: {
       status: {
-        args: false,
+        args: false, 
         loggedIn: {
             onPage: 'dashboard-home',
             show: ''
