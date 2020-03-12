@@ -9,38 +9,29 @@
         <!-- Registration Page -->
         <registration-page @register="register" v-if="!userData.isLogin && currentPage == 'regisPage'"></registration-page>
 
-        <div>
-            <h1 v-if="userData.isLogin" >haiiii</h1>
-        </div>
-
         <!-- Login Page -->
         <login-page @login="login" v-if="!userData.isLogin && currentPage == 'loginPage'" ></login-page>
-
-        <!-- <section v-if="!userData.isLogin && currentPage == 'loginPage'" id="page-login">
-            <h1>Login Form</h1>
+        
+        <!-- Main Page -->
+        <div v-if="userData.isLogin" >
             <div class="row">
-                <form @submit.prevent="login()" class="col s12">
+                <form @submit.prevent="createTask()" class="col s12">
                     <div class="row">
                         <div class="input-field col s6">
-                            <i class="material-icons prefix">email</i>
-                            <input v-model="userData.email" id="email-login" type="email" class="validate">
-                            <label for="email-login">Email</label>
+                            <i class="material-icons prefix">assignment</i>
+                            <input v-model="newTaskTitle" id=task-title-create" type="text" class="validate">
+                            <label for=task-title-create">New Task</label>
                         </div>
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix">lock</i>
-                            <input v-model="userData.password" id="password-login" type="password" class="validate">
-                            <label for="password-login">Password</label>
-                        </div>
+                        <button class="btn-floating btn-medium waves-effect waves-light red" type="submit" name="action">
+                        <i class="material-icons">add</i>
+                        </button>
                     </div>
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Login
-                        <i class="material-icons right">send</i>
-                    </button>
-                    <br>
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
                 </form>
             </div>
-        </section> -->
-
+            <div class="container">
+                <task-list v-for="(taskCategory, index) in taskCategories" :key="index" :taskCategory="taskCategory" :tasks="tasks"></task-list>      
+            </div>
+        </div>
     </div>
 </template>
 
@@ -50,6 +41,9 @@ import NavigationBar from './components/NavigationBar.vue'
 import LandingPage from './components/LandingPage.vue'
 import RegistrationPage from './components/RegistrationPage.vue'
 import LoginPage from './components/LoginPage.vue'
+import TaskList from './components/TaskList.vue'
+
+
 export default {
     name : 'Kanban',
     data () {
@@ -62,19 +56,23 @@ export default {
                 avatarUrl : '',
                 isLogin : false
             },
-            task : []
+            tasks : [],
+            taskCategories : ['backlog', 'todo', 'done', 'completed'],
+            newTaskTitle : ''
         }
     },
     components : {
         NavigationBar,
         LandingPage,
         RegistrationPage,
-        LoginPage
+        LoginPage,
+        TaskList
     },
     created(){
         const access_token = localStorage.getItem('access_token') ;
         if (access_token) {
             this.userData.isLogin = true
+            this.fetchData()
             this.userData.avatarUrl = localStorage.getItem('avatar') ;
         }
     },
@@ -102,6 +100,7 @@ export default {
                     localStorage.setItem('avatar', data.access_avatarUrl ) ;
                     this.userData.avatarUrl = localStorage.getItem('avatar') ;
                     this.userData.isLogin = true ;
+                    this.fetchData()
 
                 })
                 .catch((error)=>{
@@ -127,6 +126,7 @@ export default {
                     localStorage.setItem('avatar', data.access_avatarUrl ) ;
                     this.userData.avatarUrl = localStorage.getItem('avatar') ;
                     this.userData.isLogin = true ;
+                    this.fetchData()
                 })
                 .catch((error)=>{
                     console.log(error.response.data.errorMessage);
@@ -135,8 +135,51 @@ export default {
         logout(){
             localStorage.clear() ;
             this.userData.isLogin = false ;
-            changePage('landingPage')
+            this.changePage('landingPage') ;
+        },
+
+        fetchData () {
+            axios({
+                method : 'get',
+                url : `http://localhost:3000/tasks/`,
+                headers : {
+                    access_token : localStorage.getItem('access_token')
+                }
+            })
+                .then(({data})=>{
+                    this.tasks = data.data
+                })
+
+                .catch ((error)=>{
+                    console.log(error.response.data.errorMessage);
+                })
+
+        },
+        createTask(){
+            const title = this.newTaskTitle ; 
+
+            axios({
+                method : 'post',
+                url : 'http://localhost:3000/tasks',
+                data : {
+                    title
+                },
+                headers : {
+                    access_token : localStorage.getItem('access_token')
+                }
+            })
+                .then(({data})=> {
+                    this.fetchData()
+                    this.newTaskTitle = ''
+
+                })
+                .catch((error)=>{
+                    console.log(error.response.data.errorMessage);                    
+                })
+
         }
+
+
     }
 }
 </script>
