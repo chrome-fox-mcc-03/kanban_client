@@ -18,7 +18,7 @@
                           <input type="password" class="form-control" placeholder="Password" v-model="passwordRegister">
                         </div>
                         
-                        <a href="#">Register</a>
+                        <a @click="login" href="#">Login</a>
                         <button type="submit" class="btn btn-success">Submit</button>
                     </form>
                 </div>
@@ -38,6 +38,9 @@ export default {
         }
     },
     methods: {
+        login(){
+            this.$emit('changePage', 'login')
+        },
         register(){
             let userRegister = {
                 email : this.emailRegister,
