@@ -13,19 +13,11 @@ let app = new Vue({
                 if (this.password == '123456') {
                     this.isLogin = true
                 }
-
             } else {
-
             }
         },
         logout() {
             this.isLogin = false
-        },
-        registerBtn() {
-            this.registerView = true
-        },
-        loginBtn() {
-            this.registerView = false
         }
 
     }
