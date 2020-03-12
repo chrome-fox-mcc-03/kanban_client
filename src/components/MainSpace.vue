@@ -1,6 +1,6 @@
 <template>
     <div class="main-space">
-        <KanbanCard v-for="(kanbanCard, i) in kanbanCards" :key="i" :category="kanbanCard"></KanbanCard>
+        <KanbanCard v-for="(kanbanCard, i) in kanbanCards" :key="i" :category="kanbanCard" :activities="activities"></KanbanCard>
         <!-- <KanbanCard></KanbanCard> -->
     </div>
 </template>
@@ -12,7 +12,7 @@ export default {
     data: function() {
         return {
             kanbanCards: [ 'Backlog', 'On Progress', 'Needs Review', 'Finished' ],
-            activities: []
+            activities: [] //nge-bind nya dimana terus biar bisa diprops di MainSpace --> KanbanCard --> Act
         }
     },
     methods: {
@@ -28,7 +28,7 @@ export default {
         }
     },
     created() {
-        fetchActivities();
+        this.fetchActivities();
     },
     components: {
         KanbanCard

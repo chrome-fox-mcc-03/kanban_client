@@ -1,5 +1,5 @@
 <template>
-    <div class="act" @click="showEditForm()">
+    <div class="act">
 
         <!-- left button -->
         <div class="option-space">
@@ -20,10 +20,10 @@
 
 <script>
 export default {
+    name: 'Act',
     props: [
         'title'
-    ],
-    name: 'Act'
+    ]
 }
 </script>
 

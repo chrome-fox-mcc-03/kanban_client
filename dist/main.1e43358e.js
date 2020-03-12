@@ -9379,8 +9379,8 @@ exports.default = void 0;
 //
 //
 var _default = {
-  props: ['title'],
-  name: 'Act'
+  name: 'Act',
+  props: ['title']
 };
 exports.default = _default;
         var $0a8dc6 = exports.default || module.exports;
@@ -9395,24 +9395,13 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "act",
-      on: {
-        click: function($event) {
-          return _vm.showEditForm()
-        }
-      }
-    },
-    [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("p", [_vm._v(_vm._s(_vm.title))]),
-      _vm._v(" "),
-      _vm._m(1)
-    ]
-  )
+  return _c("div", { staticClass: "act" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("p", [_vm._v(_vm._s(_vm.title))]),
+    _vm._v(" "),
+    _vm._m(1)
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -9595,33 +9584,56 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 var _default = {
-  props: ['category'],
+  props: ['category', 'activities'],
   name: 'KanbanCard',
   data: function data() {
     return {
-      backlogs: [{
+      backlogs: [//dummy aja ini
+      {
         id: 1,
         title: 'Book flight to Vietnam',
-        category: 'backlog'
+        category: 'Backlog'
       }, {
         id: 2,
         title: 'Recruit new member',
-        category: 'backlog'
+        category: 'Backlog'
       }, {
         id: 3,
         title: 'Read Narnia',
-        category: 'backlog'
+        category: 'Backlog'
       }, {
         id: 4,
-        title: 'Birthday gift for Shu',
-        category: 'backlog'
+        title: 'Birthday gift for Dre',
+        category: 'Backlog'
       }, {
         id: 5,
+        title: "Reply Youtube comments",
+        category: 'Backlog'
+      }, {
+        id: 6,
         title: "Reply followers' tweets",
-        category: 'backlog'
+        category: 'On Progress'
+      }, {
+        id: 7,
+        title: "January report",
+        category: 'On Progress'
+      }, {
+        id: 8,
+        title: "Reply followers' tweets",
+        category: 'Needs Review'
       }],
       newActivity: ''
     };
+  },
+  computed: {
+    filtered: function filtered() {
+      var _this = this;
+
+      console.log(this.activities.data);
+      return this.activities.data.filter(function (activity) {
+        return activity.category === _this.category;
+      });
+    }
   },
   components: {
     Act: _Act.default,
@@ -9653,10 +9665,10 @@ exports.default = _default;
             _vm._v(_vm._s(_vm.category))
           ]),
           _vm._v(" "),
-          _vm._l(_vm.backlogs, function(backlog) {
+          _vm._l(_vm.filtered, function(activity) {
             return _c("Act", {
-              key: backlog.id,
-              attrs: { title: backlog.title }
+              key: activity.id,
+              attrs: { title: activity.title }
             })
           })
         ],
@@ -9725,7 +9737,8 @@ var _default = {
   data: function data() {
     return {
       kanbanCards: ['Backlog', 'On Progress', 'Needs Review', 'Finished'],
-      activities: []
+      activities: [] //nge-bind nya dimana terus biar bisa diprops di MainSpace --> KanbanCard --> Act
+
     };
   },
   methods: {
@@ -9741,7 +9754,7 @@ var _default = {
     }
   },
   created: function created() {
-    fetchActivities();
+    this.fetchActivities();
   },
   components: {
     KanbanCard: _KanbanCard.default
@@ -9764,7 +9777,10 @@ exports.default = _default;
     "div",
     { staticClass: "main-space" },
     _vm._l(_vm.kanbanCards, function(kanbanCard, i) {
-      return _c("KanbanCard", { key: i, attrs: { category: kanbanCard } })
+      return _c("KanbanCard", {
+        key: i,
+        attrs: { category: kanbanCard, activities: _vm.activities }
+      })
     }),
     1
   )
@@ -10134,7 +10150,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39055" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33681" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
