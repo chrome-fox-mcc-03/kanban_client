@@ -131,3 +131,17 @@ body::-webkit-scrollbar-thumb {
     cursor: pointer;
     font-size: 18px;
 }
+
+.landing-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: calc(100vh - 75px); */
+    height: 100vh;
+    /* background-color: salmon; */
+}
+
+.jumbotron {
+    background-color: rgba(128, 128, 128, 0.8);
+    color: white;
+}
