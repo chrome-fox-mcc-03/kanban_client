@@ -6,7 +6,7 @@
                 <div class="card-header-div">
                     <p class="card-header-word">{{ category }}</p>
                 </div>
-                    <cards @reGetCards="getCards" :categories="categories" :cards="cards" :category="category"></cards>
+                    <cards @delete="deleteTask" @update="update" @assignTaskDetail="assignTaskDetail" @reGetCards="getCards" :categories="categories" :cards="cards" :category="category"></cards>
                 <div class="card-footer-div">
                     <p class="card-footer-word">Add a card...</p>
                 </div>
@@ -33,6 +33,15 @@ export default {
     methods: {
         getCards() {
             this.$emit('getCards')
+        },
+        assignTaskDetail(data){
+            this.$emit('assignTaskDetail', data)
+        },
+        update(obj){
+            this.$emit('update', obj)
+        },
+        deleteTask(obj){
+            this.$emit('deleteTask', obj)
         }
     }
 }

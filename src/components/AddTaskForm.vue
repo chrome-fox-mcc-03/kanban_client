@@ -5,7 +5,9 @@
             <label class="title-label add_task" for="title">Title:</label><br>
             <input v-model="title" class="title-input add_task" type="text" id="title-add_task" name="title" ><br>
             <label class="category-label add_task" for="category">Category:</label><br>
-            <input v-model="category" class="category-input add_task" type="category" id="category-add_task" name="category" ><br><br>
+            <select  v-model="category" class="category-input add_task" id="category-add_task" name="category">
+                <option v-for="(option,index) in categories" :key="index" :value="option">{{ option }}</option>
+            </select>
             <label class="description-label add_task" for="description">Description:</label><br>
             <input v-model="description" class="description-input add_task" type="description" id="description-add_task" name="description" ><br><br>
             <input class="submit" type="submit" value="Add Task">
@@ -21,6 +23,9 @@ export default {
             category: '',
             description: ''
         }
+    },
+    props: {
+        categories: Array
     },
     methods: {
         addTask: function () {

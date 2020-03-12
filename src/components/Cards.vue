@@ -28,7 +28,7 @@ export default {
     props: {
         categories: Array,
         category: String,
-        cards: Array
+        cards: Array,
     },
     methods: {
         onCategory(category, array){
@@ -66,57 +66,15 @@ export default {
                     console.log(err.response)
                 })
         },
-        updateArrow(el, increment){
-            const numberIncrement = Number(increment)
-            const categories = this.categories
-            const token = localStorage.getItem('token')
-            const currentIndex = categories.indexOf(el.category)
-            console.log(numberIncrement)
-            const newCategory = categories[currentIndex + numberIncrement]
-            console.log(numberIncrement + currentIndex)
-            console.log(newCategory)
-            const description = el.description
-            const title = el.title
-            const id = el.id
-            console.log(title)
-            axios({
-                method: "PUT",
-                url: `http://localhost:3000/tasks/${id}`,
-                headers: {
-                    token
-                },
-                data: {
-                    title,
-                    category: newCategory,
-                    description
-                }
-            })
-                .then(response => {
-                    console.log(response.data)
-                    this.$emit('reGetCards')
-                })
-                .catch(err => {
-                    console.log(err.response)
-                })
-
-        },      
+        updateArrow(el, index){
+            let obj = {
+                task: el,
+                index: index
+            }
+            this.$emit('update', obj)
+        },
         deleteTask(el){
-            const id = el.id
-            const token = localStorage.getItem('token')
-            axios({
-                method: "DELETE",
-                url: `http://localhost:3000/tasks/${id}`,
-                headers: {
-                    token
-                }
-            }) 
-                .then(response => {
-                    this.$emit('reGetCards')
-                    console.log(response.data)
-                })
-                .catch(err => {
-                    console.log(err.response)
-                })
+            this.$emit('delete', el)
         }
     }
 }

@@ -28,6 +28,7 @@ export default {
     },
     methods: {
         changePage(str) {
+            console.log(str)
             this.currentPage = str
             this.$emit('curPage', this.currentPage)
         },

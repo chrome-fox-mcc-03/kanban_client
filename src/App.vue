@@ -2,13 +2,12 @@
     <div>
         <navbar @getCards="fetchCards()" @logout="logout" @curPage="changePage"></navbar>
         <div id="content-container">
-            <cards-container @assignTaskDetail="assignTaskDetail" @getCards="fetchCards" :taskDetail="taskDetail" :categories="categories" :cards="cards"  v-if="currentPage == 'cardsDisplay'"></cards-container>
+            <cards-container @deleteTask="deleteTask" @update="update"  @assignTaskDetail="assignTaskDetail" @getCards="fetchCards" :taskDetail="taskDetail" :categories="categories" :cards="cards"  v-if="currentPage == 'cardsDisplay'"></cards-container>
             <login-form @curPage="changePage" @loginObj="login" v-else-if="currentPage == 'loginDisplay'"></login-form>
             <register-form @register="register" v-else-if="currentPage == 'registerDisplay'"></register-form>
-            <add-task-form @addTask="addTask" v-else-if="currentPage == 'addTaskDisplay'"></add-task-form>
+            <add-task-form :categories="categories" @addTask="addTask" v-else-if="currentPage == 'addTaskDisplay'"></add-task-form>
             <homepage v-else></homepage>
-            <modal></modal>
-            
+            <modal @deleteTask="deleteTask" @update="update" :taskDetail="taskDetail"></modal>
         </div>
     </div>
 </template>
@@ -33,6 +32,7 @@ export default {
                 last_name: '',
                 role: ''
             },
+            categories: ['Backlog', 'Product', 'Development', 'Done'],
             currentPage : '',
             cards: [],
             taskDetail: '',
@@ -43,6 +43,15 @@ export default {
             }
         }
     },
+    created(){
+        const token = localStorage.getItem('token')
+        if (token) {
+            this.userData.isLogin = true
+        } else {
+            this.userData.isLogin = false
+        }
+    }
+    ,
     components: {
         Navbar,
         Homepage,
@@ -170,13 +179,13 @@ export default {
             })
                 .then(response => {
                     console.log(response.data)
-                    let allCategories = response.data.map( el => {
-                        return el.category
-                    })
-                    let uniqueCategories = allCategories.filter( (value, index, array) => {
-                        return array.indexOf(value) === index
-                    })
-                    this.categories = uniqueCategories
+                    // let allCategories = response.data.map( el => {
+                    //     return el.category
+                    // })
+                    // let uniqueCategories = allCategories.filter( (value, index, array) => {
+                    //     return array.indexOf(value) === index
+                    // })
+                    // this.categories = uniqueCategories
 
                     response.data.forEach(el => {
                         let currentIndex = this.categories.indexOf(el.category)
@@ -192,7 +201,7 @@ export default {
                         }
                     })
                     this.cards = response.data
-                    console.log(allCategories);
+                    // console.log(allCategories);
                     console.log(this.categories)
                     this.currentPage = 'cardsDisplay'
                     // console.log(response.data)
@@ -201,6 +210,63 @@ export default {
         assignTaskDetail(data){
             console.log(data)
             this.taskDetail = data
+        },
+        updateArrow(el, increment){
+            const numberIncrement = Number(increment)
+            const categories = this.categories
+            const token = localStorage.getItem('token')
+            const currentIndex = categories.indexOf(el.category)
+            console.log(numberIncrement)
+            const newCategory = categories[currentIndex + numberIncrement]
+            console.log(numberIncrement + currentIndex)
+            console.log(newCategory)
+            const description = el.description
+            const title = el.title
+            const id = el.id
+            // console.log(title)
+            axios({
+                method: "PUT",
+                url: `http://localhost:3000/tasks/${id}`,
+                headers: {
+                    token
+                },
+                data: {
+                    title,
+                    category: newCategory,
+                    description
+                }
+            })
+                .then(response => {
+                    console.log(response.data)
+                    this.fetchCards()
+                })
+                .catch(err => {
+                    console.log(err.response)
+                })
+
+        },
+        update(obj){
+            let index = obj.index
+            let task = obj.task
+            this.updateArrow(task,index)
+        },      
+        deleteTask(el){
+            const id = el.id
+            const token = localStorage.getItem('token')
+            axios({
+                method: "DELETE",
+                url: `http://localhost:3000/tasks/${id}`,
+                headers: {
+                    token
+                }
+            }) 
+                .then(response => {
+                    this.fetchCards()
+                    console.log(response.data)
+                })
+                .catch(err => {
+                    console.log(err.response)
+                })
         }
     }
 }
