@@ -8,7 +8,7 @@
             <div id="account-letter">
                 E
             </div>
-            <div @click="signOut()" class="account-menu">
+            <div @click="signOut" class="account-menu">
                 <p>Sign Out</p>
             </div>
         </div>
@@ -17,7 +17,13 @@
 
 <script>
 export default {
-    name: 'NavBar'
+    name: 'NavBar',
+    methods: {
+        signOut() {
+            localStorage.clear();
+            this.$emit('changePage', 'landingPage')
+        }
+    }
 }
 </script>
 

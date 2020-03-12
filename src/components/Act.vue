@@ -20,7 +20,9 @@
 
 <script>
 export default {
-    props: ['title'],
+    props: [
+        'title'
+    ],
     name: 'Act'
 }
 </script>

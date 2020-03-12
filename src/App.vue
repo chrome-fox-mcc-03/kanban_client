@@ -1,19 +1,19 @@
 <template>
     <div>
         <LandingPage 
-            @changePage="changePage2"
-            :message="message"
-            :currentPage="currentPage">
-            </LandingPage>
-        <MainPage></MainPage>
-        <EditPage></EditPage>
+            v-if="currentPage === 'landingPage'"
+            @changePage="changePage">
+        </LandingPage>
+        <MainPage
+            v-if="currentPage === 'mainPage'"
+            @changePage="changePage">
+        </MainPage>
     </div>
 </template>
 
 <script>
 import LandingPage from './views/LandingPage';
 import MainPage from './views/MainPage';
-import EditPage from './views/EditPage';
 export default {
     data: function() {
         return {
@@ -22,14 +22,13 @@ export default {
         }
     },
     methods: {
-        changePage2(page) {
+        changePage(page) {
             this.currentPage = page
-        } 
+        }
     },
     components: {
         LandingPage,
-        MainPage,
-        EditPage
+        MainPage
     },
     // created () {
     //     if (localStorage.getItem('access_token')) {

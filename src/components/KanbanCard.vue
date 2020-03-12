@@ -4,16 +4,13 @@
             <div class="card-title">{{ category }}</div>
             <Act v-for="backlog in backlogs" :key="backlog.id" :title="backlog.title"></Act>
         </div>
-        <div class="add-div">
-            <form @submit.prevent="addNewAct()" class="add-act">
-                <input v-model="newActivity" type="text" placeholder="New Activity">
-            </form>
-        </div>
+        <AddForm></AddForm>
     </div>
 </template>
 
 <script>
 import Act from './Act';
+import AddForm from './AddForm';
 export default {
     props: [
         'category'
@@ -32,7 +29,8 @@ export default {
         }
     },
     components: {
-        Act
+        Act,
+        AddForm
     }
 }
 </script>

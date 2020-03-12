@@ -12,17 +12,18 @@
                 </form>
             </div>
             <div class="form-container sign-in-container">
-                <form class="log-form" >
+                <form class="log-form" @submit.prevent="signIn()">
                     <h1>Sign in</h1>
                     <div class="social-container">
                         <div class="g-signin2" data-onsuccess="onSignIn"></div>
                     </div>
                     <span>or use your account</span>
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                    <div class="signin-buttons">
+                    <input v-model="userData.logEmail" type="email" placeholder="Email" />
+                    <input v-model="userData.logPassword" type="password" placeholder="Password" />
+                    <input class="sign-button" type="submit" value="Sign In">
+                    <!-- <div class="signin-buttons">
                         <button @click="authenticate()">Sign In</button>
-                    </div>
+                    </div> -->
                 </form>
             </div>
             <div class="overlay-container">
@@ -51,7 +52,9 @@ export default {
             userData: {
                 regName: '',
                 regEmail: '',
-                regPassword: ''
+                regPassword: '',
+                logEmail: '',
+                logPassword: ''
             }
         }
     },
@@ -72,10 +75,27 @@ export default {
                     password
                 })
                     .then(access_token => {
-                        console.log(access_token.data.access_token);
+                        console.log('successfully sign up', access_token.data.access_token);
                         localStorage.setItem('access_token', access_token.data.access_token);
-                        this.isAuthenticated = true
-                        //this.$emit('changePage', 'home')
+                        this.$emit('changePage', 'mainPage')
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+        },
+        signIn: function() {
+            const email = this.userData.logEmail;
+            const password = this.userData.logPassword;
+
+            axios.post('http://localhost:3000/signin',
+                {
+                    email,
+                    password
+                })
+                    .then(access_token => {
+                        console.log('successfully sign in', access_token.data.access_token);
+                        localStorage.setItem('access_token', access_token.data.access_token);
+                        this.$emit('changePage', 'mainPage')
                     })
                     .catch(err => {
                         console.log(err);

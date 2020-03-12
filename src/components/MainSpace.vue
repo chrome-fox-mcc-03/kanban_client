@@ -11,8 +11,24 @@ export default {
     name: 'MainSpace',
     data: function() {
         return {
-            kanbanCards: [ 'Backlog', 'On Progress', 'Needs Review', 'Finished' ]
+            kanbanCards: [ 'Backlog', 'On Progress', 'Needs Review', 'Finished' ],
+            activities: []
         }
+    },
+    methods: {
+        fetchActivities() {
+            axios.get('http://localhost:3000/activities/')
+                .then(activities => {
+                    console.log(activities);
+                    this.activities = activities;
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+    },
+    created() {
+        fetchActivities();
     },
     components: {
         KanbanCard

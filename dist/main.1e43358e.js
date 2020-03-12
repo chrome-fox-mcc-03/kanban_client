@@ -8936,6 +8936,7 @@ exports.default = void 0;
 //
 //
 //
+//
 var _default = {
   name: 'LandingPage',
   data: function data() {
@@ -8943,7 +8944,9 @@ var _default = {
       userData: {
         regName: '',
         regEmail: '',
-        regPassword: ''
+        regPassword: '',
+        logEmail: '',
+        logPassword: ''
       }
     };
   },
@@ -8960,9 +8963,27 @@ var _default = {
         email: email,
         password: password
       }).then(function (access_token) {
-        console.log(access_token.data.access_token);
+        console.log('successfully sign up', access_token.data.access_token);
         localStorage.setItem('access_token', access_token.data.access_token);
-        _this.isAuthenticated = true; //this.$emit('changePage', 'home')
+
+        _this.$emit('changePage', 'mainPage');
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    signIn: function signIn() {
+      var _this2 = this;
+
+      var email = this.userData.logEmail;
+      var password = this.userData.logPassword;
+      axios.post('http://localhost:3000/signin', {
+        email: email,
+        password: password
+      }).then(function (access_token) {
+        console.log('successfully sign in', access_token.data.access_token);
+        localStorage.setItem('access_token', access_token.data.access_token);
+
+        _this2.$emit('changePage', 'mainPage');
       }).catch(function (err) {
         console.log(err);
       });
@@ -9071,31 +9092,72 @@ exports.default = _default;
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-container sign-in-container" }, [
-        _c("form", { staticClass: "log-form" }, [
-          _c("h1", [_vm._v("Sign in")]),
-          _vm._v(" "),
-          _vm._m(0),
-          _vm._v(" "),
-          _c("span", [_vm._v("or use your account")]),
-          _vm._v(" "),
-          _c("input", { attrs: { type: "email", placeholder: "Email" } }),
-          _vm._v(" "),
-          _c("input", { attrs: { type: "password", placeholder: "Password" } }),
-          _vm._v(" "),
-          _c("div", { staticClass: "signin-buttons" }, [
-            _c(
-              "button",
-              {
-                on: {
-                  click: function($event) {
-                    return _vm.authenticate()
-                  }
+        _c(
+          "form",
+          {
+            staticClass: "log-form",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.signIn()
+              }
+            }
+          },
+          [
+            _c("h1", [_vm._v("Sign in")]),
+            _vm._v(" "),
+            _vm._m(0),
+            _vm._v(" "),
+            _c("span", [_vm._v("or use your account")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.userData.logEmail,
+                  expression: "userData.logEmail"
                 }
-              },
-              [_vm._v("Sign In")]
-            )
-          ])
-        ])
+              ],
+              attrs: { type: "email", placeholder: "Email" },
+              domProps: { value: _vm.userData.logEmail },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.userData, "logEmail", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.userData.logPassword,
+                  expression: "userData.logPassword"
+                }
+              ],
+              attrs: { type: "password", placeholder: "Password" },
+              domProps: { value: _vm.userData.logPassword },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.userData, "logPassword", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "sign-button",
+              attrs: { type: "submit", value: "Sign In" }
+            })
+          ]
+        )
       ]),
       _vm._v(" "),
       _vm._m(1)
@@ -9208,7 +9270,13 @@ exports.default = void 0;
 //
 //
 var _default = {
-  name: 'NavBar'
+  name: 'NavBar',
+  methods: {
+    signOut: function signOut() {
+      localStorage.clear();
+      this.$emit('changePage', 'landingPage');
+    }
+  }
 };
 exports.default = _default;
         var $4a353c = exports.default || module.exports;
@@ -9233,18 +9301,9 @@ exports.default = _default;
         _vm._v("\n            E\n        ")
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "account-menu",
-          on: {
-            click: function($event) {
-              return _vm.signOut()
-            }
-          }
-        },
-        [_c("p", [_vm._v("Sign Out")])]
-      )
+      _c("div", { staticClass: "account-menu", on: { click: _vm.signOut } }, [
+        _c("p", [_vm._v("Sign Out")])
+      ])
     ])
   ])
 }
@@ -9405,6 +9464,112 @@ render._withStripped = true
       
       }
     })();
+},{"_css_loader":"../../../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/AddForm.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: "AddForm",
+  data: function data() {
+    return {
+      newActivity: ""
+    };
+  }
+};
+exports.default = _default;
+        var $0fa007 = exports.default || module.exports;
+      
+      if (typeof $0fa007 === 'function') {
+        $0fa007 = $0fa007.options;
+      }
+    
+        /* template */
+        Object.assign($0fa007, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "add-div" }, [
+    _c(
+      "form",
+      {
+        staticClass: "add-act",
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.addNewAct()
+          }
+        }
+      },
+      [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.newActivity,
+              expression: "newActivity"
+            }
+          ],
+          attrs: { type: "text", placeholder: "New Activity" },
+          domProps: { value: _vm.newActivity },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.newActivity = $event.target.value
+            }
+          }
+        })
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$0fa007', $0fa007);
+          } else {
+            api.reload('$0fa007', $0fa007);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
 },{"_css_loader":"../../../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/KanbanCard.vue":[function(require,module,exports) {
 "use strict";
 
@@ -9415,12 +9580,10 @@ exports.default = void 0;
 
 var _Act = _interopRequireDefault(require("./Act"));
 
+var _AddForm = _interopRequireDefault(require("./AddForm"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//
-//
-//
-//
 //
 //
 //
@@ -9461,7 +9624,8 @@ var _default = {
     };
   },
   components: {
-    Act: _Act.default
+    Act: _Act.default,
+    AddForm: _AddForm.default
   }
 };
 exports.default = _default;
@@ -9477,59 +9641,32 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "kanban-card" }, [
-    _c(
-      "div",
-      { staticClass: "title-and-act" },
-      [
-        _c("div", { staticClass: "card-title" }, [
-          _vm._v(_vm._s(_vm.category))
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.backlogs, function(backlog) {
-          return _c("Act", { key: backlog.id, attrs: { title: backlog.title } })
-        })
-      ],
-      2
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "add-div" }, [
+  return _c(
+    "div",
+    { staticClass: "kanban-card" },
+    [
       _c(
-        "form",
-        {
-          staticClass: "add-act",
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.addNewAct()
-            }
-          }
-        },
+        "div",
+        { staticClass: "title-and-act" },
         [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.newActivity,
-                expression: "newActivity"
-              }
-            ],
-            attrs: { type: "text", placeholder: "New Activity" },
-            domProps: { value: _vm.newActivity },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.newActivity = $event.target.value
-              }
-            }
+          _c("div", { staticClass: "card-title" }, [
+            _vm._v(_vm._s(_vm.category))
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.backlogs, function(backlog) {
+            return _c("Act", {
+              key: backlog.id,
+              attrs: { title: backlog.title }
+            })
           })
-        ]
-      )
-    ])
-  ])
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c("AddForm")
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -9564,7 +9701,7 @@ render._withStripped = true
       
       }
     })();
-},{"./Act":"src/components/Act.vue","_css_loader":"../../../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/MainSpace.vue":[function(require,module,exports) {
+},{"./Act":"src/components/Act.vue","./AddForm":"src/components/AddForm.vue","_css_loader":"../../../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/MainSpace.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9587,8 +9724,24 @@ var _default = {
   name: 'MainSpace',
   data: function data() {
     return {
-      kanbanCards: ['Backlog', 'On Progress', 'Needs Review', 'Finished']
+      kanbanCards: ['Backlog', 'On Progress', 'Needs Review', 'Finished'],
+      activities: []
     };
+  },
+  methods: {
+    fetchActivities: function fetchActivities() {
+      var _this = this;
+
+      axios.get('http://localhost:3000/activities/').then(function (activities) {
+        console.log(activities);
+        _this.activities = activities;
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  },
+  created: function created() {
+    fetchActivities();
   },
   components: {
     KanbanCard: _KanbanCard.default
@@ -9674,6 +9827,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 var _default = {
   name: 'MainPage',
+  methods: {
+    changePage: function changePage(page) {
+      this.$emit('changePage', page);
+    }
+  },
   components: {
     NavBar: _NavBar.default,
     MainSpace: _MainSpace.default
@@ -9695,7 +9853,11 @@ exports.default = _default;
   return _c(
     "div",
     { attrs: { id: "main-page" } },
-    [_c("NavBar"), _vm._v(" "), _c("MainSpace")],
+    [
+      _c("NavBar", { on: { changePage: _vm.changePage } }),
+      _vm._v(" "),
+      _c("MainSpace")
+    ],
     1
   )
 }
@@ -9732,133 +9894,7 @@ render._withStripped = true
       
       }
     })();
-},{"../components/NavBar":"src/components/NavBar.vue","../components/MainSpace":"src/components/MainSpace.vue","_css_loader":"../../../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/views/EditPage.vue":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default = {
-  name: 'EditPage'
-};
-exports.default = _default;
-        var $a4b954 = exports.default || module.exports;
-      
-      if (typeof $a4b954 === 'function') {
-        $a4b954 = $a4b954.options;
-      }
-    
-        /* template */
-        Object.assign($a4b954, (function () {
-          var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "edit-form" } }, [
-    _c("div", { staticClass: "card-form" }, [
-      _c("form", { staticClass: "signup" }, [
-        _c("div", { staticClass: "form-title" }, [_vm._v("Edit")]),
-        _vm._v(" "),
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "rule" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-footer" }, [
-          _c("a", [_vm._v("Save")]),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              attrs: { id: "cancelEdit" },
-              on: {
-                click: function($event) {
-                  return _vm.backToMainPage()
-                }
-              }
-            },
-            [_vm._v("Cancel")]
-          ),
-          _vm._v(" "),
-          _c("a", [_vm._v("Delete")])
-        ])
-      ])
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-body" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("input", { attrs: { type: "text", placeholder: "Title" } })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("input", { attrs: { type: "text", placeholder: "Category" } })
-      ])
-    ])
-  }
-]
-render._withStripped = true
-
-          return {
-            render: render,
-            staticRenderFns: staticRenderFns,
-            _compiled: true,
-            _scopeId: null,
-            functional: undefined
-          };
-        })());
-      
-    /* hot reload */
-    (function () {
-      if (module.hot) {
-        var api = require('vue-hot-reload-api');
-        api.install(require('vue'));
-        if (api.compatible) {
-          module.hot.accept();
-          if (!module.hot.data) {
-            api.createRecord('$a4b954', $a4b954);
-          } else {
-            api.reload('$a4b954', $a4b954);
-          }
-        }
-
-        
-        var reloadCSS = require('_css_loader');
-        module.hot.dispose(reloadCSS);
-        module.hot.accept(reloadCSS);
-      
-      }
-    })();
-},{"_css_loader":"../../../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
+},{"../components/NavBar":"src/components/NavBar.vue","../components/MainSpace":"src/components/MainSpace.vue","_css_loader":"../../../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9870,10 +9906,9 @@ var _LandingPage = _interopRequireDefault(require("./views/LandingPage"));
 
 var _MainPage = _interopRequireDefault(require("./views/MainPage"));
 
-var _EditPage = _interopRequireDefault(require("./views/EditPage"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
 //
 //
 //
@@ -9894,14 +9929,13 @@ var _default = {
     };
   },
   methods: {
-    changePage2: function changePage2(page) {
+    changePage: function changePage(page) {
       this.currentPage = page;
     }
   },
   components: {
     LandingPage: _LandingPage.default,
-    MainPage: _MainPage.default,
-    EditPage: _EditPage.default
+    MainPage: _MainPage.default
   },
   // created () {
   //     if (localStorage.getItem('access_token')) {
@@ -9936,14 +9970,13 @@ exports.default = _default;
   return _c(
     "div",
     [
-      _c("LandingPage", {
-        attrs: { message: _vm.message, currentPage: _vm.currentPage },
-        on: { changePage: _vm.changePage2 }
-      }),
+      _vm.currentPage === "landingPage"
+        ? _c("LandingPage", { on: { changePage: _vm.changePage } })
+        : _vm._e(),
       _vm._v(" "),
-      _c("MainPage"),
-      _vm._v(" "),
-      _c("EditPage")
+      _vm.currentPage === "mainPage"
+        ? _c("MainPage", { on: { changePage: _vm.changePage } })
+        : _vm._e()
     ],
     1
   )
@@ -9981,7 +10014,7 @@ render._withStripped = true
       
       }
     })();
-},{"./views/LandingPage":"src/views/LandingPage.vue","./views/MainPage":"src/views/MainPage.vue","./views/EditPage":"src/views/EditPage.vue","_css_loader":"../../../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/main.js":[function(require,module,exports) {
+},{"./views/LandingPage":"src/views/LandingPage.vue","./views/MainPage":"src/views/MainPage.vue","_css_loader":"../../../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/main.js":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
@@ -10101,7 +10134,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43397" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39055" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
