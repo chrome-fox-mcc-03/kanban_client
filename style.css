@@ -112,6 +112,12 @@
   padding-top: 1rem;
   cursor: pointer;
 }
+#login-form #googleSignIn, #register-form #googleSignIn {
+  padding: 10px;
+  margin: 10px;
+  height: 50px;
+  width: 100px;
+}
 
 .register {
   padding: 0px;

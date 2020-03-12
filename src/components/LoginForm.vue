@@ -9,6 +9,7 @@
             <input class="submit" type="submit" value="Login">
             <a id="register-word" @click="changePage('registerDisplay')">Doesn't have an account yet? Register here</a>
         </form>
+        <div id="google-signin-btn"></div>
     </div>
 </template>
 
@@ -18,7 +19,9 @@ export default {
         return {
             email: '',
             password: '',
-            currentPage: ''
+            currentPage: '',
+            
+            googleButton: '<div id="googleSignIn" class="g-signin2" data-onsuccess="onSignIn"></div>'
         }
     },
     methods: {
@@ -32,8 +35,38 @@ export default {
         changePage: function (inputPage) {
             this.currentPage = inputPage
             this.$emit('curPage', this.currentPage)
+        },
+        onSignIn: function(googleUser) {
+            const profile = googleUser.getBasicProfile();
+            const id_token = googleUser.getAuthResponse().id_token
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+            console.log('id_token: ' +id_token)
+            axios({
+                method: 'POST',
+                url: "http://localhost:3000/loginGoogle",
+                data: {
+                    id_token
+                } 
+            })
+                .then(response => {
+                    const token = response.data.token
+                    localStorage.setItem('token', token)
+                    this.$emit('loginGoogleSuccess')
+                    console.log(response)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         }
-    }
+    },
+    mounted() {
+    gapi.signin2.render('google-signin-btn', { // this is the button "id"
+      onsuccess: this.onSignIn // note, no "()" here
+    })
+  }
 }
 </script>
 

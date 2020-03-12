@@ -3,7 +3,7 @@
         <navbar @getCards="fetchCards()" @logout="logout" @curPage="changePage"></navbar>
         <div id="content-container">
             <cards-container @deleteTask="deleteTask" @update="update"  @assignTaskDetail="assignTaskDetail" @getCards="fetchCards" :taskDetail="taskDetail" :categories="categories" :cards="cards"  v-if="currentPage == 'cardsDisplay'"></cards-container>
-            <login-form @curPage="changePage" @loginObj="login" v-else-if="currentPage == 'loginDisplay'"></login-form>
+            <login-form @loginGoogleSuccess="setIsLogin" @curPage="changePage" @loginObj="login" v-else-if="currentPage == 'loginDisplay'"></login-form>
             <register-form @register="register" v-else-if="currentPage == 'registerDisplay'"></register-form>
             <add-task-form :categories="categories" @addTask="addTask" v-else-if="currentPage == 'addTaskDisplay'"></add-task-form>
             <homepage v-else></homepage>
@@ -75,6 +75,10 @@ export default {
         },
         logout(){
             this.changePage('homepageDisplay')
+            const auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            })
             this.userData.isLogin = false
             localStorage.clear()
         },
@@ -266,7 +270,14 @@ export default {
                 })
                 .catch(err => {
                     console.log(err.response)
+                    this.currentPage = 'homePageDisplay'
+
                 })
+        },
+        setIsLogin(){
+            this.userData.isLogin = true
+                    this.currentPage = 'homePageDisplay'
+
         }
     }
 }
