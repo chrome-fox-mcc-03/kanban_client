@@ -1,6 +1,6 @@
 <template>
   <div class="add-div">
-    <form @submit.prevent="addNewAct()" @submit.prevent="fetchActivities" class="add-act">
+    <form @submit.prevent="addNewAct()" class="add-act">
       <input v-model="newActivity" type="text" placeholder="New Activity" />
     </form>
   </div>

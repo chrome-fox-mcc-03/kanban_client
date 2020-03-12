@@ -2,15 +2,15 @@
     <div class="act">
 
         <!-- left button -->
-        <div class="option-space">
+        <div class="option-space" @click="moveLeft(activity.id)">
             <i class="fas fa-angle-left fa-sm"></i>
         </div>
         <!-- left button -->
 
-        <p>{{ title }}</p>
+        <p>{{ activity.title }}</p>
 
         <!-- right button -->
-        <div class="option-space">
+        <div class="option-space" @click="moveRight(activity.id)">
             <i class="fas fa-angle-right fa-sm"></i>
         </div>
         <!-- right button -->
@@ -22,8 +22,18 @@
 export default {
     name: 'Act',
     props: [
-        'title'
-    ]
+        'activity'
+    ],
+    methods: {
+        moveLeft(id) {
+            console.log('move left');
+            this.$emit('moveLeft', id)
+        },
+        moveRight(id) {
+            console.log('move right');
+            this.$emit('moveRight', id)
+        }
+    }
 }
 </script>
 

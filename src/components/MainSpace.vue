@@ -1,6 +1,6 @@
 <template>
     <div class="main-space">
-        <KanbanCard v-for="(kanbanCard, i) in kanbanCards" :key="i" :category="kanbanCard" :activities="activities" :fetchActivities="fetchActivities"></KanbanCard>
+        <KanbanCard @moveLeft="moveLeft" @moveRight="moveRight" v-for="(kanbanCard, i) in kanbanCards" :key="i" :category="kanbanCard" :activities="activities" :fetchActivities="fetchActivities"></KanbanCard>
         <!-- <KanbanCard></KanbanCard> -->
     </div>
 </template>
@@ -16,8 +16,60 @@ export default {
         }
     },
     methods: {
+        moveLeft(data) {
+            let category;
+            if (data.category === 'Finished') category = 'Needs Review'
+            else if (data.category === 'Needs Review') category = 'On Progress'
+            else if (data.category === 'On Progress') category = 'Backlog'
+
+            axios({
+                method: 'patch',
+                url: `http://localhost:3000/activities/${data.id}`,
+                headers: {
+                    token: localStorage.getItem('access_token')
+                },
+                data: {
+                    new_category: category
+                }
+            })
+                .then(({data}) => {
+                    this.fetchActivities();
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        },
+        moveRight(data) {
+            let category;
+            if (data.category === 'Backlog') category = 'On Progress'
+            else if (data.category === 'On Progress') category = 'Needs Review'
+            else if (data.category === 'Needs Review') category = 'Finished'
+
+            axios({
+                method: 'patch',
+                url: `http://localhost:3000/activities/${data.id}`,
+                headers: {
+                    token: localStorage.getItem('access_token')
+                },
+                data: {
+                    new_category: category
+                }
+            })
+                .then(({data}) => {
+                    this.fetchActivities();
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        },
         fetchActivities() {
-            axios.get('http://localhost:3000/activities/')
+            axios({
+                method: 'get',
+                url: 'http://localhost:3000/activities',
+                headers: {
+                    token: localStorage.getItem('access_token')
+                }
+            })
                 .then(({data}) => {
                     console.log(data);
                     this.activities = data;

@@ -9380,7 +9380,17 @@ exports.default = void 0;
 //
 var _default = {
   name: 'Act',
-  props: ['title']
+  props: ['activity'],
+  methods: {
+    moveLeft: function moveLeft(id) {
+      console.log('move left');
+      this.$emit('moveLeft', id);
+    },
+    moveRight: function moveRight(id) {
+      console.log('move right');
+      this.$emit('moveRight', id);
+    }
+  }
 };
 exports.default = _default;
         var $0a8dc6 = exports.default || module.exports;
@@ -9396,31 +9406,36 @@ exports.default = _default;
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "act" }, [
-    _vm._m(0),
+    _c(
+      "div",
+      {
+        staticClass: "option-space",
+        on: {
+          click: function($event) {
+            return _vm.moveLeft(_vm.activity.id)
+          }
+        }
+      },
+      [_c("i", { staticClass: "fas fa-angle-left fa-sm" })]
+    ),
     _vm._v(" "),
-    _c("p", [_vm._v(_vm._s(_vm.title))]),
+    _c("p", [_vm._v(_vm._s(_vm.activity.title))]),
     _vm._v(" "),
-    _vm._m(1)
+    _c(
+      "div",
+      {
+        staticClass: "option-space",
+        on: {
+          click: function($event) {
+            return _vm.moveRight(_vm.activity.id)
+          }
+        }
+      },
+      [_c("i", { staticClass: "fas fa-angle-right fa-sm" })]
+    )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "option-space" }, [
-      _c("i", { staticClass: "fas fa-angle-left fa-sm" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "option-space" }, [
-      _c("i", { staticClass: "fas fa-angle-right fa-sm" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
           return {
@@ -9640,6 +9655,22 @@ var _default = {
   components: {
     Act: _Act.default,
     AddForm: _AddForm.default
+  },
+  methods: {
+    moveLeft: function moveLeft(id) {
+      var obj = {
+        id: id,
+        category: this.category
+      };
+      this.$emit('moveLeft', obj);
+    },
+    moveRight: function moveRight(id) {
+      var obj = {
+        id: id,
+        category: this.category
+      };
+      this.$emit('moveRight', obj);
+    }
   }
 };
 exports.default = _default;
@@ -9670,7 +9701,8 @@ exports.default = _default;
           _vm._l(_vm.filtered, function(activity) {
             return _c("Act", {
               key: activity.id,
-              attrs: { title: activity.title }
+              attrs: { activity: activity },
+              on: { moveLeft: _vm.moveLeft, moveRight: _vm.moveRight }
             })
           })
         ],
@@ -9744,13 +9776,63 @@ var _default = {
     };
   },
   methods: {
-    fetchActivities: function fetchActivities() {
+    moveLeft: function moveLeft(data) {
       var _this = this;
 
-      axios.get('http://localhost:3000/activities/').then(function (_ref) {
+      var category;
+      if (data.category === 'Finished') category = 'Needs Review';else if (data.category === 'Needs Review') category = 'On Progress';else if (data.category === 'On Progress') category = 'Backlog';
+      axios({
+        method: 'patch',
+        url: "http://localhost:3000/activities/".concat(data.id),
+        headers: {
+          token: localStorage.getItem('access_token')
+        },
+        data: {
+          new_category: category
+        }
+      }).then(function (_ref) {
         var data = _ref.data;
+
+        _this.fetchActivities();
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    moveRight: function moveRight(data) {
+      var _this2 = this;
+
+      var category;
+      if (data.category === 'Backlog') category = 'On Progress';else if (data.category === 'On Progress') category = 'Needs Review';else if (data.category === 'Needs Review') category = 'Finished';
+      axios({
+        method: 'patch',
+        url: "http://localhost:3000/activities/".concat(data.id),
+        headers: {
+          token: localStorage.getItem('access_token')
+        },
+        data: {
+          new_category: category
+        }
+      }).then(function (_ref2) {
+        var data = _ref2.data;
+
+        _this2.fetchActivities();
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    fetchActivities: function fetchActivities() {
+      var _this3 = this;
+
+      axios({
+        method: 'get',
+        url: 'http://localhost:3000/activities',
+        headers: {
+          token: localStorage.getItem('access_token')
+        }
+      }).then(function (_ref3) {
+        var data = _ref3.data;
         console.log(data);
-        _this.activities = data;
+        _this3.activities = data;
       }).catch(function (err) {
         console.log(err);
       });
@@ -9786,7 +9868,8 @@ exports.default = _default;
           category: kanbanCard,
           activities: _vm.activities,
           fetchActivities: _vm.fetchActivities
-        }
+        },
+        on: { moveLeft: _vm.moveLeft, moveRight: _vm.moveRight }
       })
     }),
     1
@@ -10158,7 +10241,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42757" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40861" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
