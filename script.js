@@ -1,7 +1,7 @@
 "use strict"
 
 const app = new Vue({
-    el: '#app',
+    el: '#app', 
     data: {
       status: {
         args: false,
