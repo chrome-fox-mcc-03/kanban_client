@@ -15,7 +15,8 @@ let app = new Vue({
         taskDetail: '',
         taskData: {
             title: '',
-            category: ''
+            category: '',
+            description: ''
         }
     },
     methods: {
@@ -91,13 +92,15 @@ let app = new Vue({
         addTask(){
             const title = this.taskData.title
             const category = this.taskData.category
+            const description = this.taskData.description
             const token = localStorage.getItem('token')
             axios({
                 method: "POST",
                 url: "http://localhost:3000/tasks",
                 data: {
                     title,
-                    category
+                    category,
+                    description
                 },
                 headers: {
                     token
@@ -212,6 +215,7 @@ let app = new Vue({
             const newCategory = categories[currentIndex + numberIncrement]
             console.log(numberIncrement + currentIndex)
             console.log(newCategory)
+            const description = el.description
             const title = el.title
             const id = el.id
             console.log(title)
@@ -223,7 +227,8 @@ let app = new Vue({
                 },
                 data: {
                     title,
-                    category: newCategory
+                    category: newCategory,
+                    description
                 }
             })
                 .then(response => {

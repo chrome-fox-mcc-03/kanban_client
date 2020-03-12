@@ -9,7 +9,7 @@
   height: 80%;
 }
 
-.title-input, .category-input, .email-input, .password-input, .first_name-input, .last_name-input, .role-input {
+.title-input, .category-input, .description-input, .email-input, .password-input, .first_name-input, .last_name-input, .role-input {
   width: 60%;
   height: 30px;
   background-color: #fcf9ea;
@@ -18,7 +18,7 @@
   color: #2c365d;
 }
 
-.title-label, .category-label, .email-label, .password-label, .first_name-label, .last_name-label, .role-label {
+.title-label, .category-label, .description-label, .email-label, .password-label, .first_name-label, .last_name-label, .role-label {
   font-size: 1.8rem;
 }
 

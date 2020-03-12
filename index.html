@@ -165,7 +165,9 @@
                     <label class="title-label add_task" for="title">Title:</label><br>
                     <input v-model="taskData.title" class="title-input add_task" type="text" id="title-add_task" name="title" ><br>
                     <label class="category-label add_task" for="category">Category:</label><br>
-                    <input v-model="taskData.category" class="category-input add_task" type="category" id="category-add_task" name="password" ><br><br>
+                    <input v-model="taskData.category" class="category-input add_task" type="category" id="category-add_task" name="category" ><br><br>
+                    <label class="description-label add_task" for="description">Description:</label><br>
+                    <input v-model="taskData.description" class="description-input add_task" type="description" id="description-add_task" name="description" ><br><br>
                     <input class="submit" type="submit" value="Add Task">
                   </form>
             </div>
@@ -315,7 +317,7 @@
                         </div>
                         <div class="modal-body">
                           <p>
-                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis quod nihil at doloribus aliquid architecto aspernatur, possimus ducimus enim, corrupti animi ullam assumenda esse voluptatum consectetur dignissimos iure, accusantium vel.
+                              {{ taskDetail.description }}
                           </p>
                         </div>
                         <div class="modal-footer">
