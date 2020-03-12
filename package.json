@@ -1,0 +1,23 @@
+{
+  "name": "kanban_client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prmzk/kanban_client.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prmzk/kanban_client/issues"
+  },
+  "homepage": "https://github.com/prmzk/kanban_client#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "vue": "^2.6.11"
+  }
+}

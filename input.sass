@@ -23,14 +23,13 @@ body
 ::-webkit-scrollbar 
     width: 4px
 ::-webkit-scrollbar-track 
-    background: rgb(255,255,255,0.2) 
+    background: rgb(255,255,255,0.5) 
 ::-webkit-scrollbar-thumb 
-    background: rgb(255,255,255,0.2)
+    background: rgb(0,0,0,0.5) 
 ::-webkit-scrollbar-thumb:hover 
-    background: #555 
+    background: rgb(0,0,0) 
 
 #landing-page
-    display: none
     background-color: white
 
     #nav-landing-bg
@@ -155,7 +154,6 @@ body
             margin-top: 28px
 
 #login-page 
-    display: none
     .login-bg
         @extend %flex-center-row
         justify-content: flex-start
@@ -180,6 +178,7 @@ body
             width: 24px
             margin: 24px
             align-self: start
+            cursor: pointer
         
         .login-form
             @extend %flex-center-col
@@ -207,12 +206,13 @@ body
                     border: 1px #ced4da
                     border-bottom: 1px  solid #ced4da
                     font-family: $text
-                    text-align: center
-                
+                .form-control:focus 
+                    box-shadow: none
                 .btn
                     width: 30vw
                     margin-top: 15px
                     background-color: $color-theme
+                    height: 5vh
                     border: 0
 
             hr
@@ -223,7 +223,6 @@ body
                 margin-top: 20px
             
 #sign-up-page 
-    display: none
     .sign-up-bg
         @extend %flex-center-row
         justify-content: flex-start
@@ -249,6 +248,7 @@ body
             width: 24px
             margin: 24px
             align-self: start
+            cursor: pointer
         
         .sign-up-form
             @extend %flex-center-col
@@ -275,12 +275,16 @@ body
                     border: 1px #ced4da
                     border-bottom: 1px  solid #ced4da
                     font-family: $text
+                .form-control:focus 
+                    box-shadow: none
                 
                 .btn
                     width: 30vw
+                    height: 5vh
                     margin-top: 30px
                     background-color: $color-theme
                     border: 0
+                    
 
             hr
                 border: 0.5px solid #ced4da
@@ -290,7 +294,6 @@ body
                 margin-top: 20px
             
 #sign-up-google-page 
-    display: none
     .sign-up-google-bg
         @extend %flex-center-row
         justify-content: flex-start
@@ -352,6 +355,7 @@ body
                     width: 30vw
                     margin-top: 30px
                     background-color: $color-theme
+                    height: 5vh
                     border: 0
 
             hr
@@ -362,7 +366,6 @@ body
                 margin-top: 20px
             
 #dashboard-home
-    display: none
     .nav-container
         @extend %flex-center-row
         position: fixed
@@ -371,6 +374,7 @@ body
         padding: 0 30px
         height: 6vh
         width: 100vw
+        z-index: 100
         .nav
             @extend %flex-center-row
             align-items: center
@@ -378,6 +382,7 @@ body
         img
             width: 36px
             border-radius: 10px
+            cursor: pointer
         
         h2
             margin-right:20px
@@ -406,18 +411,50 @@ body
             width: 12px
             height: 12px
             margin-bottom: 10px
+            cursor: pointer
         h2
             font-size: 14px
             font-weight: bold
+            cursor: pointer
 
 
     .dashboard-container
         @extend %flex-center-row
         padding-top: 6vh
+        align-items: flex-start
         .dashboard-content
             min-height: 94vh
             width: 60vw
             margin-top: 3vw
+
+        .dashboard-navigator
+            @extend %flex-center-col
+            margin-right: 2vw
+            align-items: flex-start
+            justify-content: flex-start
+            height: 60vh
+            margin-top: 6vh
+            p
+                margin-top: 20px
+                padding: 10px
+                border-radius: 20px
+                cursor: pointer
+            p:hover
+                background-color: #dfdfdf
+                width: 100%
+
+            form
+                .form-control
+                    width: 10vw
+                    border: 0
+                    padding-left: 0
+                .form-control:focus
+                    outline: 0
+                    box-shadow: inset 0 -1px 0 #ddd
+                    border: 0
+                img
+                    width: 20px
+
 
     h2
         font-family: $mini-title
@@ -441,6 +478,7 @@ body
                 padding-top: 20px
                 color: white
                 margin-top: 20px
+                cursor: pointer
                 h3
                     font-size: 16px
                     font-family: $text
@@ -469,7 +507,6 @@ body
             margin-top: 28px
 
 #kanban-board
-    background-image: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3) ), url(https://images.pexels.com/photos/158827/field-corn-air-frisch-158827.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260)
     background-size: cover
     background-attachment: fixed
     .nav-container
@@ -479,29 +516,25 @@ body
         padding: 0 30px
         height: 6vh
         width: 100vw
-        .nav
-            @extend %flex-center-row
-            align-items: center
-            width: 100vw
-            .nav-item
-                div
-                    @extend %flex-center-row
-                    img
-                        margin-right: 20px
-                        width: 28px
+
         img
             width: 36px
             border-radius: 10px
+            cursor: pointer
         
         h2
-            margin-right:20px
+            width: 40vw
+            margin-right: auto
+            text-align: center
 
     .kanban-content
         @extend %flex-center-col
         .row
             width: 96vw
             align-items: flex-start
+            padding-bottom: 4vh
             .kanban-card
+                cursor: pointer
                 .kanban-title
                     @extend %flex-center-row
                     h1
@@ -515,7 +548,7 @@ body
                     min-height: 15vh
                     border-radius: 10px
                     padding:10px
-                    max-height: 86vh
+                    max-height: 82vh
                     .kanban-content-card
                         margin-top: 20px
                         .icon-div
@@ -553,7 +586,9 @@ body
                             font-size: 14px
                             margin-left: 16px
     .kanban-detail
-        height: 100vh
+        @extend %flex-center-col
+        align-items: flex-start
+        height: 94vh
         width: 20vw
         position: fixed
         background-color: whitesmoke
@@ -561,19 +596,108 @@ body
         right:0
         text-align: left
         padding: 20px
+
+        input
+            border: none
+            border-bottom: 1px solid $color-theme-dark
+            outline: none
+            background: none
+
+        text-area 
+            border: none
+            border-bottom: 1px solid $color-theme-dark
+            outline: none
+            background: none
+            font-family: $text
+
         .close
+            align-self: flex-end
+            cursor: pointer
             width:20px
+        .row
+            width: 80%
+            margin-bottom: 1vh
+            img
+                border-radius: 120px
+                width: 48px
+            p
+                font-size: 10px
+                margin-bottom: 0
+            .name
+                font-size: 20px
+        .due-date
+            width: 100%
+            p
+                font-size: 16px
+                font-family: $text
+                margin-bottom: 0
+        .detail-desc
+            font-family: $text
+            font-weight: light
+            margin-bottom: auto
+
+        .bottom-icon
+            width: 48px
+            cursor: pointer
+            align-self: flex-end
+    .kanban-new
+        align-items: flex-start
+        height: 94vh
+        width: 20vw
+        position: fixed
+        background-color: whitesmoke
+        z-index: 99
+        right:0
+        text-align: left
+        padding: 20px
+
+        h1
+            margin-bottom: 5vh
+
+        .close
+            align-self: flex-end
+            width:20px
+            cursor: pointer
         .row
             width: 80%
             margin-bottom: 5vh
             img
                 border-radius: 120px
+                width: 48px
             p
                 font-size: 10px
                 margin-bottom: 0
             .name
                 font-size: 20px
 
-        .detail-desc
-            font-family: $text
-            font-weight: light
+        form
+            @extend %flex-center-col
+            .bottom-icon
+                background: none
+                border:0 
+                cursor: pointer
+                align-self: flex-end
+                img
+                    width: 48px
+
+            .bottom-icon:focus
+                box-shadow: none
+                border: 0
+
+            .form-group
+                width: 100%
+                #add-kanban-desc
+                    word-wrap: break-word
+                    word-break: break-all
+                    font-family: $text
+                    height: 10vh
+                    width: 100%
+                    padding: 10px
+
+                .form-control
+                    border: 1px #ced4da
+                    border-bottom: 1px  solid #ced4da
+                    font-family: $text
+                .form-control:focus 
+                    box-shadow: none
+            

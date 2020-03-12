@@ -1,10 +1,10 @@
-#kanban-board .kanban-content, #dashboard-home .footer, #dashboard-home .profile-option, #sign-up-google-page .sign-up-google-container .sign-up-google-form, #sign-up-google-page .sign-up-google-container, #sign-up-page .sign-up-container .sign-up-form, #sign-up-page .sign-up-container, #login-page .login-container .login-form, #login-page .login-container, #landing-page .footer, #landing-page .landing-content-2 .landing-intro .landing-intro-text, #landing-page .landing-content-2 .landing-intro .landing-ico-card, #landing-page .landing-content .landing-intro .landing-intro-text, #landing-page .landing-content, #landing-page #nav-landing-bg #nav-landing-container {
+#kanban-board .kanban-new form, #kanban-board .kanban-detail, #kanban-board .kanban-content, #dashboard-home .footer, #dashboard-home .dashboard-container .dashboard-navigator, #dashboard-home .profile-option, #sign-up-google-page .sign-up-google-container .sign-up-google-form, #sign-up-google-page .sign-up-google-container, #sign-up-page .sign-up-container .sign-up-form, #sign-up-page .sign-up-container, #login-page .login-container .login-form, #login-page .login-container, #landing-page .footer, #landing-page .landing-content-2 .landing-intro .landing-intro-text, #landing-page .landing-content-2 .landing-intro .landing-ico-card, #landing-page .landing-content .landing-intro .landing-intro-text, #landing-page .landing-content, #landing-page #nav-landing-bg #nav-landing-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-#kanban-board .kanban-content .row .kanban-card .kanban-title, #kanban-board .nav-container .nav .nav-item div, #kanban-board .nav-container .nav, #kanban-board .nav-container, #dashboard-home .your-kanban-board .your-kanban-board-container, #dashboard-home .dashboard-container, #dashboard-home .nav-container .nav-item, #dashboard-home .nav-container .nav, #dashboard-home .nav-container, #sign-up-google-page .sign-up-google-bg, #sign-up-page .sign-up-bg, #login-page .login-bg, #landing-page .landing-content-2 .landing-intro, #landing-page .landing-content-2, #landing-page .landing-content .landing-intro, #landing-page #nav-landing-bg {
+#kanban-board .kanban-content .row .kanban-card .kanban-title, #kanban-board .nav-container, #dashboard-home .your-kanban-board .your-kanban-board-container, #dashboard-home .dashboard-container, #dashboard-home .nav-container .nav-item, #dashboard-home .nav-container .nav, #dashboard-home .nav-container, #sign-up-google-page .sign-up-google-bg, #sign-up-page .sign-up-bg, #login-page .login-bg, #landing-page .landing-content-2 .landing-intro, #landing-page .landing-content-2, #landing-page .landing-content .landing-intro, #landing-page #nav-landing-bg {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -21,19 +21,18 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.5);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.5);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: black;
 }
 
 #landing-page {
-  display: none;
   background-color: white;
 }
 #landing-page #nav-landing-bg {
@@ -152,9 +151,6 @@ body {
   margin-top: 28px;
 }
 
-#login-page {
-  display: none;
-}
 #login-page .login-bg {
   justify-content: flex-start;
   align-items: flex-end;
@@ -178,6 +174,7 @@ body {
   width: 24px;
   margin: 24px;
   align-self: start;
+  cursor: pointer;
 }
 #login-page .login-container .login-form {
   background-color: white;
@@ -205,12 +202,15 @@ body {
   border: 1px #ced4da;
   border-bottom: 1px solid #ced4da;
   font-family: "Raleway", sans-serif;
-  text-align: center;
+}
+#login-page .login-container .login-form form .form-control:focus {
+  box-shadow: none;
 }
 #login-page .login-container .login-form form .btn {
   width: 30vw;
   margin-top: 15px;
   background-color: #5abf78;
+  height: 5vh;
   border: 0;
 }
 #login-page .login-container .login-form hr {
@@ -221,9 +221,6 @@ body {
   margin-top: 20px;
 }
 
-#sign-up-page {
-  display: none;
-}
 #sign-up-page .sign-up-bg {
   justify-content: flex-start;
   align-items: flex-end;
@@ -248,6 +245,7 @@ body {
   width: 24px;
   margin: 24px;
   align-self: start;
+  cursor: pointer;
 }
 #sign-up-page .sign-up-container .sign-up-form {
   background-color: white;
@@ -275,8 +273,12 @@ body {
   border-bottom: 1px solid #ced4da;
   font-family: "Raleway", sans-serif;
 }
+#sign-up-page .sign-up-container .sign-up-form form .form-control:focus {
+  box-shadow: none;
+}
 #sign-up-page .sign-up-container .sign-up-form form .btn {
   width: 30vw;
+  height: 5vh;
   margin-top: 30px;
   background-color: #5abf78;
   border: 0;
@@ -289,9 +291,6 @@ body {
   margin-top: 20px;
 }
 
-#sign-up-google-page {
-  display: none;
-}
 #sign-up-google-page .sign-up-google-bg {
   justify-content: flex-start;
   align-items: flex-end;
@@ -352,6 +351,7 @@ body {
   width: 30vw;
   margin-top: 30px;
   background-color: #5abf78;
+  height: 5vh;
   border: 0;
 }
 #sign-up-google-page .sign-up-google-container .sign-up-google-form hr {
@@ -362,9 +362,6 @@ body {
   margin-top: 20px;
 }
 
-#dashboard-home {
-  display: none;
-}
 #dashboard-home .nav-container {
   position: fixed;
   background-color: #5abf78;
@@ -372,6 +369,7 @@ body {
   padding: 0 30px;
   height: 6vh;
   width: 100vw;
+  z-index: 100;
 }
 #dashboard-home .nav-container .nav {
   align-items: center;
@@ -380,6 +378,7 @@ body {
 #dashboard-home .nav-container img {
   width: 36px;
   border-radius: 10px;
+  cursor: pointer;
 }
 #dashboard-home .nav-container h2 {
   margin-right: 20px;
@@ -408,18 +407,51 @@ body {
   width: 12px;
   height: 12px;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 #dashboard-home .profile-option h2 {
   font-size: 14px;
   font-weight: bold;
+  cursor: pointer;
 }
 #dashboard-home .dashboard-container {
   padding-top: 6vh;
+  align-items: flex-start;
 }
 #dashboard-home .dashboard-container .dashboard-content {
   min-height: 94vh;
   width: 60vw;
   margin-top: 3vw;
+}
+#dashboard-home .dashboard-container .dashboard-navigator {
+  margin-right: 2vw;
+  align-items: flex-start;
+  justify-content: flex-start;
+  height: 60vh;
+  margin-top: 6vh;
+}
+#dashboard-home .dashboard-container .dashboard-navigator p {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+#dashboard-home .dashboard-container .dashboard-navigator p:hover {
+  background-color: #dfdfdf;
+  width: 100%;
+}
+#dashboard-home .dashboard-container .dashboard-navigator form .form-control {
+  width: 10vw;
+  border: 0;
+  padding-left: 0;
+}
+#dashboard-home .dashboard-container .dashboard-navigator form .form-control:focus {
+  outline: 0;
+  box-shadow: inset 0 -1px 0 #ddd;
+  border: 0;
+}
+#dashboard-home .dashboard-container .dashboard-navigator form img {
+  width: 20px;
 }
 #dashboard-home h2 {
   font-family: "Roboto", sans-serif;
@@ -441,6 +473,7 @@ body {
   padding-top: 20px;
   color: white;
   margin-top: 20px;
+  cursor: pointer;
 }
 #dashboard-home .your-kanban-board .your-kanban-board-container .board h3 {
   font-size: 16px;
@@ -469,7 +502,6 @@ body {
 }
 
 #kanban-board {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)), url(https://images.pexels.com/photos/158827/field-corn-air-frisch-158827.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260);
   background-size: cover;
   background-attachment: fixed;
 }
@@ -480,24 +512,23 @@ body {
   height: 6vh;
   width: 100vw;
 }
-#kanban-board .nav-container .nav {
-  align-items: center;
-  width: 100vw;
-}
-#kanban-board .nav-container .nav .nav-item div img {
-  margin-right: 20px;
-  width: 28px;
-}
 #kanban-board .nav-container img {
   width: 36px;
   border-radius: 10px;
+  cursor: pointer;
 }
 #kanban-board .nav-container h2 {
-  margin-right: 20px;
+  width: 40vw;
+  margin-right: auto;
+  text-align: center;
 }
 #kanban-board .kanban-content .row {
   width: 96vw;
   align-items: flex-start;
+  padding-bottom: 4vh;
+}
+#kanban-board .kanban-content .row .kanban-card {
+  cursor: pointer;
 }
 #kanban-board .kanban-content .row .kanban-card .kanban-title {
   margin-top: 3vh;
@@ -513,7 +544,7 @@ body {
   min-height: 15vh;
   border-radius: 10px;
   padding: 10px;
-  max-height: 86vh;
+  max-height: 82vh;
 }
 #kanban-board .kanban-content .row .kanban-card .kanban-content .kanban-content-card {
   margin-top: 20px;
@@ -556,7 +587,8 @@ body {
   margin-left: 16px;
 }
 #kanban-board .kanban-detail {
-  height: 100vh;
+  align-items: flex-start;
+  height: 94vh;
   width: 20vw;
   position: fixed;
   background-color: whitesmoke;
@@ -565,15 +597,31 @@ body {
   text-align: left;
   padding: 20px;
 }
+#kanban-board .kanban-detail input {
+  border: none;
+  border-bottom: 1px solid #427852;
+  outline: none;
+  background: none;
+}
+#kanban-board .kanban-detail text-area {
+  border: none;
+  border-bottom: 1px solid #427852;
+  outline: none;
+  background: none;
+  font-family: "Raleway", sans-serif;
+}
 #kanban-board .kanban-detail .close {
+  align-self: flex-end;
+  cursor: pointer;
   width: 20px;
 }
 #kanban-board .kanban-detail .row {
   width: 80%;
-  margin-bottom: 5vh;
+  margin-bottom: 1vh;
 }
 #kanban-board .kanban-detail .row img {
   border-radius: 120px;
+  width: 48px;
 }
 #kanban-board .kanban-detail .row p {
   font-size: 10px;
@@ -582,9 +630,89 @@ body {
 #kanban-board .kanban-detail .row .name {
   font-size: 20px;
 }
+#kanban-board .kanban-detail .due-date {
+  width: 100%;
+}
+#kanban-board .kanban-detail .due-date p {
+  font-size: 16px;
+  font-family: "Raleway", sans-serif;
+  margin-bottom: 0;
+}
 #kanban-board .kanban-detail .detail-desc {
   font-family: "Raleway", sans-serif;
   font-weight: light;
+  margin-bottom: auto;
+}
+#kanban-board .kanban-detail .bottom-icon {
+  width: 48px;
+  cursor: pointer;
+  align-self: flex-end;
+}
+#kanban-board .kanban-new {
+  align-items: flex-start;
+  height: 94vh;
+  width: 20vw;
+  position: fixed;
+  background-color: whitesmoke;
+  z-index: 99;
+  right: 0;
+  text-align: left;
+  padding: 20px;
+}
+#kanban-board .kanban-new h1 {
+  margin-bottom: 5vh;
+}
+#kanban-board .kanban-new .close {
+  align-self: flex-end;
+  width: 20px;
+  cursor: pointer;
+}
+#kanban-board .kanban-new .row {
+  width: 80%;
+  margin-bottom: 5vh;
+}
+#kanban-board .kanban-new .row img {
+  border-radius: 120px;
+  width: 48px;
+}
+#kanban-board .kanban-new .row p {
+  font-size: 10px;
+  margin-bottom: 0;
+}
+#kanban-board .kanban-new .row .name {
+  font-size: 20px;
+}
+#kanban-board .kanban-new form .bottom-icon {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  align-self: flex-end;
+}
+#kanban-board .kanban-new form .bottom-icon img {
+  width: 48px;
+}
+#kanban-board .kanban-new form .bottom-icon:focus {
+  box-shadow: none;
+  border: 0;
+}
+#kanban-board .kanban-new form .form-group {
+  width: 100%;
+}
+#kanban-board .kanban-new form .form-group #add-kanban-desc {
+  word-wrap: break-word;
+  word-break: break-all;
+  font-family: "Raleway", sans-serif;
+  height: 10vh;
+  width: 100%;
+  padding: 10px;
+}
+#kanban-board .kanban-new form .form-group .form-control {
+  border: 1px #ced4da;
+  border-bottom: 1px solid #ced4da;
+  font-family: "Raleway", sans-serif;
+}
+#kanban-board .kanban-new form .form-group .form-control:focus {
+  box-shadow: none;
 }
 
 /*# sourceMappingURL=style.css.map */
