@@ -1,6 +1,6 @@
 <template>
-  <div class="categories">
-    <div class="category-label">BACKLOG</div>
+  <div class="lists">
+    <div class="list-label">BACKLOG</div>
     <div class="tasks"></div>
   </div>
 </template>
