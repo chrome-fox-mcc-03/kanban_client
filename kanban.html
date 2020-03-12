@@ -7,6 +7,8 @@
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Google-Sign-in -->
+    <meta name="google-signin-client_id" content="300212796737-706ht16fsvn19fsk18lieucrpmo9dni9.apps.googleusercontent.com">
     <!-- Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="./style.css">
@@ -17,7 +19,7 @@
         <!-- Navigation Bar -->
         <nav>
             <div class="nav-wrapper">
-            <a v-on:click="changePage('landingPage')" href="#" id="logo" class="brand-logo"><image src="image/logo.png"></image></a>
+            <a v-on:click="changePage('landingPage')" href="#" id="logo" class="brand-logo"><image src="assets/images/logo.png"></image></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li v-if="!userData.isLogin" v-on:click="changePage('regisPage')" ><a id="btn-register" href="#">Register</a></li>
                 <li v-if="!userData.isLogin" v-on:click="changePage('loginPage')" ><a id="btn-login" href="#">Login</a></li>
@@ -31,7 +33,7 @@
     
             <div class="container-landing">
                 <div class="col s1">
-                    <image src="/image/logo-300x100.png"></image>
+                    <image src="assets/images/logo-300x100.png"></image>
                 </div>
                 <blockquote>
                     A kanban board is an agile project management tool designed to help visualize work, limit work-in-progress, and maximize efficiency.
@@ -41,7 +43,7 @@
                 </blockquote>
             </div>
             <div class="illustration-landing">
-                <image id="illustration" src="/image/illustration.svg"></image>
+                <image id="illustration" src="assets/images/illustration.svg"></image>
             </div>
         </section>
 
@@ -192,6 +194,8 @@
                     <button class="btn waves-effect waves-light" type="submit" name="action">Register
                         <i class="material-icons right">send</i>
                     </button>
+                    <br>
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
                 </form>
             </div>
         </section>
@@ -218,11 +222,16 @@
                     <button class="btn waves-effect waves-light" type="submit" name="action">Login
                         <i class="material-icons right">send</i>
                     </button>
+                    <br>
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
                 </form>
             </div>
         </section>
     </div>
 
+
+    <!-- Google-Sign-in -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <!-- Axios -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- Vue JS -->
