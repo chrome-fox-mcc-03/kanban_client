@@ -1,0 +1,21 @@
+{
+  "name": "kanban_client",
+  "version": "1.0.0",
+  "description": "Kanban Client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juleshwa/kanban_client.git"
+  },
+  "keywords": [],
+  "author": "Juli Yanti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/juleshwa/kanban_client/issues"
+  },
+  "homepage": "https://github.com/juleshwa/kanban_client#readme",
+  "dependencies": {}
+}
