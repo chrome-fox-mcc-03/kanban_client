@@ -4,7 +4,7 @@
             <div class="card-title">{{ category }}</div>
             <Act v-for="activity in filtered" :key="activity.id" :title="activity.title"></Act>
         </div>
-        <AddForm></AddForm>
+        <AddForm :fetchActivities="fetchActivities"></AddForm>
     </div>
 </template>
 
@@ -14,7 +14,8 @@ import AddForm from './AddForm';
 export default {
     props: [
         'category',
-        'activities'
+        'activities',
+        'fetchActivities'
     ],
     name: 'KanbanCard',
     data: function() {

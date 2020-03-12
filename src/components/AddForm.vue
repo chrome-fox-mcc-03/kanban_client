@@ -1,6 +1,6 @@
 <template>
   <div class="add-div">
-    <form @submit.prevent="addNewAct()" class="add-act">
+    <form @submit.prevent="addNewAct()" @submit.prevent="fetchActivities" class="add-act">
       <input v-model="newActivity" type="text" placeholder="New Activity" />
     </form>
   </div>
@@ -28,13 +28,18 @@ export default {
       })
         .then(({data}) => {
           //fetch lagi
-          console.log(data);
+          this.fetchActivities();
+          console.log('New activity successfully added!', data);
+          this.newActivity = '';
         })
         .catch(err => {
           console.log(err);
         })
     }
-  }
+  },
+  props: [ 
+    'fetchActivities' 
+  ]
 }
 </script>
 

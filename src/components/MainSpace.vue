@@ -1,6 +1,6 @@
 <template>
     <div class="main-space">
-        <KanbanCard v-for="(kanbanCard, i) in kanbanCards" :key="i" :category="kanbanCard" :activities="activities"></KanbanCard>
+        <KanbanCard v-for="(kanbanCard, i) in kanbanCards" :key="i" :category="kanbanCard" :activities="activities" :fetchActivities="fetchActivities"></KanbanCard>
         <!-- <KanbanCard></KanbanCard> -->
     </div>
 </template>

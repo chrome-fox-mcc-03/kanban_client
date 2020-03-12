@@ -9477,6 +9477,8 @@ var _default = {
   },
   methods: {
     addNewAct: function addNewAct() {
+      var _this = this;
+
       axios({
         method: 'post',
         url: 'http://localhost:3000/activities',
@@ -9488,13 +9490,18 @@ var _default = {
         }
       }).then(function (_ref) {
         var data = _ref.data;
+
         //fetch lagi
-        console.log(data);
+        _this.fetchActivities();
+
+        console.log('New activity successfully added!', data);
+        _this.newActivity = '';
       }).catch(function (err) {
         console.log(err);
       });
     }
-  }
+  },
+  props: ['fetchActivities']
 };
 exports.default = _default;
         var $0fa007 = exports.default || module.exports;
@@ -9604,7 +9611,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 var _default = {
-  props: ['category', 'activities'],
+  props: ['category', 'activities', 'fetchActivities'],
   name: 'KanbanCard',
   data: function data() {
     return {// backlogs: [ //dummy aja ini
@@ -9670,7 +9677,7 @@ exports.default = _default;
         2
       ),
       _vm._v(" "),
-      _c("AddForm")
+      _c("AddForm", { attrs: { fetchActivities: _vm.fetchActivities } })
     ],
     1
   )
@@ -9775,7 +9782,11 @@ exports.default = _default;
     _vm._l(_vm.kanbanCards, function(kanbanCard, i) {
       return _c("KanbanCard", {
         key: i,
-        attrs: { category: kanbanCard, activities: _vm.activities }
+        attrs: {
+          category: kanbanCard,
+          activities: _vm.activities,
+          fetchActivities: _vm.fetchActivities
+        }
       })
     }),
     1
@@ -10147,7 +10158,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45089" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42757" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
