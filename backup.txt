@@ -1,0 +1,171 @@
+<div id="login-page" v-if="!isAuthenticated">
+                <div class="container" id="container">
+                    <div class="form-container sign-up-container">
+                        <form class="log-form" @submit.prevent="createNewUser()">
+                            <h1>Create Account</h1>
+                            <input v-model="userData.regName" type="text" placeholder="Name" />
+                            <input v-model="userData.regEmail" type="email" placeholder="Email" />
+                            <input v-model="userData.regPassword" type="password" placeholder="Password" />
+                            <!-- <button @click="authenticate()">Sign Up</button> -->
+                            <input class="sign-button" type="submit" value="Sign Up">
+                        </form>
+                    </div>
+                    <div class="form-container sign-in-container">
+                        <form class="log-form" >
+                            <h1>Sign in</h1>
+                            <div class="social-container">
+                                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                            </div>
+                            <span>or use your account</span>
+                            <input type="email" placeholder="Email" />
+                            <input type="password" placeholder="Password" />
+                            <div class="signin-buttons">
+                                <button @click="authenticate()">Sign In</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="overlay-container">
+                        <div class="overlay">
+                            <div class="overlay-panel overlay-left">
+                                <h1>Welcome Back!</h1>
+                                <p>To keep connected with us please login with your personal info</p>
+                                <button class="ghost" id="signIn">Sign In</button>
+                            </div>
+                            <div class="overlay-panel overlay-right">
+                                <h1>Get Started!</h1>
+                                <p>Start journey with us and level up your way of organizing tasks</p>
+                                <button class="ghost" id="signUp">Sign Up</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div id="main-page" v-else>
+                <div class="navbar">
+                    <div></div>
+                    <div id="app-title">
+                        <img src="kanban-logo-simple (1).png" alt="">
+                    </div>
+                    <div class="account">
+                        <div id="account-letter">
+                            E
+                        </div>
+                        <div @click="signOut()" class="account-menu">
+                            <p>Sign Out</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-space">
+                    <div class="kanban-card">
+                        <div class="title-and-act">
+                            <div class="card-title">Backlog</div>
+                            <div v-for="backlog in backlogs" :key="backlog.id" class="act" @click="showEditForm()">
+                                <p>{{ backlog.title }}</p>
+                                <!-- right button -->
+                                <div class="option-space">
+                                    <i class="fas fa-angle-right fa-sm"></i>
+                                </div>
+                                <!-- right button -->
+                            </div>
+                        </div>
+                        <div class="add-div">
+                            <form @submit.prevent="addNewAct()" class="add-act">
+                                <input v-model="newActivity" type="text" placeholder="New Activity">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="kanban-card">
+                        <div class="title-and-act">
+                            <div class="card-title">On Progress</div>
+                            <div class="act">
+    
+                                <!-- left button -->
+                                <div class="option-space">
+                                    <i class="fas fa-angle-left fa-sm"></i>
+                                </div>
+                                <!-- left button -->
+    
+                                <!-- activity title -->
+                                <p style="color: orange;">Dummy</p>
+                                <!-- activity title -->
+    
+                                <!-- right button -->
+                                <div class="option-space">
+                                    <i class="fas fa-angle-right fa-sm"></i>
+                                </div>
+                                <!-- right button -->
+    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kanban-card">
+                        <div class="title-and-act">
+                            <div class="card-title">Needs Review</div>
+                            <div class="act">
+                            
+                                <!-- left button -->
+                                <div class="option-space">
+                                    <i class="fas fa-angle-left fa-sm"></i>
+                                </div>
+                                <!-- left button -->
+    
+                                <!-- activity title -->
+                                <p style="color: orange;">Dummy</p>
+                                <!-- activity title -->
+    
+                                <!-- right button -->
+                                <div class="option-space">
+                                    <i class="fas fa-angle-right fa-sm"></i>
+                                </div>
+                                <!-- right button -->
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kanban-card">
+                        <div class="title-and-act">
+                            <div class="card-title">Finished</div>
+                            <div class="act">
+    
+                                <!-- activity title -->
+                                <p style="color: orange;">Dummy</p>
+                                <!-- activity title -->
+                                
+                                <!-- left button -->
+                                <div class="option-space">
+                                    <i class="fas fa-angle-left fa-sm"></i>
+                                </div>
+                                <!-- left button -->
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div id="edit-form" v-if="wannaEdit">
+                <div class="card-form">
+                    <form class="signup">
+                      <div class="form-title">Edit</div>
+                      <div class="form-body">
+                        <div class="row">
+                          <input type="text" placeholder="Title">
+                        </div>
+                        <div class="row">
+                          <input type="text" placeholder="Category">
+                        </div>
+                      </div>
+                      <div class="rule"></div>
+                      <div class="form-footer">
+                        <a>Save</a>
+                        <a id="cancelEdit" @click="backToMainPage()">Cancel</a>
+                        <a>Delete</a>
+                      </div>
+                    </form>
+                </div>
+            </div>
+
+
+                    <!-- <div class="kanban-card" :class="{ act: isActive }">hehehe</div> -->
+        <!-- :class="{ right-panel-active: !isActive }" -->
