@@ -100,9 +100,21 @@ const app = new Vue({
                     this.setLoading(false);
                 })
         },
+        onSignIn(googleUser) {
+            const profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());q
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+            const id_token = googleUser.getAuthResponse().id_token;
+        },
         logout() {
-            this.isLogin = false;
             localStorage.clear();
+            // const auth2 = gapi.auth2.getAuthInstance();
+            // auth2.signOut().then(function () {
+            //     console.log('User signed out.');
+            // });
+            this.isLogin = false;
         },
         fetchData() {
             this.isLoading = true;
