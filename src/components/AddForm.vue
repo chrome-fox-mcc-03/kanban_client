@@ -13,6 +13,27 @@ export default {
     return {
         newActivity: ""
     }
+  },
+  methods: {
+    addNewAct() {
+      axios({
+        method: 'post',
+        url: 'http://localhost:3000/activities',
+        data: {
+          title: this.newActivity
+        },
+        headers: {
+          token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({data}) => {
+          //fetch lagi
+          console.log(data);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
   }
 }
 </script>

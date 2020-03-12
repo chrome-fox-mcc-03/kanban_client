@@ -18,9 +18,9 @@ export default {
     methods: {
         fetchActivities() {
             axios.get('http://localhost:3000/activities/')
-                .then(activities => {
-                    console.log(activities);
-                    this.activities = activities;
+                .then(({data}) => {
+                    console.log(data);
+                    this.activities = data;
                 })
                 .catch(err => {
                     console.log(err);

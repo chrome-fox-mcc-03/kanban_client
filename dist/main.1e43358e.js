@@ -9474,6 +9474,26 @@ var _default = {
     return {
       newActivity: ""
     };
+  },
+  methods: {
+    addNewAct: function addNewAct() {
+      axios({
+        method: 'post',
+        url: 'http://localhost:3000/activities',
+        data: {
+          title: this.newActivity
+        },
+        headers: {
+          token: localStorage.getItem('access_token')
+        }
+      }).then(function (_ref) {
+        var data = _ref.data;
+        //fetch lagi
+        console.log(data);
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
   }
 };
 exports.default = _default;
@@ -9587,50 +9607,25 @@ var _default = {
   props: ['category', 'activities'],
   name: 'KanbanCard',
   data: function data() {
-    return {
-      backlogs: [//dummy aja ini
-      {
-        id: 1,
-        title: 'Book flight to Vietnam',
-        category: 'Backlog'
-      }, {
-        id: 2,
-        title: 'Recruit new member',
-        category: 'Backlog'
-      }, {
-        id: 3,
-        title: 'Read Narnia',
-        category: 'Backlog'
-      }, {
-        id: 4,
-        title: 'Birthday gift for Dre',
-        category: 'Backlog'
-      }, {
-        id: 5,
-        title: "Reply Youtube comments",
-        category: 'Backlog'
-      }, {
-        id: 6,
-        title: "Reply followers' tweets",
-        category: 'On Progress'
-      }, {
-        id: 7,
-        title: "January report",
-        category: 'On Progress'
-      }, {
-        id: 8,
-        title: "Reply followers' tweets",
-        category: 'Needs Review'
-      }],
-      newActivity: ''
+    return {// backlogs: [ //dummy aja ini
+      //     {id: 1, title: 'Book flight to Vietnam', category: 'Backlog'},
+      //     {id: 2, title: 'Recruit new member', category: 'Backlog'},
+      //     {id: 3, title: 'Read Narnia', category: 'Backlog'},
+      //     {id: 4, title: 'Birthday gift for Dre', category: 'Backlog'},
+      //     {id: 5, title: "Reply Youtube comments", category: 'Backlog'},
+      //     {id: 6, title: "Reply followers' tweets", category: 'On Progress'},
+      //     {id: 7, title: "January report", category: 'On Progress'},
+      //     {id: 8, title: "Reply followers' tweets", category: 'Needs Review'},
+      // ]
     };
   },
   computed: {
     filtered: function filtered() {
       var _this = this;
 
-      console.log(this.activities.data);
-      return this.activities.data.filter(function (activity) {
+      console.log('FILTER ================= >>>>>', this.activities); // console.log('====FILTER====>', this.activities.data);
+
+      return this.activities.filter(function (activity) {
         return activity.category === _this.category;
       });
     }
@@ -9745,9 +9740,10 @@ var _default = {
     fetchActivities: function fetchActivities() {
       var _this = this;
 
-      axios.get('http://localhost:3000/activities/').then(function (activities) {
-        console.log(activities);
-        _this.activities = activities;
+      axios.get('http://localhost:3000/activities/').then(function (_ref) {
+        var data = _ref.data;
+        console.log(data);
+        _this.activities = data;
       }).catch(function (err) {
         console.log(err);
       });
@@ -9938,6 +9934,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 var _default = {
+  name: 'Kan! Ban!',
   data: function data() {
     return {
       message: 'Test',
@@ -9953,11 +9950,11 @@ var _default = {
     LandingPage: _LandingPage.default,
     MainPage: _MainPage.default
   },
-  // created () {
-  //     if (localStorage.getItem('access_token')) {
-  //         this.currentPage = 'home'
-  //     }
-  // },
+  created: function created() {
+    if (localStorage.getItem('access_token')) {
+      this.currentPage = 'mainPage';
+    }
+  },
   mounted: function mounted() {
     var signUpButton = document.getElementById('signUp');
     var signInButton = document.getElementById('signIn');
@@ -10150,7 +10147,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33681" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45089" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -15,6 +15,7 @@
 import LandingPage from './views/LandingPage';
 import MainPage from './views/MainPage';
 export default {
+    name: 'Kan! Ban!',
     data: function() {
         return {
             message: 'Test',
@@ -30,11 +31,11 @@ export default {
         LandingPage,
         MainPage
     },
-    // created () {
-    //     if (localStorage.getItem('access_token')) {
-    //         this.currentPage = 'home'
-    //     }
-    // },
+    created () {
+        if (localStorage.getItem('access_token')) {
+            this.currentPage = 'mainPage'
+        }
+    },
     mounted () {
         const signUpButton = document.getElementById('signUp');
         const signInButton = document.getElementById('signIn');

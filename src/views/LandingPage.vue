@@ -68,12 +68,11 @@ export default {
             const email = this.userData.regEmail;
             const password = this.userData.regPassword;
 
-            axios.post('http://localhost:3000/signup',
-                {
-                    name,
-                    email,
-                    password
-                })
+            axios.post('http://localhost:3000/signup', {
+                name,
+                email,
+                password
+            })
                     .then(access_token => {
                         console.log('successfully sign up', access_token.data.access_token);
                         localStorage.setItem('access_token', access_token.data.access_token);
@@ -87,11 +86,10 @@ export default {
             const email = this.userData.logEmail;
             const password = this.userData.logPassword;
 
-            axios.post('http://localhost:3000/signin',
-                {
-                    email,
-                    password
-                })
+            axios.post('http://localhost:3000/signin', {
+                email,
+                password
+            })
                     .then(access_token => {
                         console.log('successfully sign in', access_token.data.access_token);
                         localStorage.setItem('access_token', access_token.data.access_token);
