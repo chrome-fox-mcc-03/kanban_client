@@ -34,6 +34,7 @@
 </template>
 
 <script>
+const URL = "http://localhost:3000"
 import Navbar from "./components/Navbar.vue"
 import LandingPage from "./components/LandingPage.vue"
 import Dashboard from "./components/Dashboard.vue"
@@ -78,7 +79,7 @@ export default {
 
             axios({
                 method: "post",
-                url: "http://localhost:3000/users/login", 
+                url: `${URL}/users/login`, 
                 data: {
                     email: email,
                     password: password
@@ -98,7 +99,10 @@ export default {
             })
             .catch(err => {
                 // arr = JSON.parse(err.responseText).message
-                console.log(err);
+                console.log(err.response.data);
+                this.$toasted.error(err.response.data.message, {
+                        position: 'bottom-center'
+                })
             })
         },
 
@@ -108,7 +112,7 @@ export default {
 
             axios({
                 method: "post",
-                url: "http://localhost:3000/users/signup", 
+                url: `${URL}/users/signup`, 
                 data: {
                     email: email,
                     password: password
@@ -118,10 +122,14 @@ export default {
                 console.log("MASUK SIGNUP CLIENT");
                 console.log("RESPONSE IS");
                 console.log(response);
+                // this.$toasted.success(`Welcome to Kanban, ${email}`)
             })
             .catch(err => {
                 // arr = JSON.parse(err.responseText).message
-                console.log(err);
+                console.log(err.response.data);
+                this.$toasted.error(err.response.data.message, {
+                        position: 'bottom-center'
+                })
             })
         },
 
@@ -130,7 +138,7 @@ export default {
             console.log(">>ENTERING APP.VUE FETCH TASKS<<");
             axios({
                 method : 'get',
-                url : `http://localhost:3000/tasks/`,
+                url : `${URL}/tasks/`,
                 headers : {
                     token : localStorage.getItem('token')
                 }
@@ -141,10 +149,13 @@ export default {
                     this.sortedTasks = response.data.data
                     this.tasks = response.allData
                 })
-                .catch ((error)=>{
-                    console.log(error)
+                .catch ((err) => {
+                    console.log(err)
                     console.log("FETCHING FAILS");
-                    console.log(error.response.data.errorMessage);
+                    console.log(err.response.data);
+                    this.$toasted.error(err.response.data.message, {
+                        position: 'bottom-center'
+                    })
                 })
         },
 
@@ -154,7 +165,7 @@ export default {
             console.log(dataFromChild);
             axios({
                 method : 'post',
-                url : `http://localhost:3000/tasks/`,
+                url : `${URL}/tasks/`,
                 headers : {
                     // token : localStorage.getItem('token')
                     token: this.token
@@ -167,9 +178,13 @@ export default {
                     console.log(this.task);
                     this.fetchTasks()
                 })
-                .catch ((error)=>{
+                .catch ((err)=>{
                     console.log("CREATE FAILS");
-                    console.log(error.response.data.errorMessage);
+                    console.log(err.response);
+                    // console.log(error.response.data.errorMessage);
+                    this.$toasted.error(err.response.data.message, {
+                        position: 'bottom-center'
+                    })
                 })
         },
 
@@ -180,7 +195,7 @@ export default {
             console.log(dataFromChild);
             axios({
                 method : 'put',
-                url : `http://localhost:3000/tasks/${dataFromChild.id}`,
+                url : `${URL}/tasks/${dataFromChild.id}`,
                 headers : {
                     // token : localStorage.getItem('token')
                     token: this.token
@@ -193,9 +208,16 @@ export default {
                     console.log(this.task);
                     this.fetchTasks()
                 })
-                .catch ((error)=>{
+                .catch ((err)=>{
                     console.log("EDIT FAILS");
-                    console.log(error.response.data.errorMessage);
+                    // console.log(error.response.data.errorMessage);
+                    console.log(err.response.data);
+                    // this.$toasted.error(err.response.data.errorMessage, {
+                    //     position: 'bottom-center'
+                    // })
+                    this.$toasted.error(err.response.data.message, {
+                        position: 'bottom-center'
+                    })
                 })
         },
 
@@ -206,7 +228,7 @@ export default {
             console.log(dataFromChild);
             axios({
                 method : 'delete',
-                url : `http://localhost:3000/tasks/${dataFromChild}`,
+                url : `${URL}/tasks/${dataFromChild}`,
                 headers : {
                     // token : localStorage.getItem('token')
                     token: this.token
@@ -217,9 +239,13 @@ export default {
                     console.log("DELETE SUCCESS");
                     this.fetchTasks()
                 })
-                .catch ((error)=>{
+                .catch ((err)=>{
                     console.log("DELETE FAILS");
-                    console.log(error.response.data.errorMessage);
+                    // console.log(error.response.data.errorMessage);
+                   console.log(err.response.data);
+                   this.$toasted.error(err.response.data.message, {
+                        position: 'bottom-center'
+                     })
                 })
         },
 

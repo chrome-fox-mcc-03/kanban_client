@@ -44,12 +44,11 @@ export default {
       console.log(this.unitTask, "-------------------------");
 
       this.$emit("getTaskDetails1", this.unitTask);
-      
     },
 
     deleteTaskById0() {
       console.log("THE GREAT-GRANDCHILD OF TASKCARD DELETE TASK, CHAIN 0");
-      this.$emit("deleteTaskById1", this.unitTask.id)
+      this.$emit("deleteTaskById1", this.unitTask.id);
     }
   },
   components: {}

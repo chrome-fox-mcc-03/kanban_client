@@ -22,7 +22,7 @@ export default {
     },
 
     deleteTaskById2(dataFromChild) {
-      this.$emit("deleteTaskById3", dataFromChild)
+      this.$emit("deleteTaskById3", dataFromChild);
     }
   },
   props: ["sortedTasks", "type"],

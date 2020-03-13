@@ -31,39 +31,12 @@
             </button>
           </li>
 
-          <!-- <li class="nav-item">
-            <button
-              type="button"
-              class="btn btn-warning"
-              data-toggle="modal"
-              data-target="#editTaskModal"
-            >
-              Edit
-              Task
-            </button>
-          </li> -->
-
-          <li class="nav-item">
-            <button
-              type="button"
-              class="btn btn-danger"
-              data-toggle="modal"
-              data-target="#deleteTaskModal"
-            >
-              Delete
-              Task
-            </button>
-          </li>
-
           <li class="nav-item">
             <button type="button" class="btn btn-info" v-on:click="logout()">LOGOUT</button>
           </li>
         </ul>
       </div>
-
-
     </nav>
-
 
     <!-- CREATE TASK Modal -->
     <div
@@ -131,83 +104,30 @@
         </div>
       </div>
     </div>
-
-
- 
-
-    <!-- DELETE TASK MODAL -->
-    <div
-      class="modal fade"
-      id="deleteTaskModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">CREATE NEW TASK</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form id="deleteTask-form">
-              ID
-              <br />
-              <input
-                v-model="dropId"
-                type="text"
-                class="form-control"
-                id="create-task-type"
-                placeholder="Enter Task Title"
-              />
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              form="deleteTask-form"
-              v-on:click.prevent="deleteTask()"
-            >
-              DELETE
-              TASK
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-
-
   </div>
 </template>
 
 <script>
 export default {
   name: "Navbar",
-  props: ['token', 'isLogin'],
+  props: ["token", "isLogin"],
   data() {
     return {
       taskCreds: {
-        "title" : "",
-        "category" : "",
-        "due_date" : new Date(),
-        "UserId" : 0
+        title: "",
+        category: "",
+        due_date: new Date(),
+        UserId: 0
       },
-      editCreds : {
-        "id": 0,
-        "title" : "",
-        "category" : "",
-        "due_date" : new Date(),
-        "UserId" : 0
+      editCreds: {
+        id: 0,
+        title: "",
+        category: "",
+        due_date: new Date(),
+        UserId: 0
       },
       dropId: 0 //FOR DELETE
-    }
+    };
   },
   methods: {
     /* 
@@ -218,28 +138,27 @@ export default {
     createTask() {
       console.log(">>>CREATE TASK: BEFORE SENDING TO PARENT<<<");
       console.log(this.taskCreds);
-      this.$emit("addNewTask", this.taskCreds)
+      this.$emit("addNewTask", this.taskCreds);
     },
 
     editTask() {
       console.log(">>>EDIT TASK: BEFORE SENDING TO PARENT<<<");
       console.log(this.editCreds);
-      this.$emit("editTaskInList", this.editCreds)
+      this.$emit("editTaskInList", this.editCreds);
     },
 
     deleteTask() {
-       console.log(">>>DELETE TASK: BEFORE SENDING TO PARENT<<<");
-       console.log(this.dropId);
-       this.$emit("dropTaskFromList", this.dropId)
+      console.log(">>>DELETE TASK: BEFORE SENDING TO PARENT<<<");
+      console.log(this.dropId);
+      this.$emit("dropTaskFromList", this.dropId);
     },
 
     logout() {
       console.log(">>>LOGGING OUT<<<");
-      this.$emit("logout", null)
+      this.$emit("logout", null);
     }
   }
 };
-  
 </script>
 
 <style>

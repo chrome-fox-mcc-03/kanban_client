@@ -74,7 +74,12 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" form="createTask-form" @click.prevent="editTask">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  form="createTask-form"
+                  @click.prevent="editTask"
+                >
                   EDIT
                   TASK
                 </button>
@@ -108,60 +113,57 @@ export default {
       title: "",
       due_date: "",
       category: "",
-      taskEditParams : {
+      taskEditParams: {
         id: 0,
         title: "",
         category: "",
         due_date: new Date()
       }
-    }
-   
+    };
   },
   methods: {
     editTask() {
       this.taskEditParams = {
-        "id": this.taskId,
-        "title": this.title,
-        "category": this.category,
-        "due_date": this.due_date
-      }
-      this.$emit("editTaskById", this.taskEditParams)
+        id: this.taskId,
+        title: this.title,
+        category: this.category,
+        due_date: this.due_date
+      };
+      this.$emit("editTaskById", this.taskEditParams);
     },
     getTaskDetails4(data) {
-      this.taskId = data.id
+      this.taskId = data.id;
       this.title = data.title;
       this.category = data.category;
       const date = new Date(data.due_date);
-      this.due_date = this.parseDate(date)
+      this.due_date = this.parseDate(date);
       // this.due_date = `${date.getFullYear()}-0${date.getMonth()}-0${date.getDate()}`;
       console.log(this.due_date);
       console.log(data, "-------------dataa");
 
       $("#editTaskModal").modal("show"); //from bootstrap?!
       // this.$emit("getTaskDetails5", taskEditParams)
-
-
     },
 
     parseDate(inputted) {
-      let yyyy = String(inputted.getFullYear())
-      let mm = inputted.getMonth() + 1
-      let dd = inputted.getDate()
+      let yyyy = String(inputted.getFullYear());
+      let mm = inputted.getMonth() + 1;
+      let dd = inputted.getDate();
 
-      if(String(mm).length === 1) {
-        mm = "0"+mm
+      if (String(mm).length === 1) {
+        mm = "0" + mm;
       }
 
-      if(String(dd).length === 1) {
-        dd = "0"+dd
+      if (String(dd).length === 1) {
+        dd = "0" + dd;
       }
 
-      let dateString = yyyy+"-"+mm+"-"+dd
-      return dateString
+      let dateString = yyyy + "-" + mm + "-" + dd;
+      return dateString;
     },
 
     deleteTaskById4(dataFromChild) {
-      this.$emit("deleteTaskById5", dataFromChild)
+      this.$emit("deleteTaskById5", dataFromChild);
     }
   },
   props: ["categories", "tasks"],

@@ -115,7 +115,7 @@ export default {
       }
     };
   },
-  props: ['isLogin'],
+  props: ["isLogin"],
   methods: {
     userSignup0() {
       const email = this.userCreds.email;
