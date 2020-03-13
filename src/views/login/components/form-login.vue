@@ -43,19 +43,21 @@ export default {
       sign_in_email: "",
       sign_in_password: "",
       googleSignInParams: {
-        client_id: process.env.CLIENT_ID
+        client_id: '233694152409-p8i86090u77mammactvru1ji9rma1tb5.apps.googleusercontent.com'
       },
       // isLoading: false
     };
   },
   methods: {
     onSignInSuccess(googleUser) {
+      // console.log(googleUser.getAuthResponse().id_token);
+      
       // this.isLoading = true;
       let profile = googleUser.getBasicProfile();
       let token = googleUser.getAuthResponse().id_token;
       axios({
         method: "POST",
-        url: "https://polar-dusk-39759.herokuapp.com/googleLogin",
+        url: "https://polar-dusk-39759.herokuapp.com/users/googleLogin",
         headers: {
           token
         }
@@ -63,10 +65,13 @@ export default {
         .then(result => {
           this.$emit("login", "home");
           this.$toasted.success("congratulation youve been signed in");
-
+          
           localStorage.setItem("token", result.data.token);
         })
         .catch(error => {
+          
+          console.log(`masuk`);
+          console.log(error);
           this.$toasted.error(error);
         })
         .finally(_ => {
@@ -74,6 +79,8 @@ export default {
         });
     },
     onSignInError(error) {
+      console.log(error);
+      
       this.$toasted.error(error);
     },
 

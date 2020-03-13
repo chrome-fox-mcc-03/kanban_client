@@ -1,10 +1,18 @@
 <template>
   <div>
-    <!-- <div v-if="isLoading" class="loading-screen">
+    <div class="loading-container" v-if="isLoading">
+      <div class="loading-screen">
         <lottie-player
-            src="https://assets10.lottiefiles.com/datafiles/kRbrlEbvgAezJ8q/data.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop  autoplay >
-        </lottie-player>
-    </div> -->
+          src="https://assets7.lottiefiles.com/datafiles/WKqC5QWz9GiZnlm/data.json"
+          background="transparent"
+          speed="1"
+          style="width: 300px; height: 300px;"
+          loop
+          autoplay
+        ></lottie-player>
+      </div>
+    </div>
+
     <login @showTask="showTask" @login="login" @signup="showSignup" v-if="page == 'login'"></login>
     <signup @showTask="showTask" @signup="login" @showLogin="showLogin" v-else-if="page == 'signup'"></signup>
     <home @logout="logout" :taskData="taskData" @showTask="showTask" v-else></home>
@@ -23,7 +31,7 @@ export default {
     return {
       page: "login",
       taskData: [],
-      // isLoading: false
+      isLoading: false
     };
   },
   components: {
@@ -45,7 +53,7 @@ export default {
       this.page = page;
     },
     showTask() {
-    this.isLoading = true
+      this.isLoading = true
       axios({
         method: "GET",
         url: "https://polar-dusk-39759.herokuapp.com/tasks",
@@ -57,11 +65,11 @@ export default {
           this.taskData = data;
         })
         .catch(error => {
-          this.$toasted.error('MASUK')
+          this.$toasted.error("MASUK");
         })
-        .finally( _ => {
-            // this.isLoading = false
-        })
+        .finally(_ => {
+          this.isLoading = false
+        });
     }
   },
   created: function() {
@@ -76,15 +84,23 @@ export default {
 </script>
 
 <style scoped>
-
 .loading-screen {
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-    
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  margin: auto;
+  top: 0%;
+  width: 300px;
+  /* background-color: rgba(255, 255, 255, 0.5); */
+  border-radius: 300px;
 }
-
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loading-screen lottie-player {
+  margin: auto;
+}
 </style>
