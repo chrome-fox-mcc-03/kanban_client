@@ -294,6 +294,12 @@ export default {
                 }
             })
             .then(results => {
+                this.cards = {
+                    backlog: [],
+                    todo: [],
+                    ongoing: [],
+                    done: []
+                }
                 if(results.data.tasks){
                     results.data.tasks.forEach(task => {
                         this.cards[task.category].push(task)
@@ -590,12 +596,6 @@ export default {
     },
     sockets: {
         new_card_arrived(){
-            this.cards = {
-                    backlog: [],
-                    todo: [],
-                    ongoing: [],
-                    done: []
-                },
             this.fetchCards()
             this.$vToastify.info('Someone modify a board')
         }
