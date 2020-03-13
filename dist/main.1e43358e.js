@@ -9554,7 +9554,7 @@ var _default = {
     onSignInError: function onSignInError(error) {
       // `error` contains any error occurred.
       console.log('OH NOES', error);
-      this.$toasted.error(error.response.data.message, {
+      this.$toasted.error(error.response.data, {
         position: "bottom-center"
       });
     }
@@ -12788,7 +12788,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56751" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57288" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

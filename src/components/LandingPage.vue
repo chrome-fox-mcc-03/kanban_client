@@ -155,7 +155,7 @@ export default {
     onSignInError (error) {
       // `error` contains any error occurred.
       console.log('OH NOES', error)
-      this.$toasted.error(error.response.data.message, {
+      this.$toasted.error(error.response.data, {
             position: "bottom-center"
       });
     }
