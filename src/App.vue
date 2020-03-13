@@ -4,15 +4,20 @@
       v-show="!isLogin"
       id="landing-page"
       @loginSubmit="loginCheck"
-      :password2="password2"
       @regSubmit="registerSubmit"
     ></landing>
-
-    <dashboard v-show="isLogin" id="dashboard" @logoutBtn="logout()"></dashboard>
+    <dashboard
+      v-show="isLogin"
+      id="dashboard"
+      @logoutBtn="logout()"
+      @getTasks="getTasks()"
+      :tasks="tasks"
+    ></dashboard>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import Landing from "./views/Landing.vue";
 import Dashboard from "./views/Dashboard.vue";
 
@@ -25,24 +30,71 @@ export default {
   data() {
     return {
       msg: "halo vue",
+
       isLogin: false,
-      password2: "123456"
+      tasks: []
     };
   },
   methods: {
     loginCheck(email, password) {
-      console.log(email);
-      console.log(password);
-
-      if (email == "hilmi@mail.com") {
-        this.isLogin = true;
-      }
+      axios({
+        method: "post",
+        url: "http://localhost:3000/users/login",
+        data: {
+          email,
+          password
+        }
+      })
+        .then(result => {
+          console.log(result.data);
+          localStorage.setItem("token", result.data);
+          this.isLogin = true;
+        })
+        .catch(err => {
+          let error = err.response.data;
+          console.log(error);
+        });
     },
     logout() {
+      localStorage.removeItem("token");
       this.isLogin = false;
+      this.getTasks();
     },
     registerSubmit(data) {
-      console.log(data);
+      let { name, email, password } = data;
+      axios({
+        method: "post",
+        url: "http://localhost:3000/users/register",
+        data: {
+          name,
+          email,
+          password
+        }
+      })
+        .then(result => {
+          console.log(result);
+        })
+        .catch(err => {
+          console.log(err.response);
+        });
+    },
+    getTasks() {
+      axios({
+        method: "get",
+        url: "http://localhost:3000/tasks",
+        headers: {
+          token: localStorage.getItem("token")
+        }
+      }).then(({ data }) => {
+        this.tasks = data;
+        console.log(data);
+      });
+    }
+  },
+  created() {
+    if (localStorage.getItem("token")) {
+      this.isLogin = true;
+      this.getTasks();
     }
   }
 };

@@ -35,6 +35,14 @@ body {
     height: 50%;
 }
 
+.kiri form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .field {
     width: 50%;
 }
@@ -48,14 +56,6 @@ body {
     height: 70%;
 
 }
-
-/* #dashboard {
-    display: none;
-} */
-
-/* #landing-page{
-    display: none;
-} */
 
 .nav-menu {
     padding: 10px 15px;
@@ -94,7 +94,7 @@ body {
 .list-content {
     /* opacity: 0.5px; */
     /* width: 100vw; */
-    margin-top: 10vh;
+    margin-top: 5vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -106,13 +106,21 @@ body {
     text-align: left;
 }
 
-.addTask {
+.form-addTask {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
     width: 100%;
+}
+
+.form-addTask button{
+    margin-top: 5px;
 }
 
 .delete-div {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 
 .delete {
@@ -151,7 +159,7 @@ body {
 
 @media screen and (max-width: 768px) {
     .layout-box {
-        width: 80vw;
+        width: 100vw;
         height: 100%;
     }
 
