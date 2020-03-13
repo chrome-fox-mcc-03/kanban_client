@@ -4,6 +4,7 @@
             <form-login @login="login"
             @togleLoginRegister="togleLoginRegister"
             v-if="registerPage"
+            @onSignInSuccess="onSignInSuccess"
             ></form-login>
             <form-register @register="register"
             @togleLoginRegister="togleLoginRegister"
@@ -36,6 +37,9 @@
             },
             togleLoginRegister(data) {
                 this.registerPage = data
+            },
+            onSignInSuccess(id_token) {
+                this.$emit('onSignInSuccess', id_token)
             }
         }
     }
@@ -72,9 +76,9 @@
 
     .form-signin {
         max-width: 320px;
-        padding: 15px;
+        padding-bottom: 15px;
         margin: 0 auto;
-        margin-top: 50px;
+        margin-top: 10px;
     }
 
     .form-signin .form-control {

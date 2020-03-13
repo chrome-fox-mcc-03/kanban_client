@@ -1,6 +1,6 @@
 <template>
     <div>
-        <kanban-navbar @logout="logout"></kanban-navbar>
+        <kanban-navbar @logout="logout" :userName="userName" :userImageUrl="userImageUrl"></kanban-navbar>
         <div class="dashboardPage">
             <kanban-add-task @addTask="addTask"></kanban-add-task>
             <div class="container-fluid">
@@ -48,7 +48,8 @@
             KanbanAddTask,
             KanbanBox
         },
-        props: ['tasks']
+        props: ['tasks', 'userName', 'userImageUrl']
+        
     }
 </script>
 
@@ -56,10 +57,10 @@
     .row {
         box-sizing: border-box;
         display: flex;
-        justify-content: flex-start;
+        justify-content: space-between;
         background-color: #3fc1c9;
         overflow-y: auto;
-        height: 80vh;
+        height: 76vh;
     }
 
     .box {

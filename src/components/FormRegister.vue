@@ -2,7 +2,7 @@
     <div id="register-page">
         <form class="form-signin" @submit.prevent="register">
             <h1 class="form-signin-heading">Sign Up</h1>
-            <input v-model="name" type="text" class="form-control" placeholder="Username" required="" autofocus="">
+            <input v-model="name" type="text" class="form-control" placeholder="Username" autofocus="">
             <input v-model="email" type="email" class="form-control" placeholder="Email address" required=""
                 autofocus="">
             <input v-model="password" type="password" class="form-control" placeholder="Password" required="">
@@ -10,12 +10,6 @@
                 Sign Up
             </button>
         </form>
-        <div style="margin-top: 20px;">
-            <h6 style="text-align: center; color: cornsilk;">OR</h6>
-            <div align="center">
-                <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
-            </div>
-        </div>
         <div>
             <h5 style="text-align: center; color: cornsilk; margin-top: 20px;">Have Account? <a style="cursor: pointer"
                 @click="togleLoginRegister">Sign In</a></h5>
