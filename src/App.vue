@@ -37,7 +37,7 @@
                 this.isLoading = true
                 Axios({
                         method: 'POST',
-                        url: 'https://kanban-hacktiv8.herokuapp.com//login',
+                        url: 'https://kanban-hacktiv8.herokuapp.com/login',
                         data
                     })
                     .then(response => {
@@ -61,7 +61,7 @@
                 this.isLoading = true
                 Axios({
                         method: 'POST',
-                        url: 'https://kanban-hacktiv8.herokuapp.com//register',
+                        url: 'https://kanban-hacktiv8.herokuapp.com/register',
                         data
                     })
                     .then(response => {
@@ -97,7 +97,7 @@
                 this.isLoading = true
                 Axios({
                         method: 'GET',
-                        url: 'https://kanban-hacktiv8.herokuapp.com//tasks',
+                        url: 'https://kanban-hacktiv8.herokuapp.com/tasks',
                         headers: {
                             token: localStorage.token
                         }
@@ -116,7 +116,7 @@
                 this.isLoading = true
                 Axios({
                         method: 'POST',
-                        url: 'https://kanban-hacktiv8.herokuapp.com//tasks',
+                        url: 'https://kanban-hacktiv8.herokuapp.com/tasks',
                         headers: {
                             token: localStorage.token
                         },
@@ -145,7 +145,7 @@
                 this.isLoading = true
                 Axios({
                         method: 'PUT',
-                        url: `https://kanban-hacktiv8.herokuapp.com//tasks/${data.id}`,
+                        url: `https://kanban-hacktiv8.herokuapp.com/tasks/${data.id}`,
                         headers: {
                             token: localStorage.token
                         },
@@ -173,7 +173,7 @@
                 this.isLoading = true
                 Axios({
                         method: 'PUT',
-                        url: `https://kanban-hacktiv8.herokuapp.com//tasks/${data.id}`,
+                        url: `https://kanban-hacktiv8.herokuapp.com/tasks/${data.id}`,
                         headers: {
                             token: localStorage.token
                         },
@@ -197,7 +197,7 @@
                 this.isLoading = true
                 Axios({
                         method: 'DELETE',
-                        url: `https://kanban-hacktiv8.herokuapp.com//tasks/${id}`,
+                        url: `https://kanban-hacktiv8.herokuapp.com/tasks/${id}`,
                         headers: {
                             token: localStorage.token
                         }
@@ -221,7 +221,7 @@
                 this.isLoading = true
                 Axios({
                         method: 'POST',
-                        url: 'https://kanban-hacktiv8.herokuapp.com//googleLogin',
+                        url: 'https://kanban-hacktiv8.herokuapp.com/googleLogin',
                         data: {
                             token: id_token
                         }
