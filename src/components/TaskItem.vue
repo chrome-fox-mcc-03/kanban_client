@@ -49,7 +49,7 @@ export default {
             }
                 axios({
                     method : 'put',
-                    url : `http://localhost:3000/tasks/${id}`,
+                    url : `https://murmuring-wave-98333.herokuapp.com/tasks/${id}`,
                     data : {
                         title : title,
                         category : newCategory
@@ -83,7 +83,7 @@ export default {
 
             axios({
                 method : 'put' ,
-                url : `http://localhost:3000/tasks/${id}`,
+                url : `https://murmuring-wave-98333.herokuapp.com/tasks/${id}`,
                 data : {
                     title,
                     category

@@ -50,7 +50,7 @@ export default {
                 password : '',
             },
             googleSignInParams: {
-                client_id: '300212796737-706ht16fsvn19fsk18lieucrpmo9dni9.apps.googleusercontent.com'
+                client_id: '742644412633-k647sl28aslja5jdrghusl0vfig2cnth.apps.googleusercontent.com'
             }
         }
 

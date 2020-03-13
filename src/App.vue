@@ -121,7 +121,7 @@ export default {
 
             axios({
                 method : 'post',
-                url : 'http://localhost:3000/users/register',
+                url : 'https://murmuring-wave-98333.herokuapp.com/users/register',
                 data : {
                     name,
                     email,
@@ -158,7 +158,7 @@ export default {
 
             axios({
                 method : 'post',
-                url : 'http://localhost:3000/users/login',
+                url : 'https://murmuring-wave-98333.herokuapp.com/users/login',
                 data : {
                     email,
                     password
@@ -197,7 +197,7 @@ export default {
             this.errorMessage.messages = [] ;
             axios({
                 method : 'get',
-                url : `http://localhost:3000/tasks/`,
+                url : `https://murmuring-wave-98333.herokuapp.com/tasks/`,
                 headers : {
                     access_token : localStorage.getItem('access_token')
                 }
@@ -228,7 +228,7 @@ export default {
 
             axios({
                 method : 'post',
-                url : 'http://localhost:3000/tasks',
+                url : 'https://murmuring-wave-98333.herokuapp.com/tasks',
                 data : {
                     title
                 },
@@ -259,7 +259,7 @@ export default {
             this.errorMessage.messages = [] ;
             axios({
                 method : 'delete',
-                url : `http://localhost:3000/tasks/${id}`,
+                url : `https://murmuring-wave-98333.herokuapp.com/tasks/${id}`,
                 headers : {
                     access_token : localStorage.getItem('access_token')
                 }
@@ -281,7 +281,7 @@ export default {
         googleSignin(token){
             axios({
                 method : 'post' ,
-                url : 'http://localhost:3000/users/googleSignin',
+                url : 'https://murmuring-wave-98333.herokuapp.com/users/googleSignin',
                 headers : {
                     access_token : token
                 }
