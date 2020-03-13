@@ -11,8 +11,14 @@
         @page="changePage"
         :style="{'background-image':'linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3) ), url(' + boardParams.bgUrl + ')'}"
         :title="boardParams.title" :tasks="cards" @addNewCard="addNewCard" @editDescription="editDesc" @editName="editName" @editDueDate="editDueDate"
-        @moveLeft="moveLeft" @moveRight="moveRight" @deleteCard="deleteCard"
+        @moveLeft="moveLeft" @moveRight="moveRight" @deleteCard="deleteCard" @deleteThisBoard="deleteBoard"
         ></kanban-board-page>
+        <section class="loading" v-if="isLoading">
+            <lottie-player
+                src="https://assets8.lottiefiles.com/datafiles/vyN1DtB7MeUAD1R/data.json"  background="transparent"  speed="1.2"  loop autoplay >
+            </lottie-player>
+        </section>
+        
     </div>
 </template>
 
@@ -53,7 +59,8 @@ export default {
                 ongoing: [],
                 done: []
             },
-            gmail: ''
+            gmail: '',
+            isLoading: false
         }
     },
     methods: {
@@ -71,6 +78,7 @@ export default {
         },
         logMeIn: function(userData){
             const data = userData
+            this.isLoading = true
             return Axios({
                 url: 'http://localhost:3000/signin',
                 method: 'POST',
@@ -82,6 +90,7 @@ export default {
                 localStorage.setItem('token', result.data.token)
                 this.fetchYourBoard()
                 this.fetchSharedBoard()
+
             })
             .catch(err => {
                 if(err.response.data.errors) {
@@ -92,8 +101,12 @@ export default {
                 }
                 
             })
+            .finally(_ => {
+                this.isLoading = false
+            })
         },
         signMeUp: function(userData){
+            this.isLoading = true
             const data = userData
             return Axios({
                 url: 'http://localhost:3000/signup',
@@ -116,6 +129,9 @@ export default {
                 }
                 
             })
+            .finally(_ => {
+                this.isLoading = false
+            })
         },
         signMeUpGoogle(userData){
             console.log(this.gmail)
@@ -126,6 +142,7 @@ export default {
                 passwordConfirm: userData.passwordConfirm,
                 email: this.gmail
             }
+            this.isLoading = true
             return Axios({
                 url: 'http://localhost:3000/oauthSignUp',
                 method: 'POST',
@@ -145,10 +162,13 @@ export default {
                 else {
                     this.$vToastify.error(err.response.data.msg)
                 }
-                
+            })
+            .finally(_ => {
+                this.isLoading = false
             })
         },
         fetchYourBoard(){
+            this.isLoading = true
             return Axios({
                 url: 'http://localhost:3000/board',
                 method: 'GET',
@@ -157,7 +177,7 @@ export default {
                 }
             })
             .then(result => {
-                if(result){
+                if(result.data.boards){
                 result.data.boards.forEach(board => {
                     this.yourBoards.push(board)
                     })
@@ -168,6 +188,8 @@ export default {
             })
         },
         fetchSharedBoard(){
+            this.isLoading = true
+
             return Axios({
                 url: 'http://localhost:3000/board/shared',
                 method: 'GET',
@@ -176,7 +198,7 @@ export default {
                 }
             })
             .then(result => {
-                if(result[0]){
+                if(result.data.boards){
                     result.data.boards.forEach(board => {
                     this.sharedBoards.push(board)
                     })
@@ -184,6 +206,9 @@ export default {
             })
             .catch(err => {
                 this.$vToastify.error(err)
+            })
+            .finally(_ => {
+                this.isLoading = false
             })
         },
         logMeOut(){
@@ -202,6 +227,8 @@ export default {
             this.changePage('kanban-board')
         },
         addBoard(newBoard){
+            this.isLoading = true
+
             return Axios({
                 url: 'http://localhost:3000/board',
                 method: 'POST',
@@ -223,8 +250,13 @@ export default {
                 this.$vToastify.error(err.response.data.errors[0].message)
                 }
             )
+            .finally(_ => {
+                this.isLoading = false
+            })
         },
         searchUser(user){
+            this.isLoading = true
+
             Axios({
                 url: `http://localhost:3000/findUser/${user}`,
                 method: 'GET',
@@ -244,11 +276,16 @@ export default {
                 this.$vToastify.error(result.data.msg)
                 }
             )
+            .finally(_ => {
+                this.isLoading = false
+            })
         },
         removeNames(){
             this.memberNames = []
         },
         fetchCards(){
+            this.isLoading = true
+
             Axios({
                 url: `http://localhost:3000/task/${this.boardParams.id}`,
                 method: 'GET',
@@ -271,10 +308,15 @@ export default {
                 if(err.response.data) this.$vToastify.error(err.response.data.msg)
                 else this.$vToastify.error(err.response.data.errors[0].message)
             })
+            .finally(_ => {
+                this.isLoading = false
+            })
 
         },
         addNewCard(newCard){
             for(const key in newCard) console.log('====', newCard.description)
+            this.isLoading = true
+
             Axios({
                 url: `http://localhost:3000/task/${this.boardParams.id}`,
                 method: 'POST',
@@ -303,8 +345,13 @@ export default {
                 else this.$vToastify.error(err.response.data.errors[0].message)
                 }
             )
+            .finally(_ => {
+                this.isLoading = false
+            })
         },
         editDesc(value){
+            this.isLoading = true
+
             Axios({
                 url: `http://localhost:3000/task/${value.id}`,
                 method: 'PUT',
@@ -319,8 +366,13 @@ export default {
                 this.$vToastify.error(err.response.data.errors[0].message)
                 }
             )
+            .finally(_ => {
+                this.isLoading = false
+            })
         },
         editName(value){
+            this.isLoading = true
+
             Axios({
                 url: `http://localhost:3000/task/${value.id}`,
                 method: 'PUT',
@@ -335,8 +387,13 @@ export default {
                 this.$vToastify.error(err.response.data.errors[0].message)
                 }
             )
+            .finally(_ => {
+                this.isLoading = false
+            })
         },
         editDueDate(value){
+            this.isLoading = true
+
             Axios({
                 url: `http://localhost:3000/task/${value.id}`,
                 method: 'PUT',
@@ -351,8 +408,13 @@ export default {
                 this.$vToastify.error(err.response.data.errors[0].message)
                 }
             )
+            .finally(_ => {
+                this.isLoading = false
+            })
         },
         moveLeft(value){
+            this.isLoading = true
+
             const currentCategory = value.category
             Axios({
                 url: `http://localhost:3000/task/status/${value.id}`,
@@ -378,8 +440,13 @@ export default {
                 this.$vToastify.error(err.response.data.errors[0].message)
                 }
             )
+            .finally(_ => {
+                this.isLoading = false
+            })
         },
         moveRight(value){
+            this.isLoading = true
+
             Axios({
                 url: `http://localhost:3000/task/status/${value.id}`,
                 method: 'PUT',
@@ -404,8 +471,13 @@ export default {
                 this.$vToastify.error(err.response.data.errors[0].message)
                 }
             )
+            .finally(_ => {
+                this.isLoading = false
+            })
         },
         deleteCard(id){
+            this.isLoading = true
+
             Axios({
                 url: `http://localhost:3000/task/${id}`,
                 method: 'DELETE',
@@ -428,10 +500,15 @@ export default {
                 else this.$vToastify.error(err.response.data.errors[0].message)
                 }
             )
+            .finally(_ => {
+                this.isLoading = false
+            })
         },
         onSignIn(googleUser) {
             var profile = googleUser.getBasicProfile();
             const id_token = googleUser.getAuthResponse().id_token
+            this.isLoading = true
+
             Axios({
                 url: `http://localhost:3000/oauth`,
                 method: 'POST',
@@ -460,6 +537,9 @@ export default {
                     this.$vToastify.error(err.response.data.msg)
                 }
             })
+            .finally(_ => {
+                this.isLoading = false
+            })
 
             
         },
@@ -468,6 +548,29 @@ export default {
             auth2.signOut().then(function () {
             console.log('User signed out.');
             });
+        },
+        deleteBoard(){
+            this.isLoading = true
+
+            Axios({
+                url: `http://localhost:3000/board/${this.boardParams.id}`,
+                method: 'DELETE',
+                headers: {
+                    user_token: localStorage.getItem('token')
+                },
+            })
+            .then(result => {
+                this.changePage('dashboard-home')
+                this.yourBoards = []
+                this.fetchYourBoard()
+                this.$vToastify.success('Board deleted.')
+            })
+            .catch(err => {
+                this.$vToastify.error(err.response.data.msg)
+            })
+            .finally(_ => {
+                this.isLoading = false
+            })
         }
     },
     components: {
@@ -490,5 +593,16 @@ export default {
 </script>
 
 <style>
-
+.loading {
+    width: 100vw; 
+    height: 100vh; 
+    position:fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    background-color: rgb(255, 255, 255, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
 </style>

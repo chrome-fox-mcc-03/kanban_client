@@ -6,7 +6,7 @@
                 <img src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/16882276531582004488-256.png" alt="">
             </div>
             <div class="col-10">
-                <p>{{card.due_date}}</p>
+                <p>{{parsedDueDate}}</p>
             </div>
             
         </div>
@@ -43,6 +43,15 @@ export default {
         moveRight(){
             this.$emit('moveRight', this.card)
         }
+    },
+    computed: {
+        parsedDueDate(){
+            const months = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"];
+            return new Date(this.card.due_date).getUTCDate()
+                + ' ' + months[new Date(this.card.due_date).getUTCMonth()]
+                + ' ' + new Date(this.card.due_date).getUTCFullYear()
+        },
     }
 }
 </script>

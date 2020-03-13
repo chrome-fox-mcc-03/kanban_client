@@ -14,7 +14,7 @@
                         <h1 class="display-4">Kanban iz da way.</h1>
                         <hr class="my-4">
                         <p>The best out there. You don't have to bother other tools. Like, seriously.</p>
-                        <a @click.prevent="changePage('sign-up-page')" class="btn btn-primary btn-lg" href="" role="button">Sounds Interesting!</a>
+                        <a @click.prevent="changePage('sign-up-page')" class="btn btn-primary btn-lg signup-btn" href="" role="button">Sounds Interesting!</a>
                     </div>
                 </div>
             </div>
@@ -83,5 +83,16 @@ export default {
 </script>
 
 <style>
-
+.signin-btn:hover {
+    background-color: rgb(255,255,255, 0.3);    
+}
+.signin-btn {
+    transition: background-color 0.5s ease;
+}
+.signup-btn:hover {
+    color: rgb(255,255,255, 0.3);    
+}
+.signup-btn {
+    transition: color 0.5s ease;
+}
 </style>

@@ -9,12 +9,12 @@
                 <form @submit.prevent="logMeIn">
                     <h2 class="display-6">Sign In</h2>
                     <div class="form-group">
-                        <input v-model="userDataLogIn.email" type="text" class="form-control" id="signin-email" placeholder="Email">
+                        <input v-model="userDataLogIn.email" type="text" class="form-control" id="signin-email" placeholder="Email/Username">
                     </div>
                     <div class="form-group">
                         <input v-model="userDataLogIn.password" type="password" class="form-control" id="signin-password" placeholder="Password">
                     </div>
-                    <input type="submit" class="btn btn-primary" value="Sign In">
+                    <input type="submit" class="btn btn-primary signin-btn" value="Sign In">
             </form>
                 <g-signin-button
                     :params="googleSignInParams"
@@ -62,10 +62,24 @@ export default {
 .g-signin-button {
   /* This is where you control how the button looks. Be creative! */
   display: inline-block;
+  margin-top: 0;
   padding: 4px 8px;
   border-radius: 3px;
   background-color: #3c82f7;
   color: #fff;
-  box-shadow: 0 3px 0 #0f69ff;
+  cursor: pointer;
+  width: 72%;
+  transition: background-color 0.5s ease;
 }
+.g-signin-button:hover {
+  background-color: #abc3ec;
+}
+
+.signin-btn:hover {
+    color: rgb(255,255,255, 0.3);    
+}
+.signin-btn {
+    transition: color 0.5s ease;
+}
+
 </style>

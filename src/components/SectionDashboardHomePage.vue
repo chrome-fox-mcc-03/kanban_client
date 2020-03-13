@@ -2,8 +2,8 @@
   <section id="dashboard-home">
        <div class="profile-option shadow" v-show="this.show === 'profile-option'">
                 <img  @click.prevent="showSetting('')" src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/12355707351582004488-256.png" alt="">
-                <h2 class="display-6">Help</h2>
-                <h2  @click.prevent="logMeOut" class="display-6">Sign Out</h2>
+                <h2 class="display-6 menu">Help</h2>
+                <h2  @click.prevent="logMeOut" class="display-6 menu">Sign Out</h2>
             </div>
             <div class="nav-container shadow">
                 <ul class="nav justify-content-between align-items-center" id="nav-landing">
@@ -11,7 +11,7 @@
                         <h2 class="display-6">K a n b a n K u y</h2>
                     </li>
                     <li class="nav-item">
-                        <img  @click.prevent="showSetting('profile-option')" src="https://www.wretched.org/wp-content/uploads/2017/09/Anon-profile.png" alt="">
+                        <img class="prof-pic" @click.prevent="showSetting('profile-option')" src="https://www.wretched.org/wp-content/uploads/2017/09/Anon-profile.png" alt="">
                     </li>
                 </ul>
             </div>
@@ -31,20 +31,21 @@
                             <input type="submit" value="Add" class="btnsbmt" @click.prevent="addBoard">
                             <button type="button" @click.prevent="hideAdd" @keydown.enter.prevent>Cancel</button>
                         </form>
-                    </transition>
-                    
+                    </transition>                    
                 </div>
                 <div class="dashboard-content">
                     <div class="your-kanban-board">
                         <h2 class="display-6">Your Kanban Board</h2>
                         <div class="your-kanban-board-container row" >
-                            <kanban-thumbnail v-for="board in yourBoards" :key="board.id" :boardId="board.id" :title="board.title" :bgUrl="board.background_id" @showBoard="showBoard"></kanban-thumbnail>
+                            <kanban-thumbnail class="kanban-thumbnail"  v-for="board in yourBoards" :key="board.id" :boardId="board.id" :title="board.title" :bgUrl="board.background_id" @showBoard="showBoard"></kanban-thumbnail>
+                            <h3 class="display-2" v-if="!yourBoards[0]" style="font-size: 16px; color: gray; margin-left:4vw;">Your board is empty. Create new board now!</h3>
                         </div>
                     </div>
                     <div class="your-kanban-board shared-kanban">
                         <h2 class="display-6">Shared Kanban Board</h2>
                         <div class="your-kanban-board-container row">
-                            <kanban-thumbnail v-for="board in sharedBoards" :key="board.id" :boardId="board.id" :title="board.title" :bgUrl="board.background_id" @showBoard="showBoard"></kanban-thumbnail>
+                            <kanban-thumbnail class="kanban-thumbnail" v-for="board in sharedBoards" :key="board.id" :boardId="board.id" :title="board.title" :bgUrl="board.background_id" @showBoard="showBoard"></kanban-thumbnail>
+                            <h3 class="display-2" v-if="!sharedBoards[0]" style="font-size: 16px; color: gray; margin-left:4vw;">Shared board is empty.</h3>
                         </div>
                     </div>
                 </div>
@@ -153,5 +154,27 @@ button {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+
+.prof-pic{
+    transition: filter 0.5s ease;
+}
+.prof-pic:hover {
+    filter: brightness(80%)
+}
+
+.menu{
+    border-bottom: 1px solid white;
+}
+
+.menu:hover{
+    border-bottom: 1px solid rgb(168, 167, 167, 0.5);
+}
+
+.kanban-thumbnail{
+    transition: padding 0.5s ease;
+}
+.kanban-thumbnail:hover {
+    padding: 5px !important;
 }
 </style>

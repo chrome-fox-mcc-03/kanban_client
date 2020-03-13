@@ -1,13 +1,15 @@
 <template>
-  <section id="kanban-board">
+  <section id="kanban-board" >
       <div class="nav-container">
-                <img @click.prevent="changePage('dashboard-home')" src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/1588978741582004484-256.png" alt="">
+                <img class="backbtn" @click.prevent="changePage('dashboard-home')" src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/1588978741582004484-256.png" alt="">
                 <div class="container">
                     <div class="row">
                             <h2 class="display-6 col col-10">{{title}}</h2>
                     </div>
                 </div> 
-                <img @click.prevent="showSetting('kanban-new')" src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/12817025351582004496-256.png" alt="">
+                <img class="addbtn" @click.prevent="showSetting('kanban-new')" src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/12817025351582004496-256.png" alt="">
+                <button class="btn btn-danger" @click.prevent="showSureDeleteBoard" v-show="!deleteConfirm">Delete Board</button>
+                <button class="btn btn-danger" @click.prevent="deleteBoard" v-show="deleteConfirm" >click to confirm</button>
         </div>
         <div class="kanban-detail" v-show="show === 'kanban-detail'">
                     <img  @click.prevent="showSetting('')" src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/12355707351582004488-256.png" alt="" class="close">
@@ -17,14 +19,14 @@
                     <div class="row">
                         <img class="col-4" src="https://www.wretched.org/wp-content/uploads/2017/09/Anon-profile.png" alt="" >
                         <div class="col-8">
-                            <p>{{cardDetail.createdAt}}</p>
+                            <p>{{parsedCreatedDate}}</p>
                             <p class="name">{{cardDetail.User.name}}</p>
                         </div>
                     </div>
-                    <div class="row due-date">
-                        <p class="col-4">Due date: </p>
-                        <div class="col-8">
-                            <date-pick v-model="cardDetail.due_date"></date-pick>
+                    <div class="due-date">
+                        <p>Due date: </p>
+                        <div>
+                            <date-pick v-model="parsedDueDate"></date-pick>
                         </div>
                     </div>
                     <p>Description: </p>
@@ -44,13 +46,13 @@
                             </textarea>
                         <div class="form-group">
                             <p>Select due date</p>
-                            <input type="date" class="form-control" id="add-kanban-due-date" placeholder="Due Date" v-model="newCard.due_date">
+                            <input type="date" class="form-control" id="add-kanban-due-date" placeholder="Due Date" v-model="newCard.due_date" >
                         </div>
-                        <button type="button" class="bottom-icon"><img @click.prevent="addNewCard" src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/12817025351582004496-256.png" alt="" > </button>
+                        <button type="button" class="bottom-icon addbtn"><img @click.prevent="addNewCard" src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/12817025351582004496-256.png" alt="" > </button>
                     </form>  
                 </div>
-        <div class="kanban-content">
-            <div class="row">
+        <div class="kanban-content" @click.prevent="resetAll">
+            <div class="row" >
                 <task-container class="col col-3" :title="'Backlog'" :cards="tasks.backlog" @editCard="editCard" @moveLeft="moveLeft" @moveRight="moveRight"></task-container>
                 <task-container class="col col-3" :title="'Todo'" :cards="tasks.todo" @editCard="editCard"  @moveLeft="moveLeft" @moveRight="moveRight"></task-container>
                 <task-container class="col col-3" :title="'On Going'" :cards="tasks.ongoing" @editCard="editCard"  @moveLeft="moveLeft" @moveRight="moveRight"></task-container>
@@ -85,7 +87,8 @@ export default {
                 }
             },
             editName: false,
-            editDesc: false
+            editDesc: false,
+            deleteConfirm: false
         }
     },
     props: {
@@ -106,7 +109,6 @@ export default {
             for(const key in this.newCard) this.newCard[key] = ''
         },
         editCard(card){
-            console.log(card)
             this.show = 'kanban-detail'
             this.cardDetail = card
         },
@@ -137,6 +139,17 @@ export default {
         deleteCard(){
             this.show = ''
             this.$emit('deleteCard', this.cardDetail.id)
+        },
+        showSureDeleteBoard(){
+            this.deleteConfirm = true
+        },
+        deleteBoard(){
+            this.deleteConfirm = false
+            this.$emit('deleteThisBoard')
+        },
+        resetAll(){
+            this.deleteConfirm = false;
+            this.showSetting('')
         }
         
     },
@@ -148,10 +161,51 @@ export default {
         'cardDetail.due_date': function(){
             this.editCardDueDate()
         }
+    },
+    computed: {
+        parsedCreatedDate(){
+            const months = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"];
+            return new Date(this.cardDetail.createdAt).getUTCDate()
+                + ' ' + months[new Date(this.cardDetail.createdAt).getUTCMonth()]
+                + ' ' + new Date(this.cardDetail.createdAt).getUTCFullYear()
+        },
+        parsedDueDate: {
+            get() {
+                return new Date(this.cardDetail.due_date).getUTCFullYear()
+                + '-' + (new Date(this.cardDetail.due_date).getUTCMonth() + 1)
+                + '-' + new Date(this.cardDetail.due_date).getUTCDate() 
+            },
+            set(value){
+                this.cardDetail.due_date = value
+            }
+        }
     }
 }
 </script>
 
 <style>
-
+.due-date {
+    margin-bottom: 2vh
+}
+.btn-danger{
+    margin-left: 2vw;
+    padding: 2px;
+    font-size: 10px
+}
+.kanban-content {
+    cursor:default;
+}
+.addbtn:hover{
+    transform: rotate(45deg)
+}
+.addbtn{
+    transition: transform 0.4s ease;
+}
+.backbtn:hover{
+    transform: skewX(15deg)
+}
+.backbtn{
+    transition: transform 0.4s ease;
+}
 </style>
