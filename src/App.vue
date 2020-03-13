@@ -161,7 +161,9 @@ export default {
                 data: {
                     name_box,
                     description,
-                    UserId:this.userId,
+                    UserId:this.userId
+                },
+                headers: {
                     token:this.token
                 }
             })
@@ -315,7 +317,6 @@ export default {
 
         loginGoogle(id_token) {
             this.loading = true
-            console.log(id_token)
             axios({
                 url:'http://localhost:3000/loginGoogle',
                 method:'POST',
