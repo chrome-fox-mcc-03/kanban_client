@@ -1,3 +1,8 @@
+
+form {
+  width: auto !important;
+}
+
 #kanban-board .kanban-new form, #kanban-board .kanban-detail, #kanban-board .kanban-content, #dashboard-home .footer, #dashboard-home .dashboard-container .dashboard-navigator, #dashboard-home .profile-option, #sign-up-google-page .sign-up-google-container .sign-up-google-form, #sign-up-google-page .sign-up-google-container, #sign-up-page .sign-up-container .sign-up-form, #sign-up-page .sign-up-container, #login-page .login-container .login-form, #login-page .login-container, #landing-page .footer, #landing-page .landing-content-2 .landing-intro .landing-intro-text, #landing-page .landing-content-2 .landing-intro .landing-ico-card, #landing-page .landing-content .landing-intro .landing-intro-text, #landing-page .landing-content, #landing-page #nav-landing-bg #nav-landing-container {
   display: flex;
   flex-direction: column;
@@ -504,6 +509,7 @@ body {
 #kanban-board {
   background-size: cover;
   background-attachment: fixed;
+  height: 100vh
 }
 #kanban-board .nav-container {
   background-color: rgba(255, 255, 255, 0.3);
@@ -561,6 +567,7 @@ body {
   height: 100%;
   padding: 0 8px;
   width: 100%;
+  overflow-wrap: break-word;
 }
 #kanban-board .kanban-content .row .kanban-card .kanban-content .kanban-content-card img {
   width: 16px;
@@ -585,6 +592,7 @@ body {
   font-weight: lighter;
   font-size: 14px;
   margin-left: 16px;
+  width: 16vw;
 }
 #kanban-board .kanban-detail {
   align-items: flex-start;

@@ -6,7 +6,7 @@
             <div class="sign-up-google-container">
                 <div class="sign-up-google-form">
                     <img @click.prevent="changePage('landing-page')" src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/1959125971582004485-256.png" alt="">
-                    <form @submit.prevent="signMeUp">
+                    <form @submit.prevent="signMeUpGoogle">
                         <h2 class="display-6">Sign Up</h2>
                         <h3 class="display-6">You are almost done!</h3>
                         <div class="form-group">
@@ -50,6 +50,9 @@ export default {
         changePage(page){
             this.resetPage()
             this.$emit('page', page)
+        },
+        signMeUpGoogle(){
+            this.$emit('signMeUpGoogle', this.userData)
         }
     }
 

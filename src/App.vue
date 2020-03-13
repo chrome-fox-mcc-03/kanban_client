@@ -1,22 +1,29 @@
 <template>
     <div>
         <landing-page v-if="!status.args" v-show="status.loggedOut.onPage === 'landing-page'" @page="changePage"></landing-page>
-        <sign-in-page v-if="!status.args" v-show="status.loggedOut.onPage === 'login-page'"  @page="changePage" @logMeIn="logMeIn"></sign-in-page>
-        <sign-up-page v-if="!status.args" v-show="status.loggedOut.onPage === 'sign-up-page'"  @page="changePage" @signMeUp="signMeUp"></sign-up-page>
-        <google-sign-up-page v-if="!status.args" v-show="status.loggedOut.onPage === 'sign-up-google-page'" @page="changePage" @signMeUp="signMeUpGoogle"></google-sign-up-page>
-        <!-- <dashboard-home-page v-if="status.args" v-show="status.loggedIn.onPage === 'dashboard-home'"></dashboard-home-page>
+        <sign-in-page v-if="!status.args" v-show="status.loggedOut.onPage === 'login-page'"  @page="changePage" @logMeIn="logMeIn" @onSignIn="onSignIn"></sign-in-page>
+        <sign-up-page v-if="!status.args" v-show="status.loggedOut.onPage === 'sign-up-page'"  @page="changePage" @signMeUp="signMeUp" ></sign-up-page>
+        <google-sign-up-page v-if="!status.args" v-show="status.loggedOut.onPage === 'sign-up-google-page'" @page="changePage" @signMeUpGoogle="signMeUpGoogle"></google-sign-up-page>
+        <dashboard-home-page v-if="status.args" v-show="status.loggedIn.onPage === 'dashboard-home'" :yourBoards="yourBoards" :sharedBoards="sharedBoards"
+        @logMeOut="logMeOut" @showBoard="showKanbanBoard" @addBoard="addBoard" @searchUser="searchUser" :membersId="members" :memberNames="memberNames"
+        @removeNames="removeNames"></dashboard-home-page>
         <kanban-board-page v-if="status.args" v-show="status.loggedIn.onPage === 'kanban-board'"
-        v-bind:style="{'background-image':'linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3) ), url(' + boardParams.bgUrl + ')'}"></kanban-board-page> -->
+        @page="changePage"
+        :style="{'background-image':'linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3) ), url(' + boardParams.bgUrl + ')'}"
+        :title="boardParams.title" :tasks="cards" @addNewCard="addNewCard" @editDescription="editDesc" @editName="editName" @editDueDate="editDueDate"
+        @moveLeft="moveLeft" @moveRight="moveRight" @deleteCard="deleteCard"
+        ></kanban-board-page>
     </div>
 </template>
 
 <script>
+import Axios from 'axios'
 import LandingPage from './components/SectionLandingPage.vue'
 import SignInPage from './components/SectionSignInPage.vue'
 import SignUpPage from './components/SectionSignUpPage.vue'
 import GoogleSignUpPage from './components/SectionGoogleSignUpPage.vue'
-// import DashboardHomePage from './components/SectionDashboardHomePage.vue'
-// import KanbanBoardPage from './components/SectionKanbanBoardPage.vue'
+import DashboardHomePage from './components/SectionDashboardHomePage.vue'
+import KanbanBoardPage from './components/SectionKanbanBoardPage.vue'
 export default {
     name: 'App',
     data: () => {
@@ -28,9 +35,25 @@ export default {
                     show: ''
                 },
                 loggedOut: {
-                    onPage: 'sign-up-google-page'
+                    onPage: 'landing-page'
                 }
             },
+            yourBoards: [],
+            sharedBoards: [],
+            boardParams: {
+                bgUrl: '',
+                title: '',
+                id: null
+            },
+            members: [],
+            memberNames: [],
+            cards: {
+                backlog: [],
+                todo: [],
+                ongoing: [],
+                done: []
+            },
+            gmail: ''
         }
     },
     methods: {
@@ -38,23 +61,413 @@ export default {
             if (!this.status.args) this.status.loggedOut.onPage = pageToShow
             else if(this.status.args) {
                 this.status.loggedIn.onPage = pageToShow
-                if(pageToShow === 'dashboard-home') {
-                    // this.fetchSharedBoard()
-                    // this.fetchYourBoard()
-                }else if(pageToShow === 'kanban-board'){
-                    // this.fetchCards()
+                this.cards = {
+                    backlog: [],
+                    todo: [],
+                    ongoing: [],
+                    done: []
                 }
             }
         },
         logMeIn: function(userData){
-            console.log(userData.email)
-            console.log(userData.password)
+            const data = userData
+            return Axios({
+                url: 'http://localhost:3000/signin',
+                method: 'POST',
+                data
+            })
+            .then(result => {
+                this.$vToastify.success('Welcome!')
+                this.status.args = true
+                localStorage.setItem('token', result.data.token)
+                this.fetchYourBoard()
+                this.fetchSharedBoard()
+            })
+            .catch(err => {
+                if(err.response.data.errors) {
+                    this.$vToastify.error(err.response.data.errors[0].message)
+                }
+                else if(err.response.data.msg){
+                    this.$vToastify.error(err.response.data.msg)
+                }
+                
+            })
         },
         signMeUp: function(userData){
-            console.log(userData)
+            const data = userData
+            return Axios({
+                url: 'http://localhost:3000/signup',
+                method: 'POST',
+                data
+            })
+            .then(result => {
+                const dataToLogin = {
+                    email: result.data.data.email,
+                    password: result.data.data.password
+                }
+                this.logMeIn(dataToLogin)
+            })
+            .catch(err => {
+                if(err.response.data.errors) {
+                    this.$vToastify.error(err.response.data.errors[0].message)
+                }
+                else {
+                    this.$vToastify.error(err.response.data.msg)
+                }
+                
+            })
         },
-        signMeUpGoogle: function(userData){
-            console.log(userData)
+        signMeUpGoogle(userData){
+            console.log(this.gmail)
+            const data = {
+                name: userData.name,
+                username: userData.username,
+                password: userData.password,
+                passwordConfirm: userData.passwordConfirm,
+                email: this.gmail
+            }
+            return Axios({
+                url: 'http://localhost:3000/oauthSignUp',
+                method: 'POST',
+                data
+            })
+            .then(result => {
+                const dataToLogin = {
+                    email: result.data.data.email,
+                    password: result.data.data.password
+                }
+                this.logMeIn(dataToLogin)
+            })
+            .catch(err => {
+                if(err.response.data.errors) {
+                    this.$vToastify.error(err.response.data.errors[0].message)
+                }
+                else {
+                    this.$vToastify.error(err.response.data.msg)
+                }
+                
+            })
+        },
+        fetchYourBoard(){
+            return Axios({
+                url: 'http://localhost:3000/board',
+                method: 'GET',
+                headers: {
+                    user_token: localStorage.getItem('token')
+                }
+            })
+            .then(result => {
+                if(result){
+                result.data.boards.forEach(board => {
+                    this.yourBoards.push(board)
+                    })
+                }
+            })
+            .catch(err => {
+                this.$vToastify.error(err)
+            })
+        },
+        fetchSharedBoard(){
+            return Axios({
+                url: 'http://localhost:3000/board/shared',
+                method: 'GET',
+                headers: {
+                    user_token: localStorage.getItem('token')
+                }
+            })
+            .then(result => {
+                if(result[0]){
+                    result.data.boards.forEach(board => {
+                    this.sharedBoards.push(board)
+                    })
+                }
+            })
+            .catch(err => {
+                this.$vToastify.error(err)
+            })
+        },
+        logMeOut(){
+            localStorage.clear()
+            this.signOut()
+            this.status.args = false
+            this.changePage('landing-page')
+            this.yourBoards = []
+            this.sharedBoards = []
+        },
+        showKanbanBoard(data){
+            this.boardParams.bgUrl = data.bgUrl
+            this.boardParams.title = data.title
+            this.boardParams.id = data.id
+            this.fetchCards()
+            this.changePage('kanban-board')
+        },
+        addBoard(newBoard){
+            return Axios({
+                url: 'http://localhost:3000/board',
+                method: 'POST',
+                headers: {
+                    user_token: localStorage.getItem('token')
+                },
+                data: {
+                    title: newBoard.title,
+                    background_id: newBoard.BG,
+                    sharedUserId: newBoard.membersId
+                }
+            })
+            .then(result => {
+                this.yourBoards.push(result.data.newBoard)
+                this.memberNames = []
+                this.$vToastify.success('Board added!')
+            })
+            .catch(err => {
+                this.$vToastify.error(err.response.data.errors[0].message)
+                }
+            )
+        },
+        searchUser(user){
+            Axios({
+                url: `http://localhost:3000/findUser/${user}`,
+                method: 'GET',
+                headers: {
+                    user_token: localStorage.getItem('token')
+                }
+            })
+            .then(result => {
+                if(!result.data.msg) {
+                    this.members.push(result.data.id)
+                    this.memberNames.push(result.data.name)
+                }else{
+                    this.$vToastify.error(result.data.msg)
+                }
+            })
+            .catch(err => {
+                this.$vToastify.error(result.data.msg)
+                }
+            )
+        },
+        removeNames(){
+            this.memberNames = []
+        },
+        fetchCards(){
+            Axios({
+                url: `http://localhost:3000/task/${this.boardParams.id}`,
+                method: 'GET',
+                headers: {
+                    user_token: localStorage.getItem('token')
+                }
+            })
+            .then(results => {
+                console.log(results)
+                if(results.data.tasks){
+                    results.data.tasks.forEach(task => {
+                        this.cards[task.category].push(task)
+                    })
+                }
+                else{
+                    this.$vToastify.info('Welcome to your kanban. Start creating new card!')
+                }
+            })
+            .catch(err => {
+                if(err.response.data) this.$vToastify.error(err.response.data.msg)
+                else this.$vToastify.error(err.response.data.errors[0].message)
+            })
+
+        },
+        addNewCard(newCard){
+            for(const key in newCard) console.log('====', newCard.description)
+            Axios({
+                url: `http://localhost:3000/task/${this.boardParams.id}`,
+                method: 'POST',
+                headers: {
+                    user_token: localStorage.getItem('token')
+                },
+                data: {
+                    title: newCard.title,
+                    desc: newCard.description,
+                    due_date: newCard.due_date,
+                    color: null
+                }
+            })
+            .then(result => {
+                this.cards = {
+                    backlog: [],
+                    todo: [],
+                    ongoing: [],
+                    done: []
+                },
+                this.fetchCards()
+                this.$vToastify.success('Card added!')
+            })
+            .catch(err => {
+                if(err.response.data.msg)  this.$vToastify.error(err.response.data.msg)
+                else this.$vToastify.error(err.response.data.errors[0].message)
+                }
+            )
+        },
+        editDesc(value){
+            Axios({
+                url: `http://localhost:3000/task/${value.id}`,
+                method: 'PUT',
+                headers: {
+                    user_token: localStorage.getItem('token')
+                },
+                data: {
+                    desc: value.description
+                }
+            })
+            .catch(err => {
+                this.$vToastify.error(err.response.data.errors[0].message)
+                }
+            )
+        },
+        editName(value){
+            Axios({
+                url: `http://localhost:3000/task/${value.id}`,
+                method: 'PUT',
+                headers: {
+                    user_token: localStorage.getItem('token')
+                },
+                data: {
+                    title: value.title
+                }
+            })
+            .catch(err => {
+                this.$vToastify.error(err.response.data.errors[0].message)
+                }
+            )
+        },
+        editDueDate(value){
+            Axios({
+                url: `http://localhost:3000/task/${value.id}`,
+                method: 'PUT',
+                headers: {
+                    user_token: localStorage.getItem('token')
+                },
+                data: {
+                    due_date: new Date(value.due_date)
+                }
+            })
+            .catch(err => {
+                this.$vToastify.error(err.response.data.errors[0].message)
+                }
+            )
+        },
+        moveLeft(value){
+            const currentCategory = value.category
+            Axios({
+                url: `http://localhost:3000/task/status/${value.id}`,
+                method: 'PUT',
+                headers: {
+                    user_token: localStorage.getItem('token')
+                },
+                data: {
+                    currentCategory: value.category,
+                    updateCategory: -1
+                }
+            })
+            .then(res => {
+                this.cards = {
+                    backlog: [],
+                    todo: [],
+                    ongoing: [],
+                    done: []
+                },
+                this.fetchCards()
+            })
+            .catch(err => {
+                this.$vToastify.error(err.response.data.errors[0].message)
+                }
+            )
+        },
+        moveRight(value){
+            Axios({
+                url: `http://localhost:3000/task/status/${value.id}`,
+                method: 'PUT',
+                headers: {
+                    user_token: localStorage.getItem('token')
+                },
+                data: {
+                    currentCategory: value.category,
+                    updateCategory: 1
+                }
+            })
+            .then(res => {
+                this.cards = {
+                    backlog: [],
+                    todo: [],
+                    ongoing: [],
+                    done: []
+                },
+                this.fetchCards()
+            })
+            .catch(err => {
+                this.$vToastify.error(err.response.data.errors[0].message)
+                }
+            )
+        },
+        deleteCard(id){
+            Axios({
+                url: `http://localhost:3000/task/${id}`,
+                method: 'DELETE',
+                headers: {
+                    user_token: localStorage.getItem('token')
+                }
+            })
+            .then(res => {
+                this.cards = {
+                    backlog: [],
+                    todo: [],
+                    ongoing: [],
+                    done: []
+                },
+                this.fetchCards()
+                this.$vToastify.success('Card deleted!')
+            })
+            .catch(err => {
+                if(err.response.data.msg)  this.$vToastify.error(err.response.data.msg)
+                else this.$vToastify.error(err.response.data.errors[0].message)
+                }
+            )
+        },
+        onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            const id_token = googleUser.getAuthResponse().id_token
+            Axios({
+                url: `http://localhost:3000/oauth`,
+                method: 'POST',
+                headers: {
+                    user_token: id_token
+                }
+            })
+            .then(result => {
+                if(result.data.token){
+                    this.$vToastify.success('Welcome!')
+                    this.status.args = true
+                    localStorage.setItem('token', result.data.token)
+                    this.fetchYourBoard()
+                    this.fetchSharedBoard()
+                }else {
+                    this.gmail = result.data.email
+                    this.changePage('sign-up-google-page')
+                }
+            })
+            .catch(err => {
+                console.log({err})
+                if(err.response.data.errors) {
+                    this.$vToastify.error(err.response.data.errors[0].message)
+                }
+                else {
+                    this.$vToastify.error(err.response.data.msg)
+                }
+            })
+
+            
+        },
+        signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+            console.log('User signed out.');
+            });
         }
     },
     components: {
@@ -62,8 +475,15 @@ export default {
         SignInPage,       
         SignUpPage,       
         GoogleSignUpPage,  
-        // DashboardHomePage, 
-        // KanbanBoardPage 
+        DashboardHomePage, 
+        KanbanBoardPage 
+    },
+    created() {
+        if(localStorage.getItem('token')){
+            this.status.args = true
+            this.fetchYourBoard()
+            this.fetchSharedBoard()
+        }
     }
 
 }

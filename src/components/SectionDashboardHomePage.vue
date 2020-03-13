@@ -1,6 +1,6 @@
 <template>
-  <section>
-       <div class="profile-option shadow" v-show="this.status.loggedIn.show === 'profile-option'">
+  <section id="dashboard-home">
+       <div class="profile-option shadow" v-show="this.show === 'profile-option'">
                 <img  @click.prevent="showSetting('')" src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/12355707351582004488-256.png" alt="">
                 <h2 class="display-6">Help</h2>
                 <h2  @click.prevent="logMeOut" class="display-6">Sign Out</h2>
@@ -21,29 +21,30 @@
                         <input class="form-control" type="search" placeholder="Search Board">
                         <button class="btn" type="submit"><img src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/2072119491582004497-256.png" alt=""></button>
                     </form>
-                    <p>New Board</p>
+                    <p @click.prevent="showAddBoard">New Board</p>
+                    <transition name="fade">
+                        <form class="add-board" v-show="showAdd === true" >
+                            <input type="text" placeholder="title" v-model="newBoard.title">
+                            <input type="number" placeholder="choose background" min="0" max="7" v-model="newBoard.BG">
+                            <h2 class="members" v-for="(member, i) in memberNames" :key="i">{{member}}</h2>
+                            <input type="text" placeholder="+member" v-model="currentMember"  @keydown.enter.prevent="addMember">
+                            <input type="submit" value="Add" class="btnsbmt" @click.prevent="addBoard">
+                            <button type="button" @click.prevent="hideAdd" @keydown.enter.prevent>Cancel</button>
+                        </form>
+                    </transition>
+                    
                 </div>
                 <div class="dashboard-content">
                     <div class="your-kanban-board">
                         <h2 class="display-6">Your Kanban Board</h2>
                         <div class="your-kanban-board-container row" >
-                            <div class="board col-3 col" 
-                            v-for="board in yourBoards" :key="board.id"
-                            v-bind:style="{'background-image':'linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3) ), url(' + board.bgUrl + ')'}"
-                            @click.prevent="showBoard(board.bgUrl, board.title)">
-                                <h3 class="display-6">{{board.title}}</h3>
-                            </div>
+                            <kanban-thumbnail v-for="board in yourBoards" :key="board.id" :boardId="board.id" :title="board.title" :bgUrl="board.background_id" @showBoard="showBoard"></kanban-thumbnail>
                         </div>
                     </div>
                     <div class="your-kanban-board shared-kanban">
                         <h2 class="display-6">Shared Kanban Board</h2>
                         <div class="your-kanban-board-container row">
-                            <div class="board col-3 col" 
-                            v-for="board in sharedBoards" :key="board.id"
-                            v-bind:style="{'background-image':'linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3) ), url(' + board.bgUrl + ')'}"
-                            @click.prevent="showBoard(board.bgUrl, board.title)">
-                                <h3 class="display-6">{{board.title}}</h3>
-                            </div>
+                            <kanban-thumbnail v-for="board in sharedBoards" :key="board.id" :boardId="board.id" :title="board.title" :bgUrl="board.background_id" @showBoard="showBoard"></kanban-thumbnail>
                         </div>
                     </div>
                 </div>
@@ -55,12 +56,102 @@
 </template>
 
 <script>
+import KanbanThumbnail from './KanbanThumbnail.vue'
 export default {
-    name: 'DashboardHomePage'
-
+    data: () => {
+        return {
+            show: '',
+            showAdd: false,
+            newBoard: {
+                title: '',
+                BG: '',
+                membersId: [],
+            },
+            currentMember: ''
+        }
+    },
+    props:{
+        yourBoards: Array,
+        sharedBoards: Array,
+        membersId: Array,
+        memberNames: Array
+    },
+    components: {
+        KanbanThumbnail
+    },
+    methods: {
+        logMeOut(){
+            this.$emit('logMeOut')
+        },
+        showSetting(show){
+            this.show = show
+        },
+        showBoard(data){
+            this.$emit('showBoard', data)
+        },
+        hideAdd(){
+            this.showAdd = false
+            this.newBoard.title = ''
+            this.newBoard.members = []
+            this.newBoard.BG = ''
+            this.$emit('removeNames')
+        },
+        showAddBoard(){
+            this.showAdd = true
+        },
+        addBoard(){
+            this.newBoard.membersId = this.membersId
+            console.log(this.newBoard)
+            this.$emit('addBoard', this.newBoard)
+            this.newBoard.title = ''
+            this.newBoard.BG = ''
+            this.newBoard.members = []
+            this.newBoard.membersId = []
+            this.showAdd = false
+        },
+        addMember(){
+            this.$emit('searchUser', this.currentMember)
+            this.currentMember = ''
+        }
+    }
 }
 </script>
 
 <style>
+form {
+    width: 16vw
+}
 
+.members {
+    margin: 4px 0;
+    padding: 0;
+    font-size: 16px !important;
+
+}
+
+.add-board{
+    display: flex;
+    flex-direction: column;
+}
+input {
+    padding: 5px;
+    outline: 0;
+    border: 0;
+    border-bottom: 1px solid rgb(226, 226, 226);
+    margin: 5px 0
+}
+
+button {
+    border-radius: 20px;
+}
+.btnsbmt{
+    border-radius: 20px;
+    border: 1px solid rgb(226, 226, 226);
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 </style>
