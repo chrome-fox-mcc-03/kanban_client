@@ -11357,8 +11357,11 @@ var _default = {
           token: localStorage.getItem('accessToken')
         }
       }).then(function (response) {
-        console.log(response);
-        _this.todos = response;
+        _this.todos = response.data;
+
+        _this.todos.forEach(function (el) {
+          el.editTitle = false, el.editDesc = false;
+        });
       }).catch(function (err) {
         alert(err);
       });

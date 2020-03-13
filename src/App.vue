@@ -64,8 +64,12 @@ export default {
                     token: localStorage.getItem('accessToken')
                 }
             }).then(response => {
-                console.log(response)
-                this.todos = response
+                
+                this.todos = response.data
+                this.todos.forEach(el => {
+                    el.editTitle = false,
+                    el.editDesc = false
+                });
             })
             .catch(err => {
                 alert(err)
