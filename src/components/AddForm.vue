@@ -18,7 +18,7 @@ export default {
     addNewAct() {
       axios({
         method: 'post',
-        url: 'http://localhost:3000/activities',
+        url: 'https://salty-sierra-49064.herokuapp.com/activities',
         data: {
           title: this.newActivity
         },

@@ -44,7 +44,7 @@ export default {
 
             axios({
                 method: 'patch',
-                url: `http://localhost:3000/activities/${data.id}`,
+                url: `https://salty-sierra-49064.herokuapp.com/activities/${data.id}`,
                 headers: {
                     token: localStorage.getItem('access_token')
                 },
@@ -67,7 +67,7 @@ export default {
 
             axios({
                 method: 'patch',
-                url: `http://localhost:3000/activities/${data.id}`,
+                url: `https://salty-sierra-49064.herokuapp.com/activities/${data.id}`,
                 headers: {
                     token: localStorage.getItem('access_token')
                 },
@@ -85,7 +85,7 @@ export default {
         fetchActivities() {
             axios({
                 method: 'get',
-                url: 'http://localhost:3000/activities',
+                url: 'https://salty-sierra-49064.herokuapp.com/activities',
                 headers: {
                     token: localStorage.getItem('access_token')
                 }

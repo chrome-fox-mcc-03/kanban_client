@@ -81,7 +81,7 @@ export default {
       const password = this.userData.regPassword;
       this.isLoading = true
       axios
-        .post("http://localhost:3000/signup", {
+        .post("https://salty-sierra-49064.herokuapp.com/signup", {
           name,
           email,
           password
@@ -114,7 +114,7 @@ export default {
 
       this.isLoading = true
       axios
-        .post("http://localhost:3000/signin", {
+        .post("https://salty-sierra-49064.herokuapp.com/signin", {
           email,
           password
         })
@@ -149,7 +149,7 @@ export default {
 
       axios({
           method: 'post',
-          url: 'http://localhost:3000/googleSignIn',
+          url: 'https://salty-sierra-49064.herokuapp.com/googleSignIn',
           headers: {
               token
           }

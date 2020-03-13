@@ -38,7 +38,7 @@ export default {
         deleteAct(id) {
             axios({
                 method: 'delete',
-                url: `http://localhost:3000/activities/${id}`,
+                url: `https://salty-sierra-49064.herokuapp.com/activities/${id}`,
                 headers: {
                     token: localStorage.getItem('access_token')
                 }
@@ -57,7 +57,7 @@ export default {
             console.log(' = = = = S A V E = = = = ');
             axios({
                 method: 'patch',
-                url: `http://localhost:3000/activities/title/${id}`,
+                url: `https://salty-sierra-49064.herokuapp.com/activities/title/${id}`,
                 data: {
                     title: this.title
                 },
