@@ -25,6 +25,11 @@
       <div class="field field-btn">
         <p class="control">
           <button type="submit" class="button">Login</button>
+          <g-signin-button
+            :params="googleSignInParams"
+            @success="onSignInSuccess"
+            @error="onSignInError"
+          >Sign in with Google</g-signin-button>
         </p>
         <p class="control">
           Don't You Have Account?
@@ -39,12 +44,17 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "FormLogin",
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      googleSignInParams: {
+        client_id:
+          "710794205152-a4sqdmsdpbiatftarv2m883vog211i34.apps.googleusercontent.com"
+      }
     };
   },
   props: {
@@ -56,10 +66,49 @@ export default {
     },
     loginCheck() {
       this.$emit("loginSubmit", this.email, this.password);
+    },
+    loginGoogle() {
+      this.$emit("loginGoogle");
+    },
+    onSignInSuccess(googleUser) {
+      // `googleUser` is the GoogleUser object that represents the just-signed-in user.
+      // See https://developers.google.com/identity/sign-in/web/reference#users
+      const profile = googleUser.getBasicProfile(); // etc etc
+      let token = googleUser.getAuthResponse().id_token;
+      let name = profile.getName();
+      axios({
+        url: "http://localhost:3000/users/goosignin",
+        data: {
+          name
+        },
+        method: "post",
+        headers: {
+          token: token
+        }
+      }).then(result => {
+        localStorage.setItem("token", result.data);
+        this.loginGoogle();
+        this.$toasted.success("You are already logged in");
+      });
+      console.log("masuk sini");
+    },
+    onSignInError(error) {
+      // `error` contains any error occurred.
+      console.log("OH NOES", error);
     }
   }
 };
 </script>
 
 <style>
+.g-signin-button {
+  /* This is where you control how the button looks. Be creative! */
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 3px;
+  background-color: #3c82f7;
+  color: #fff;
+  box-shadow: 0 3px 0 #0f69ff;
+  cursor: pointer;
+}
 </style>

@@ -6,6 +6,7 @@
         v-for="filterTask in filterCategory"
         :key="filterTask.id"
         :filterTask="filterTask"
+        @getTasks="getTasks()"
         :category="category"
       ></card>
     </div>
@@ -26,6 +27,11 @@ export default {
   },
   components: {
     Card
+  },
+  methods: {
+    getTasks() {
+      this.$emit("getTasks");
+    }
   }
 };
 </script>

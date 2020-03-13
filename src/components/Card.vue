@@ -4,7 +4,7 @@
       <div class="content">
         <div class="delete-div">
           <span>{{filterTask.title}}</span>
-          <button class="delete" aria-label="delete"></button>
+          <button v-on:click="deleteTask(filterTask.id)" class="delete" aria-label="delete"></button>
         </div>
       </div>
     </div>
@@ -12,8 +12,10 @@
       <span>
         <!-- <i class="fas fa-pen fa-lg tombol"></i> -->
       </span>
-      <span>
+      <span v-on:click="moveLeft(filterTask)">
         <i class="fas fa-caret-square-left fa-lg tombol"></i>
+      </span>
+      <span v-on:click="moveRight(filterTask)">
         <i class="fas fa-caret-square-right fa-lg tombol"></i>
       </span>
     </div>
@@ -21,10 +23,82 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Card",
   props: ["filterTask", "category"],
-  methods: {}
+  methods: {
+    getTasks() {
+      this.$emit("getTasks");
+    },
+    deleteTask(taskId) {
+      axios({
+        url: `http://localhost:3000/tasks/delete/${taskId}`,
+        method: "delete",
+        headers: {
+          token: localStorage.getItem("token")
+        }
+      }).then(result => {
+        this.getTasks();
+        this.$toasted.success(`You have successfully delete a task`);
+      });
+    },
+    moveRight(filterTask) {
+      let taskId = filterTask.id;
+
+      let category = "";
+      if (filterTask.category == "BACKLOG") {
+        category = "TODO";
+      } else if (filterTask.category == "TODO") {
+        category = "ON PROGRESS";
+      } else if (filterTask.category == "ON PROGRESS") {
+        category = "COMPLETED";
+      } else {
+        category = "COMPLETED";
+      }
+      axios({
+        url: `http://localhost:3000/tasks/update/${taskId}`,
+        method: "put",
+        data: {
+          category
+        },
+        headers: {
+          token: localStorage.getItem("token")
+        }
+      }).then(result => {
+        this.getTasks();
+        this.$toasted.success(`You have successfully move task to ${category}`);
+      });
+    },
+    moveLeft(filterTask) {
+      let taskId = filterTask.id;
+      console.log("masukk");
+      let category = "";
+      if (filterTask.category == "COMPLETED") {
+        category = "ON PROGRESS";
+      } else if (filterTask.category == "ON PROGRESS") {
+        category = "TODO";
+      } else if (filterTask.category == "TODO") {
+        category = "BACKLOG";
+      } else {
+        category = "BACKLOG";
+      }
+
+      axios({
+        url: `http://localhost:3000/tasks/update/${taskId}`,
+        method: "put",
+        data: {
+          category
+        },
+        headers: {
+          token: localStorage.getItem("token")
+        }
+      }).then(result => {
+        this.getTasks();
+        this.$toasted.success(`You have successfully move task to ${category}`);
+      });
+    }
+  }
 };
 </script>
 

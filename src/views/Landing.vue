@@ -8,6 +8,7 @@
           @methodButton="registerBtn"
           @loginSubmit="loginCheck"
           :password2="password2"
+          @loginGoogle="loginGoogle"
         ></form-login>
         <form-register
           v-show="registerView"
@@ -52,6 +53,9 @@ export default {
     },
     registerSubmit(data) {
       this.$emit("regSubmit", data);
+    },
+    loginGoogle() {
+      this.$emit("loginGoogle");
     }
   }
 };

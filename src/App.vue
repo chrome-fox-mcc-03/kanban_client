@@ -5,6 +5,7 @@
       id="landing-page"
       @loginSubmit="loginCheck"
       @regSubmit="registerSubmit"
+      @loginGoogle="loginGoogle"
     ></landing>
     <dashboard
       v-show="isLogin"
@@ -49,14 +50,16 @@ export default {
           console.log(result.data);
           localStorage.setItem("token", result.data);
           this.isLogin = true;
+          this.$toasted.success("You are already logged in");
         })
         .catch(err => {
           let error = err.response.data;
-          console.log(error);
+          this.$toasted.error(error);
         });
     },
     logout() {
       localStorage.removeItem("token");
+      this.$toasted.success("You have successfully logged out!");
       this.isLogin = false;
       this.getTasks();
     },
@@ -72,10 +75,17 @@ export default {
         }
       })
         .then(result => {
+          localStorage.setItem("token", result.data);
+          this.isLogin = true;
+          this.$toasted.success("You are already Joined & logged in");
           console.log(result);
         })
         .catch(err => {
-          console.log(err.response);
+          console.log(err.response.data);
+          let error = err.response.data;
+          for (let i = 0; i < error.length; i++) {
+            this.$toasted.error(error[i].message);
+          }
         });
     },
     getTasks() {
@@ -89,6 +99,9 @@ export default {
         this.tasks = data;
         console.log(data);
       });
+    },
+    loginGoogle() {
+      this.isLogin = true;
     }
   },
   created() {

@@ -4,8 +4,8 @@
       <navbar @logoutBtn="logout()"></navbar>
     </div>
     <div class="form-addTask">
-      <form>
-        <input class="input" type="text" placeholder="Add Todo" />
+      <form v-on:submit.prevent="addTask">
+        <input v-model="newTask" class="input" type="text" placeholder="Add Todo" />
         <button class="button">Add Todo</button>
       </form>
     </div>
@@ -16,6 +16,7 @@
           :key="index"
           :category="category"
           :tasks="tasks"
+          @getTasks="getTasks()"
         ></card-layout>
       </div>
     </div>
@@ -23,6 +24,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import Navbar from "../components/Navbar";
 import CardLayout from "../components/CardLayout";
 export default {
@@ -30,6 +32,7 @@ export default {
   props: ["tasks"],
   data: function() {
     return {
+      newTask: "",
       categories: ["BACKLOG", "TODO", "ON PROGRESS", "COMPLETED"]
     };
   },
@@ -40,6 +43,26 @@ export default {
   methods: {
     logout() {
       this.$emit("logoutBtn");
+    },
+    getTasks() {
+      this.$emit("getTasks");
+    },
+    addTask() {
+      console.log(this.newTask);
+      axios({
+        url: "http://localhost:3000/tasks/add",
+        method: "post",
+        data: {
+          title: this.newTask
+        },
+        headers: {
+          token: localStorage.getItem("token")
+        }
+      }).then(result => {
+        this.getTasks();
+        this.newTask = "";
+        this.$toasted.success("Success add new task");
+      });
     }
   }
 };
