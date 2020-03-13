@@ -90,7 +90,7 @@ import CreateTask from './components/CreateTask'
 import KanbanBoard from './components/KanbanBoard'
 import axios from 'axios'
 
-const baseUrl = `http://localhost:3000`
+const baseUrl = `https://shielded-cove-72197.herokuapp.com`
 export default {
     name: "App",
     data() {

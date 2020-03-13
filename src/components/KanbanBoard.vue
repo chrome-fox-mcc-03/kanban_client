@@ -20,7 +20,7 @@
 import axios from 'axios'
 import Card from './Card'
 
-const baseUrl = `http://localhost:3000`
+const baseUrl = `https://shielded-cove-72197.herokuapp.com`
 
 export default {
     name: 'KanbanBoard',
