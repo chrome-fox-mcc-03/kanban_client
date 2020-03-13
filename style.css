@@ -1,0 +1,19 @@
+body{
+	background: #94d3ac;
+}
+
+#login-form {
+	background: #ccedd2;
+}
+
+.btn-green {
+	background-color: #3fa3a5;
+	border-color: #3fa3a5;
+	color: white;
+}
+
+.btn-green:hover {
+	background-color: #357376;
+	border-color: #357376;
+	color: white;
+}
