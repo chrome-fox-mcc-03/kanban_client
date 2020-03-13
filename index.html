@@ -1,179 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
     <title>Kanban</title>
-    <!-- Bootstrap -->
+    <!-- UIKit -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.3.3/dist/css/uikit.min.css" />
+    <!-- Google Sign In -->
     <link href="https://fonts.googleapis.com/css?family=Damion|Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-
-    <section class="header" uk-sticky style="display:;">
-        <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #offcanvas-usage">MENU</button>
-        <p>Kanban</p>
-        <button class="uk-button uk-button-danger">LOGOUT</button>
-    </section>
-
-    <section class="main-page" style="display:;">
-
-        <!-- Side Bar -->
-        <div id="offcanvas-usage" uk-offcanvas>
-
-            <div class="uk-offcanvas-bar">
-        
-                <button class="uk-offcanvas-close" type="button" uk-close></button>
-
-                <div class="sidebar" >
-                    <p>MENU</p>
-                    <ul>
-                        <li>ADD BOARD</li>
-                        <li>SETTINGS</li>
-                        <li>LOGOUT</li>
-                    </ul>
-                </div>        
-            </div>
-
-        </div>
-
-        <!-- Canvas -->
-        <div class="canvas">
-            <div class="cards-container" id="development">
-                <div class="container-body">
-                    <h2 class="container-title ">Development</h2>
-
-                    <div class="add-card">
-                        <div class="uk-inline">
-                            <a class="uk-form-icon uk-form-icon-flip uk-icon-link" uk-icon="icon: plus-circle"></a>
-                            <input id="new-title-shortcut" class="uk-input" type="text" placeholder="Add new card">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="uk-card uk-card-default uk-card-body uk-card-hover">
-                    <div class="uk-card-badge uk-label">Team</div>
-                    <h3 class="uk-card-title">Default</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <div class="uk-card-footer">
-                        <a href="#" class="uk-button uk-button-text">Read more</a>
-                    </div>
-                </div>
-
-                <div class="uk-card uk-card-default uk-card-body uk-card-hover">
-                    <div class="uk-card-badge uk-label">Team</div>
-                    <h3 class="uk-card-title">Default</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <div class="uk-card-footer">
-                        <a href="#" class="uk-button uk-button-text">Read more</a>
-                    </div>
-                </div>
-                <button class="uk-button uk-button-edit">Edit</button>
-            </div>
-        </div>
-
-    </section>
-
-    <section class="landing-page" style="display: none;">
-        <!-- Kanban Intro -->
-        <div class="kanban-introduction">
-            <h2><b>Kanban</b></h2>
-            <p style="text-align: center;" >
-                <b>kan·ban</b>
-                <br>
-                /ˈkänbän/
-                <br><br>
-            </p>
-            <p>
-                &emsp; &emsp; <b>Kanban</b> is a visual signal that's used to trigger an action. The word <b>kanban</b> is Japanese and roughly translated means “card you can see.” Toyota introduced and refined the use of kanban in a relay system to standardize the flow of parts in their just-in-time (JIT) production lines in the 1950s. 
-                <br>
-                <i>WhatIs.com</i>
-            </p>
-        </div>
-
-        <!-- Button -->
-        <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #login-canvas">Login</button>
-        <button class="uk-button uk-button-default" type="button" uk-toggle="target: #register-canvas">Register</button>
-
-        <!-- LOGIN CANVAS -->
-        <div id="login-canvas" uk-offcanvas>
-            <div class="uk-offcanvas-bar login-page">
-        
-                <button class="uk-offcanvas-close" type="button" uk-close></button>
-                <fieldset class="uk-fieldset">
-                    <legend class="uk-legend">LOGIN</legend>
-                    <form id="login-form">
-                        
-                        <div class="uk-margin">
-                            <!-- Username -->
-                            <div class="uk-form-controls uk-inline">
-                                <span class="uk-form-icon" uk-icon="icon: user"></span>
-                                <input class="uk-input uk-form-width-medium" id="login-username-input" type="text" placeholder="Username">
-                            </div>
-                            <br>
-                            <!-- Password -->
-                            <div class="uk-form-controls uk-inline">
-                                <span class="uk-form-icon uk-form-icon" uk-icon="icon: lock"></span>
-                                <input class="uk-input uk-form-width-medium" id="login-password-input" type="password" placeholder="Password">
-                            </div>
-                            <br>
-                            <button class="uk-button">Login</button>
-                            <div style="margin-top: 25%;">
-                                <p>OR</p>
-                            </div>
-                            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                            <br>
-                    </form>
-                </fieldset>
-        
-            </div>
-        </div>
-
-        <!-- REGISTER CANVAS -->
-        <div id="register-canvas" uk-offcanvas="flip: true; overlay: true">
-            <div class="uk-offcanvas-bar register-page">
-        
-                <button class="uk-offcanvas-close" type="button" uk-close></button>
-                <fieldset class="uk-fieldset">
-                    <legend class="uk-legend">REGISTER</legend>
-                    <form id="register-form">
-                        
-                        <div class="uk-margin">
-                            <!-- Username -->
-                            <div class="uk-form-controls uk-inline">
-                                <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: user"></span>
-                                <input class="uk-input uk-form-width-medium" id="register-username-input" type="text" placeholder="Username">
-                            </div>
-                            <br>
-                            <!-- Password -->
-                            <div class="uk-form-controls uk-inline">
-                                <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
-                                <input class="uk-input uk-form-width-medium" id="register-password-input" type="password" placeholder="Password">
-                            </div>
-                            <br>
-                            <!-- Full Name -->
-                            <div class="uk-form-controls uk-inline">
-                                <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: users"></span>
-                                <input class="uk-input uk-form-width-medium" id="register-fullname-input" type="text" placeholder="Full Name">
-                            </div>
-                            <br>
-                            <button class="uk-button">Register</button>
-                    </form>
-                </fieldset>
-            </div>
-        </div>
-
-    </section>
+    <div id="app">
+    </div>
     
     <!-- ======== Script Section ======== -->
+    <!-- VUE -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- Axios -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script> -->
     <!-- GETUIKIT -->
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.3.3/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.3.3/dist/js/uikit-icons.min.js"></script>
     <!-- Google Login -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/api:client.js"></script>
+    <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
     <!-- Custom Script -->
-    <script src="index.js"></script>
+    <script src="./src/main.js"></script>
 </body>
 </html>
