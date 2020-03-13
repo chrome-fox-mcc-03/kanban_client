@@ -135,13 +135,13 @@ export default {
                     localStorage.setItem('token', token)
                     this.currentPage = 'homePageDisplay'
                     this.userData.isLogin = true
-                    this.userData.email = ''
-                    this.userData.password = ''
                     console.log(response)
                     Toast.fire({
                         icon: 'success',
                         title: 'Login succesfully'
                     })
+                    this.userData.email = ''
+                    this.userData.password = ''
                 })
                 
                 .catch(err => {
@@ -255,34 +255,40 @@ export default {
                 }
             })
                 .then(response => {
-                    const email = response.data[0].User.email
-                    console.log('>>>>',response.data)
-                    console.log(email)
-                    this.getUserByEmail(email)
-                    // let allCategories = response.data.map( el => {
-                    //     return el.category
-                    // })
-                    // let uniqueCategories = allCategories.filter( (value, index, array) => {
-                    //     return array.indexOf(value) === index
-                    // })
-                    // this.categories = uniqueCategories
-
-                    response.data.forEach(el => {
-                        let currentIndex = this.categories.indexOf(el.category)
-                        if (currentIndex === 0) {
-                            el.firstIndex = true
-                            el.lastIndex = false
-                        } else if(currentIndex === this.categories.length - 1){
-                            el.lastIndex = true
-                            el.firstIndex = false
-                        } else {
-                            el.lastIndex = true
-                            el.firstIndex = true
-                        }
-                    })
-                    this.cards = response.data
-                    console.log(this.categories)
-                    this.currentPage = 'cardsDisplay'
+                    console.log(response.data.length)
+                    if (response.data.length > 0) {
+                        const email = response.data[0].User.email
+                        console.log('>>>>',response.data)
+                        console.log(email)
+                        this.getUserByEmail(email)
+                        // let allCategories = response.data.map( el => {
+                        //     return el.category
+                        // })
+                        // let uniqueCategories = allCategories.filter( (value, index, array) => {
+                        //     return array.indexOf(value) === index
+                        // })
+                        // this.categories = uniqueCategories
+    
+                        response.data.forEach(el => {
+                            let currentIndex = this.categories.indexOf(el.category)
+                            if (currentIndex === 0) {
+                                el.firstIndex = true
+                                el.lastIndex = false
+                            } else if(currentIndex === this.categories.length - 1){
+                                el.lastIndex = true
+                                el.firstIndex = false
+                            } else {
+                                el.lastIndex = true
+                                el.firstIndex = true
+                            }
+                        })
+                        this.cards = response.data
+                        console.log(this.categories)
+                        this.currentPage = 'cardsDisplay'
+                    } else {
+                        this.cards = response.data
+                        this.currentPage = 'cardsDisplay'
+                    }
                 })
                 .catch(err => {
                     Toast.fire({
@@ -341,6 +347,7 @@ export default {
         },      
         deleteTask(el){
             const id = el.id
+            console.log(id)
             const token = localStorage.getItem('token')
             axios({
                 method: "DELETE",
@@ -350,8 +357,21 @@ export default {
                 }
             }) 
                 .then(response => {
-                    this.fetchCards()
+                    return axios({
+                        method: "GET",
+                        url: "http://localhost:3000/tasks",
+                        headers: {
+                            token
+                        }
+                    })
                     console.log(response.data)
+                })
+                .then(response => {
+                    let tasks = response.data
+                    console.log('<<<<<<',response)
+                    console.log(response.data)
+                        this.fetchCards()
+                        this.currentPage = 'homepageDisplay'
                 })
                 .catch(err => {
                     console.log(err.response)

@@ -46,16 +46,20 @@ export default {
             this.$emit('deleteTask', obj)
         },
         fullName() {
-            const arrFirstName = this.first_name.split('')
-            const first_name_firstCap = arrFirstName[0].toUpperCase()
-            arrFirstName[0] = first_name_firstCap
-            const capFirstName = arrFirstName.join('')
-            const arrLastName = this.last_name.split('')
-            const last_name_firstCap = arrLastName[0].toUpperCase()
-            arrLastName[0] = last_name_firstCap
-            const capLastName = arrLastName.join('')
-            console.log(arrFirstName)
-            return this.full_name = capFirstName +' '+ capLastName
+            if (this.first_name) {
+                const arrFirstName = this.first_name.split('')
+                const first_name_firstCap = arrFirstName[0].toUpperCase()
+                arrFirstName[0] = first_name_firstCap
+                const capFirstName = arrFirstName.join('')
+                const arrLastName = this.last_name.split('')
+                const last_name_firstCap = arrLastName[0].toUpperCase()
+                arrLastName[0] = last_name_firstCap
+                const capLastName = arrLastName.join('')
+                console.log(arrFirstName)
+                return this.full_name = capFirstName +' '+ capLastName + "'s"   
+            } else {
+                return 
+            }
         }
     }
 }

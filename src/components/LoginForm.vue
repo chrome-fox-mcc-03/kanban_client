@@ -9,7 +9,7 @@
             <input class="submit" type="submit" value="Login">
             <a id="register-word" @click="changePage('registerDisplay')">Doesn't have an account yet? Register here</a>
         </form>
-        <div id="google-signin-btn"></div>
+        <div id="my-signin2"></div>
     </div>
 </template>
 
@@ -36,13 +36,24 @@ export default {
         },
         onSignIn: function (googleUser){
             this.$emit('onSignIn', googleUser)
+        },
+        onFailure: function(error) {
+            console.log(error);
         }
     },
     mounted() {
-    gapi.signin2.render('google-signin-btn', { // this is the button "id"
-      onsuccess: this.onSignIn // note, no "()" here
-    })
-  }
+        // function renderButton() {
+                gapi.signin2.render('my-signin2', {
+                    'scope': 'profile email',
+                    'width': 240,
+                    'height': 50,
+                    'longtitle': true,
+                    'theme': 'dark',
+                    'onsuccess': this.onSignIn,
+                    'onfailure': this.onFailure
+                });
+            // }
+    }
 }
 </script>
 
