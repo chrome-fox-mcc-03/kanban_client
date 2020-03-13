@@ -11424,80 +11424,172 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../node_modules/vue-hot-reload-api/dist/index.js","vue":"../node_modules/vue/dist/vue.runtime.esm.js"}],"../src/views/Kanban.vue":[function(require,module,exports) {
+},{"_css_loader":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../node_modules/vue-hot-reload-api/dist/index.js","vue":"../node_modules/vue/dist/vue.runtime.esm.js"}],"../src/components/KanbanAddTask.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'KanbanAddTask',
+  data: function data() {
+    return {
+      title: '',
+      status: false
+    };
+  },
+  methods: {
+    addTask: function addTask() {
+      var data = {
+        title: this.title,
+        status: this.status
+      };
+      this.$emit('addTask', data);
+      this.resetForm();
+    },
+    resetForm: function resetForm() {
+      this.title = '';
+    }
+  }
+};
+exports.default = _default;
+        var $a7df9b = exports.default || module.exports;
+      
+      if (typeof $a7df9b === 'function') {
+        $a7df9b = $a7df9b.options;
+      }
+    
+        /* template */
+        Object.assign($a7df9b, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticStyle: { "background-color": "#3fc1c9" },
+      attrs: { align: "center" }
+    },
+    [
+      _c("form", { on: { submit: _vm.addTask } }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.title,
+              expression: "title"
+            }
+          ],
+          attrs: { type: "text", placeholder: "Your Task" },
+          domProps: { value: _vm.title },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.title = $event.target.value
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("input", { attrs: { type: "submit", value: "Add Task" } }),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.status,
+              expression: "status"
+            }
+          ],
+          attrs: { type: "checkbox", value: "true", id: "status" },
+          domProps: {
+            checked: Array.isArray(_vm.status)
+              ? _vm._i(_vm.status, "true") > -1
+              : _vm.status
+          },
+          on: {
+            change: function($event) {
+              var $$a = _vm.status,
+                $$el = $event.target,
+                $$c = $$el.checked ? true : false
+              if (Array.isArray($$a)) {
+                var $$v = "true",
+                  $$i = _vm._i($$a, $$v)
+                if ($$el.checked) {
+                  $$i < 0 && (_vm.status = $$a.concat([$$v]))
+                } else {
+                  $$i > -1 &&
+                    (_vm.status = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+                }
+              } else {
+                _vm.status = $$c
+              }
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "status" } }, [_vm._v("Urgent")])
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
 
-var _KanbanNavbar = _interopRequireDefault(require("../components/KanbanNavbar"));
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$a7df9b', $a7df9b);
+          } else {
+            api.reload('$a7df9b', $a7df9b);
+          }
+        }
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"_css_loader":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../node_modules/vue-hot-reload-api/dist/index.js","vue":"../node_modules/vue/dist/vue.runtime.esm.js"}],"../src/components/KanbanCard.vue":[function(require,module,exports) {
+"use strict";
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
 //
 //
 //
@@ -11531,18 +11623,471 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 var _default = {
+  name: 'KanbanCard',
+  props: ['task'],
+  methods: {
+    updateRight: function updateRight(id) {
+      this.$emit('updateRight', id);
+    },
+    updateLeft: function updateLeft(id) {
+      this.$emit('updateLeft', id);
+    },
+    deleteTask: function deleteTask(id) {
+      this.$emit('deleteTask', id);
+    }
+  }
+};
+exports.default = _default;
+        var $71ae23 = exports.default || module.exports;
+      
+      if (typeof $71ae23 === 'function') {
+        $71ae23 = $71ae23.options;
+      }
+    
+        /* template */
+        Object.assign($71ae23, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm.task.status
+      ? _c(
+          "div",
+          {
+            staticClass: "card",
+            staticStyle: { "background-color": "#7f78d2" }
+          },
+          [
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "h5",
+                {
+                  staticClass: "card-title",
+                  staticStyle: { color: "#fefefe" }
+                },
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.task.title) +
+                      "\n            "
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticStyle: { display: "flex", "justify-content": "center" } },
+              [
+                _vm.task.category != "Backlog"
+                  ? _c(
+                      "a",
+                      {
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            return _vm.updateLeft(_vm.task.id)
+                          }
+                        }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "fa fa-arrow-left",
+                          staticStyle: {
+                            "font-size": "20px",
+                            color: "white",
+                            margin: "10px 10px"
+                          },
+                          attrs: { "aria-hidden": "true" }
+                        })
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteTask(_vm.task.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fa fa-trash",
+                      staticStyle: {
+                        "font-size": "20px",
+                        color: "red",
+                        margin: "10px 10px"
+                      },
+                      attrs: { "aria-hidden": "true" }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _vm.task.category != "Done"
+                  ? _c(
+                      "a",
+                      {
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            return _vm.updateRight(_vm.task.id)
+                          }
+                        }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "fa fa-arrow-right",
+                          staticStyle: {
+                            "font-size": "20px",
+                            color: "white",
+                            margin: "10px 10px"
+                          },
+                          attrs: { "aria-hidden": "true" }
+                        })
+                      ]
+                    )
+                  : _vm._e()
+              ]
+            )
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    !_vm.task.status
+      ? _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "h5",
+              { staticClass: "card-title", staticStyle: { color: "black" } },
+              [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.task.title) +
+                    "\n            "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticStyle: { display: "flex", "justify-content": "center" } },
+            [
+              _vm.task.category != "Backlog"
+                ? _c(
+                    "a",
+                    {
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          return _vm.updateLeft(_vm.task.id)
+                        }
+                      }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fa fa-arrow-left",
+                        staticStyle: {
+                          "font-size": "20px",
+                          color: "blue",
+                          margin: "10px 10px"
+                        },
+                        attrs: { "aria-hidden": "true" }
+                      })
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      return _vm.deleteTask(_vm.task.id)
+                    }
+                  }
+                },
+                [
+                  _c("i", {
+                    staticClass: "fa fa-trash",
+                    staticStyle: {
+                      "font-size": "20px",
+                      color: "red",
+                      margin: "10px 10px"
+                    },
+                    attrs: { "aria-hidden": "true" }
+                  })
+                ]
+              ),
+              _vm._v(" "),
+              _vm.task.category != "Done"
+                ? _c(
+                    "a",
+                    {
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          return _vm.updateRight(_vm.task.id)
+                        }
+                      }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fa fa-arrow-right",
+                        staticStyle: {
+                          "font-size": "20px",
+                          color: "blue",
+                          margin: "10px 10px"
+                        },
+                        attrs: { "aria-hidden": "true" }
+                      })
+                    ]
+                  )
+                : _vm._e()
+            ]
+          )
+        ])
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$71ae23', $71ae23);
+          } else {
+            api.reload('$71ae23', $71ae23);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"_css_loader":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../node_modules/vue-hot-reload-api/dist/index.js","vue":"../node_modules/vue/dist/vue.runtime.esm.js"}],"../src/components/KanbanBox.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _KanbanCard = _interopRequireDefault(require("./KanbanCard"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'KanbanBox',
+  components: {
+    KanbanCard: _KanbanCard.default
+  },
+  computed: {
+    filter: function filter() {
+      var _this = this;
+
+      return this.tasks.filter(function (task) {
+        return task.category === _this.category;
+      });
+    }
+  },
+  methods: {
+    updateRight: function updateRight(id) {
+      var obj = {
+        id: id,
+        category: this.category
+      };
+      this.$emit('updateRight', obj);
+    },
+    updateLeft: function updateLeft(id) {
+      var obj = {
+        id: id,
+        category: this.category
+      };
+      this.$emit('updateLeft', obj);
+    },
+    deleteTask: function deleteTask(id) {
+      this.$emit('deleteTask', id);
+    }
+  },
+  props: ['tasks', 'category']
+};
+exports.default = _default;
+        var $66b0e2 = exports.default || module.exports;
+      
+      if (typeof $66b0e2 === 'function') {
+        $66b0e2 = $66b0e2.options;
+      }
+    
+        /* template */
+        Object.assign($66b0e2, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "box" }, [
+    _c(
+      "div",
+      { staticClass: "col-md-3 kanban-board" },
+      [
+        _c("div", { staticClass: "kanban-title" }, [
+          _c("h3", [
+            _vm._v(
+              "\n                " + _vm._s(_vm.category) + "\n            "
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._l(_vm.filter, function(task) {
+          return _c("kanban-card", {
+            key: task.id,
+            attrs: { task: task },
+            on: {
+              updateLeft: _vm.updateLeft,
+              updateRight: _vm.updateRight,
+              deleteTask: _vm.deleteTask
+            }
+          })
+        })
+      ],
+      2
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$66b0e2', $66b0e2);
+          } else {
+            api.reload('$66b0e2', $66b0e2);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"./KanbanCard":"../src/components/KanbanCard.vue","_css_loader":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../node_modules/vue-hot-reload-api/dist/index.js","vue":"../node_modules/vue/dist/vue.runtime.esm.js"}],"../src/views/Kanban.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _KanbanNavbar = _interopRequireDefault(require("../components/KanbanNavbar"));
+
+var _KanbanAddTask = _interopRequireDefault(require("../components/KanbanAddTask"));
+
+var _KanbanBox = _interopRequireDefault(require("../components/KanbanBox"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
   name: 'Kanban',
   data: function data() {
-    return {};
+    return {
+      categories: ['Backlog', 'Product', 'Development', 'Done']
+    };
   },
   methods: {
     logout: function logout() {
       this.$emit('logout');
+    },
+    addTask: function addTask(data) {
+      this.$emit('addTask', data);
+    },
+    updateRight: function updateRight(data) {
+      this.$emit('updateRight', data);
+    },
+    updateLeft: function updateLeft(data) {
+      this.$emit('updateLeft', data);
+    },
+    deleteTask: function deleteTask(data) {
+      this.$emit('deleteTask', data);
     }
   },
   components: {
-    KanbanNavbar: _KanbanNavbar.default
-  }
+    KanbanNavbar: _KanbanNavbar.default,
+    KanbanAddTask: _KanbanAddTask.default,
+    KanbanBox: _KanbanBox.default
+  },
+  props: ['tasks']
 };
 exports.default = _default;
         var $7d11e5 = exports.default || module.exports;
@@ -11562,188 +12107,38 @@ exports.default = _default;
     [
       _c("kanban-navbar", { on: { logout: _vm.logout } }),
       _vm._v(" "),
-      _vm._m(0)
+      _c(
+        "div",
+        { staticClass: "dashboardPage" },
+        [
+          _c("kanban-add-task", { on: { addTask: _vm.addTask } }),
+          _vm._v(" "),
+          _c("div", { staticClass: "container-fluid" }, [
+            _c(
+              "div",
+              { staticClass: "row flex-nowrap" },
+              _vm._l(_vm.categories, function(category, i) {
+                return _c("kanban-box", {
+                  key: i,
+                  attrs: { category: category, tasks: _vm.tasks },
+                  on: {
+                    updateLeft: _vm.updateLeft,
+                    updateRight: _vm.updateRight,
+                    deleteTask: _vm.deleteTask
+                  }
+                })
+              }),
+              1
+            )
+          ])
+        ],
+        1
+      )
     ],
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "dashboardPage" }, [
-      _c(
-        "div",
-        {
-          staticStyle: { "background-color": "#3fc1c9" },
-          attrs: { align: "center" }
-        },
-        [
-          _c("form", [
-            _c("input", { attrs: { type: "text", placeholder: "Your Task" } }),
-            _vm._v(" "),
-            _c("input", { attrs: { type: "submit", value: "Add Task" } })
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("div", { staticClass: "row flex-nowrap" }, [
-          _c("div", { staticClass: "box" }, [
-            _c("div", { staticClass: "col-md-3 kanban-board" }, [
-              _c("div", { staticClass: "kanban-title" }, [
-                _c("h3", [
-                  _vm._v(
-                    "\n                                TITLE\n                            "
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card" }, [
-                _c("div", { staticClass: "card-body" }, [
-                  _c(
-                    "h5",
-                    {
-                      staticClass: "card-title",
-                      staticStyle: { color: "#fc5185" }
-                    },
-                    [
-                      _vm._v(
-                        "\n                                    TEST\n                                "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v(
-                      "\n                                    INI BUDI\n                                    INI BUDI\n                                    INI BUDI\n                                    INI BUDI\n                                    INI BUDI\n                                    INI BUDIINI BUDIINI BUDIINI BUDIINI BUDIINI BUDIINI BUDIINI BUDIINI BUDIINI\n                                    BUDIINI BUDIINI BUDIINI BUDIINI BUDIINI BUDIINI BUDIINI BUDIINI BUDIINI BUDIINI\n                                    BUDIINI BUDIINI BUDI\n                                "
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card" }, [
-                _c("div", { staticClass: "card-body" }, [
-                  _c(
-                    "h5",
-                    {
-                      staticClass: "card-title",
-                      staticStyle: { color: "#fc5185" }
-                    },
-                    [
-                      _vm._v(
-                        "\n                                    TEST\n                                "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v(
-                      "\n                                    INI BUDI\n                                "
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card" }, [
-                _c("div", { staticClass: "card-body" }, [
-                  _c(
-                    "h5",
-                    {
-                      staticClass: "card-title",
-                      staticStyle: { color: "#fc5185" }
-                    },
-                    [
-                      _vm._v(
-                        "\n                                    TEST\n                                "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v(
-                      "\n                                    INI BUDI\n                                "
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card" }, [
-                _c("div", { staticClass: "card-body" }, [
-                  _c(
-                    "h5",
-                    {
-                      staticClass: "card-title",
-                      staticStyle: { color: "#fc5185" }
-                    },
-                    [
-                      _vm._v(
-                        "\n                                    TEST\n                                "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v(
-                      "\n                                    INI BUDI\n                                "
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card" }, [
-                _c("div", { staticClass: "card-body" }, [
-                  _c(
-                    "h5",
-                    {
-                      staticClass: "card-title",
-                      staticStyle: { color: "#fc5185" }
-                    },
-                    [
-                      _vm._v(
-                        "\n                                    TEST\n                                "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v(
-                      "\n                                    INI BUDI\n                                "
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card" }, [
-                _c("div", { staticClass: "card-body" }, [
-                  _c(
-                    "h5",
-                    {
-                      staticClass: "card-title",
-                      staticStyle: { color: "#fc5185" }
-                    },
-                    [
-                      _vm._v(
-                        "\n                                    TEST\n                                "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v(
-                      "\n                                    INI BUDI\n                                "
-                    )
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
           return {
@@ -11776,7 +12171,7 @@ render._withStripped = true
       
       }
     })();
-},{"../components/KanbanNavbar":"../src/components/KanbanNavbar.vue","_css_loader":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../node_modules/vue-hot-reload-api/dist/index.js","vue":"../node_modules/vue/dist/vue.runtime.esm.js"}],"../src/App.vue":[function(require,module,exports) {
+},{"../components/KanbanNavbar":"../src/components/KanbanNavbar.vue","../components/KanbanAddTask":"../src/components/KanbanAddTask.vue","../components/KanbanBox":"../src/components/KanbanBox.vue","_css_loader":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../node_modules/vue-hot-reload-api/dist/index.js","vue":"../node_modules/vue/dist/vue.runtime.esm.js"}],"../src/App.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11792,6 +12187,7 @@ var _axios = _interopRequireDefault(require("axios"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
 //
 //
 //
@@ -11845,6 +12241,8 @@ var _default = {
       this.isLogin = false;
     },
     fetchTask: function fetchTask() {
+      var _this3 = this;
+
       (0, _axios.default)({
         method: 'GET',
         url: 'http://localhost:3000/tasks',
@@ -11852,7 +12250,79 @@ var _default = {
           token: localStorage.token
         }
       }).then(function (response) {
-        console.log(response); // this.tasks.push()
+        _this3.tasks = response.data;
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    addTask: function addTask(data) {
+      var _this4 = this;
+
+      (0, _axios.default)({
+        method: 'POST',
+        url: 'http://localhost:3000/tasks',
+        headers: {
+          token: localStorage.token
+        },
+        data: data
+      }).then(function (response) {
+        _this4.fetchTask();
+      });
+    },
+    updateLeft: function updateLeft(data) {
+      var _this5 = this;
+
+      var category;
+      if (data.category === 'Product') category = 'Backlog';else if (data.category === 'Development') category = 'Product';else if (data.category === 'Done') category = 'Development';
+      (0, _axios.default)({
+        method: 'PUT',
+        url: "http://localhost:3000/tasks/".concat(data.id),
+        headers: {
+          token: localStorage.token
+        },
+        data: {
+          category: category
+        }
+      }).then(function (response) {
+        _this5.fetchTask();
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    updateRight: function updateRight(data) {
+      var _this6 = this;
+
+      var category;
+      if (data.category === 'Backlog') category = 'Product';else if (data.category === 'Product') category = 'Development';else if (data.category === 'Development') category = 'Done';
+      (0, _axios.default)({
+        method: 'PUT',
+        url: "http://localhost:3000/tasks/".concat(data.id),
+        headers: {
+          token: localStorage.token
+        },
+        data: {
+          category: category
+        }
+      }).then(function (response) {
+        _this6.fetchTask();
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    deleteTask: function deleteTask(id) {
+      var _this7 = this;
+
+      console.log('masoookkk');
+      (0, _axios.default)({
+        method: 'DELETE',
+        url: "http://localhost:3000/tasks/".concat(id),
+        headers: {
+          token: localStorage.token
+        }
+      }).then(function (response) {
+        _this7.fetchTask();
+      }).catch(function (err) {
+        console.log(err);
       });
     }
   },
@@ -11900,7 +12370,14 @@ exports.default = _default;
             expression: "isLogin"
           }
         ],
-        on: { logout: _vm.logout }
+        attrs: { tasks: _vm.tasks },
+        on: {
+          logout: _vm.logout,
+          addTask: _vm.addTask,
+          updateLeft: _vm.updateLeft,
+          updateRight: _vm.updateRight,
+          deleteTask: _vm.deleteTask
+        }
       })
     ],
     1
@@ -11981,7 +12458,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46793" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44611" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
