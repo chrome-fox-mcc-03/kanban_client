@@ -65,35 +65,33 @@
 <script>
 export default {
     name: "LandingPage",
-    data: {
-        function() {
+    data() {
             return {
                 userCreds :{
                     email: '',
                     password: ''
                 }
             }
-        }
     },
     methods: {
-        signup() {
+        userSignup() {
             const email = this.userCreds.email;
             const password = this.userCreds.password;
             const userCreds = {
                 email,
                 password
             }
-            this.$emit('signup', userCreds) ;
+            this.$emit('userSignup', userCreds) ;
         },
 
-        login() {
+        userLogin() {
             const email = this.userCreds.email;
             const password = this.userCreds.password;
             const userCreds = {
                 email,
                 password
             }
-            this.$emit('login', userCreds) ;
+            this.$emit('userLogin', userCreds) ;
         }
     }
 }

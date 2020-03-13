@@ -31,7 +31,7 @@
             </button>
           </li>
 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <button
               type="button"
               class="btn btn-warning"
@@ -41,7 +41,7 @@
               Edit
               Task
             </button>
-          </li>
+          </li> -->
 
           <li class="nav-item">
             <button
@@ -133,82 +133,7 @@
     </div>
 
 
-    <!-- EDIT TASK Modal -->
-    <div
-      class="modal fade"
-      id="editTaskModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">CREATE NEW TASK</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form id="editTask-form">
-              ID
-              <br />
-              <input
-                v-model="editCreds.id"
-                type="text"
-                class="form-control"
-                id="create-task-type"
-                placeholder="Enter Task Title"
-              /><br>
-              Title
-              <br />
-              <input
-                v-model="editCreds.title"
-                type="text"
-                class="form-control"
-                id="create-task-type"
-                placeholder="Enter Task Title"
-              />
-              <!-- <p>{{ taskCreds.title }}</p><br> -->
-              <br />Category
-              <br />
-              <select class="task-category" v-model="editCreds.category">
-                <option value="backlog">BACKLOG</option>
-                <option value="requested">REQUESTED</option>
-                <option value="wip">IN PROGRESS</option>
-                <option value="done">DONE</option>
-              </select>
-              <br />
-              <!-- <p>{{ taskCreds.category }}</p><br> -->
-              Due Date
-              <br />
-              <input
-                v-model="editCreds.due_date"
-                type="date"
-                class="form-control"
-                id="create-task-due-date"
-              />
-              <!-- <p>{{ parseDate }}</p><br> -->
-              <br />
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              form="createTask-form"
-              v-on:click.prevent="editTask()"
-            >
-              EDIT
-              TASK
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
+ 
 
     <!-- DELETE TASK MODAL -->
     <div
@@ -266,7 +191,7 @@
 export default {
   name: "Navbar",
   props: ['token', 'isLogin'],
-  data: function() {
+  data() {
     return {
       taskCreds: {
         "title" : "",
@@ -306,6 +231,11 @@ export default {
        console.log(">>>DELETE TASK: BEFORE SENDING TO PARENT<<<");
        console.log(this.dropId);
        this.$emit("dropTaskFromList", this.dropId)
+    },
+
+    logout() {
+      console.log(">>>LOGGING OUT<<<");
+      this.$emit("logout", null)
     }
   }
 };

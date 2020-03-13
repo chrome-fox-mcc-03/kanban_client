@@ -1,0 +1,18 @@
+.bg-box[data-v-dc03d9] {
+  color: white;
+}
+.bg-box[data-v-dc03d9]:nth-child(1) {
+  background-color: red;
+}
+.bg-box[data-v-dc03d9]:nth-child(2) {
+  background-color: green;
+}
+.bg-box[data-v-dc03d9]:nth-child(3) {
+  background-color: orange;
+}
+.bg-box[data-v-dc03d9]:nth-child(4) {
+  background-color: blue;
+}
+.card-body[data-v-02726c] {
+  color: black;
+}

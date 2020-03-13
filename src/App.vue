@@ -4,15 +4,20 @@
             :token="token" 
             :isLogin="isLogin"
             @addNewTask="createTask"
-            @editTaskInList="editTask"
             @dropTaskFromList="deleteTask"
+            @logout="logout"
+
             
         ></Navbar>
 
-        <!-- <Dashboard
+        <Dashboard
             :categories="categories"
-            :tasks="tasks"
-        ></Dashboard> -->
+            :tasks="sortedTasks"
+            @editTaskById="editTask"
+            v-if="isLogin === true"
+
+        ></Dashboard>
+
     </div>
     
 </template>
@@ -20,13 +25,13 @@
 <script>
 import Navbar from "./components/Navbar.vue"
 import LandingPage from "./components/LandingPage.vue"
-// import Dashboard from "./components/Dashboard.vue"
+import Dashboard from "./components/Dashboard.vue"
 export default {
-    name: "",
-    data: function() {
+    name: "App",
+    data() {
         return {
             // token: "",
-            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ0ZXN0QG1haWwuY29tIiwiaWF0IjoxNTg0MDY5Njg5fQ.6ExCJr0R8YrywMop4nnHdKC079NhjshgJQK71QZy_Sw",
+            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ0ZXN0QG1haWwuY29tIiwiaWF0IjoxNTg0MDkyOTI0fQ.bc0sRTcQrgurWTe3g5JN-5tPKZfHRfaUs9B05vZGVcY",
             taskCreds: {
                 "id": 0,
                 "title": "",
@@ -45,13 +50,14 @@ export default {
                 "done":[]
             },
             tasks: [],
+            task: [],
             isLogin: true,
             categories: ["backlog", "requested", "wip", "done"]
         }
     },
     components: {
         Navbar,
-        // Dashboard
+        Dashboard
     },
     methods: {
         login(userCreds) {
@@ -73,7 +79,6 @@ export default {
                 this.token = response.data.token
                 this.isLogin = true
                 // created()
-                this.fetchTasks()
 
             })
             .catch(err => {
@@ -96,12 +101,14 @@ export default {
                     token : localStorage.getItem('token')
                 }
             })
-                .then(({data})=>{
+                .then((response)=>{
                     console.log("FETCHING SUCCESS");
-                    console.log(data);
-                    this.tasks = data
+                    console.log(response);
+                    this.sortedTasks = response.data.data
+                    this.tasks = response.allData
                 })
                 .catch ((error)=>{
+                    console.log(error)
                     console.log("FETCHING FAILS");
                     console.log(error.response.data.errorMessage);
                 })
@@ -120,9 +127,11 @@ export default {
                 },
                 data:dataFromChild
             })
-                .then(({data})=>{
+                .then((response)=>{
                     console.log("CREATE SUCCESS");
-                    this.tasks = data.data
+                    this.task = response.data
+                    console.log(this.task);
+                    this.fetchTasks()
                 })
                 .catch ((error)=>{
                     console.log("CREATE FAILS");
@@ -144,9 +153,11 @@ export default {
                 },
                 data:dataFromChild
             })
-                .then(({data})=>{
+                .then((response) => {
                     console.log("EDIT SUCCESS");
-                    this.tasks = data.data
+                    this.task = response.data
+                    console.log(this.task);
+                    this.fetchTasks()
                 })
                 .catch ((error)=>{
                     console.log("EDIT FAILS");
@@ -175,8 +186,23 @@ export default {
                     console.log("DELETE FAILS");
                     console.log(error.response.data.errorMessage);
                 })
+        },
+
+
+        logout(dataFromChild) {
+            this.isLogin = false
+            localStorage.clear()
         }
 
+    },
+    created() {
+        // if(localStorage.getItem("token")) {
+        //     this.isLogin = true
+        //     this.fetchTasks()
+        // } else {
+        //     this.isLogin = false
+        // }
+        this.fetchTasks()
     }
 
 }
