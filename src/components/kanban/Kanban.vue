@@ -81,8 +81,7 @@ export default {
               this.projects = data
             })
             .catch(err => {
-              console.log('INI ERROR FETCH PROJECT')
-              console.log(err)
+              this.$vToastify.error(err.response.data.message)
             })
         },
         edit(id){
@@ -101,7 +100,7 @@ export default {
               // console.log(masuk sini)
             })
             .catch(err => {
-              console.log(err)
+                this.$vToastify.error(err.response.data.message)
             })
         },
         project(status){

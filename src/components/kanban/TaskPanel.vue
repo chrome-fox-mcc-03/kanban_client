@@ -75,7 +75,7 @@ export default {
                     // this.$emit('changeActivity', 'list')
                 })
                 .catch(err => {
-                    console.log(err)
+                    this.$vToastify.error(err.response.data.message)
                 })
         },
         moveRight(numTask, numCategory){
@@ -95,7 +95,7 @@ export default {
                     this.$emit('fetchTask')
                 })
                 .catch(err => {
-                    console.log(err)
+                    this.$vToastify.error(err.response.data.message)
                 })
         },
         remove(id){
@@ -111,7 +111,7 @@ export default {
                     // this.$emit('changeActivity', 'list')
                 })
                 .catch(err => {
-                    console.log(err)
+                    this.$vToastify.error(err.response.data.message)
                 })
         }
     },

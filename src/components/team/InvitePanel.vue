@@ -67,7 +67,7 @@ export default {
                     this.back()
                 })
                 .catch(err => {
-                    console.log(err.response)
+                    this.$vToastify.error(err.response.data.message)
                 })
         },
         back(){

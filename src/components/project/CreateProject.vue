@@ -64,7 +64,11 @@ export default {
                     this.$emit('changeActivity', 'projects')
                 })
                 .catch(err => {
-                    console.log(err)
+                    if(err.response.data.errors){
+                        this.$vToastify.error(err.response.data.errors[0]);
+                    } else {
+                        this.$vToastify.error("Internal Server Error");
+                    }
                 })
         }, 
         back(){

@@ -53,8 +53,11 @@ export default {
                     this.$emit('changeActivity', 'list')
                 })
                 .catch(err => {
-                    console.log('ini errror booooo')
-                    console.log(err)
+                    if(err.response.data.errors){
+                        this.$vToastify.error(err.response.data.errors[0]);
+                    } else {
+                        this.$vToastify.error("Internal Server Error");
+                    }
                 })
         }
     }

@@ -15,11 +15,16 @@
                             <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" aria-describedby="emailHelp" v-model="emailLogin">
                             </div>
                             <div class="form-group">
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" v-model="passwordLogin">
+                            <input type="password" class="form-control password" id="exampleInputPassword1" placeholder="Password" v-model="passwordLogin">
                             </div>
                             
-                            <a href="#" @click="registerPanel">Register</a>
-                            <button type="submit" class="btn btn-success">Submit</button>
+                            <!-- <div class="d-flex justify-content-center"> -->
+                                <a href="#" @click="registerPanel">Register</a>
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            <!-- </div> -->
+                            <center style= margin:20px;>
+                                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                            </center>
                         </form>
                     </div>
                 </div>
@@ -60,7 +65,30 @@ export default {
                     localStorage.setItem('access_token', data.access_token)
                 })
                 .catch(err => {
-                    console.log(err)
+                    this.$vToastify.error(err.response.data.message);
+                    console.log(err.response.data.message)
+                })
+        },
+        onSignIn(googleUser){
+            let token_google = googleUser.getAuthResponse().id_token
+            let profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+            axiosKanban({
+                method: "POST",
+                url: "http://localhost:3000/googleSignIn",
+                headers: {
+                    token_google : token_google
+                }
+            })
+                .done(({ access_token}) => {
+                    localStorage.setItem("access_token", access_token)
+                    isLogin()
+                })
+                .fail( err => {
+                    this.$vToastify.error(err.response.data.message)
                 })
         }
     }
@@ -68,5 +96,9 @@ export default {
 </script>
 
 <style>
+
+.password{
+
+}
 
 </style>

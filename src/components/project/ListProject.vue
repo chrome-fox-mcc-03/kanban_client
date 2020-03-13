@@ -4,7 +4,7 @@
 
             <h1 class="display-4 d-flex justify-content-center m-3">       </h1>
             <h1 
-             class="display-4 d-flex justify-content-center m-3"
+             class="display-4 d-flex justify-content-center m-3 projectTitle"
 
             >YOUR PROJECT</h1>
             <div class="d-flex align-content-center">
@@ -23,9 +23,8 @@
            v-for="project in projects"
            :key="project.id"
           >
-          <!-- {{project}} -->
-            <div class="card project m-3" style="width: 18rem;">
-              <h5 class="card-title h3 text-center">{{project.Project.name}}</h5>
+            <div class="card project m-3 project" style="width: 18rem;">
+              <h5 class="card-title h3 text-center title">{{project.Project.name}}</h5>
               <div class="card-body d-flex justify-content-between align-content-center ">
                 <i 
                   class="fas fa-pen fa-lg"
@@ -86,7 +85,7 @@ export default {
             this.$emit('changeActivity', 'projects')
           })
           .catch(err => {
-            console.log(err)
+              this.$vToastify.error(err.response.data.message)
           })
       },
       kanban(id){
@@ -102,7 +101,7 @@ export default {
             localStorage.setItem('project_id', data.project_id)
           })
           .catch(err => {
-            console.log(err)
+              this.$vToastify.error(err.response.data.message)
           })
         this.$emit('changeActivity', 'kanban')
       },
@@ -115,5 +114,19 @@ export default {
 </script>
 
 <style>
+.projectTitle{
+  font-family: 'Bellota', cursive;
+  font-weight: 600;
+}
+
+.project{
+  background-color: #fdefc1ad;
+  font-family: 'Bellota', cursive;
+}
+
+.title{
+  margin-top: 18px;
+  font-family: 'Open Sans', sans-serif;
+}
 
 </style>

@@ -59,7 +59,7 @@ export default {
                     this.$emit('changeActivity', 'list')
                 })
                 .catch(err => {
-                    console.log(err)
+                    this.$vToastify.error(err.response.data.message)
                 })
         }
     }

@@ -58,8 +58,11 @@ export default {
                     this.$emit('changePage', 'login')
                 })
                 .catch(err => {
-                    console.log('masuk errorrr')
-                    console.log(err)
+                    if(err.response.data.errors){
+                        this.$vToastify.error(err.response.data.errors[0]);
+                    } else {
+                        this.$vToastify.error("Internal Server Error");
+                    }
                 })
         }
     }
