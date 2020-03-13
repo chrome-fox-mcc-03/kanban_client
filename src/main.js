@@ -4,7 +4,6 @@ import GSignInButton from 'vue-google-signin-button';
 import Toasted from 'vue-toasted';
 
 Vue.use(Toasted, {
-    duration: 2000,
     position: 'top-center'
 })
 Vue.use(GSignInButton)

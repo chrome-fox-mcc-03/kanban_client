@@ -8,7 +8,6 @@
             v-if="currentPage === 'mainPage'"
             @changePage="changePage">
         </MainPage>
-        <notifications group="foo" />
     </div>
 </template>
 
@@ -20,7 +19,7 @@ export default {
     data: function() {
         return {
             message: 'Test',
-            currentPage: 'landingPage'
+            currentPage: 'landingPage',
         }
     },
     methods: {

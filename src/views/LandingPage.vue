@@ -7,7 +7,6 @@
           <input v-model="userData.regName" type="text" placeholder="Name" />
           <input v-model="userData.regEmail" type="email" placeholder="Email" />
           <input v-model="userData.regPassword" type="password" placeholder="Password" />
-          <!-- <button @click="authenticate()">Sign Up</button> -->
           <input class="sign-button" type="submit" value="Sign Up" />
         </form>
       </div>
@@ -25,9 +24,6 @@
           <input v-model="userData.logEmail" type="email" placeholder="Email" />
           <input v-model="userData.logPassword" type="password" placeholder="Password" />
           <input class="sign-button" type="submit" value="Sign In" />
-          <!-- <div class="signin-buttons">
-                        <button @click="authenticate()">Sign In</button>
-          </div>-->
         </form>
       </div>
       <div class="overlay-container">
@@ -45,6 +41,11 @@
         </div>
       </div>
     </div>
+    <lottie-player
+      class="loading"
+      v-if="isLoading"
+      src="https://assets8.lottiefiles.com/datafiles/67bae0ddb57b26679d10e9ce7c1d445f/data.json"  background="transparent"  speed="1"  style="width: 100px; height: 100px;"  loop autoplay >
+    </lottie-player>
   </div>
 </template>
 
@@ -60,18 +61,25 @@ export default {
         logEmail: "",
         logPassword: ""
       },
+      isLoading: false,
       googleSignInParams: {
         client_id: "134045794633-fu5sb70f9sp07k27um4r15ikjvdbmucf.apps.googleusercontent.com"
       }
     };
   },
-  props: ["message", "currentPage"],
+  props: [
+    "message",
+    "currentPage",
+  ],
   methods: {
+    changeLoadingState(state) {
+        this.isLoading = state
+    },
     createNewUser: function() {
       const name = this.userData.regName;
       const email = this.userData.regEmail;
       const password = this.userData.regPassword;
-
+      this.isLoading = true
       axios
         .post("http://localhost:3000/signup", {
           name,
@@ -95,12 +103,16 @@ export default {
             duration : 2000
           })
           console.log(err);
+        })
+        .finally(_ => {
+          this.isLoading = false
         });
     },
     signIn: function() {
       const email = this.userData.logEmail;
       const password = this.userData.logPassword;
 
+      this.isLoading = true
       axios
         .post("http://localhost:3000/signin", {
           email,
@@ -123,6 +135,9 @@ export default {
             duration : 2000
           })
           console.log(err.response.data.message);
+        })
+        .finally(_ => {
+          this.isLoading = false
         });
     },
     onSignInSuccess (googleUser) {
@@ -130,6 +145,8 @@ export default {
       // See https://developers.google.com/identity/sign-in/web/reference#users
       const profile = googleUser.getBasicProfile() // etc etc
       const token = googleUser.getAuthResponse().id_token;
+      this.isLoading = true
+
       axios({
           method: 'post',
           url: 'http://localhost:3000/googleSignIn',
@@ -150,6 +167,9 @@ export default {
         .catch(err => {
             console.log(err);
         })
+        .finally(_ => {
+          this.isLoading = false
+        });
     },
     onSignInError (error) {
       // `error` contains any error occurred.
@@ -181,5 +201,11 @@ export default {
     background-color: #3c82f7;
     color: #fff;
     box-shadow: 0 3px 0 #0f69ff;
+    }
+    .loading {
+      margin-top: 2rem;
+      position: absolute;
+      left: 2rem;
+      top: 2rem
     }
 </style>
