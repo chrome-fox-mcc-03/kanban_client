@@ -18,8 +18,7 @@ export default {
     props: ['currentPage','token'],
     data() {
         return {
-            // currentPage : 'loginPage',
-            // token: localStorage.getItem('token')
+            
         }
     },
     methods: {

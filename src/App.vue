@@ -98,6 +98,7 @@ export default {
                 this.userId = ''
             })
             .catch((err) => {
+                console.log(err.response)
                 this.$notify({
                     group: 'foo',
                     title: 'Login Failed',
