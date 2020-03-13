@@ -92,7 +92,7 @@ export default {
             console.log('masuk register atas')
             axios({
                 method: 'post',
-                url: 'http://localhost:3000/user/register',
+                url: 'https://glacial-waters-19885.herokuapp.com/user/register',
                 data: {
                   data
                 }
@@ -115,7 +115,7 @@ export default {
             console.log(data)
             axios({
                 method: 'post',
-                url: 'http://localhost:3000/user/login',
+                url: 'https://glacial-waters-19885.herokuapp.com/user/login',
                 data: {
                   data
                 }
@@ -139,7 +139,7 @@ export default {
             const profile = googleUser.getBasicProfile() // etc etc
             const token = googleUser.getAuthResponse().id_token
             axios({
-                url:"http://localhost:3000/user/googlelogin",
+                url:"https://glacial-waters-19885.herokuapp.com/user/googlelogin",
                 method: "post",
                 headers: {
                     token
@@ -178,7 +178,7 @@ export default {
             let self = this
             console.log('generate project')
             axios({
-                url: 'http://localhost:3000/',
+                url: 'https://glacial-waters-19885.herokuapp.com/',
                 method: "get",
                 headers: {
                     access_token: localStorage.getItem('access_token')
@@ -201,7 +201,7 @@ export default {
             console.log('create projects start')
             console.log(data)
             axios({
-                url: 'http://localhost:3000/project/create',
+                url: 'https://glacial-waters-19885.herokuapp.com/project/create',
                 method: "post",
                 headers: {
                     access_token: localStorage.getItem('access_token')
@@ -228,7 +228,7 @@ export default {
             console.log(data)
             self.project = data
             axios({
-                url: "http://localhost:3000/project",
+                url: "https://glacial-waters-19885.herokuapp.com/project",
                 method: "post",
                 headers: {
                     access_token: localStorage.getItem('access_token')
@@ -257,7 +257,7 @@ export default {
             console.log(data)
             console.log('create task start')
             axios({
-                url: "http://localhost:3000/project/task/create",
+                url: "https://glacial-waters-19885.herokuapp.com/project/task/create",
                 method: "post",
                 headers: {
                     access_token: localStorage.getItem('access_token')
@@ -286,7 +286,7 @@ export default {
                 ProjectId: this.project
             }
             axios({
-                url: 'http://localhost:3000/project/addfriend',
+                url: 'https://glacial-waters-19885.herokuapp.com/project/addfriend',
                 method: "post",
                 headers: {
                     access_token: localStorage.getItem('access_token')
@@ -310,7 +310,7 @@ export default {
             let self = this
             console.log(`ini adalah ${data}`)
             axios({
-                url:`http://localhost:3000/project/task/delete/${data}`,
+                url:`https://glacial-waters-19885.herokuapp.com//project/task/delete/${data}`,
                 method: "delete",
                 headers: {
                     access_token : localStorage.getItem('access_token')
@@ -331,7 +331,7 @@ export default {
             let self = this
             console.log(`update data ${data.id}`)
             axios({
-                url:`http://localhost:3000/project/task/update/${data.id}`,
+                url:`https://glacial-waters-19885.herokuapp.com/project/task/update/${data.id}`,
                 method: "put",
                 headers: {
                     access_token : localStorage.getItem('access_token')
