@@ -13,6 +13,22 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
+
+export const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  onOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+
+
 import Navbar from './components/Navbar.vue'
 import Homepage from './components/Homepage.vue'
 import CardsContainer from './components/CardsContainer.vue'
@@ -70,18 +86,36 @@ export default {
                 if (this.userData.isLogin) {
                     this.currentPage = page
                 } else {
+                    const message = "You Are Not Authenticated!"
+                    Toast.fire({
+                        icon: 'error',
+                        title: message
+                    })
                     this.currentPage = this.currentPage
                 }
             }
+            
         },
         logout(){
-            this.changePage('homepageDisplay')
+            if (!this.userData.isLogin) {
+                return
+            } else {
+                this.userData.isLogin = false
+                Toast.fire({
+                            icon: 'success',
+                            title: 'Logout success'
+                })
+                localStorage.clear()
+                this.changePage('homepageDisplay')
+                this.signOut()
+            }
+        },
+        signOut() {
+            console.log(gapi)
             const auth2 = gapi.auth2.getAuthInstance();
             auth2.signOut().then(function () {
                 console.log('User signed out.');
-            })
-            this.userData.isLogin = false
-            localStorage.clear()
+            });
         },
         login(obj){
             this.userData.email = obj.email
@@ -104,9 +138,17 @@ export default {
                     this.userData.email = ''
                     this.userData.password = ''
                     console.log(response)
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Login succesfully'
+                    })
                 })
                 .catch(err => {
-                    console.log(err)
+                    Toast.fire({
+                        icon: 'error',
+                        title: err.response.data.error
+                    })
+                    console.log(err.response.data)
                 })
         },
         register(obj){
@@ -142,6 +184,10 @@ export default {
                     console.log(response)
                 })
                 .catch(err => {
+                    Toast.fire({
+                        icon: 'error',
+                        title: err.response.data.error
+                    })
                     console.log(err)
                 })
         },
@@ -170,6 +216,10 @@ export default {
                     console.log(response.data)
                 })
                 .catch(err => {
+                    Toast.fire({
+                        icon: 'error',
+                        title: err.response.data.error
+                    })
                     console.log(err.response)
                 })
         },
@@ -209,7 +259,15 @@ export default {
                     // console.log(allCategories);
                     console.log(this.categories)
                     this.currentPage = 'cardsDisplay'
+                    
                     // console.log(response.data)
+                })
+                .catch(err => {
+                    Toast.fire({
+                        icon: 'error',
+                        title: err.response.data.error
+                    })
+                    console.log(err.response.data)
                 })
         },
         assignTaskDetail(data){
@@ -246,6 +304,10 @@ export default {
                     this.fetchCards()
                 })
                 .catch(err => {
+                    Toast.fire({
+                        icon: 'error',
+                        title: err.response.data.error
+                    })
                     console.log(err.response)
                 })
 
@@ -272,11 +334,18 @@ export default {
                 .catch(err => {
                     console.log(err.response)
                     this.currentPage = 'homePageDisplay'
+                    Toast.fire({
+                        icon: 'error',
+                        title: err.response.data.error
+                    })
 
                 })
         },
         onSignIn: function(googleUser) {
             if (localStorage.getItem('token')) {
+                const profile = googleUser.getBasicProfile();
+                const id_token = googleUser.getAuthResponse().id_token
+                
                 return
             } else {
                 const profile = googleUser.getBasicProfile();
@@ -301,8 +370,16 @@ export default {
                         this.userData.disableLogin = true
                         this.currentPage = 'homeDisplay'
                         console.log(response)
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Login succesfully'
+                        })
                     })
                     .catch(err => {
+                        Toast.fire({
+                            icon: 'error',
+                            title: err.response.data.error
+                        })
                         console.log(err)
                     })
             }

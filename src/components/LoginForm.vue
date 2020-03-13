@@ -19,9 +19,7 @@ export default {
         return {
             email: '',
             password: '',
-            currentPage: '',
-            
-            googleButton: '<div id="googleSignIn" class="g-signin2" data-onsuccess="onSignIn"></div>'
+            currentPage: '',            
         }
     },
     methods: {

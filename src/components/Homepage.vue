@@ -33,7 +33,6 @@
                             <li>anu itu apa segala ya</li>
                             <li>anu itu apa segala ya</li>
                             <li>anu itu apa segala ya</li>
-                            <li>anu itu apa segala ya</li>
                         </ul>
                     </div>
                     <div class="container-section-button">
@@ -53,7 +52,6 @@
                         <ul class="section section-list">
                             <li>anu itu apa segala ya</li>
                             <li>ananu itu apa segala yau</li>
-                            <li>anu itu apa segala ya</li>
                             <li>anu itu apa segala ya</li>
                         </ul>
                     </div>
@@ -79,7 +77,6 @@
                     </div>
                     <div>
                         <ul class="section section-list">
-                            <li>anu itu apa segala ya</li>
                             <li>anu itu apa segala ya</li>
                             <li>anu itu apa segala ya</li>
                             <li>anu itu apa segala ya</li>

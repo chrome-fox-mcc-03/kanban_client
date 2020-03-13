@@ -6,8 +6,6 @@
                     <li><i @click="changePage('homepageDisplay')" class="icon fas fa-home"></i></li>
                     <li><i  @click="changePage('addTaskDisplay')" class="icon fas fa-plus-square"></i></li>
                     <li><i @click="fetchCards()" class="icon far fa-list-alt"></i></li>
-                    <li>#navbar4</li>
-                    <li>#navbar5</li>
                 </ul>
             </div>
             <div class="navbar-div">
@@ -37,13 +35,7 @@ export default {
         },
         fetchCards() {
             this.$emit('getCards')
-        },
-        signOut() {
-            const auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-            console.log('User signed out.');
-        });
-  }
+        }
     }
 }
 </script>
