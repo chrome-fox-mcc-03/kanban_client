@@ -58,7 +58,7 @@
 
 #hero .form-login {
   width: 20rem;
-  height: 30rem;
+  height: 35rem;
   position: absolute;
   left: 70%;
   top: 10%;
@@ -83,6 +83,7 @@
 }
 
 #hero .form-login form{
+  margin-top: 10px;
   border-bottom: 1px solid grey;
   display: flex;
   flex-direction: column;

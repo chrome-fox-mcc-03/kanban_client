@@ -14,6 +14,7 @@
         :class="animate ? 'animated fadeInRight delay-0.5s' : ''"
         @registerProcess="registerProcess"
         @loginProcess="loginProcess"
+        @loginSuccess="loginSuccess"
         ></Login>
         
     </div>
@@ -50,6 +51,9 @@ export default {
     },
     loginProcess (payload) {
       this.$emit('loginProcess', payload)
+    },
+    loginSuccess () {
+      this.$emit('loginSuccess')
     }
   }
 }

@@ -3,6 +3,7 @@
     <div class="form-login">
         <p class="title">SweatBan</p>
         <p>Login</p>
+        <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>
         <form @submit.prevent="loginProcess">
             <label for="email">Email address</label>
             <input type="email" class="form-control" id="login-email" aria-describedby="emailHelp" v-model="login.email">
@@ -49,9 +50,15 @@
 </template>
 
 <script>
+import axios from 'axios'
+import GoogleLogin from 'vue-google-login';
+
 export default {
   name: 'Login',
   props: ['showFormLogin', 'registerSuccess'],
+  components : {
+    GoogleLogin
+  },
   data() {
     return {
       register : {
@@ -62,6 +69,14 @@ export default {
       login: {
         email: '',
         password: ''
+      },
+      params: {
+        client_id: "202761687018-njs4ug7uuanl4u971cj77ceok473k3qo.apps.googleusercontent.com"
+      },
+      renderParams: {
+        width: 250,
+        height: 50,
+        longtitle: true
       }
     }
   },
@@ -96,7 +111,32 @@ export default {
       }
       console.log(payload, '>>>>>>>>>>>>>>> CLIENT')
       this.$emit('loginProcess', payload)
-    }
+    },
+    onSuccess(googleUser) {
+      console.log('MASUK ONSUCCESS')
+      const id_token = googleUser.getAuthResponse().id_token;
+      console.log(id_token)
+      axios({
+          method: "POST",
+          url : "http://localhost:3000/googleSign",
+          data : {
+              id_token : id_token
+          }
+      })
+        .then(({ data }) => {
+            // this.reset()
+            console.log(data, '>>>>>>>>>>>>')
+            localStorage.access_token = data.access_token
+            this.$emit('loginSuccess')
+        })
+        .catch(err => {
+            console.log(err.response)
+        })
+    },
+    
+    onFailure() {
+      console.log('ERROR ON FAILURE ON GOOGLE SIGN')
+    },
   }
 }
 </script>

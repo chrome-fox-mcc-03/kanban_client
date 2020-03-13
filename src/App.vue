@@ -4,6 +4,7 @@
       v-if="currentPage === 'landingPage'"
       @registerProcess="registerProcess"
       @loginProcess="loginProcess"
+      @loginSuccess="loginSuccess"
       ></LandingPage>
 
     <Dashboard
@@ -81,7 +82,9 @@ export default {
           console.log(err)
         })
     },
-
+    loginSuccess () {
+      this.currentPage = 'dashboard'
+    },
     logout () {
       localStorage.clear()
       this.currentPage = 'landingPage'
