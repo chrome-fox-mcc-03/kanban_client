@@ -6,7 +6,16 @@
             </div>
             <div class="column-body">
                 <!-- Card per title -->
-                <task-item @deleteTask="deleteTask" @fetchData="fetchData" v-for="task in tasks" v-if="task.category == taskCategory" :key="task.id" :task="task" class="col s12 m7" ></task-item>
+                <task-item
+                    @getMessages="getMessages"
+                    @deleteTask="deleteTask"
+                    @fetchData="fetchData"
+                    v-for="task in tasks"
+                    v-if="task.category == taskCategory"
+                    :key="task.id"
+                    :task="task"
+                    class="col s12 m7"
+                ></task-item>
             </div>
         </div>
     </div>
@@ -35,6 +44,7 @@ export default {
             } else if (this.taskCategory == 'completed') {
                 return 'Completed'
             }
+            return ''
         }
     },
     methods : {
@@ -43,6 +53,9 @@ export default {
         },
         deleteTask(id){
             this.$emit('deleteTask', id)
+        },
+        getMessages(data){
+            this.$emit('getMessages', data)
         }
         
     }

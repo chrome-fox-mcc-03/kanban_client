@@ -64,15 +64,14 @@ export default {
                     })
 
                     .catch((error)=>{
-                        console.log(error.response.data.message);
+                        this.errorMessage.isError = true ;
+                        this.errorMessage.messages = ['Failed to move category'] ;
                     })
         },
         deleteTask(id){
             this.$emit('deleteTask', id)
         },
         showEditForm(data){
-            this.errorMessage.isError = false ;
-            this.errorMessage.messages = [] ;
             this.editTitle = data
             this.editForm = !this.editForm
         },
@@ -94,21 +93,15 @@ export default {
                 }
             })
                 .then(({data})=> {
-                    this.errorMessage.isError = false ;
-                    this.errorMessage.messages = [] ;
-                    console.log('sukses');
                     this.$emit('fetchData') ;
                     this.editTitle = '' ;
                     this.editForm  = false ;
                     this.errorMessage.isError = false ;
                 })
                 .catch((error)=>{
-                    let newMessage = '' ;
-                    this.errorMessage.isError = true ;
-                    for (let i = 0 ; i < error.response.data.message.length ; i++){
-                        newMessage = error.response.data.message[i] ;
-                        this.errorMessage.messages.push(newMessage) ;
-                    }
+                    // console.log(error.response.data.message);
+                    let messages = error.response.data.message
+                    this.$emit('getMessages', messages)
                 })
         }
     }

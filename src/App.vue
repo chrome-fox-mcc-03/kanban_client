@@ -6,15 +6,27 @@
         <!-- Message -->
         <message-error v-if="this.errorMessage.isError" :messages="this.errorMessage.messages"></message-error>
 
+        <!-- Loading -->
+        <div v-if="isLoading" class="loading-animation">
+            <lottie-player
+                src="https://assets6.lottiefiles.com/datafiles/J16FZ2Py2rUM9uV/data.json"
+                background="transparent" 
+                speed="1"  
+                style="width: 100px; height: 100px;"  
+                loop  
+                autoplay
+            ></lottie-player>
+        </div>
+
         <!-- Landing Page -->
         <page-landing v-if="!userData.isLogin && currentPage == 'landingPage'" ></page-landing>
 
         <!-- Registration Page -->
-        <page-registration @register="register" v-if="!userData.isLogin && currentPage == 'regisPage'"></page-registration>
+        <page-registration @googleSignin="googleSignin" @register="register" v-if="!userData.isLogin && currentPage == 'regisPage'"></page-registration>
 
         <!-- Login Page -->
-        <page-login @login="login" v-if="!userData.isLogin && currentPage == 'loginPage'" ></page-login>
-        
+        <page-login @googleSignin="googleSignin" @login="login" v-if="!userData.isLogin && currentPage == 'loginPage'" ></page-login>
+
         <!-- Main Page -->
         <div v-if="userData.isLogin" >
             <div class="row">
@@ -32,7 +44,14 @@
                 </form>
             </div>
             <div class="container">
-                <task-list @deleteTask="deleteTask" @fetchData="fetchData" v-for="(taskCategory, index) in taskCategories" :key="index" :taskCategory="taskCategory" :tasks="tasks"></task-list>      
+                <task-list
+                    @getMessages="getMessages"
+                    @deleteTask="deleteTask"
+                    @fetchData="fetchData"
+                    v-for="(taskCategory, index) in taskCategories"
+                    :key="index"
+                    :taskCategory="taskCategory"
+                    :tasks="tasks"></task-list>      
             </div>
         </div>
     </div>
@@ -66,11 +85,8 @@ export default {
             errorMessage : {
                 isError : false,
                 messages : []
-            } ,
-            successMessage : {
-                isSuccess : false,
-                messages : []
-            } ,
+            },
+            isLoading : false
         }
     },
     components : {
@@ -84,8 +100,8 @@ export default {
     created(){
         const access_token = localStorage.getItem('access_token') ;
         if (access_token) {
-            this.userData.isLogin = true
-            this.fetchData()
+            this.userData.isLogin = true ;
+            this.fetchData() ;
             this.userData.avatarUrl = localStorage.getItem('avatar') ;
         }
     },
@@ -101,6 +117,7 @@ export default {
             const name = userData.name;
             const email = userData.email;
             const password = userData.password;
+            this.isLoading = true ;
 
             axios({
                 method : 'post',
@@ -128,6 +145,9 @@ export default {
                         newMessage = error.response.data.message[i] ;
                         this.errorMessage.messages.push(newMessage) ;
                     }
+                })
+                .finally(()=>{
+                    this.isLoading = false
                 })
         },
         login(userData) {
@@ -165,8 +185,14 @@ export default {
             localStorage.clear() ;
             this.userData.isLogin = false ;
             this.changePage('landingPage') ;
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+            console.log('User signed out.');
+            });
+
         },
         fetchData () {
+            this.isLoading = true ;
             this.errorMessage.isError = false ;
             this.errorMessage.messages = [] ;
             axios({
@@ -188,9 +214,13 @@ export default {
                         this.errorMessage.messages.push(newMessage) ;
                     }
                 })
+                .finally(()=>{
+                    this.isLoading = false
+                })
 
         },
         createTask(){
+            this.isLoading = true ;
             this.errorMessage.isError = false ;
             this.errorMessage.messages = [] ;
 
@@ -219,6 +249,9 @@ export default {
                         this.errorMessage.messages.push(newMessage) ;
                     }            
                 })
+                .finally(()=>{
+                    this.isLoading = false
+                })
 
         },
         deleteTask(id){
@@ -244,11 +277,46 @@ export default {
                         this.errorMessage.messages.push(newMessage) ;
                     }      
                 })
+        },
+        googleSignin(token){
+            axios({
+                method : 'post' ,
+                url : 'http://localhost:3000/users/googleSignin',
+                headers : {
+                    access_token : token
+                }
+            })
+                .then(({data})=>{
+                    const access_token = data.access_token ; 
+                    console.log(access_token);
+                    localStorage.setItem('access_token', access_token) ;
+                    localStorage.setItem('avatar', data.access_avatarUrl ) ;
+                    this.userData.avatarUrl = localStorage.getItem('avatar') ;
+                    this.userData.isLogin = true ;
+                    this.fetchData() ;
+
+                })
+                .catch((error)=>{
+                    this.errorMessage.isError = true ;
+                    this.errorMessage.messages = ['Failed to sign in via Google'] ;
+                })
+        },
+        getMessages(data){
+            let newMessage = '' ;
+            this.errorMessage.isError = true ;
+            for (let i = 0 ; i < data.length ; i++){
+                newMessage = data[i] ;
+                this.errorMessage.messages.push(newMessage) ;
+            }
         }
     }
 }
 </script>
 
 <style>
+
+.loading-animation {
+    text-align: center;
+}
 
 </style>

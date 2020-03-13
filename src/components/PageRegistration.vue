@@ -24,9 +24,18 @@
                     <i class="material-icons right">send</i>
                 </button>
                 <br>
-                <div class="g-signin2" data-onsuccess="onSignIn"></div>
             </form>
         </div>
+            <br>
+            <p>- or -</p>
+            <br>
+            <p style="font-weight: bold;">Sign in with</p>
+            <g-signin-button
+                :params="googleSignInParams"
+                @success="onSignInSuccess"
+                @error="onSignInError">
+                <a class="waves-effect waves-light btn-small"><img src="https://img.icons8.com/bubbles/30/000000/google-logo.png"/></a>
+            </g-signin-button>
     </section>
 </template>
 
@@ -39,6 +48,9 @@ export default {
                 name : '',
                 email : '',
                 password : '',
+            },
+            googleSignInParams: {
+                client_id: '300212796737-706ht16fsvn19fsk18lieucrpmo9dni9.apps.googleusercontent.com'
             }
         }
 
@@ -56,7 +68,23 @@ export default {
             }
 
             this.$emit('register', userData) ;
+        },
+        onSignInSuccess (googleUser) {
+            // `googleUser` is the GoogleUser object that represents the just-signed-in user.
+            // See https://developers.google.com/identity/sign-in/web/reference#users
+            const profile = googleUser.getBasicProfile() // etc etc
+            // console.log('profile :' , profile);
+            const token = googleUser.getAuthResponse().id_token ;
+
+            this.$emit('googleSignin', token)
+
+
+        },
+        onSignInError (error) {
+            // `error` contains any error occurred.
+            console.log('OH NOES', error)
         }
+
 
     }
 
@@ -65,5 +93,14 @@ export default {
 </script>
 
 <style>
+    .g-signin-button {
+    /* This is where you control how the button looks. Be creative! */
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 3px;
+    /* background-color: #3c82f7; */
+    color: #fff;
+    /* box-shadow: 0 3px 0 #0f69ff; */
+    }
 
 </style>
