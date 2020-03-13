@@ -1,0 +1,32 @@
+{
+  "name": "kanban_client",
+  "version": "1.0.0",
+  "description": "yes",
+  "main": "main.js",
+  "scripts": {
+    "test": "yeet"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MizushimaShiba/kanban_client.git"
+  },
+  "keywords": [
+    "yeeeesh"
+  ],
+  "author": "M. Shiba",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MizushimaShiba/kanban_client/issues"
+  },
+  "homepage": "https://github.com/MizushimaShiba/kanban_client#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "vue": "^2.6.11",
+    "vue-hot-reload-api": "^2.3.4"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^3.1.1",
+    "sass": "^1.26.3",
+    "vue-template-compiler": "^2.6.11"
+  }
+}
