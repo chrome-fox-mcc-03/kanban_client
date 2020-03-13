@@ -10,7 +10,7 @@
                 </div>
                 <div class="rule"></div>
                 <div class="form-footer">
-                    <a>Save</a>
+                    <a @click="saveChanges(detail.id)">Save</a>
                     <a id="cancelEdit" @click="backToMainPage">Cancel</a>
                 <a @click="deleteAct(detail.id)">Delete</a>
                 </div>
@@ -46,6 +46,28 @@ export default {
             })
                 .then(({data}) => {
                     console.log('Successfully deleted 1 activity');
+                    console.log(data);
+                    this.fetchActivities();
+                    this.backToMainPage();
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        },
+        saveChanges(id) {
+            console.log(' = = = = S A V E = = = = ');
+            axios({
+                method: 'patch',
+                url: `http://localhost:3000/activities/title/${id}`,
+                data: {
+                    title: this.title
+                },
+                headers: {
+                    token: localStorage.getItem('access_token')
+                }
+            })
+                .then(({data}) => {
+                    console.log('Successfully updated 1 activity');
                     console.log(data);
                     this.fetchActivities();
                     this.backToMainPage();
