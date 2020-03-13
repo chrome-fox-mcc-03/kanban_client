@@ -50,7 +50,7 @@ export default {
     addTask() {
       console.log(this.newTask);
       axios({
-        url: "http://localhost:3000/tasks/add",
+        url: "https://limitless-fjord-07254.herokuapp.com/tasks/add",
         method: "post",
         data: {
           title: this.newTask

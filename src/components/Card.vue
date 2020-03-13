@@ -33,7 +33,7 @@ export default {
     },
     deleteTask(taskId) {
       axios({
-        url: `http://localhost:3000/tasks/delete/${taskId}`,
+        url: `https://limitless-fjord-07254.herokuapp.com/tasks/delete/${taskId}`,
         method: "delete",
         headers: {
           token: localStorage.getItem("token")
@@ -57,7 +57,7 @@ export default {
         category = "COMPLETED";
       }
       axios({
-        url: `http://localhost:3000/tasks/update/${taskId}`,
+        url: `https://limitless-fjord-07254.herokuapp.com/tasks/update/${taskId}`,
         method: "put",
         data: {
           category
@@ -85,7 +85,7 @@ export default {
       }
 
       axios({
-        url: `http://localhost:3000/tasks/update/${taskId}`,
+        url: `https://limitless-fjord-07254.herokuapp.com/tasks/update/${taskId}`,
         method: "put",
         data: {
           category

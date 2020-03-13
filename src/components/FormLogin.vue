@@ -91,7 +91,7 @@ export default {
       let name = profile.getName();
       this.isLoading = true;
       axios({
-        url: "http://localhost:3000/users/goosignin",
+        url: "https://limitless-fjord-07254.herokuapp.com/users/goosignin",
         data: {
           name
         },

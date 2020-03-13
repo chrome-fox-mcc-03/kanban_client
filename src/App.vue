@@ -53,7 +53,7 @@ export default {
       this.isLoading = true;
       axios({
         method: "post",
-        url: "http://localhost:3000/users/login",
+        url: "https://limitless-fjord-07254.herokuapp.com/users/login",
         data: {
           email,
           password
@@ -83,7 +83,7 @@ export default {
       this.isLoading = true;
       axios({
         method: "post",
-        url: "http://localhost:3000/users/register",
+        url: "https://limitless-fjord-07254.herokuapp.com/users/register",
         data: {
           name,
           email,
@@ -109,7 +109,7 @@ export default {
       this.isLoading = true;
       axios({
         method: "get",
-        url: "http://localhost:3000/tasks",
+        url: "https://limitless-fjord-07254.herokuapp.com/tasks",
         headers: {
           token: localStorage.getItem("token")
         }
