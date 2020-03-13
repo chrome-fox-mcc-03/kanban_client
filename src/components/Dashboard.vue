@@ -10,6 +10,7 @@
           :type="category"
           :sortedTasks="tasks[category]"
           @getTaskDetails3="getTaskDetails4"
+          @deleteTaskById3="deleteTaskById4"
         ></TaskBox>
         <!-- EDIT TASK Modal -->
         <div
@@ -157,6 +158,10 @@ export default {
 
       let dateString = yyyy+"-"+mm+"-"+dd
       return dateString
+    },
+
+    deleteTaskById4(dataFromChild) {
+      this.$emit("deleteTaskById5", dataFromChild)
     }
   },
   props: ["categories", "tasks"],

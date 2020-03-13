@@ -25,6 +25,7 @@
             :tasks="sortedTasks"
             @editTaskById="editTask"
             v-if="isLogin === true"
+            @deleteTaskById5="deleteTask"
 
         ></Dashboard>
 
@@ -77,18 +78,22 @@ export default {
 
             axios({
                 method: "post",
-                url: "http://localhost:3000/users/signup", 
+                url: "http://localhost:3000/users/login", 
                 data: {
                     email: email,
                     password: password
                 }
             })
             .then(response => {
-                // this.isLogin = true
-                console.log("MASUK SIGNUP CLIENT");
+                console.log("MASUK LOGIN CLIENT");
                 console.log("RESPONSE IS");
                 console.log(response);
-                // created()
+                console.log("RESPONSE TOKEN IS");
+                console.log(response.data.token);
+                localStorage.setItem('token', response.data.token) // GENERATE TOKEN
+                this.token = response.data.token
+                this.isLogin = true
+                this.fetchTasks()
 
             })
             .catch(err => {
@@ -110,17 +115,9 @@ export default {
                 }
             })
             .then(response => {
-                // this.isLogin = true
-                console.log("MASUK LOGIN CLIENT");
+                console.log("MASUK SIGNUP CLIENT");
                 console.log("RESPONSE IS");
                 console.log(response);
-                console.log("RESPONSE TOKEN IS");
-                console.log(response.data.token);
-                localStorage.setItem('token', response.data.token) // GENERATE TOKEN
-                this.token = response.data.token
-                this.isLogin = true
-                // created()
-
             })
             .catch(err => {
                 // arr = JSON.parse(err.responseText).message
@@ -218,6 +215,7 @@ export default {
             })
                 .then(({data})=>{
                     console.log("DELETE SUCCESS");
+                    this.fetchTasks()
                 })
                 .catch ((error)=>{
                     console.log("DELETE FAILS");

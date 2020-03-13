@@ -10111,13 +10111,23 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
 var _default = {
   name: "TaskCard",
   props: ["unitTask"],
   methods: {
     getTaskDetails0: function getTaskDetails0() {
+      console.log("THE GREAT-GRANDCHILD OF TASKCARD GET TASK DETAILS");
       console.log(this.unitTask, "-------------------------");
       this.$emit("getTaskDetails1", this.unitTask);
+    },
+    deleteTaskById0: function deleteTaskById0() {
+      console.log("THE GREAT-GRANDCHILD OF TASKCARD DELETE TASK, CHAIN 0");
+      this.$emit("deleteTaskById1", this.unitTask.id);
     }
   },
   components: {}
@@ -10156,6 +10166,16 @@ exports.default = _default;
             staticClass: "btn btn-warning",
             attrs: { type: "button" },
             on: { click: _vm.getTaskDetails0 }
+          },
+          [_vm._v("\n        Edit\n        Task\n      ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-danger",
+            attrs: { type: "button" },
+            on: { click: _vm.deleteTaskById0 }
           },
           [_vm._v("\n        Edit\n        Task\n      ")]
         )
@@ -10220,14 +10240,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
 var _default = {
   name: "TaskBox",
   methods: {
-    getTaskDetails2: function getTaskDetails2(data) {
-      this.$emit('getTaskDetails3', data);
+    getTaskDetails2: function getTaskDetails2(dataFromChild) {
+      this.$emit("getTaskDetails3", dataFromChild);
+    },
+    deleteTaskById2: function deleteTaskById2(dataFromChild) {
+      this.$emit("deleteTaskById3", dataFromChild);
     }
   },
-  props: ['sortedTasks', 'type'],
+  props: ["sortedTasks", "type"],
   components: {
     TaskCard: _TaskCard.default
   }
@@ -10248,14 +10273,18 @@ exports.default = _default;
   return _c(
     "div",
     [
-      _c("h3", [_vm._v(" " + _vm._s(_vm.type) + " ")]),
+      _c("h3", [_vm._v(_vm._s(_vm.type))]),
+      _vm._v(" "),
       _c("br"),
       _vm._v(" "),
       _vm._l(_vm.sortedTasks, function(task, index) {
         return _c("TaskCard", {
           key: index,
           attrs: { unitTask: task },
-          on: { getTaskDetails1: _vm.getTaskDetails2 }
+          on: {
+            getTaskDetails1: _vm.getTaskDetails2,
+            deleteTaskById1: _vm.deleteTaskById2
+          }
         })
       })
     ],
@@ -10307,6 +10336,7 @@ var _TaskBox = _interopRequireDefault(require("./TaskBox.vue"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
 //
 //
 //
@@ -10459,6 +10489,9 @@ var _default = {
 
       var dateString = yyyy + "-" + mm + "-" + dd;
       return dateString;
+    },
+    deleteTaskById4: function deleteTaskById4(dataFromChild) {
+      this.$emit("deleteTaskById5", dataFromChild);
     }
   },
   props: ["categories", "tasks"],
@@ -10492,7 +10525,10 @@ exports.default = _default;
               key: index,
               staticClass: "bg-box col-sm",
               attrs: { type: category, sortedTasks: _vm.tasks[category] },
-              on: { getTaskDetails3: _vm.getTaskDetails4 }
+              on: {
+                getTaskDetails3: _vm.getTaskDetails4,
+                deleteTaskById3: _vm.deleteTaskById4
+              }
             })
           }),
           _vm._v(" "),
@@ -10784,6 +10820,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 var _default = {
   name: "App",
   data: function data() {
@@ -10820,39 +10857,18 @@ var _default = {
   },
   methods: {
     login: function login(dataFromChild) {
-      var email = dataFromChild.email;
-      var password = dataFromChild.password;
-      axios({
-        method: "post",
-        url: "http://localhost:3000/users/signup",
-        data: {
-          email: email,
-          password: password
-        }
-      }).then(function (response) {
-        // this.isLogin = true
-        console.log("MASUK SIGNUP CLIENT");
-        console.log("RESPONSE IS");
-        console.log(response); // created()
-      }).catch(function (err) {
-        // arr = JSON.parse(err.responseText).message
-        console.log(err);
-      });
-    },
-    signup: function signup(dataFromChild) {
       var _this = this;
 
       var email = dataFromChild.email;
       var password = dataFromChild.password;
       axios({
         method: "post",
-        url: "http://localhost:3000/users/signup",
+        url: "http://localhost:3000/users/login",
         data: {
           email: email,
           password: password
         }
       }).then(function (response) {
-        // this.isLogin = true
         console.log("MASUK LOGIN CLIENT");
         console.log("RESPONSE IS");
         console.log(response);
@@ -10861,7 +10877,28 @@ var _default = {
         localStorage.setItem('token', response.data.token); // GENERATE TOKEN
 
         _this.token = response.data.token;
-        _this.isLogin = true; // created()
+        _this.isLogin = true;
+
+        _this.fetchTasks();
+      }).catch(function (err) {
+        // arr = JSON.parse(err.responseText).message
+        console.log(err);
+      });
+    },
+    signup: function signup(dataFromChild) {
+      var email = dataFromChild.email;
+      var password = dataFromChild.password;
+      axios({
+        method: "post",
+        url: "http://localhost:3000/users/signup",
+        data: {
+          email: email,
+          password: password
+        }
+      }).then(function (response) {
+        console.log("MASUK SIGNUP CLIENT");
+        console.log("RESPONSE IS");
+        console.log(response);
       }).catch(function (err) {
         // arr = JSON.parse(err.responseText).message
         console.log(err);
@@ -10939,6 +10976,8 @@ var _default = {
       });
     },
     deleteTask: function deleteTask(dataFromChild) {
+      var _this5 = this;
+
       console.log(">>ENTERING APP.VUE DELETE TASK<<");
       console.log("CHILD EMITS");
       console.log(dataFromChild);
@@ -10953,6 +10992,8 @@ var _default = {
       }).then(function (_ref) {
         var data = _ref.data;
         console.log("DELETE SUCCESS");
+
+        _this5.fetchTasks();
       }).catch(function (error) {
         console.log("DELETE FAILS");
         console.log(error.response.data.errorMessage);
@@ -11007,7 +11048,7 @@ exports.default = _default;
       _vm.isLogin === true
         ? _c("Dashboard", {
             attrs: { categories: _vm.categories, tasks: _vm.sortedTasks },
-            on: { editTaskById: _vm.editTask }
+            on: { editTaskById: _vm.editTask, deleteTaskById5: _vm.deleteTask }
           })
         : _vm._e()
     ],
@@ -12854,7 +12895,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54268" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54620" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

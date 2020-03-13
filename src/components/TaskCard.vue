@@ -20,6 +20,11 @@
           Edit
           Task
         </button>
+
+        <button type="button" class="btn btn-danger" @click="deleteTaskById0">
+          Delete
+          Task
+        </button>
       </div>
     </div>
     <!-- <p>{{unitTask.id}}</p> -->
@@ -35,9 +40,16 @@ export default {
   props: ["unitTask"],
   methods: {
     getTaskDetails0() {
+      console.log("THE GREAT-GRANDCHILD OF TASKCARD GET TASK DETAILS");
       console.log(this.unitTask, "-------------------------");
 
       this.$emit("getTaskDetails1", this.unitTask);
+      
+    },
+
+    deleteTaskById0() {
+      console.log("THE GREAT-GRANDCHILD OF TASKCARD DELETE TASK, CHAIN 0");
+      this.$emit("deleteTaskById1", this.unitTask.id)
     }
   },
   components: {}
