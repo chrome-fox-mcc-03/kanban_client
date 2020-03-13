@@ -31,6 +31,11 @@ export default {
           this.fetchActivities();
           console.log('New activity successfully added!', data);
           this.newActivity = '';
+          this.$toasted.show(`Added ${data.title}`, { 
+            theme: "bubble", 
+            position: "bottom-center", 
+            duration : 2000
+          })
         })
         .catch(err => {
           console.log(err);

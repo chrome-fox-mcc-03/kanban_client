@@ -35,9 +35,6 @@ export default {
     computed: {
         filtered: function() {
             console.log('FILTER ================= >>>>>', this.activities);
-            
-            // console.log('====FILTER====>', this.activities.data);
-            
             return this.activities.filter(activity => activity.category === this.category)
         }
     },

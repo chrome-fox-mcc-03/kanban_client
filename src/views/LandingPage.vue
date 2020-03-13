@@ -13,7 +13,7 @@
       </div>
       <div class="form-container sign-in-container">
         <form class="log-form" @submit.prevent="signIn()">
-          <h1>Sign in</h1>
+          <h1>Kanbanium</h1>
           <div class="social-container">
             <g-signin-button
               :params="googleSignInParams"
@@ -82,8 +82,18 @@ export default {
           console.log("successfully sign up", access_token.data.access_token);
           localStorage.setItem("access_token", access_token.data.access_token);
           this.$emit("changePage", "mainPage");
+          this.$toasted.show("Welcome! Create your first activity!", { 
+            theme: "bubble", 
+            position: "bottom-center", 
+            duration : 2000
+          })
         })
         .catch(err => {
+          this.$toasted.show(`${err.response.data.message}`, { 
+            theme: "bubble", 
+            position: "bottom-center", 
+            duration : 2000
+          })
           console.log(err);
         });
     },
@@ -100,9 +110,19 @@ export default {
           console.log("successfully sign in", access_token.data.access_token);
           localStorage.setItem("access_token", access_token.data.access_token);
           this.$emit("changePage", "mainPage");
+          this.$toasted.show("Welcome back!", { 
+            theme: "bubble", 
+            position: "bottom-center", 
+            duration : 2000
+          })
         })
         .catch(err => {
-          console.log(err);
+          this.$toasted.show(`${err.response.data.message}`, { 
+            theme: "bubble", 
+            position: "bottom-center", 
+            duration : 2000
+          })
+          console.log(err.response.data.message);
         });
     },
     onSignInSuccess (googleUser) {
@@ -121,6 +141,11 @@ export default {
             console.log(result);
             localStorage.setItem("access_token", result.data.access_token);
             this.$emit("changePage", "mainPage");
+            this.$toasted.show("Welcome back!", { 
+              theme: "bubble", 
+              position: "bottom-center", 
+              duration : 2000
+            })
         })
         .catch(err => {
             console.log(err);

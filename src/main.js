@@ -1,10 +1,13 @@
 import Vue from 'vue';
 import App from './App.vue';
-import GSignInButton from 'vue-google-signin-button'
-// import Notifications from 'vue-notification'
+import GSignInButton from 'vue-google-signin-button';
+import Toasted from 'vue-toasted';
 
+Vue.use(Toasted, {
+    duration: 2000,
+    position: 'top-center'
+})
 Vue.use(GSignInButton)
-// Vue.use(Notifications)
 
 new Vue({
     render: h => h(App),

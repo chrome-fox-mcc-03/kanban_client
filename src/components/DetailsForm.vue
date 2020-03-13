@@ -33,7 +33,6 @@ export default {
     ],
     methods: {
         backToMainPage() {
-            console.log('back to main page senpai');
             this.$emit('backToMainPage', 'kanbanSubPage')
         },
         deleteAct(id) {
