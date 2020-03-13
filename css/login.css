@@ -72,6 +72,17 @@
         font-size: 2vh;
 }
 
+#sign_up_name {
+    width: 15vw;
+    height: 2vh;
+    /* border-radius: 30px; */
+    /* background-color: #222222; */
+    border: rgb(85, 114, 85) solid 1px;
+    color: rgb(85, 114, 85);
+    padding: 2vh;
+    font-size: 2vh;
+}
+
 #sign_in_password, #sign_up_password {
     width: 15vw;
     height: 2vh;
