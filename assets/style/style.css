@@ -79,7 +79,7 @@ body {
 
 .title {
   height: 5vh;
-  width: 25vh;
+  width: 30vh;
   background-color: whitesmoke;
   display: flex;
   justify-content: center;
@@ -90,11 +90,9 @@ body {
 
 .category {
   overflow: auto;
-  max-height: 60vh;
+  max-height: 70vh;
   -ms-overflow-style: none;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
+  scrollbar-width: none;
 }
 
 .category::-webkit-scrollbar {
@@ -120,4 +118,30 @@ body {
 
 .home .template .title h1 {
   font-family: American Typewriter, serif;
+  font-size: x-large;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 85vh;
+}
+
+#table {
+  background-color: white;
+  width: 40vw;
+  padding: 5vh 5vw;
+}
+
+#list-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  width: 15vw;
+  height: 10vh;
+  border-radius: 10px;
 }

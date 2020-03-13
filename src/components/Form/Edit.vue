@@ -30,7 +30,7 @@
             <label>Description</label>
             <textarea type="text" name="description" placeholder="Description" style="resize: none;" v-model="description" ></textarea>
           </sui-form-field>
-          <div class="ui fluid large teal submit button" type="submit" @click="createTask">Create</div>
+          <div class="ui fluid large teal submit button" type="submit" @click="updateTask">Create</div>
         </sui-form>
       </div>
     </div>
@@ -58,11 +58,11 @@ export default {
     changePage (page) {
       this.$emit('changePage', page)
     },
-    createTask() {
+    updateTask() {
       this.active = true
 
       axios({
-        method: 'post',
+        method: 'put',
         url: 'http://localhost:3000/task',
         headers: {
           token: localStorage.getItem('token'),
