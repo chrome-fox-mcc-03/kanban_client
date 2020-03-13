@@ -6,7 +6,16 @@
             </div>
             <div class="card-action">
                 <div class="col s2">
-                    <a v-if="task.category != 'backlog'" @click="moveCategory('backward', task)" class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_back</i></a><a class="waves-effect waves-teal btn-small" href="#"> <i class="large material-icons">edit</i></a><a class="waves-effect waves-yellow btn-small" hlightref="#"> <i class="large material-icons">delete</i></a><a  v-if="task.category != 'completed'" @click="moveCategory('forward', task)" class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_forward</i></a>
+                    <a v-if="task.category != 'backlog'" @click.prevent="moveCategory('backward', task)" class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_back</i></a>
+                    <a @click="showEditForm(task.title)" class="waves-effect waves-teal btn-small" href="#"> <i class="large material-icons">edit</i></a>
+                    <a @click="deleteTask(task.id)"  class="waves-effect waves-yellow btn-small" hlightref="#"> <i class="large material-icons">delete</i></a>
+                    <a v-if="task.category != 'completed'" @click="moveCategory('forward', task)" class="waves-effect waves-light btn-small" href="#"> <i class="large material-icons">arrow_forward</i></a>
+                </div>
+                <div v-show="this.editForm" class="edit-form">
+                    <form @submit.prevent="editTask(task.id, task.category)" >
+                        <input id="title-edit" type="text" class="validate" v-model="editTitle">
+                        <a @click.prevent="editTask(task.id, task.category)" class="waves-effect waves-light btn-small" href="#"> <i class="material-icons">check_circle</i></a>
+                    </form>
                 </div>
             </div>
         </div>
@@ -20,7 +29,8 @@ export default {
     props : ['task'],
     data () {
         return {
-
+            editForm : false,
+            editTitle : ''
         }
     },
     methods : {
@@ -29,33 +39,14 @@ export default {
             const title = task.title ;
             const category = task.category ;
             const categories = [ 'backlog' , 'todo', 'done', 'completed' ] ;
+            const index = categories.indexOf(category) ;
+            let newCategory = '';
 
             if (where == 'forward') {
-                const newIndex = categories.indexOf(category) ;
-                const newCategory = categories[newIndex+1] ;
-                axios({
-                    method : 'put',
-                    url : `http://localhost:3000/tasks/${id}`,
-                    data : {
-                        title : title,
-                        category : newCategory
-                    },
-                    headers : {
-                        access_token : localStorage.getItem('access_token')
-                    }
-                })
-                    .then (({data})=> {
-                        console.log('sukses');
-                    })
-
-                    .catch((error)=>{
-                        console.log(error.response.data.errorMessage);
-                    })
-
-
+                newCategory = categories[index+1] ;
             } else if (where == 'backward') {
-                const newIndex = categories.indexOf(category) ;
-                const newCategory = categories[newIndex-1] ;
+                newCategory = categories[index-1] ;
+            }
                 axios({
                     method : 'put',
                     url : `http://localhost:3000/tasks/${id}`,
@@ -69,18 +60,62 @@ export default {
                 })
                     .then (({data})=> {
                         console.log('sukses');
+                        this.$emit('fetchData') ;
                     })
 
                     .catch((error)=>{
-                        console.log(error.response.data.errorMessage);
+                        console.log(error.response.data.message);
                     })
+        },
+        deleteTask(id){
+            this.$emit('deleteTask', id)
+        },
+        showEditForm(data){
+            this.errorMessage.isError = false ;
+            this.errorMessage.messages = [] ;
+            this.editTitle = data
+            this.editForm = !this.editForm
+        },
+        editTask(idToEdit, currentCategory){
+            const id = idToEdit ;
+            const title = this.editTitle ;
+            const category = currentCategory ;
+            console.log(id, title, category);
 
-            }
+            axios({
+                method : 'put' ,
+                url : `http://localhost:3000/tasks/${id}`,
+                data : {
+                    title,
+                    category
+                },
+                headers : {
+                    access_token : localStorage.getItem('access_token')
+                }
+            })
+                .then(({data})=> {
+                    this.errorMessage.isError = false ;
+                    this.errorMessage.messages = [] ;
+                    console.log('sukses');
+                    this.$emit('fetchData') ;
+                    this.editTitle = '' ;
+                    this.editForm  = false ;
+                    this.errorMessage.isError = false ;
+                })
+                .catch((error)=>{
+                    let newMessage = '' ;
+                    this.errorMessage.isError = true ;
+                    for (let i = 0 ; i < error.response.data.message.length ; i++){
+                        newMessage = error.response.data.message[i] ;
+                        this.errorMessage.messages.push(newMessage) ;
+                    }
+                })
         }
     }
 }
 </script>
 
-<style>
+<style scoped> 
+
 
 </style>

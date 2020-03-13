@@ -6,7 +6,7 @@
             </div>
             <div class="column-body">
                 <!-- Card per title -->
-                <task-item v-for="task in tasks" v-if="task.category == taskCategory" :key="task.id" :task="task" class="col s12 m7" ></task-item>
+                <task-item @deleteTask="deleteTask" @fetchData="fetchData" v-for="task in tasks" v-if="task.category == taskCategory" :key="task.id" :task="task" class="col s12 m7" ></task-item>
             </div>
         </div>
     </div>
@@ -38,6 +38,12 @@ export default {
         }
     },
     methods : {
+        fetchData () {
+            this.$emit('fetchData')
+        },
+        deleteTask(id){
+            this.$emit('deleteTask', id)
+        }
         
     }
 

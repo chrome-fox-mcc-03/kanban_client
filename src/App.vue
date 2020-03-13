@@ -3,14 +3,17 @@
         <!-- Navigation Bar -->
         <navigation-bar @changePage="changePage" @logout="logout" :isLogin="userData.isLogin" :avatar="userData.avatarUrl"></navigation-bar>
 
+        <!-- Message -->
+        <message-error v-if="this.errorMessage.isError" :messages="this.errorMessage.messages"></message-error>
+
         <!-- Landing Page -->
-        <landing-page v-if="!userData.isLogin && currentPage == 'landingPage'" ></landing-page>
+        <page-landing v-if="!userData.isLogin && currentPage == 'landingPage'" ></page-landing>
 
         <!-- Registration Page -->
-        <registration-page @register="register" v-if="!userData.isLogin && currentPage == 'regisPage'"></registration-page>
+        <page-registration @register="register" v-if="!userData.isLogin && currentPage == 'regisPage'"></page-registration>
 
         <!-- Login Page -->
-        <login-page @login="login" v-if="!userData.isLogin && currentPage == 'loginPage'" ></login-page>
+        <page-login @login="login" v-if="!userData.isLogin && currentPage == 'loginPage'" ></page-login>
         
         <!-- Main Page -->
         <div v-if="userData.isLogin" >
@@ -19,8 +22,8 @@
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">assignment</i>
-                            <input v-model="newTaskTitle" id=task-title-create" type="text" class="validate">
-                            <label for=task-title-create">New Task</label>
+                            <input v-model="newTaskTitle" id="task-title-create" type="text" class="validate">
+                            <label for="task-title-create">New Task</label>
                         </div>
                         <button class="btn-floating btn-medium waves-effect waves-light red" type="submit" name="action">
                         <i class="material-icons">add</i>
@@ -29,7 +32,7 @@
                 </form>
             </div>
             <div class="container">
-                <task-list v-for="(taskCategory, index) in taskCategories" :key="index" :taskCategory="taskCategory" :tasks="tasks"></task-list>      
+                <task-list @deleteTask="deleteTask" @fetchData="fetchData" v-for="(taskCategory, index) in taskCategories" :key="index" :taskCategory="taskCategory" :tasks="tasks"></task-list>      
             </div>
         </div>
     </div>
@@ -38,10 +41,11 @@
 <script>
 import axios from 'axios'
 import NavigationBar from './components/NavigationBar.vue'
-import LandingPage from './components/LandingPage.vue'
-import RegistrationPage from './components/RegistrationPage.vue'
-import LoginPage from './components/LoginPage.vue'
+import PageLanding from './components/PageLanding.vue'
+import PageRegistration from './components/PageRegistration.vue'
+import PageLogin from './components/PageLogin.vue'
 import TaskList from './components/TaskList.vue'
+import MessageError from './components/MessageError.vue'
 
 
 export default {
@@ -58,15 +62,24 @@ export default {
             },
             tasks : [],
             taskCategories : ['backlog', 'todo', 'done', 'completed'],
-            newTaskTitle : ''
+            newTaskTitle : '' ,
+            errorMessage : {
+                isError : false,
+                messages : []
+            } ,
+            successMessage : {
+                isSuccess : false,
+                messages : []
+            } ,
         }
     },
     components : {
         NavigationBar,
-        LandingPage,
-        RegistrationPage,
-        LoginPage,
-        TaskList
+        PageLanding,
+        PageRegistration,
+        PageLogin,
+        TaskList,
+        MessageError
     },
     created(){
         const access_token = localStorage.getItem('access_token') ;
@@ -78,9 +91,13 @@ export default {
     },
     methods : {
         changePage (page) {
+            this.errorMessage.isError = false ;
+            this.errorMessage.messages = [] ;
             this.currentPage = page 
         },
         register (userData) {
+            this.errorMessage.isError = false ;
+            this.errorMessage.messages = [] ;
             const name = userData.name;
             const email = userData.email;
             const password = userData.password;
@@ -100,15 +117,22 @@ export default {
                     localStorage.setItem('avatar', data.access_avatarUrl ) ;
                     this.userData.avatarUrl = localStorage.getItem('avatar') ;
                     this.userData.isLogin = true ;
-                    this.fetchData()
+                    this.errorMessage.isError = false ;
+                    this.fetchData() ;
 
                 })
                 .catch((error)=>{
-                    console.log(error.response.data.errorMessage);
+                    let newMessage = '' ;
+                    this.errorMessage.isError = true ;
+                    for (let i = 0 ; i < error.response.data.message.length ; i++){
+                        newMessage = error.response.data.message[i] ;
+                        this.errorMessage.messages.push(newMessage) ;
+                    }
                 })
         },
-
         login(userData) {
+            this.errorMessage.isError = false ;
+            this.errorMessage.messages = [] ;
             const email = userData.email;
             const password = userData.password;
 
@@ -126,10 +150,15 @@ export default {
                     localStorage.setItem('avatar', data.access_avatarUrl ) ;
                     this.userData.avatarUrl = localStorage.getItem('avatar') ;
                     this.userData.isLogin = true ;
-                    this.fetchData()
+                    this.fetchData() ;
                 })
                 .catch((error)=>{
-                    console.log(error.response.data.errorMessage);
+                    let newMessage = '' ;
+                    this.errorMessage.isError = true ;
+                    for (let i = 0 ; i < error.response.data.message.length ; i++){
+                        newMessage = error.response.data.message[i] ;
+                        this.errorMessage.messages.push(newMessage) ;
+                    }
                 })
         },
         logout(){
@@ -137,8 +166,9 @@ export default {
             this.userData.isLogin = false ;
             this.changePage('landingPage') ;
         },
-
         fetchData () {
+            this.errorMessage.isError = false ;
+            this.errorMessage.messages = [] ;
             axios({
                 method : 'get',
                 url : `http://localhost:3000/tasks/`,
@@ -151,11 +181,19 @@ export default {
                 })
 
                 .catch ((error)=>{
-                    console.log(error.response.data.errorMessage);
+                    let newMessage = '' ;
+                    this.errorMessage.isError = true ;
+                    for (let i = 0 ; i < error.response.data.message.length ; i++){
+                        newMessage = error.response.data.message[i] ;
+                        this.errorMessage.messages.push(newMessage) ;
+                    }
                 })
 
         },
         createTask(){
+            this.errorMessage.isError = false ;
+            this.errorMessage.messages = [] ;
+
             const title = this.newTaskTitle ; 
 
             axios({
@@ -174,12 +212,39 @@ export default {
 
                 })
                 .catch((error)=>{
-                    console.log(error.response.data.errorMessage);                    
+                    let newMessage = '' ;
+                    this.errorMessage.isError = true ;
+                    for (let i = 0 ; i < error.response.data.message.length ; i++){
+                        newMessage = error.response.data.message[i] ;
+                        this.errorMessage.messages.push(newMessage) ;
+                    }            
                 })
 
+        },
+        deleteTask(id){
+            this.errorMessage.isError = false ;
+            this.errorMessage.messages = [] ;
+            axios({
+                method : 'delete',
+                url : `http://localhost:3000/tasks/${id}`,
+                headers : {
+                    access_token : localStorage.getItem('access_token')
+                }
+            })
+                .then(({data})=> {
+                    console.log('deleted');
+                    this.fetchData()
+
+                })
+                .catch((error)=>{
+                    let newMessage = '' ;
+                    this.errorMessage.isError = true ;
+                    for (let i = 0 ; i < error.response.data.message.length ; i++){
+                        newMessage = error.response.data.message[i] ;
+                        this.errorMessage.messages.push(newMessage) ;
+                    }      
+                })
         }
-
-
     }
 }
 </script>
