@@ -1,0 +1,345 @@
+
+*{
+  margin: 0;
+}
+
+#landing-page {
+  /* display: flex;
+  flex-direction:  */
+}
+
+/* NAVBAR-LAND */
+
+#navbar-land {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: baseline;
+  padding: 15px;
+  background-color: dodgerblue;
+  margin: 0;
+}
+
+#navbar-land .right-nav-land .title{
+  margin-right: 30px;
+  font-size: 30px;
+  font-family: 'UnifrakturMaguntia', Georgia, 'Times New Roman', Times, serif;
+  color: #191970;
+}
+
+#navbar-land .right-nav-land a, #navbar-land .left-nav-land a {
+  font-size: 20px;
+  font-family: 'Corben', Georgia, 'Times New Roman', Times, serif;
+  color: #191970;
+  cursor: pointer;
+}
+
+#navbar-land .left-nav-land button {
+  padding: 5px 15px;
+  font-size: 15px;
+  margin-left: 15px;
+  background-color: blue;
+  border: none;
+  color: white;
+  font-family: 'Corben', Georgia, 'Times New Roman', Times, serif;
+  cursor: pointer;
+}
+
+/* Hero */
+
+#hero {
+  position: relative;
+  display: flex;
+}
+
+#hero .hero-image{
+  max-height: 75vh;
+}
+
+#hero .form-login {
+  width: 20rem;
+  height: 30rem;
+  position: absolute;
+  left: 70%;
+  top: 10%;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 5px 2px 20px 0px grey;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+#hero .form-login .title {
+  text-align: center;
+  font-size: 30px;
+  font-family: 'UnifrakturMaguntia', Georgia, 'Times New Roman', Times, serif;
+}
+
+#hero .form-login p {
+  text-align: center;
+  font-family: 'Corben', Georgia, 'Times New Roman', Times, serif;
+  font-size: 30px;
+}
+
+#hero .form-login form{
+  border-bottom: 1px solid grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#hero .form-login form button {
+  margin: 20px auto;
+  border-radius: 15px;
+  width: 60%;
+}
+
+#hero .form-login .notif-register {
+  margin-top:10px;
+  font-size: 15px;
+}
+
+#hero .form-login .register-nav {
+  margin: 5px auto;
+  border-radius: 15px;
+  width: 80%;
+}
+
+/* Dashboard */
+
+#dashboard-page {
+  display: flex;
+  flex-direction: column;
+}
+
+#navbar-dash {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 12px;
+  background-color: dodgerblue;
+  margin: 0;
+}
+
+#dashboard-page-team {
+  display: flex;
+  flex-direction: row;
+  height: 92vh;  
+}
+
+#dashboard-page-team #left-bar-teams {
+  width: 25%;
+  height: 100%;
+  margin-right: 5%;
+}
+
+#dashboard-page-team #left-bar-teams .teams {
+  display: flex;
+  flex-direction: column;
+}
+
+#dashboard-page-team #left-bar-teams .avatar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 30px auto 50px auto;
+}
+
+#dashboard-page-team #left-bar-teams .avatar p {
+  font-size: 50px;
+  text-align: center;
+}
+
+#dashboard-page-team #left-bar-teams .up-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;
+  margin: 20px 10px;
+}
+
+#dashboard-page-team #left-bar-teams .up-bar i {
+  margin-right: 10px;
+}
+#dashboard-page-team #left-bar-teams .down-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 20px 10px;
+}
+
+#dashboard-page-team #left-bar-teams .down-bar .title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0;
+} 
+
+#dashboard-page-team #left-bar-teams .down-bar .title a {
+  cursor: pointer;
+}
+
+#dashboard-page-team #left-bar-teams .down-bar .teams {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0px;
+  height: 30vh;
+  overflow: auto;
+}
+
+#dashboard-page-team #left-bar-teams .down-bar .teams .team {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;
+}
+
+#dashboard-page-team #left-bar-teams .down-bar .teams .team p {
+  margin-left: 10px;
+}
+
+#dashboard-page-team #right-bar-teams {
+  width: 70%;
+  margin: 10px;
+  overflow: auto;
+}
+
+
+#dashboard-page-team #right-bar-teams .team-board {
+  border-bottom: 1px solid grey;
+  border-top: 1px solid grey;
+  position: relative;
+}
+
+#dashboard-page-team #right-bar-teams .team-board img {
+  width: 720px;
+  height: 250px;
+  border-radius: 10px;
+  padding: 20px auto;
+  margin: 20px;
+  cursor: pointer;
+}
+
+#dashboard-page-team #right-bar-teams .team-board p {
+  color: white;
+  font-size: 50px;
+  /* paket complate */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateY(-50%) translateX(-50%)
+}
+
+
+
+
+/* KANBAN BOARD */
+#navbar-kanban {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 12px;
+  background-color: dodgerblue;
+  margin: 0;
+}
+
+#navbar-kanban .navigation-content {
+  display: flex;
+  flex-direction: row;
+}
+
+#navbar-kanban .navigation-content a {
+  margin: auto 10px;
+  cursor: pointer;
+}
+
+#kanban-board .kanban-board {
+  position: relative;
+}
+
+#kanban-board .kanban-board img {
+  width: 100vw;
+  height: 92vh;
+  position: absolute;
+}
+
+#kanban-board .kanban-board {
+  opacity: 0.9;
+}
+
+#kanban-board .kanban-board .board-categories {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow-x: scroll;
+  max-width: 100vw;
+  left: 3%;
+  margin-top: 30px;
+}
+
+#kanban-board .kanban-board .category {
+  display: flex;
+  flex-direction: column;
+  background-color: #778899;
+  box-shadow:0px 0px 20px 0px grey;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 20px;
+  width: 300px;
+  max-height: 80vh;
+}
+
+#kanban-board .kanban-board .category .tasks{
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  margin: 10px auto;
+  overflow: auto;
+}
+
+#kanban-board .kanban-board .category .tasks .task {
+  display: flex;
+  flex-direction: row;
+  background: white;
+  margin: 2px auto;
+  padding: 3px 3px;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#kanban-board .kanban-board .category .tasks .task p {
+  width: 260px;
+  max-width: 260px;
+}
+
+#kanban-board .kanban-board .category .tasks .task a {
+  cursor: pointer;
+}
+
+#kanban-board .kanban-board .category .add-another-task input {
+  /* background-color: #778899; */
+  border: none;
+  /* color: black; */
+  width: 280px;
+  max-width: 280px;
+  border-radius: 5px;
+  height: 50px;
+}
+
+/* #kanban-board .kanban-board .category .add-another-task form input:focus {
+  background-color: white;
+} */
+
+/* #kanban-board .kanban-board .category .add-another-task form ::-webkit-input-placeholder {
+  color: black;
+} */
