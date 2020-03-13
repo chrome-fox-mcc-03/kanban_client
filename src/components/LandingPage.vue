@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="landing-register" v-if="!landingToggle">
-      <div class="container align-items-center" style="padding-top:50px">
+      <div class="container align-items-center" style="padding-top:30px">
         <div class="row">
           <div class="col-sm-9 col-md-7 col-lg-5 mx-auto my-auto">
             <div class="card card-signin my-5">
@@ -72,6 +72,9 @@
                     Register
                   </button>
                   <hr class="my-4" />
+                  <div class="d-flex justify-content-center">
+                    <GSignIn @google-signin="gSignIn"></GSignIn>
+                  </div>
                 </form>
               </div>
             </div>
@@ -99,7 +102,6 @@
                 <h5 class="card-title text-center">
                   <strong>Kanban Quest</strong>
                 </h5>
-
                 <hr />
                 <form class="form-signin" @submit.prevent="loginUser">
                   <div class="form-label-group">
@@ -137,6 +139,9 @@
                     Sign in
                   </button>
                   <hr class="my-4" />
+                  <div class="d-flex justify-content-center">
+                    <GSignIn @google-signin="gSignIn"></GSignIn>
+                  </div>
                 </form>
               </div>
             </div>
@@ -148,6 +153,8 @@
 </template>
 
 <script>
+import GSignIn from "./SignInGoogle";
+
 export default {
   name: "LandingPage",
   methods: {
@@ -169,6 +176,9 @@ export default {
         password: this.loginPassword
       });
       (this.loginEmail = null), (this.loginPassword = null);
+    },
+    gSignIn(data) {
+      this.$emit("google-signin", data);
     }
   },
   data() {
@@ -180,6 +190,9 @@ export default {
       loginEmail: null,
       loginPassword: null
     };
+  },
+  components: {
+    GSignIn
   }
 };
 </script>

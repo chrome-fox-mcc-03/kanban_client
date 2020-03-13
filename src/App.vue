@@ -4,6 +4,9 @@
       v-show="!isLoggedIn"
       @create-new-user="createNewUser"
       @login-user="loginUser"
+      @google-signin="gSignIn"
+      @reset-register="resetRegister"
+      :isRegistered="isRegistered"
     ></LandingPage>
     <main v-show="isLoggedIn">
       <Navbar @log-out="logOut"></Navbar>
@@ -32,7 +35,8 @@ export default {
     return {
       tasks: [],
       categories: [],
-      isLoggedIn: false
+      isLoggedIn: false,
+      isRegistered: false
     };
   },
   components: {
@@ -76,9 +80,15 @@ export default {
         }
       })
         .then(({ data }) => {
+          this.$vToastify.success(data.msg);
           this.fetchData();
         })
-        .catch(err => console.log(err.response));
+        .catch(err => {
+          this.$vToastify.error(
+            `${err.response.data.msg}`,
+            `Error: ${err.response.data.status}`
+          );
+        });
     },
     nextTask(id) {
       axios({
@@ -90,8 +100,14 @@ export default {
       })
         .then(({ data }) => {
           this.fetchData();
+          this.$vToastify.success(data.msg);
         })
-        .catch(err => console.log(err.response));
+        .catch(err => {
+          this.$vToastify.error(
+            `${err.response.data.msg}`,
+            `Error: ${err.response.data.status}`
+          );
+        });
     },
     backTask(id) {
       axios({
@@ -103,8 +119,14 @@ export default {
       })
         .then(({ data }) => {
           this.fetchData();
+          this.$vToastify.success(data.msg);
         })
-        .catch(err => console.log(err.response));
+        .catch(err => {
+          this.$vToastify.error(
+            `${err.response.data.msg}`,
+            `Error: ${err.response.data.status}`
+          );
+        });
     },
     createTask(data) {
       let { title, description, CategoryId } = data;
@@ -122,8 +144,14 @@ export default {
       })
         .then(({ data }) => {
           this.fetchData();
+          this.$vToastify.success(data.msg);
         })
-        .catch(err => console.log(err.response));
+        .catch(err => {
+          this.$vToastify.error(
+            `${err.response.data.msg}`,
+            `Error: ${err.response.data.status}`
+          );
+        });
     },
     editTask(data) {
       let { id, title, description } = data;
@@ -140,8 +168,14 @@ export default {
       })
         .then(({ data }) => {
           this.fetchData();
+          this.$vToastify.success(data.msg);
         })
-        .catch(err => console.log(err.response));
+        .catch(err => {
+          this.$vToastify.error(
+            `${err.response.data.msg}`,
+            `Error: ${err.response.data.status}`
+          );
+        });
     },
     createNewUser(data) {
       let { username, email, password } = data;
@@ -154,8 +188,16 @@ export default {
           username
         }
       })
-        .then(({ data }) => {})
-        .catch(err => console.log(err.response));
+        .then(({ data }) => {
+          this.$vToastify.success("Proceed to Login");
+          this.isRegistered = true;
+        })
+        .catch(err => {
+          this.$vToastify.error(
+            `${err.response.data.msg}`,
+            `Error: ${err.response.data.status}`
+          );
+        });
     },
     loginUser(data) {
       let { email, password } = data;
@@ -168,15 +210,50 @@ export default {
         }
       })
         .then(({ data }) => {
+          this.$vToastify.success("Successfully logged in");
           localStorage.setItem("token", data.token);
           this.isLoggedIn = true;
           this.fetchData();
           this.fetchCategories();
         })
-        .catch(err => console.log(err.response));
+        .catch(err => {
+          this.$vToastify.error(
+            `${err.response.data.msg}`,
+            `Error: ${err.response.data.status}`
+          );
+        });
     },
     logOut() {
       this.isLoggedIn = false;
+      let auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function() {});
+      this.$vToastify.success("Please come back soon");
+    },
+    gSignIn(data) {
+      let { google_token } = data;
+      axios({
+        method: "POST",
+        url: "http://localhost:3000/gsignin",
+        headers: {
+          google_token
+        }
+      })
+        .then(({ data }) => {
+          localStorage.setItem("token", data.token);
+          this.isLoggedIn = true;
+          this.fetchData();
+          this.fetchCategories();
+          this.$vToastify.success("Google sign-in success");
+        })
+        .catch(err => {
+          this.$vToastify.error(
+            `${err.response.data.msg}`,
+            `Error: ${err.response.data.status}`
+          );
+        });
+    },
+    resetRegister() {
+      this.isRegistered = false;
     }
   },
   created: function() {
