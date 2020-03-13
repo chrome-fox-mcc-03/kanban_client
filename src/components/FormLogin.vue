@@ -40,6 +40,18 @@
         </p>
       </div>
     </form>
+    <div class="loading-container" v-if="isLoading">
+      <div class="loading-screen">
+        <lottie-player
+          src="https://assets2.lottiefiles.com/datafiles/WKqC5QWz9GiZnlm/data.json"
+          background="transparent"
+          speed="1"
+          style="width: 300px; height: 300px;"
+          loop
+          autoplay
+        ></lottie-player>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -51,6 +63,7 @@ export default {
     return {
       email: "",
       password: "",
+      isLoading: false,
       googleSignInParams: {
         client_id:
           "710794205152-a4sqdmsdpbiatftarv2m883vog211i34.apps.googleusercontent.com"
@@ -76,6 +89,7 @@ export default {
       const profile = googleUser.getBasicProfile(); // etc etc
       let token = googleUser.getAuthResponse().id_token;
       let name = profile.getName();
+      this.isLoading = true;
       axios({
         url: "http://localhost:3000/users/goosignin",
         data: {
@@ -85,12 +99,16 @@ export default {
         headers: {
           token: token
         }
-      }).then(result => {
-        localStorage.setItem("token", result.data);
-        this.loginGoogle();
-        this.$toasted.success("You are already logged in");
-      });
-      console.log("masuk sini");
+      })
+        .then(result => {
+          localStorage.setItem("token", result.data);
+          this.loginGoogle();
+          this.$toasted.success("You are already logged in");
+        })
+        .catch(err => {})
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
     onSignInError(error) {
       // `error` contains any error occurred.
