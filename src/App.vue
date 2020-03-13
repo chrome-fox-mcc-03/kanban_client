@@ -2,7 +2,7 @@
     <div>
         <navbar @getCards="fetchCards()" @logout="logout" @curPage="changePage"></navbar>
         <div id="content-container">
-            <cards-container @deleteTask="deleteTask" @update="update"  @assignTaskDetail="assignTaskDetail" @getCards="fetchCards" :taskDetail="taskDetail" :categories="categories" :cards="cards"  v-if="currentPage == 'cardsDisplay'"></cards-container>
+            <cards-container :first_name="userData.first_name" :last_name="userData.last_name" @deleteTask="deleteTask" @update="update"  @assignTaskDetail="assignTaskDetail" @getCards="fetchCards" :categories="categories" :cards="cards"  v-if="currentPage == 'cardsDisplay'"></cards-container>
             <login-form @onSignIn="onSignIn" @curPage="changePage" @loginObj="login" v-else-if="currentPage == 'loginDisplay'"></login-form>
             <register-form @register="register" v-else-if="currentPage == 'registerDisplay'"></register-form>
             <add-task-form :categories="categories" @addTask="addTask" v-else-if="currentPage == 'addTaskDisplay'"></add-task-form>
@@ -143,6 +143,7 @@ export default {
                         title: 'Login succesfully'
                     })
                 })
+                
                 .catch(err => {
                     Toast.fire({
                         icon: 'error',
@@ -151,7 +152,28 @@ export default {
                     console.log(err.response.data)
                 })
         },
+        getUserByEmail(email){
+            const token = localStorage.getItem('token')
+            axios({
+                method: "GET",
+                url: `http://localhost:3000/${email}/user`,
+                headers: {
+                    token
+                }
+            })
+                .then(response => {
+                    console.log(response.data)
+                    this.userData.first_name = response.data.first_name
+                    this.userData.last_name = response.data.last_name
+                    console.log(this.userData.first_name)
+                })
+                .catch(err => {
+                    console.log(err.response.data)
+                })
+        },
         register(obj){
+            this.userData.first_name = ''
+            this.userData.last_name = ''
             this.userData.first_name = obj.first_name
             this.userData.last_name = obj.last_name,
             this.userData.email = obj.email
@@ -233,7 +255,10 @@ export default {
                 }
             })
                 .then(response => {
-                    console.log(response.data)
+                    const email = response.data[0].User.email
+                    console.log('>>>>',response.data)
+                    console.log(email)
+                    this.getUserByEmail(email)
                     // let allCategories = response.data.map( el => {
                     //     return el.category
                     // })
@@ -256,11 +281,8 @@ export default {
                         }
                     })
                     this.cards = response.data
-                    // console.log(allCategories);
                     console.log(this.categories)
                     this.currentPage = 'cardsDisplay'
-                    
-                    // console.log(response.data)
                 })
                 .catch(err => {
                     Toast.fire({
