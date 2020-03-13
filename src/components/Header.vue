@@ -5,8 +5,6 @@
       <a>Home</a>
     </div>
     <div class="left-nav-land">
-      <a>Register</a>
-
       <button 
         @click="showFormLogin"
         >Login</button>

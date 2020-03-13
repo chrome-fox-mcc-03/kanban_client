@@ -8,12 +8,15 @@
       @backProfileTeam="backProfileTeam"
       @logoutFromBoard="logoutFromBoard"
       @refetchTask="refetchTask"
+      @updateSuccess="updateSuccess"
+      @deleteSuccess="deleteSuccess"
       ></KanbanBoard>
     <ProfileTeam
       v-else
       @addTeam="addTeam"
       @moveKanbanBoard="moveKanbanBoard"
       @logout="logout"
+      :teams="teams"
       ></ProfileTeam>
 
   </div>
@@ -31,7 +34,8 @@ export default {
     return {
       currentDashboardPage : '',
       status: false,
-      tasks : []
+      tasks : [],
+      teams: []
     }
   },
   components : {
@@ -39,9 +43,6 @@ export default {
     KanbanBoard
   },
   methods : {
-    addTeam (payload) {
-      this.$emit('addTeam', payload)
-    },
     moveKanbanBoard (statusDashboardPage) {
       this.status = statusDashboardPage
       this.fetchTasks (localStorage.TeamId)
@@ -62,10 +63,42 @@ export default {
       })
         .then(({ data }) => {
           this.tasks = data
-          // console.log(this.tasks)
         })
         .catch(err => {
-          // console.log(err)
+          console.log(err.response)
+        })
+    },
+    fetchTeams () {
+      axios({
+        url: 'http://localhost:3000/teams',
+        methods: 'GET',
+        headers : {
+          access_token : localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          this.teams = data
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
+    addTeam (payload) {
+      axios({
+        url: 'http://localhost:3000/teams',
+        method: 'POST',
+        data: {
+           name: payload.name
+        },
+        headers: {
+          access_token : localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          this.$bvModal.hide(`add-team`)
+          this.fetchTeams()
+        })
+        .catch(err => {
           console.log(err.response)
         })
     },
@@ -78,12 +111,23 @@ export default {
     refetchTask() {
       const TeamId = localStorage.getItem('TeamId')
       this.fetchTasks(TeamId)
+    },
+    updateSuccess() {
+      const TeamId = localStorage.getItem('TeamId')
+      this.fetchTasks(TeamId)
+    },
+    deleteSuccess() {
+      const TeamId = localStorage.getItem('TeamId')
+      this.fetchTasks(TeamId)
     }
   },
   watch : {
     status (val) {
       this.status = val
     }
+  },
+  created() {
+    this.fetchTeams()
   }
 }
 </script>

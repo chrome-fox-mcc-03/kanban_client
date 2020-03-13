@@ -29,7 +29,7 @@ import RightBar from './RightBar.vue'
 
 export default {
   name: 'ProfileTeam',
-  props: [],
+  props: ['teams'],
   data () {
     return {
       teams : []
@@ -50,24 +50,10 @@ export default {
     logout () {
       this.$emit('logout')
     },
-    fetchTeams () {
-      axios({
-        url: 'http://localhost:3000/teams',
-        methods: 'GET',
-        headers : {
-          access_token : localStorage.getItem('access_token')
-        }
-      })
-        .then(({ data }) => {
-          this.teams = data
-        })
-        .catch(err => {
-          console.log(err.response)
-        })
-    },
+    
   },
   created () {
-    this.fetchTeams()
+    
   }
 }
 </script>

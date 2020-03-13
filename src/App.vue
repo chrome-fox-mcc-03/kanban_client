@@ -8,7 +8,6 @@
 
     <Dashboard
       v-else-if="currentPage === 'dashboard'"
-      @addTeam="addTeam"
       @addMember="addMember"
       :members="members"
       @logout="logout"
@@ -57,6 +56,7 @@ export default {
       })
         .then(({data}) => {
           this.$bvModal.hide(`register`)
+
         })
         .catch(err => {
           console.log(err.response)
@@ -90,25 +90,7 @@ export default {
       localStorage.clear()
       this.currentPage = 'landingPage'
     },
-    addTeam (payload) {
-      axios({
-        url: 'http://localhost:3000/teams',
-        method: 'POST',
-        data: {
-           name: payload.name
-        },
-        headers: {
-          access_token : localStorage.access_token
-        }
-      })
-        .then(({ data }) => {
-          this.$bvModal.hide(`add-team`)
-          this.fetchTeams()
-        })
-        .catch(err => {
-          console.log(err.response)
-        })
-    },
+    
     
     addMember (payload) {
       axios({

@@ -16,8 +16,11 @@
             v-for="category in categories"
             :key="category.id"
             :category="category"
+            :categories="categories"
             :tasks="tasks"
             @refetchTask="refetchTask"
+            @updateSuccess="updateSuccess"
+            @deleteSuccess="deleteSuccess"
             ></Category>
 
         </div>
@@ -70,7 +73,13 @@ export default {
     },
     refetchTask () {
       this.$emit('refetchTask')
-    }
+    },
+    updateSuccess () {
+      this.$emit('updateSuccess')
+    },
+    deleteSuccess() {
+      this.$emit('deleteSuccess')
+    } 
   },
   created () {
     this.fetchCategory()

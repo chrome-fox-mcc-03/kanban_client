@@ -9,6 +9,9 @@
         v-for="task in tasksEachCategory"
         :key="task.id"
         :task="task"
+        :categories="categories"
+        @updateSuccess="updateSuccess"
+        @deleteSuccess="deleteSuccess"
         ></Task>
       
     </div>
@@ -29,7 +32,7 @@ import Task from './Task'
 
 export default {
   name: 'Category',
-  props: ['category', 'tasks'],
+  props: ['category', 'tasks', 'categories'],
   components: {
     Task
   },
@@ -83,6 +86,12 @@ export default {
     cancelTask() {
       this.statusAdd = false
       this.title = ''
+    },
+    updateSuccess() {
+      this.$emit('updateSuccess')
+    },
+    deleteSuccess() {
+      this.$emit('deleteSuccess')
     } 
   },
   watch : {

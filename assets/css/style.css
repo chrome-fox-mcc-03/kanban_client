@@ -313,17 +313,17 @@
   padding: 3px 3px;
   justify-content: flex-start;
   align-items: center;
-  cursor: pointer;
   border-radius: 5px;
 }
 
 #kanban-board .kanban-board .category .tasks .task p {
-  width: 260px;
-  max-width: 260px;
+  width: 220px;
+  max-width: 220px;
 }
 
 #kanban-board .kanban-board .category .tasks .task a {
   cursor: pointer;
+  margin-right:10px;
 }
 
 #kanban-board .kanban-board .category .add-another-task input {
