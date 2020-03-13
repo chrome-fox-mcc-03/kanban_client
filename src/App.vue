@@ -1,6 +1,10 @@
 <template>
   <div>
-    <app-header @onRegister="onRegister"></app-header>
+    <app-header
+      @onRegister="onRegister"
+      @onLogin="onLogin"
+      :appStatus="appStatus"
+    ></app-header>
     <app-main></app-main>
     <app-footer></app-footer>
   </div>
@@ -15,8 +19,7 @@ export default {
   name: 'app',
   data() {
     return {
-      registerStatus: '',
-      loginStatus: ''
+      appStatus: ''
     };
   },
   components: {
@@ -35,30 +38,29 @@ export default {
         }
       })
         .then(response => {
-          this.registerStatus = 'registered';
+          this.appStatus = 'registered';
         })
         .catch(err => {
           console.log(err);
         });
     },
 
-    loginProcess(payload) {
-      // axios({
-      //   method: 'POST',
-      //   url: '/login',
-      //   data: {
-      //     email: payload.email,
-      //     password: payload.password
-      //   }
-      // })
-      //   .then(response => {
-      //     console.log(response);
-      //     this.isLogin = true;
-      //     this.isLogout = false;
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //   });
+    onLogin(payload) {
+      this.appStatus = '';
+      axios({
+        method: 'POST',
+        url: '/login',
+        data: {
+          email: payload.email,
+          password: payload.password
+        }
+      })
+        .then(response => {
+          this.appStatus = 'login';
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };

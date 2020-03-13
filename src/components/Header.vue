@@ -1,7 +1,11 @@
 <template>
   <header>
     <!-- Navigation Left -->
-    <NavLeft @toRegister="toRegister"></NavLeft>
+    <NavLeft
+      @toRegister="toRegister"
+      :appStatus="appStatus"
+      @toLogin="toLogin"
+    ></NavLeft>
     <!-- Navigation Right -->
     <NavRight></NavRight>
   </header>
@@ -12,9 +16,14 @@ import NavLeft from './NavLeft';
 import NavRight from './NavRight';
 export default {
   name: 'Header',
+  props: ['appStatus'],
   data() {
     return {
       registerPayload: {
+        email: '',
+        password: ''
+      },
+      loginPayload: {
         email: '',
         password: ''
       }
@@ -29,6 +38,11 @@ export default {
       this.registerPayload.email = payload.email;
       this.registerPayload.password = payload.password;
       this.$emit('onRegister', this.registerPayload);
+    },
+    toLogin(payload) {
+      this.loginPayload.email = payload.email;
+      this.loginPayload.password = payload.password;
+      this.$emit('onLogin', this.loginPayload);
     }
   }
 };

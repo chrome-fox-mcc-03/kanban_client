@@ -1,11 +1,6 @@
 <template>
   <nav class="nav-left">
-    <form
-      :registerStatus="registerStatus"
-      v-show="!isLogin"
-      class="reg-log-form"
-      @submit.prevent="reglogSubmit"
-    >
+    <form v-show="!isLogin" class="reg-log-form" @submit.prevent="reglogSubmit">
       <label for="email">EMAIL</label>
       <input
         type="email"
@@ -42,7 +37,7 @@
 <script>
 export default {
   name: 'NavLeft',
-  props: ['registerStatus'],
+  props: ['appStatus'],
   data() {
     return {
       isRegister: false,
@@ -73,15 +68,24 @@ export default {
       this.payload.email = this.input.email;
       this.payload.password = this.input.password;
       this.$emit('toRegister', this.payload);
-      console.log(this.registerStatus);
+
+      if (this.appStatus === 'registered') {
+        this.isRegister = true;
+      }
     },
     login() {
       this.payload.email = this.input.email;
       this.payload.password = this.input.password;
-
       this.$emit('toLogin', this.payload);
+
+      if (this.appStatus === 'login') {
+        this.isLogin = true;
+        this.isLogout = false;
+      }
     },
     logout() {
+      this.input.email = '';
+      this.input.password = '';
       this.isRegister = false;
       this.isLogin = false;
       this.isLogout = true;
