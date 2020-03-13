@@ -2,7 +2,7 @@
     <div id="edit-form">
         <div class="card-form">
             <form class="signup">
-                <div class="form-title">Edit</div>
+                <div class="form-title">Details</div>
                 <div class="form-body">
                 <div class="row">
                     <input type="text" placeholder="Title">
@@ -14,7 +14,7 @@
                 <div class="rule"></div>
                 <div class="form-footer">
                     <a>Save</a>
-                    <a id="cancelEdit" @click="backToMainPage()">Cancel</a>
+                    <a id="cancelEdit" @click="backToMainPage">Cancel</a>
                 <a>Delete</a>
                 </div>
             </form>
@@ -24,7 +24,13 @@
 
 <script>
 export default {
-    name: 'EditPage'
+    name: 'DetailsForm',
+    methods: {
+        backToMainPage() {
+            console.log('back to main page senpai');
+            this.$emit('backToMainPage', 'kanbanSubPage')
+        }
+    }
 }
 </script>
 

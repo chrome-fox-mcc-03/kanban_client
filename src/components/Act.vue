@@ -6,8 +6,8 @@
             <i class="fas fa-angle-left fa-sm"></i>
         </div>
         <!-- left button -->
-
-        <p>{{ activity.title }}</p>
+    
+        <p class="actTitle" @click="showDetails">{{ activity.title }}</p>
 
         <!-- right button -->
         <div class="option-space" @click="moveRight(activity.id)">
@@ -32,11 +32,17 @@ export default {
         moveRight(id) {
             console.log('move right');
             this.$emit('moveRight', id)
+        },
+        showDetails() {
+            console.log('show details senpai');
+            this.$emit('showDetails')
         }
     }
 }
 </script>
 
-<style>
-
+<style scoped>
+    .actTitle:hover {
+        color: rgb(246, 144, 125);
+    }
 </style>

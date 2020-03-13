@@ -2,9 +2,17 @@
     <div class="kanban-card">
         <div class="title-and-act">
             <div class="card-title">{{ category }}</div>
-            <Act @moveLeft="moveLeft" @moveRight="moveRight" v-for="activity in filtered" :key="activity.id" :activity="activity"></Act>
+            <Act 
+                @moveLeft="moveLeft" 
+                @moveRight="moveRight" 
+                v-for="activity in filtered" :key="activity.id" 
+                :activity="activity"
+                @showDetails="showDetails">
+            </Act>
         </div>
-        <AddForm :fetchActivities="fetchActivities"></AddForm>
+        <AddForm 
+            :fetchActivities="fetchActivities">
+        </AddForm>
     </div>
 </template>
 
@@ -59,6 +67,9 @@ export default {
                 category: this.category
             }
             this.$emit('moveRight', obj)
+        },
+        showDetails() {
+            this.$emit('changeSubPage', 'detailsSubPage')
         }
     }
 }

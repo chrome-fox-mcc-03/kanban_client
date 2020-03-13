@@ -9389,6 +9389,10 @@ var _default = {
     moveRight: function moveRight(id) {
       console.log('move right');
       this.$emit('moveRight', id);
+    },
+    showDetails: function showDetails() {
+      console.log('show details senpai');
+      this.$emit('showDetails');
     }
   }
 };
@@ -9419,7 +9423,9 @@ exports.default = _default;
       [_c("i", { staticClass: "fas fa-angle-left fa-sm" })]
     ),
     _vm._v(" "),
-    _c("p", [_vm._v(_vm._s(_vm.activity.title))]),
+    _c("p", { staticClass: "actTitle", on: { click: _vm.showDetails } }, [
+      _vm._v(_vm._s(_vm.activity.title))
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -9442,7 +9448,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: null,
+            _scopeId: "data-v-0a8dc6",
             functional: undefined
           };
         })());
@@ -9625,6 +9631,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   props: ['category', 'activities', 'fetchActivities'],
   name: 'KanbanCard',
@@ -9670,6 +9684,9 @@ var _default = {
         category: this.category
       };
       this.$emit('moveRight', obj);
+    },
+    showDetails: function showDetails() {
+      this.$emit('changeSubPage', 'detailsSubPage');
     }
   }
 };
@@ -9702,7 +9719,11 @@ exports.default = _default;
             return _c("Act", {
               key: activity.id,
               attrs: { activity: activity },
-              on: { moveLeft: _vm.moveLeft, moveRight: _vm.moveRight }
+              on: {
+                moveLeft: _vm.moveLeft,
+                moveRight: _vm.moveRight,
+                showDetails: _vm.showDetails
+              }
             })
           })
         ],
@@ -9747,7 +9768,132 @@ render._withStripped = true
       
       }
     })();
-},{"./Act":"src/components/Act.vue","./AddForm":"src/components/AddForm.vue","_css_loader":"../../../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/MainSpace.vue":[function(require,module,exports) {
+},{"./Act":"src/components/Act.vue","./AddForm":"src/components/AddForm.vue","_css_loader":"../../../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/DetailsForm.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'DetailsForm',
+  methods: {
+    backToMainPage: function backToMainPage() {
+      console.log('back to main page senpai');
+      this.$emit('backToMainPage', 'kanbanSubPage');
+    }
+  }
+};
+exports.default = _default;
+        var $653890 = exports.default || module.exports;
+      
+      if (typeof $653890 === 'function') {
+        $653890 = $653890.options;
+      }
+    
+        /* template */
+        Object.assign($653890, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { id: "edit-form" } }, [
+    _c("div", { staticClass: "card-form" }, [
+      _c("form", { staticClass: "signup" }, [
+        _c("div", { staticClass: "form-title" }, [_vm._v("Details")]),
+        _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "rule" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-footer" }, [
+          _c("a", [_vm._v("Save")]),
+          _vm._v(" "),
+          _c(
+            "a",
+            { attrs: { id: "cancelEdit" }, on: { click: _vm.backToMainPage } },
+            [_vm._v("Cancel")]
+          ),
+          _vm._v(" "),
+          _c("a", [_vm._v("Delete")])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-body" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("input", { attrs: { type: "text", placeholder: "Title" } })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("input", { attrs: { type: "text", placeholder: "Category" } })
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$653890', $653890);
+          } else {
+            api.reload('$653890', $653890);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"_css_loader":"../../../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/MainSpace.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9757,8 +9903,20 @@ exports.default = void 0;
 
 var _KanbanCard = _interopRequireDefault(require("./KanbanCard"));
 
+var _DetailsForm = _interopRequireDefault(require("./DetailsForm"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -9771,8 +9929,8 @@ var _default = {
   data: function data() {
     return {
       kanbanCards: ['Backlog', 'On Progress', 'Needs Review', 'Finished'],
-      activities: [] //nge-bind nya dimana terus biar bisa diprops di MainSpace --> KanbanCard --> Act
-
+      activities: [],
+      subCurrentPage: 'kanbanSubPage'
     };
   },
   methods: {
@@ -9836,13 +9994,17 @@ var _default = {
       }).catch(function (err) {
         console.log(err);
       });
+    },
+    changeSubPage: function changeSubPage(subPage) {
+      this.subCurrentPage = subPage;
     }
   },
   created: function created() {
     this.fetchActivities();
   },
   components: {
-    KanbanCard: _KanbanCard.default
+    KanbanCard: _KanbanCard.default,
+    DetailsForm: _DetailsForm.default
   }
 };
 exports.default = _default;
@@ -9861,17 +10023,32 @@ exports.default = _default;
   return _c(
     "div",
     { staticClass: "main-space" },
-    _vm._l(_vm.kanbanCards, function(kanbanCard, i) {
-      return _c("KanbanCard", {
-        key: i,
-        attrs: {
-          category: kanbanCard,
-          activities: _vm.activities,
-          fetchActivities: _vm.fetchActivities
-        },
-        on: { moveLeft: _vm.moveLeft, moveRight: _vm.moveRight }
-      })
-    }),
+    [
+      _vm.subCurrentPage === "kanbanSubPage"
+        ? _c(
+            "div",
+            { staticClass: "kanbanWrapper" },
+            _vm._l(_vm.kanbanCards, function(kanbanCard, i) {
+              return _c("KanbanCard", {
+                key: i,
+                attrs: {
+                  category: kanbanCard,
+                  activities: _vm.activities,
+                  fetchActivities: _vm.fetchActivities
+                },
+                on: {
+                  moveLeft: _vm.moveLeft,
+                  moveRight: _vm.moveRight,
+                  changeSubPage: _vm.changeSubPage
+                }
+              })
+            }),
+            1
+          )
+        : _vm.subCurrentPage === "detailsSubPage"
+        ? _c("DetailsForm", { on: { backToMainPage: _vm.changeSubPage } })
+        : _vm._e()
+    ],
     1
   )
 }
@@ -9882,7 +10059,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: null,
+            _scopeId: "data-v-104380",
             functional: undefined
           };
         })());
@@ -9908,7 +10085,7 @@ render._withStripped = true
       
       }
     })();
-},{"./KanbanCard":"src/components/KanbanCard.vue","_css_loader":"../../../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/views/MainPage.vue":[function(require,module,exports) {
+},{"./KanbanCard":"src/components/KanbanCard.vue","./DetailsForm":"src/components/DetailsForm.vue","_css_loader":"../../../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/views/MainPage.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10241,7 +10418,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40861" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36349" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

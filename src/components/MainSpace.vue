@@ -1,18 +1,30 @@
 <template>
     <div class="main-space">
-        <KanbanCard @moveLeft="moveLeft" @moveRight="moveRight" v-for="(kanbanCard, i) in kanbanCards" :key="i" :category="kanbanCard" :activities="activities" :fetchActivities="fetchActivities"></KanbanCard>
-        <!-- <KanbanCard></KanbanCard> -->
+        <div class="kanbanWrapper" v-if="subCurrentPage === 'kanbanSubPage'">
+            <KanbanCard 
+                @moveLeft="moveLeft" 
+                @moveRight="moveRight" 
+                v-for="(kanbanCard, i) in kanbanCards" :key="i" 
+                :category="kanbanCard" 
+                :activities="activities" 
+                :fetchActivities="fetchActivities"
+                @changeSubPage="changeSubPage">
+            </KanbanCard>
+        </div>
+        <DetailsForm @backToMainPage="changeSubPage" v-else-if="subCurrentPage === 'detailsSubPage'"></DetailsForm>
     </div>
 </template>
 
 <script>
 import KanbanCard from './KanbanCard';
+import DetailsForm from './DetailsForm';
 export default {
     name: 'MainSpace',
     data: function() {
         return {
             kanbanCards: [ 'Backlog', 'On Progress', 'Needs Review', 'Finished' ],
-            activities: [] //nge-bind nya dimana terus biar bisa diprops di MainSpace --> KanbanCard --> Act
+            activities: [], 
+            subCurrentPage: 'kanbanSubPage'
         }
     },
     methods: {
@@ -77,17 +89,26 @@ export default {
                 .catch(err => {
                     console.log(err);
                 })
+        },
+        changeSubPage(subPage) {
+            this.subCurrentPage = subPage
         }
     },
     created() {
         this.fetchActivities();
     },
     components: {
-        KanbanCard
+        KanbanCard,
+        DetailsForm
     }
 }
 </script>
 
-<style>
-
+<style scoped>
+    .kanbanWrapper {
+        padding: 0 1.25rem;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
 </style>
