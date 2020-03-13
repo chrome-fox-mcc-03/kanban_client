@@ -35,7 +35,7 @@
                 email: '',
                 password: '',
                 googleSignInParams: {
-                    client_id: '294507013243-fsspjsp45hh1js3gncuopdks7n0djbh3.apps.googleusercontent.com'
+                    client_id: '56825579600-oc79mls26sjkih9otiq417baug75u2oh.apps.googleusercontent.com'
                 }
             }
         },
