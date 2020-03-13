@@ -1,6 +1,6 @@
 <template>
     <div
-    @submit.prevent="login"
+    
     >
         <div class="modal-dialog text-center">
             <div class="col-sm-20 main-section">
@@ -9,7 +9,7 @@
                         <img src="https://i.pinimg.com/originals/22/6d/5c/226d5cd7f24a676a8c1925bd061cd33d.gif" alt="" srcset="">
                     </div>
                     <div class="col-12 form-input">
-                        <form >
+                        <form @submit.prevent="login" >
                             <h1>LOGIN</h1>
                             <div class="form-group">
                             <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" aria-describedby="emailHelp" v-model="emailLogin">
@@ -21,11 +21,10 @@
                             <!-- <div class="d-flex justify-content-center"> -->
                                 <a href="#" @click="registerPanel">Register</a>
                                 <button type="submit" class="btn btn-success">Submit</button>
+                             <!-- <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin> -->
                             <!-- </div> -->
-                            <center style= margin:20px;>
-                                <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                            </center>
                         </form>
+                        <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin>
                     </div>
                 </div>
             </div>
@@ -34,7 +33,7 @@
 </template>
 
 <script>
-
+import GoogleLogin from 'vue-google-login';
 import axiosKanban from '../config/index'
 
 export default {
@@ -42,8 +41,19 @@ export default {
     data() {
         return {
             emailLogin: '',
-            passwordLogin: ''
+            passwordLogin: '',
+            params: {
+                    client_id: "194565501537-qmb464ef83ic0suedoturuv0urp3s4jp.apps.googleusercontent.com"
+                },
+            renderParams: {
+                    width: 250,
+                    height: 50,
+                    longtitle: true
+                }
         }
+    },
+    components: {
+        GoogleLogin
     },
     methods: {
         registerPanel(){
@@ -69,36 +79,35 @@ export default {
                     console.log(err.response.data.message)
                 })
         },
-        onSignIn(googleUser){
-            let token_google = googleUser.getAuthResponse().id_token
-            let profile = googleUser.getBasicProfile();
-            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-            console.log('Name: ' + profile.getName());
-            console.log('Image URL: ' + profile.getImageUrl());
-            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-            axiosKanban({
-                method: "POST",
-                url: "http://localhost:3000/googleSignIn",
-                headers: {
-                    token_google : token_google
-                }
-            })
-                .done(({ access_token}) => {
-                    localStorage.setItem("access_token", access_token)
-                    isLogin()
-                })
-                .fail( err => {
-                    this.$vToastify.error(err.response.data.message)
-                })
+        onSuccess(googleUser){
+            console.log('KE HOT NIHHHH')
+            // this.$gAuth.signIn()
+            //     .then(googleUser => {
+            //         let access_token = googleUser.getAuthResponse().id_token
+            //         return axiosKanban({
+            //             url: `/googleSignIn`,
+            //             method: `post`,
+            //             headers: {
+            //                 access_token : access_token
+            //             }
+            //         })
+            //     })
+            //     .then(({ data }) => {
+            //         localStorage.setItem('access_token', data.access_token)
+            //         this.$emit('changePage', 'dashboard')
+            //     })
+            //     .catch(error => {
+            //         this.$vToastify.error(err.response.data.message);
+            //     })
         }
     }
 }
 </script>
 
 <style>
-
+/* 
 .password{
 
-}
+} */
 
 </style>

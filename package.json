@@ -19,6 +19,8 @@
   "dependencies": {
     "axios": "^0.19.2",
     "vue": "^2.6.11",
+    "vue-google-login": "^2.0.3",
+    "vue-google-oauth2": "^1.4.0",
     "vue-hot-reload-api": "^2.3.4",
     "vue-toastify": "^1.6.1"
   },
