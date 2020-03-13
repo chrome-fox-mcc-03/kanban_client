@@ -1,6 +1,6 @@
 <template>
     <div align="center" style="background-color: #3fc1c9;">
-        <form @submit="addTask">
+        <form @submit.prevent="addTask">
             <input v-model="title" type="text" placeholder="Your Task">
             <input type="submit" value="Add Task"><br>
             <input v-model="status" type="checkbox" value="true" id="status">
