@@ -89,6 +89,7 @@
             },
 
             onSignInSuccess(id_token) {
+                console.log("masuk sign ini");
                 this.isLoading = true
                 axios({
                         method: "POST",
@@ -98,6 +99,7 @@
                         }
                     })
                     .then(response => {
+                        
                         const token = response.data.token
                         const fullname = response.data.fullname
                         localStorage.setItem('fullname', fullname)
@@ -162,7 +164,7 @@
                 this.resetCategories()
 
                 let auth2 = gapi.auth2.getAuthInstance();
-                auth2.signOut().then(function () {
+                auth2.signOut().then(() => {
                     console.log('User signed out.');
                 });
             },

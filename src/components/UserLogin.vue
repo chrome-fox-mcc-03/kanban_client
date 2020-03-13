@@ -66,7 +66,7 @@
                 // `googleUser` is the GoogleUser object that represents the just-signed-in user.
                 // See https://developers.google.com/identity/sign-in/web/reference#users
                 const id_token = googleUser.getAuthResponse().id_token;
-                this.$emit(' ', id_token )
+                this.$emit('onSignInSuccess', id_token )
             },
             onSignInError(error) {
                 // `error` contains any error occurred.
