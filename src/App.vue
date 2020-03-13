@@ -3,7 +3,7 @@
         <navbar @getCards="fetchCards()" @logout="logout" @curPage="changePage"></navbar>
         <div id="content-container">
             <cards-container @deleteTask="deleteTask" @update="update"  @assignTaskDetail="assignTaskDetail" @getCards="fetchCards" :taskDetail="taskDetail" :categories="categories" :cards="cards"  v-if="currentPage == 'cardsDisplay'"></cards-container>
-            <login-form @loginGoogleSuccess="setIsLogin" @curPage="changePage" @loginObj="login" v-else-if="currentPage == 'loginDisplay'"></login-form>
+            <login-form @onSignIn="onSignIn" @curPage="changePage" @loginObj="login" v-else-if="currentPage == 'loginDisplay'"></login-form>
             <register-form @register="register" v-else-if="currentPage == 'registerDisplay'"></register-form>
             <add-task-form :categories="categories" @addTask="addTask" v-else-if="currentPage == 'addTaskDisplay'"></add-task-form>
             <homepage v-else></homepage>
@@ -30,7 +30,8 @@ export default {
                 isLogin: false,
                 first_name: '',
                 last_name: '',
-                role: ''
+                role: '',
+                disableLogin: false
             },
             categories: ['Backlog', 'Product', 'Development', 'Done'],
             currentPage : '',
@@ -274,10 +275,37 @@ export default {
 
                 })
         },
-        setIsLogin(){
-            this.userData.isLogin = true
-                    this.currentPage = 'homePageDisplay'
-
+        onSignIn: function(googleUser) {
+            if (localStorage.getItem('token')) {
+                return
+            } else {
+                const profile = googleUser.getBasicProfile();
+                const id_token = googleUser.getAuthResponse().id_token
+                console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+                console.log('Name: ' + profile.getName());
+                console.log('Image URL: ' + profile.getImageUrl());
+                console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+                console.log('id_token: ' +id_token)
+                axios({
+                    method: 'POST',
+                    url: "http://localhost:3000/loginGoogle",
+                    data: {
+                        id_token
+                    } 
+                })
+                    .then(response => {
+                        const token = response.data.token
+                        localStorage.setItem('token', token)
+                        console.log(token)
+                        this.userData.isLogin = true
+                        this.userData.disableLogin = true
+                        this.currentPage = 'homeDisplay'
+                        console.log(response)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }
         }
     }
 }
