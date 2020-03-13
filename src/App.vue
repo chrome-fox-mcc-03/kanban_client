@@ -16,22 +16,10 @@
 					@deleteCard="deleteCard">
 				</task-list>
 
-				<b-modal ref="add-card" title="Add a card" hide-footer>
-    				<form @submit.prevent="addCard">
-                        <div class="form-group">
-                            <label for="title">Title</label>
-                            <input v-model="title" type="text" class="form-control" id="title">
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <input v-model="description" type="text" class="form-control" id="description">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Add</button>
-                    </form>
-  				</b-modal>
+				
 			</div>
 			<div v-else class="landing-page">
-				<landing-page @glogin="glogin"></landing-page>
+				<landing-page @changeStatus="changeStatus"></landing-page>
 				<!--------------------------- MODAL ------------------------------>
 				<b-modal id="login" title="Login" hide-footer>
     				<form @submit.prevent="login">
@@ -47,7 +35,14 @@
 						<a href="#" @click="$bvModal.show('register'); $bvModal.hide('login')"> Don't have
 							an account?</a>
 					</form>
-                    <!-- <div id="google-signin-btn"></div> -->
+                    <!-- <g-signin-button
+                        :params="googleSignInParams"
+                        @success="onSignInSuccess"
+                        @error="onSignInError">
+                        Sign in with Google
+                    </g-signin-button> -->
+                    <br>
+                    <div id="my-signin2" data-width="300" data-height="200" data-longtitle="true">
   				</b-modal>
 
 				<b-modal id="register" title="Register" hide-footer>
@@ -68,6 +63,19 @@
 		<div v-else id="loading">
             <img id="loading-img" src="./img/loading.gif" alt="loading">
         </div>
+        <b-modal ref="add-card" title="Add a card" hide-footer>
+    		<form @submit.prevent="addCard">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input v-model="title" type="text" class="form-control" id="title">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input v-model="description" type="text" class="form-control" id="description">
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+  		</b-modal>
 	</div>
 </template>
 
@@ -85,7 +93,11 @@ const Toast = Swal.mixin({
     showConfirmButton: false,
     timer: 4000,
     timerProgressBar: true,
-    onOpen: (toast) => {
+    // onOpen: (toast) => {
+    //     toast.addEventListener('mouseenter', Swal.stopTimer)
+    //     toast.addEventListener('mouseleave', Swal.resumeTimer)
+    // }
+    onOpen: function(toast) {
         toast.addEventListener('mouseenter', Swal.stopTimer)
         toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
@@ -105,7 +117,8 @@ export default {
     	return {
 			isLogin: false,
 			isGLogin: false,
-			isLoading: false,
+            isLoading: false,
+            isInModalLogin: false,
 			taskList: [ "Backlog", "Product", "Development", "Done" ],
 			cards: [],
 			backlogs: [],
@@ -117,7 +130,11 @@ export default {
 			emailRegister: "",
 			passwordRegister: "",
 			title: "",
-			description: ""
+            description: "",
+            googleSignInParams: {
+                client_id: '233221709617-5orgico3dm566bs8r9lufv5e0urh7sps.apps.googleusercontent.com'
+            }
+            // 233221709617-5orgico3dm566bs8r9lufv5e0urh7sps.apps.googleusercontent.com
 		};
 	},
 	methods: {
@@ -203,10 +220,10 @@ export default {
                 }).catch((err) => {
                     console.log(err.response.data.message);
                     let title = err.response.data.message;
-                    Toast.fire({
-                        icon: 'error',
-                        title
-                    })
+                    // Toast.fire({
+                    //     icon: 'error',
+                    //     title
+                    // })
                 }).finally(final => {
                     this.isLoading = false;
                 })
@@ -278,7 +295,7 @@ export default {
                     setTimeout(result => {
                         this.isLoading = false;
                         this.fetchData();
-                    }, 3000);
+                    }, 2000);
                 }).catch((err) => {
                     console.log(err.response.data.message);
                     let title = err.response.data.message;
@@ -293,6 +310,7 @@ export default {
                 })
         },
 		showAddCard() {
+            console.log(this.$refs['add-card']);
 			this.$refs['add-card'].show()
         },
         glogin(id_token) {
@@ -313,10 +331,10 @@ export default {
 				}).catch((err) => {
 					console.log(err.response.data.message);
 					let title = err.response.data.message;
-					Toast.fire({
-						icon: 'error',
-						title
-					})
+					// Toast.fire({
+					// 	icon: 'error',
+					// 	title
+					// })
 				}).finally(final => {
 					this.isLoading = false;
 				})
@@ -324,6 +342,37 @@ export default {
         hideModal() {
             this.$refs['add-card'].hide()
         },
+        onSignIn(googleUser) {
+            // do stuff, for example
+            let id_token = googleUser.getAuthResponse().id_token;
+            this.glogin(id_token);
+        },
+        onSignInSuccess (googleUser) {
+            // `googleUser` is the GoogleUser object that represents the just-signed-in user.
+            // See https://developers.google.com/identity/sign-in/web/reference#users
+            let id_token = googleUser.getAuthResponse().id_token;
+            this.glogin(id_token);
+        },
+        onSignInError (error) {
+            // `error` contains any error occurred.
+            console.log('OH NOES', error)
+        },
+        changeStatus: function() {
+            this.isInModalLogin = true;
+            this.$bvModal.show('login')
+            setTimeout(() => {
+                gapi.signin2.render('my-signin2', { // this is the button "id"
+                    // onsuccess: this.onSignIn // note, no "()" here
+                    'scope': 'profile email',
+                    'width': 240,
+                    'height': 50,
+                    'longtitle': true,
+                    'theme': 'dark',
+                    'onsuccess': this.onSignIn,
+                    'onfailure': ""
+                });
+            })
+        }
 	},
 	components: {
 		Navbar,
@@ -340,5 +389,13 @@ export default {
 </script>
 
 <style>
-
-</style>
+    /* .g-signin-button { */
+        /* This is where you control how the button looks. Be creative! */
+        /* display: inline-block;
+        padding: 4px 8px;
+        border-radius: 3px;
+        background-color: #3c82f7;
+        color: #fff;
+        box-shadow: 0 3px 0 #0f69ff;
+    } */
+</style> 

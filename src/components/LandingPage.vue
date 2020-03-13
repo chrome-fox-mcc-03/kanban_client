@@ -7,10 +7,10 @@
             <a class="btn btn-primary" href="#" role="button" @click="$bvModal.show('register')">Register</a>
             <!-- <span style="cursor: pointer;" data-toggle="modal" data-target="#login">Already have account? Login
                 here</span> -->
-            <span style="cursor: pointer;" data-toggle="modal" data-target="#login" @click="$bvModal.show('login')">Already have account? Login
+            <span style="cursor: pointer;" data-toggle="modal" data-target="#login" @click="changeStatus">Already have account? Login
                 here</span>
             <br><br>
-            <div id="google-signin-btn"></div>
+            <!-- <div id="google-signin-btn"></div> -->
         </div>
     </div>
 </template>
@@ -18,17 +18,15 @@
 <script>
 export default {
     methods: {
-        onSignIn(googleUser) {
-            // do stuff, for example
-            let id_token = googleUser.getAuthResponse().id_token;
-            this.$emit('glogin', id_token);
+        changeStatus() {
+            this.$emit("changeStatus");
         }
-    },
-    mounted() {
-        gapi.signin2.render('google-signin-btn', { // this is the button "id"
-            onsuccess: this.onSignIn // note, no "()" here
-        })
     }
+    // mounted() {
+    //     gapi.signin2.render('google-signin-btn', { // this is the button "id"
+    //         onsuccess: this.onSignIn // note, no "()" here
+    //     })
+    // }
 }
 </script>
 

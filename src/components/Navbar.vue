@@ -11,7 +11,7 @@
                     <a class="nav-link" href="#" @click.prevent="showCard">Add Card</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" @click.prevent="$emit('logout')">Logout</a>
+                    <a class="nav-link" href="#" @click.prevent="logout">Logout</a>
                 </li>
             </ul>
         </div>
@@ -23,7 +23,10 @@ export default {
     props: ['isLogin'],
     methods: {
         showCard() {
-            this.$emit('showAddCard')
+            this.$emit('showAddCard');
+        },
+        logout() {
+            this.$emit('logout');
         }
     }
 }
