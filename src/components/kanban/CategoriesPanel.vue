@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import axiosKanban from '../config/index'
+import axiosKanban from '../../config/index'
 import CategoryPanel from './CategoryPanel'
 
 export default {
@@ -32,7 +32,6 @@ export default {
     },
     methods: {
         fetchCategory(){
-            console.log('masuk nih fetch')
             axiosKanban({
                 method: 'GET',
                 url: '/categories'

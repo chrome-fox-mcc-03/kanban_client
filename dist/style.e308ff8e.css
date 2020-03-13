@@ -109,6 +109,7 @@ body{
     height: 100%;
     border-radius: 10px;
     background-size: cover;
+    /* overflow: auto; */
 }
 
 .main-board .categories{

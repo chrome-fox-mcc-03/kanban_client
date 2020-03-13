@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import axiosKanban from '../config/index'
+import axiosKanban from '../../config/index'
 
 export default {
     name: 'CreateTask',
@@ -45,7 +45,7 @@ export default {
                 url: '/tasks',
                 data: newTask,
                 headers: {
-                    access_token : localStorage.access_token
+                    project_id : localStorage.project_id
                 }
             })
                 .then(create => {

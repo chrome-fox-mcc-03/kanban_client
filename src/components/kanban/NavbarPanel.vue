@@ -8,8 +8,11 @@
                 <!-- <img src="https://i.pinimg.com/originals/22/6d/5c/226d5cd7f24a676a8c1925bd061cd33d.gif" style="width: 80px; height: 80px;"> -->
                 Kanban</span>
             <ul class="nav">
-                <li class="nav-item h3">
-                  <a class="nav-link text-dark" href="#">Profile</a>
+                <li 
+                  class="nav-item h3"
+                  @click="project"                  
+                >
+                  <a class="nav-link text-dark" href="#">Your Projects</a>
                 </li>
                 <li
                   @click="create"  
@@ -30,7 +33,7 @@
 
 <script>
 export default {
-    name: 'NavbarPanel',
+    name: 'NavbarPanelProject',
     methods: {
       logout(){
         this.$emit('changePage', 'login')
@@ -40,6 +43,9 @@ export default {
       },
       home(){
         this.$emit('changeActivity', 'list')
+      },
+      project(){
+        this.$emit('project')
       }
     }
 }

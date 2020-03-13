@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import axiosKanban from '../config/index'
+import axiosKanban from '../../config/index'
 
 export default {
     name: 'TaskPanel',
@@ -65,7 +65,7 @@ export default {
                     CategoryId : categoryId
                 },
                 headers: {
-                    access_token: localStorage.access_token
+                    project_id : localStorage.project_id
                 }
             })
                 .then(taskEdited => {
@@ -88,7 +88,7 @@ export default {
                     CategoryId : categoryId
                 },
                 headers: {
-                    access_token: localStorage.access_token
+                    project_id : localStorage.project_id
                 }
             })
                 .then(taskEdited => {
@@ -103,7 +103,7 @@ export default {
                 method: 'delete',
                 url: `/tasks/${id}`,
                 headers: {
-                    access_token: localStorage.access_token
+                    project_id : localStorage.project_id
                 }
             })
                 .then(taskEdited => {

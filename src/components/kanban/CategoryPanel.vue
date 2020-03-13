@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import axiosKanban from '../config/index'
+import axiosKanban from '../../config/index'
 import TaskPanel from './TaskPanel'
 
 export default {
@@ -34,14 +34,17 @@ export default {
     },
     methods: {
         fetchTask(){
+
+            console.log('KE TRIGGER NIHHH')
             axiosKanban({
                 method: 'GET',
                 url : '/tasks',
                 headers: {
-                    access_token : localStorage.access_token
+                    project_id : localStorage.getItem('project_id')
                 }
             })
                 .then(({data}) => {
+                    console.log(data)
                     console.log(data[0])
                     let tasks = data.filter(task => task.Category.title === this.title)
                     this.allTasks = tasks

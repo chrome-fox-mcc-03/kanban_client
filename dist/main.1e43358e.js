@@ -10669,7 +10669,7 @@ function patchScopedSlots (instance) {
   }
 }
 
-},{}],"src/components/NavbarPanel.vue":[function(require,module,exports) {
+},{}],"src/components/project/NavbarPanelProject.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10700,35 +10700,26 @@ exports.default = void 0;
 //
 //
 //
-//
-//
-//
-//
-//
-//
 var _default = {
-  name: 'NavbarPanel',
+  name: 'NavbarPanelProject',
   methods: {
     logout: function logout() {
       this.$emit('changePage', 'login');
     },
-    create: function create() {
-      this.$emit('changeActivity', 'create');
-    },
     home: function home() {
-      this.$emit('changeActivity', 'list');
+      this.$emit('changeActivity', 'projects');
     }
   }
 };
 exports.default = _default;
-        var $4b1cd1 = exports.default || module.exports;
+        var $ae9645 = exports.default || module.exports;
       
-      if (typeof $4b1cd1 === 'function') {
-        $4b1cd1 = $4b1cd1.options;
+      if (typeof $ae9645 === 'function') {
+        $ae9645 = $ae9645.options;
       }
     
         /* template */
-        Object.assign($4b1cd1, (function () {
+        Object.assign($ae9645, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -10743,12 +10734,6 @@ exports.default = _default;
       _vm._v(" "),
       _c("ul", { staticClass: "nav" }, [
         _vm._m(0),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item h3", on: { click: _vm.create } }, [
-          _c("a", { staticClass: "nav-link text-dark", attrs: { href: "#" } }, [
-            _vm._v("Create Task")
-          ])
-        ]),
         _vm._v(" "),
         _c("li", { staticClass: "nav-item h3", on: { click: _vm.logout } }, [
           _c(
@@ -10795,9 +10780,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$4b1cd1', $4b1cd1);
+            api.createRecord('$ae9645', $ae9645);
           } else {
-            api.reload('$4b1cd1', $4b1cd1);
+            api.reload('$ae9645', $ae9645);
           }
         }
 
@@ -10808,7 +10793,7 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/TaskPanel.vue":[function(require,module,exports) {
+},{"_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/project/ListProject.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10816,7 +10801,791 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _index = _interopRequireDefault(require("../config/index"));
+var _index = _interopRequireDefault(require("../../config/index"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'ListProject',
+  component: {},
+  props: {
+    projects: Array
+  },
+  methods: {
+    create: function create() {
+      this.$emit('changeActivity', 'createProject');
+    },
+    edit: function edit(id) {
+      this.$emit('edit', id);
+    },
+    remove: function remove(id) {
+      var _this = this;
+
+      console.log(id);
+      (0, _index.default)({
+        method: 'delete',
+        url: "/projectusers/".concat(id),
+        headers: {
+          access_token: localStorage.access_token
+        }
+      }).then(function (_ref) {
+        var data = _ref.data;
+        console.log(data);
+
+        _this.$emit('changeActivity', 'projects');
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    kanban: function kanban(id) {
+      console.log(id);
+      (0, _index.default)({
+        method: 'GET',
+        url: "/projects/".concat(id),
+        headers: {
+          access_token: localStorage.access_token
+        }
+      }).then(function (_ref2) {
+        var data = _ref2.data;
+        localStorage.setItem('project_id', data.project_id);
+      }).catch(function (err) {
+        console.log(err);
+      });
+      this.$emit('changeActivity', 'kanban');
+    },
+    team: function team(id) {
+      this.$emit('team', id);
+      console.log('ini akses team ++++++++++++++=');
+    }
+  }
+};
+exports.default = _default;
+        var $7907e4 = exports.default || module.exports;
+      
+      if (typeof $7907e4 === 'function') {
+        $7907e4 = $7907e4.options;
+      }
+    
+        /* template */
+        Object.assign($7907e4, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container main-board" }, [
+    _c(
+      "div",
+      { staticClass: "d-flex justify-content-between align-content-center" },
+      [
+        _c("h1", {
+          staticClass: "display-4 d-flex justify-content-center m-3"
+        }),
+        _vm._v(" "),
+        _c(
+          "h1",
+          { staticClass: "display-4 d-flex justify-content-center m-3" },
+          [_vm._v("YOUR PROJECT")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "d-flex align-content-center" }, [
+          _c("i", {
+            staticClass: "fas fa-plus-circle fa-3x m-2",
+            on: { click: _vm.create }
+          })
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "row categories d-flex justify-content-center flex-wrap" },
+      _vm._l(_vm.projects, function(project) {
+        return _c("div", { key: project.id }, [
+          _c(
+            "div",
+            {
+              staticClass: "card project m-3",
+              staticStyle: { width: "18rem" }
+            },
+            [
+              _c("h5", { staticClass: "card-title h3 text-center" }, [
+                _vm._v(_vm._s(project.Project.name))
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "card-body d-flex justify-content-between align-content-center "
+                },
+                [
+                  _c("i", {
+                    staticClass: "fas fa-pen fa-lg",
+                    on: {
+                      click: function($event) {
+                        return _vm.edit(project.Project.id)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("i", {
+                    staticClass: "far fa-list-alt fa-lg",
+                    on: {
+                      click: function($event) {
+                        return _vm.kanban(project.Project.id)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("i", {
+                    staticClass: "fas fa-users fa-lg",
+                    on: {
+                      click: function($event) {
+                        return _vm.team(project.Project.id)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("i", {
+                    staticClass: "fas fa-trash-alt fa-lg",
+                    on: {
+                      click: function($event) {
+                        return _vm.remove(project.id)
+                      }
+                    }
+                  })
+                ]
+              )
+            ]
+          )
+        ])
+      }),
+      0
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$7907e4', $7907e4);
+          } else {
+            api.reload('$7907e4', $7907e4);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"../../config/index":"src/config/index.js","_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/project/CreateProject.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _index = _interopRequireDefault(require("../../config/index"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'CreateProject',
+  data: function data() {
+    return {
+      name: ''
+    };
+  },
+  methods: {
+    create: function create() {
+      var _this = this;
+
+      var nameProject = {
+        name: this.name
+      };
+      console.log('MASUK CREATEEEEE');
+      (0, _index.default)({
+        method: 'POST',
+        url: '/projects',
+        data: nameProject,
+        headers: {
+          access_token: localStorage.access_token
+        }
+      }).then(function (_ref) {
+        var data = _ref.data;
+        console.log(data);
+        return (0, _index.default)({
+          method: 'POST',
+          url: '/projectusers',
+          data: {
+            ProjectId: data.id
+          },
+          headers: {
+            access_token: localStorage.access_token
+          }
+        });
+      }).then(function (_ref2) {
+        var data = _ref2.data;
+        console.log(data);
+
+        _this.$emit('changeActivity', 'projects');
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    back: function back() {
+      console.log('masuk back');
+      this.$emit('changeActivity', 'projects');
+    }
+  }
+};
+exports.default = _default;
+        var $e08e58 = exports.default || module.exports;
+      
+      if (typeof $e08e58 === 'function') {
+        $e08e58 = $e08e58.options;
+      }
+    
+        /* template */
+        Object.assign($e08e58, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "modal-dialog text-center" }, [
+    _c("div", { staticClass: "col-sm-20 main-section" }, [
+      _c("div", { staticClass: "modal-content" }, [
+        _c("div", { staticClass: "col-12 form-input" }, [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.create($event)
+                }
+              }
+            },
+            [
+              _c("h1", [_vm._v("Create New Project")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.name,
+                      expression: "name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", placeholder: "Name" },
+                  domProps: { value: _vm.name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.name = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "d-flex justify-content-between" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success m-1",
+                    attrs: { type: "button" },
+                    on: { click: _vm.back }
+                  },
+                  [_vm._v("Back")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success m-1",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v("Create Now!")]
+                )
+              ])
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$e08e58', $e08e58);
+          } else {
+            api.reload('$e08e58', $e08e58);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"../../config/index":"src/config/index.js","_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/project/EditProject.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _index = _interopRequireDefault(require("../../config/index"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'Edit Project',
+  data: function data() {
+    return {
+      name: this.editName
+    };
+  },
+  props: {
+    editId: Number,
+    editName: String
+  },
+  methods: {
+    back: function back() {
+      this.$emit('changeActivity', 'projects');
+    },
+    edit: function edit() {
+      var _this = this;
+
+      console.log('ke trigger nih');
+      (0, _index.default)({
+        method: 'PUT',
+        url: "/projects/".concat(this.editId),
+        data: {
+          name: this.name
+        }
+      }).then(function (_ref) {
+        var data = _ref.data;
+
+        _this.$emit('changeActivity', 'projects');
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  },
+  created: function created() {}
+};
+exports.default = _default;
+        var $041d80 = exports.default || module.exports;
+      
+      if (typeof $041d80 === 'function') {
+        $041d80 = $041d80.options;
+      }
+    
+        /* template */
+        Object.assign($041d80, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "modal-dialog text-center" }, [
+    _c("div", { staticClass: "col-sm-20 main-section" }, [
+      _c("div", { staticClass: "modal-content" }, [
+        _c("div", { staticClass: "col-12 form-input" }, [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.edit($event)
+                }
+              }
+            },
+            [
+              _c("h1", [_vm._v("Change Name")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.name,
+                      expression: "name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", placeholder: "Name" },
+                  domProps: { value: _vm.name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.name = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "d-flex m-2" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success m-1",
+                    attrs: { type: "button" },
+                    on: { click: _vm.back }
+                  },
+                  [_vm._v("Back")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success m-1",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v("Save")]
+                )
+              ])
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$041d80', $041d80);
+          } else {
+            api.reload('$041d80', $041d80);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"../../config/index":"src/config/index.js","_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/kanban/NavbarPanel.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'NavbarPanelProject',
+  methods: {
+    logout: function logout() {
+      this.$emit('changePage', 'login');
+    },
+    create: function create() {
+      this.$emit('changeActivity', 'create');
+    },
+    home: function home() {
+      this.$emit('changeActivity', 'list');
+    },
+    project: function project() {
+      this.$emit('project');
+    }
+  }
+};
+exports.default = _default;
+        var $707bdc = exports.default || module.exports;
+      
+      if (typeof $707bdc === 'function') {
+        $707bdc = $707bdc.options;
+      }
+    
+        /* template */
+        Object.assign($707bdc, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("nav", { staticClass: "navbar navbar-light bg-costum" }, [
+      _c(
+        "span",
+        { staticClass: "navbar-brand mb-0 h1", on: { click: _vm.home } },
+        [_vm._v("\n              Kanban")]
+      ),
+      _vm._v(" "),
+      _c("ul", { staticClass: "nav" }, [
+        _c("li", { staticClass: "nav-item h3", on: { click: _vm.project } }, [
+          _c("a", { staticClass: "nav-link text-dark", attrs: { href: "#" } }, [
+            _vm._v("Your Projects")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "nav-item h3", on: { click: _vm.create } }, [
+          _c("a", { staticClass: "nav-link text-dark", attrs: { href: "#" } }, [
+            _vm._v("Create Task")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "nav-item h3", on: { click: _vm.logout } }, [
+          _c(
+            "a",
+            {
+              staticClass: "nav-link text-dark",
+              attrs: { href: "#", tabindex: "-1" }
+            },
+            [_vm._v("Logout")]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$707bdc', $707bdc);
+          } else {
+            api.reload('$707bdc', $707bdc);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/kanban/TaskPanel.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _index = _interopRequireDefault(require("../../config/index"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10886,7 +11655,7 @@ var _default = {
           CategoryId: categoryId
         },
         headers: {
-          access_token: localStorage.access_token
+          project_id: localStorage.project_id
         }
       }).then(function (taskEdited) {
         console.log('sudah pindah');
@@ -10910,7 +11679,7 @@ var _default = {
           CategoryId: categoryId
         },
         headers: {
-          access_token: localStorage.access_token
+          project_id: localStorage.project_id
         }
       }).then(function (taskEdited) {
         _this2.$emit('fetchTask');
@@ -10925,7 +11694,7 @@ var _default = {
         method: 'delete',
         url: "/tasks/".concat(id),
         headers: {
-          access_token: localStorage.access_token
+          project_id: localStorage.project_id
         }
       }).then(function (taskEdited) {
         _this3.$emit('fetchTask'); // this.$emit('changeActivity', 'list')
@@ -10941,14 +11710,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $6c8df9 = exports.default || module.exports;
+        var $a18352 = exports.default || module.exports;
       
-      if (typeof $6c8df9 === 'function') {
-        $6c8df9 = $6c8df9.options;
+      if (typeof $a18352 === 'function') {
+        $a18352 = $a18352.options;
       }
     
         /* template */
-        Object.assign($6c8df9, (function () {
+        Object.assign($a18352, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -11079,9 +11848,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$6c8df9', $6c8df9);
+            api.createRecord('$a18352', $a18352);
           } else {
-            api.reload('$6c8df9', $6c8df9);
+            api.reload('$a18352', $a18352);
           }
         }
 
@@ -11092,7 +11861,7 @@ render._withStripped = true
       
       }
     })();
-},{"../config/index":"src/config/index.js","_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/CategoryPanel.vue":[function(require,module,exports) {
+},{"../../config/index":"src/config/index.js","_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/kanban/CategoryPanel.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11100,7 +11869,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _index = _interopRequireDefault(require("../config/index"));
+var _index = _interopRequireDefault(require("../../config/index"));
 
 var _TaskPanel = _interopRequireDefault(require("./TaskPanel"));
 
@@ -11140,14 +11909,16 @@ var _default = {
     fetchTask: function fetchTask() {
       var _this = this;
 
+      console.log('KE TRIGGER NIHHH');
       (0, _index.default)({
         method: 'GET',
         url: '/tasks',
         headers: {
-          access_token: localStorage.access_token
+          project_id: localStorage.getItem('project_id')
         }
       }).then(function (_ref) {
         var data = _ref.data;
+        console.log(data);
         console.log(data[0]);
         var tasks = data.filter(function (task) {
           return task.Category.title === _this.title;
@@ -11175,14 +11946,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $2b0f17 = exports.default || module.exports;
+        var $1f2977 = exports.default || module.exports;
       
-      if (typeof $2b0f17 === 'function') {
-        $2b0f17 = $2b0f17.options;
+      if (typeof $1f2977 === 'function') {
+        $1f2977 = $1f2977.options;
       }
     
         /* template */
-        Object.assign($2b0f17, (function () {
+        Object.assign($1f2977, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -11228,9 +11999,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$2b0f17', $2b0f17);
+            api.createRecord('$1f2977', $1f2977);
           } else {
-            api.reload('$2b0f17', $2b0f17);
+            api.reload('$1f2977', $1f2977);
           }
         }
 
@@ -11241,7 +12012,7 @@ render._withStripped = true
       
       }
     })();
-},{"../config/index":"src/config/index.js","./TaskPanel":"src/components/TaskPanel.vue","_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/CategoriesPanel.vue":[function(require,module,exports) {
+},{"../../config/index":"src/config/index.js","./TaskPanel":"src/components/kanban/TaskPanel.vue","_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/kanban/CategoriesPanel.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11249,7 +12020,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _index = _interopRequireDefault(require("../config/index"));
+var _index = _interopRequireDefault(require("../../config/index"));
 
 var _CategoryPanel = _interopRequireDefault(require("./CategoryPanel"));
 
@@ -11287,7 +12058,6 @@ var _default = {
     fetchCategory: function fetchCategory() {
       var _this = this;
 
-      console.log('masuk nih fetch');
       (0, _index.default)({
         method: 'GET',
         url: '/categories'
@@ -11325,14 +12095,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $cf6ddd = exports.default || module.exports;
+        var $643e3e = exports.default || module.exports;
       
-      if (typeof $cf6ddd === 'function') {
-        $cf6ddd = $cf6ddd.options;
+      if (typeof $643e3e === 'function') {
+        $643e3e = $643e3e.options;
       }
     
         /* template */
-        Object.assign($cf6ddd, (function () {
+        Object.assign($643e3e, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -11382,9 +12152,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$cf6ddd', $cf6ddd);
+            api.createRecord('$643e3e', $643e3e);
           } else {
-            api.reload('$cf6ddd', $cf6ddd);
+            api.reload('$643e3e', $643e3e);
           }
         }
 
@@ -11395,7 +12165,7 @@ render._withStripped = true
       
       }
     })();
-},{"../config/index":"src/config/index.js","./CategoryPanel":"src/components/CategoryPanel.vue","_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/CreateTask.vue":[function(require,module,exports) {
+},{"../../config/index":"src/config/index.js","./CategoryPanel":"src/components/kanban/CategoryPanel.vue","_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/kanban/CreateTask.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11403,7 +12173,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _index = _interopRequireDefault(require("../config/index"));
+var _index = _interopRequireDefault(require("../../config/index"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11452,7 +12222,7 @@ var _default = {
         url: '/tasks',
         data: newTask,
         headers: {
-          access_token: localStorage.access_token
+          project_id: localStorage.project_id
         }
       }).then(function (create) {
         console.log(create);
@@ -11466,14 +12236,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $225a62 = exports.default || module.exports;
+        var $66cb66 = exports.default || module.exports;
       
-      if (typeof $225a62 === 'function') {
-        $225a62 = $225a62.options;
+      if (typeof $66cb66 === 'function') {
+        $66cb66 = $66cb66.options;
       }
     
         /* template */
-        Object.assign($225a62, (function () {
+        Object.assign($66cb66, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -11575,9 +12345,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$225a62', $225a62);
+            api.createRecord('$66cb66', $66cb66);
           } else {
-            api.reload('$225a62', $225a62);
+            api.reload('$66cb66', $66cb66);
           }
         }
 
@@ -11588,7 +12358,7 @@ render._withStripped = true
       
       }
     })();
-},{"../config/index":"src/config/index.js","_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/EditTask.vue":[function(require,module,exports) {
+},{"../../config/index":"src/config/index.js","_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/kanban/EditTask.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11596,7 +12366,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _index = _interopRequireDefault(require("../config/index"));
+var _index = _interopRequireDefault(require("../../config/index"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11652,7 +12422,7 @@ var _default = {
         url: "/tasks/".concat(this.id),
         data: editTask,
         headers: {
-          access_token: localStorage.access_token
+          project_id: localStorage.project_id
         }
       }).then(function (taskEdited) {
         console.log(taskEdited);
@@ -11665,14 +12435,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $504fc7 = exports.default || module.exports;
+        var $54843b = exports.default || module.exports;
       
-      if (typeof $504fc7 === 'function') {
-        $504fc7 = $504fc7.options;
+      if (typeof $54843b === 'function') {
+        $54843b = $54843b.options;
       }
     
         /* template */
-        Object.assign($504fc7, (function () {
+        Object.assign($54843b, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -11774,9 +12544,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$504fc7', $504fc7);
+            api.createRecord('$54843b', $54843b);
           } else {
-            api.reload('$504fc7', $504fc7);
+            api.reload('$54843b', $54843b);
           }
         }
 
@@ -11787,13 +12557,15 @@ render._withStripped = true
       
       }
     })();
-},{"../config/index":"src/config/index.js","_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/Dashboard.vue":[function(require,module,exports) {
+},{"../../config/index":"src/config/index.js","_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/kanban/Kanban.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+var _index = _interopRequireDefault(require("../../config/index"));
 
 var _NavbarPanel = _interopRequireDefault(require("./NavbarPanel"));
 
@@ -11833,6 +12605,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 var _default = {
   name: 'Dashboard',
   data: function data() {
@@ -11840,7 +12613,9 @@ var _default = {
       activity: 'list',
       editId: '',
       editTitle: '',
-      editDescription: ''
+      editDescription: '',
+      editName: '',
+      projects: []
     };
   },
   components: {
@@ -11855,6 +12630,7 @@ var _default = {
       this.$emit('changePage', status);
     },
     changeActivity: function changeActivity(status) {
+      this.fetchProject();
       this.activity = status;
     },
     editData: function editData(id, title, description) {
@@ -11864,18 +12640,62 @@ var _default = {
       this.editDescription = description;
       this.changeActivity('edit');
       console.log('masuk ke edit seharusnyaaa');
+    },
+    fetchProject: function fetchProject() {
+      var _this = this;
+
+      (0, _index.default)({
+        method: 'GET',
+        url: '/projectusers',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      }).then(function (_ref) {
+        var data = _ref.data;
+        _this.projects = data;
+      }).catch(function (err) {
+        console.log('INI ERROR FETCH PROJECT');
+        console.log(err);
+      });
+    },
+    edit: function edit(id) {
+      var _this2 = this;
+
+      console.log('ini edit idnya  >>>>>>>>>>>>>>>', id);
+      (0, _index.default)({
+        method: 'GET',
+        url: "/projects/".concat(id),
+        headers: {
+          access_token: localStorage.access_token
+        }
+      }).then(function (_ref2) {
+        var data = _ref2.data;
+        _this2.editId = data.id;
+        _this2.editName = data.name;
+
+        _this2.changeActivity('edit'); // console.log(masuk sini)
+
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    project: function project(status) {
+      this.$emit('changeActivity', 'projects');
     }
+  },
+  created: function created() {
+    this.fetchProject();
   }
 };
 exports.default = _default;
-        var $5e6c67 = exports.default || module.exports;
+        var $c568e0 = exports.default || module.exports;
       
-      if (typeof $5e6c67 === 'function') {
-        $5e6c67 = $5e6c67.options;
+      if (typeof $c568e0 === 'function') {
+        $c568e0 = $c568e0.options;
       }
     
         /* template */
-        Object.assign($5e6c67, (function () {
+        Object.assign($c568e0, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -11884,7 +12704,11 @@ exports.default = _default;
     "div",
     [
       _c("NavbarPanel", {
-        on: { changePage: _vm.changePage, changeActivity: _vm.changeActivity }
+        on: {
+          changePage: _vm.changePage,
+          changeActivity: _vm.changeActivity,
+          project: _vm.project
+        }
       }),
       _vm._v(" "),
       _vm.activity === "create"
@@ -11931,6 +12755,836 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
+            api.createRecord('$c568e0', $c568e0);
+          } else {
+            api.reload('$c568e0', $c568e0);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"../../config/index":"src/config/index.js","./NavbarPanel":"src/components/kanban/NavbarPanel.vue","./CategoriesPanel":"src/components/kanban/CategoriesPanel.vue","./CreateTask":"src/components/kanban/CreateTask.vue","./EditTask":"src/components/kanban/EditTask.vue","_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/team/Member.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'Member',
+  props: {
+    member: Object
+  }
+};
+exports.default = _default;
+        var $26e238 = exports.default || module.exports;
+      
+      if (typeof $26e238 === 'function') {
+        $26e238 = $26e238.options;
+      }
+    
+        /* template */
+        Object.assign($26e238, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "card project m-3", staticStyle: { width: "18rem" } },
+    [
+      _c("h5", { staticClass: "card-title h3 text-center" }, [
+        _vm._v(_vm._s(_vm.member.email))
+      ]),
+      _vm._v(" "),
+      _c("div", {
+        staticClass:
+          "card-body d-flex justify-content-between align-content-center "
+      })
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$26e238', $26e238);
+          } else {
+            api.reload('$26e238', $26e238);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/team/ListMembers.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Member = _interopRequireDefault(require("./Member"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'ListMember',
+  props: {
+    members: Array
+  },
+  components: {
+    Member: _Member.default
+  },
+  methods: {
+    invite: function invite() {
+      this.$emit('invite');
+    }
+  }
+};
+exports.default = _default;
+        var $0ca42a = exports.default || module.exports;
+      
+      if (typeof $0ca42a === 'function') {
+        $0ca42a = $0ca42a.options;
+      }
+    
+        /* template */
+        Object.assign($0ca42a, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container main-board" }, [
+    _c(
+      "div",
+      { staticClass: "d-flex justify-content-between align-content-center" },
+      [
+        _c("h1", {
+          staticClass: "display-4 d-flex justify-content-center m-3"
+        }),
+        _vm._v(" "),
+        _c(
+          "h1",
+          { staticClass: "display-4 d-flex justify-content-center m-3" },
+          [_vm._v("Team")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "d-flex align-content-center" }, [
+          _c("i", {
+            staticClass: "fas fa-user-plus fa-2x m-4",
+            on: { click: _vm.invite }
+          })
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "row categories d-flex justify-content-center flex-wrap" },
+      _vm._l(_vm.members, function(member) {
+        return _c(
+          "div",
+          { key: member.id },
+          [_c("Member", { attrs: { member: member } })],
+          1
+        )
+      }),
+      0
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$0ca42a', $0ca42a);
+          } else {
+            api.reload('$0ca42a', $0ca42a);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"./Member":"src/components/team/Member.vue","_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/team/InvitePanel.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _index = _interopRequireDefault(require("../../config/index"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'InvitePanel',
+  data: function data() {
+    return {
+      email: ''
+    };
+  },
+  props: {
+    projectId: Number
+  },
+  methods: {
+    invite: function invite() {
+      var _this = this;
+
+      var emailInvite = {
+        email: this.email
+      };
+      console.log(emailInvite);
+      (0, _index.default)({
+        method: 'POST',
+        url: '/find',
+        data: emailInvite
+      }).then(function (_ref) {
+        var data = _ref.data;
+
+        if (data) {
+          return (0, _index.default)({
+            method: 'post',
+            url: '/projectusers/invite',
+            data: {
+              ProjectId: _this.projectId,
+              UserId: data.id
+            },
+            headers: {
+              access_token: localStorage.access_token
+            }
+          });
+        } else {
+          console.log('User Not Found!');
+        }
+      }).then(function (_ref2) {
+        var data = _ref2.data;
+
+        _this.back();
+      }).catch(function (err) {
+        console.log(err.response);
+      });
+    },
+    back: function back() {
+      this.$emit('back');
+    }
+  }
+};
+exports.default = _default;
+        var $b8a728 = exports.default || module.exports;
+      
+      if (typeof $b8a728 === 'function') {
+        $b8a728 = $b8a728.options;
+      }
+    
+        /* template */
+        Object.assign($b8a728, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "modal-dialog text-center" }, [
+    _c("div", { staticClass: "col-sm-20 main-section" }, [
+      _c("div", { staticClass: "modal-content" }, [
+        _c("div", { staticClass: "col-12 form-input" }, [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.invite($event)
+                }
+              }
+            },
+            [
+              _c("h1", [_vm._v("Invite Member")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.email,
+                      expression: "email"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", placeholder: "Email" },
+                  domProps: { value: _vm.email },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.email = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "d-flex justify-content-between" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success m-1",
+                    attrs: { type: "button" },
+                    on: { click: _vm.back }
+                  },
+                  [_vm._v("Back")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success m-1",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v("Send Invitation")]
+                )
+              ])
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$b8a728', $b8a728);
+          } else {
+            api.reload('$b8a728', $b8a728);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"../../config/index":"src/config/index.js","_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/team/BoardTeam.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ListMembers = _interopRequireDefault(require("./ListMembers"));
+
+var _InvitePanel = _interopRequireDefault(require("./InvitePanel"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'BoardTeam',
+  data: function data() {
+    return {
+      activity: 'list'
+    };
+  },
+  props: {
+    members: Array,
+    projectId: Number
+  },
+  components: {
+    ListMember: _ListMembers.default,
+    InvitePanel: _InvitePanel.default
+  },
+  methods: {
+    invite: function invite() {
+      this.activity = 'invite';
+    },
+    back: function back() {
+      this.$emit('back', 'projects');
+    }
+  }
+};
+exports.default = _default;
+        var $e839bc = exports.default || module.exports;
+      
+      if (typeof $e839bc === 'function') {
+        $e839bc = $e839bc.options;
+      }
+    
+        /* template */
+        Object.assign($e839bc, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _vm.activity === "list"
+        ? _c("ListMember", {
+            attrs: { members: _vm.members, projectId: _vm.projectId },
+            on: { invite: _vm.invite }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.activity === "invite"
+        ? _c("InvitePanel", {
+            attrs: { projectId: _vm.projectId },
+            on: { back: _vm.back }
+          })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$e839bc', $e839bc);
+          } else {
+            api.reload('$e839bc', $e839bc);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"./ListMembers":"src/components/team/ListMembers.vue","./InvitePanel":"src/components/team/InvitePanel.vue","_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/Dashboard.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _index = _interopRequireDefault(require("../config/index"));
+
+var _NavbarPanelProject = _interopRequireDefault(require("./project/NavbarPanelProject"));
+
+var _ListProject = _interopRequireDefault(require("./project/ListProject"));
+
+var _CreateProject = _interopRequireDefault(require("./project/CreateProject"));
+
+var _EditProject = _interopRequireDefault(require("./project/EditProject"));
+
+var _Kanban = _interopRequireDefault(require("./kanban/Kanban"));
+
+var _BoardTeam = _interopRequireDefault(require("./team/BoardTeam"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'Dashboard',
+  data: function data() {
+    return {
+      activity: 'projects',
+      editId: '',
+      editTitle: '',
+      editDescription: '',
+      editName: '',
+      projects: [],
+      members: [],
+      projectId: 0
+    };
+  },
+  components: {
+    NavbarPanelProject: _NavbarPanelProject.default,
+    ListProject: _ListProject.default,
+    CreateProject: _CreateProject.default,
+    EditProject: _EditProject.default,
+    Kanban: _Kanban.default,
+    BoardTeam: _BoardTeam.default
+  },
+  methods: {
+    changePage: function changePage(status) {
+      localStorage.clear();
+      this.$emit('changePage', status);
+    },
+    changeActivity: function changeActivity(status) {
+      this.fetchProject();
+      this.activity = status;
+    },
+    editData: function editData(id, title, description) {
+      console.log(id);
+      this.editId = id;
+      this.editTitle = title;
+      this.editDescription = description;
+      this.changeActivity('edit');
+      console.log('masuk ke edit seharusnyaaa');
+    },
+    fetchProject: function fetchProject() {
+      var _this = this;
+
+      (0, _index.default)({
+        method: 'GET',
+        url: '/projectusers',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      }).then(function (_ref) {
+        var data = _ref.data;
+        // console.log(projectusers)
+        _this.projects = data;
+      }).catch(function (err) {
+        console.log('INI ERROR FETCH PROJECT');
+        console.log(err);
+      });
+    },
+    edit: function edit(id) {
+      var _this2 = this;
+
+      console.log('ini edit idnya  >>>>>>>>>>>>>>>', id);
+      (0, _index.default)({
+        method: 'GET',
+        url: "/projects/".concat(id),
+        headers: {
+          access_token: localStorage.access_token
+        }
+      }).then(function (_ref2) {
+        var data = _ref2.data;
+        _this2.editId = data.id;
+        _this2.editName = data.name;
+
+        _this2.changeActivity('editProject'); // console.log(masuk sini)
+
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    team: function team(id) {
+      var _this3 = this;
+
+      (0, _index.default)({
+        method: 'GET',
+        url: "/projects/".concat(id),
+        headers: {
+          access_token: localStorage.access_token
+        }
+      }).then(function (_ref3) {
+        var data = _ref3.data;
+        _this3.members = data.users;
+        console.log(_this3.members);
+        _this3.projectId = id;
+        console.log(_this3.projectId);
+
+        _this3.changeActivity('team');
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    back: function back(status) {
+      this.changeActivity(status);
+    }
+  },
+  created: function created() {
+    this.fetchProject();
+  }
+};
+exports.default = _default;
+        var $5e6c67 = exports.default || module.exports;
+      
+      if (typeof $5e6c67 === 'function') {
+        $5e6c67 = $5e6c67.options;
+      }
+    
+        /* template */
+        Object.assign($5e6c67, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _vm.activity === "projects" ||
+      _vm.activity === "createProject" ||
+      _vm.activity === "editProject" ||
+      _vm.activity === "team"
+        ? _c("NavbarPanelProject", {
+            on: {
+              changePage: _vm.changePage,
+              changeActivity: _vm.changeActivity
+            }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.activity === "projects"
+        ? _c("ListProject", {
+            attrs: { projects: _vm.projects },
+            on: {
+              changeActivity: _vm.changeActivity,
+              edit: _vm.edit,
+              team: _vm.team
+            }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.activity === "createProject"
+        ? _c("CreateProject", { on: { changeActivity: _vm.changeActivity } })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.activity === "editProject"
+        ? _c("EditProject", {
+            attrs: { editId: _vm.editId, editName: _vm.editName },
+            on: { changeActivity: _vm.changeActivity }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.activity === "kanban"
+        ? _c("Kanban", {
+            on: {
+              changeActivity: _vm.changeActivity,
+              changePage: _vm.changePage
+            }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.activity === "team"
+        ? _c("BoardTeam", {
+            attrs: { projectId: _vm.projectId, members: _vm.members },
+            on: { back: _vm.back }
+          })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
             api.createRecord('$5e6c67', $5e6c67);
           } else {
             api.reload('$5e6c67', $5e6c67);
@@ -11944,7 +13598,7 @@ render._withStripped = true
       
       }
     })();
-},{"./NavbarPanel":"src/components/NavbarPanel.vue","./CategoriesPanel":"src/components/CategoriesPanel.vue","./CreateTask":"src/components/CreateTask.vue","./EditTask":"src/components/EditTask.vue","_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/LoginPanel.vue":[function(require,module,exports) {
+},{"../config/index":"src/config/index.js","./project/NavbarPanelProject":"src/components/project/NavbarPanelProject.vue","./project/ListProject":"src/components/project/ListProject.vue","./project/CreateProject":"src/components/project/CreateProject.vue","./project/EditProject":"src/components/project/EditProject.vue","./kanban/Kanban":"src/components/kanban/Kanban.vue","./team/BoardTeam":"src/components/team/BoardTeam.vue","_css_loader":"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/LoginPanel.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12440,6 +14094,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
 var _default = {
   name: "App",
   data: function data() {
@@ -12584,7 +14240,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44897" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41615" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

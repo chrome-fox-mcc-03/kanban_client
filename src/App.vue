@@ -17,6 +17,8 @@
   </div>
 </template>
 
+
+
 <script>
 import axiosKanban from './config/index'
 import Dashboard from './components/Dashboard'
