@@ -10874,16 +10874,16 @@ var _default = {
         });
       });
     }
-  },
-  created: function created() {
-    // if(localStorage.getItem("token")) {
-    //     this.isLogin = true
-    //     this.fetchTasks()
-    // } else {
-    //     this.isLogin = false
-    // }
-    this.fetchTasks();
-  }
+  } // created() {
+  //   // if(localStorage.getItem("token")) {
+  //   //     this.isLogin = true
+  //   //     this.fetchTasks()
+  //   // } else {
+  //   //     this.isLogin = false
+  //   // }
+  //   this.fetchTasks();
+  // }
+
 };
 exports.default = _default;
         var $03f71d = exports.default || module.exports;
@@ -12788,7 +12788,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57288" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49514" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
