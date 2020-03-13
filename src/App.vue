@@ -81,7 +81,7 @@ export default {
             const data = userData
             this.isLoading = true
             return Axios({
-                url: 'http://localhost:3000/signin',
+                url: 'https://limitless-atoll-40245.herokuapp.com/signin',
                 method: 'POST',
                 data
             })
@@ -110,7 +110,7 @@ export default {
             this.isLoading = true
             const data = userData
             return Axios({
-                url: 'http://localhost:3000/signup',
+                url: 'https://limitless-atoll-40245.herokuapp.com/signup',
                 method: 'POST',
                 data
             })
@@ -145,7 +145,7 @@ export default {
             }
             this.isLoading = true
             return Axios({
-                url: 'http://localhost:3000/oauthSignUp',
+                url: 'https://limitless-atoll-40245.herokuapp.com/oauthSignUp',
                 method: 'POST',
                 data
             })
@@ -171,7 +171,7 @@ export default {
         fetchYourBoard(){
             this.isLoading = true
             return Axios({
-                url: 'http://localhost:3000/board',
+                url: 'https://limitless-atoll-40245.herokuapp.com/board',
                 method: 'GET',
                 headers: {
                     user_token: localStorage.getItem('token')
@@ -192,7 +192,7 @@ export default {
             this.isLoading = true
 
             return Axios({
-                url: 'http://localhost:3000/board/shared',
+                url: 'https://limitless-atoll-40245.herokuapp.com/board/shared',
                 method: 'GET',
                 headers: {
                     user_token: localStorage.getItem('token')
@@ -231,7 +231,7 @@ export default {
             this.isLoading = true
 
             return Axios({
-                url: 'http://localhost:3000/board',
+                url: 'https://limitless-atoll-40245.herokuapp.com/board',
                 method: 'POST',
                 headers: {
                     user_token: localStorage.getItem('token')
@@ -259,7 +259,7 @@ export default {
             this.isLoading = true
 
             Axios({
-                url: `http://localhost:3000/findUser/${user}`,
+                url: `https://limitless-atoll-40245.herokuapp.com/findUser/${user}`,
                 method: 'GET',
                 headers: {
                     user_token: localStorage.getItem('token')
@@ -287,7 +287,7 @@ export default {
         fetchCards(){
             this.isLoading = true
             Axios({
-                url: `http://localhost:3000/task/${this.boardParams.id}`,
+                url: `https://limitless-atoll-40245.herokuapp.com/task/${this.boardParams.id}`,
                 method: 'GET',
                 headers: {
                     user_token: localStorage.getItem('token')
@@ -321,7 +321,7 @@ export default {
         addNewCard(newCard){
             this.isLoading = true
             Axios({
-                url: `http://localhost:3000/task/${this.boardParams.id}`,
+                url: `https://limitless-atoll-40245.herokuapp.com/task/${this.boardParams.id}`,
                 method: 'POST',
                 headers: {
                     user_token: localStorage.getItem('token')
@@ -357,7 +357,7 @@ export default {
             this.isLoading = true
 
             Axios({
-                url: `http://localhost:3000/task/${value.id}`,
+                url: `https://limitless-atoll-40245.herokuapp.com/task/${value.id}`,
                 method: 'PUT',
                 headers: {
                     user_token: localStorage.getItem('token')
@@ -379,7 +379,7 @@ export default {
             this.isLoading = true
 
             Axios({
-                url: `http://localhost:3000/task/${value.id}`,
+                url: `https://limitless-atoll-40245.herokuapp.com/task/${value.id}`,
                 method: 'PUT',
                 headers: {
                     user_token: localStorage.getItem('token')
@@ -401,7 +401,7 @@ export default {
             this.isLoading = true
 
             Axios({
-                url: `http://localhost:3000/task/${value.id}`,
+                url: `https://limitless-atoll-40245.herokuapp.com/task/${value.id}`,
                 method: 'PUT',
                 headers: {
                     user_token: localStorage.getItem('token')
@@ -424,7 +424,7 @@ export default {
 
             const currentCategory = value.category
             Axios({
-                url: `http://localhost:3000/task/status/${value.id}`,
+                url: `https://limitless-atoll-40245.herokuapp.com/task/status/${value.id}`,
                 method: 'PUT',
                 headers: {
                     user_token: localStorage.getItem('token')
@@ -456,7 +456,7 @@ export default {
             this.isLoading = true
 
             Axios({
-                url: `http://localhost:3000/task/status/${value.id}`,
+                url: `https://limitless-atoll-40245.herokuapp.com/task/status/${value.id}`,
                 method: 'PUT',
                 headers: {
                     user_token: localStorage.getItem('token')
@@ -481,7 +481,7 @@ export default {
             this.isLoading = true
 
             Axios({
-                url: `http://localhost:3000/task/${id}`,
+                url: `https://limitless-atoll-40245.herokuapp.com/task/${id}`,
                 method: 'DELETE',
                 headers: {
                     user_token: localStorage.getItem('token')
@@ -513,7 +513,7 @@ export default {
             this.isLoading = true
 
             Axios({
-                url: `http://localhost:3000/oauth`,
+                url: `https://limitless-atoll-40245.herokuapp.com/oauth`,
                 method: 'POST',
                 headers: {
                     user_token: id_token
@@ -556,7 +556,7 @@ export default {
             this.isLoading = true
 
             Axios({
-                url: `http://localhost:3000/board/${this.boardParams.id}`,
+                url: `https://limitless-atoll-40245.herokuapp.com/board/${this.boardParams.id}`,
                 method: 'DELETE',
                 headers: {
                     user_token: localStorage.getItem('token')
@@ -597,7 +597,6 @@ export default {
     sockets: {
         new_card_arrived(){
             this.fetchCards()
-            this.$vToastify.info('Someone modify a board')
         }
     }
 
