@@ -411,7 +411,7 @@ export default {
             )
             .finally(_ => {
                 this.isLoading = false
-            })
+            }) 
         },
         moveLeft(value){
             this.isLoading = true
