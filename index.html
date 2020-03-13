@@ -5,65 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kanban</title>
     <link rel="stylesheet" href="style.css">
-    <link href="//fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
-    <meta name="google-signin-client_id" content="40081975863-vhglajppmqse8i8fa9ld59iot40l94uq.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <link href="//fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">   
+    <script src="https://kit.fontawesome.com/ffa71933bb.js" crossorigin="anonymous"></script>
 </head>
-<body>
-    <section id="landing-page">
-        <h1>Kan<img src="./img/todo.png" alt="" style="height: 35px; width: 35px;">ban</h1>
-        <div class="w3layouts-main"> 
-            <div class="bg-layer">
-                <h1>SignIn</h1>
-                <div class="header-main">
-                    <div class="header-left-bottom">
-                        <form action="#" method="post">
-                            <div class="icon1">
-                                <input type="email" placeholder="Email Address" required=""/>
-                            </div>
-                            <div class="icon1">
-                                <input type="password" placeholder="Password" required=""/>
-                            </div>
-                            <div class="bottom">
-                                <button class="btn">Sign In</button>
-                            </div>
-                            <div>
-                                <p><a href="#" style="text-decoration: none;">New User? SignUp</a></p>
-                            </div>
-                        </form>	
-                    </div>
-                    <div class="social">
-                        <ul>
-                            <li>or login using : </li>
-                            <li><a href="#" class="google" data-onsuccess="onSignIn"></a><img src="./img/iconGoogle.png" style="height: 35px; width: 35px;"></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- <div class="w3layouts-main"> 
-            <div class="bg-layer">
-                <h1>SignUp</h1>
-                <div class="header-main">
-                    <div class="header-left-bottom">
-                        <form action="#" method="post">
-                            <div class="icon1">
-                                <input type="email" placeholder="Email Address" required=""/>
-                            </div>
-                            <div class="icon1">
-                                <input type="password" placeholder="Password" required=""/>
-                            </div>
-                            <div class="bottom">
-                                <button class="btn">Register</button>
-                            </div>
-                        </form>	
-                    </div>
-                </div>
-            </div>
-        </div> -->
-    </section>
-    <script>
+<body id="body">
+    <div id="app">
 
-    </script>
+    </div>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://apis.google.com/js/api:client.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./src/main.js"></script>
 </body>
 </html>
