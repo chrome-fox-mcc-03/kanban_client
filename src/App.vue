@@ -135,7 +135,7 @@ export default {
             this.isLoading = true
                 axios({
                     method: "POST",
-                    url: "http://localhost:3000/login",
+                    url: "https://ancient-stream-97435.herokuapp.com/login",
                     data: {
                         email,
                         password
@@ -172,7 +172,7 @@ export default {
             const token = localStorage.getItem('token')
             axios({
                 method: "GET",
-                url: `http://localhost:3000/${email}/user`,
+                url: `https://ancient-stream-97435.herokuapp.com/${email}/user`,
                 headers: {
                     token
                 }
@@ -203,7 +203,7 @@ export default {
             this.isLoading = true
             axios({
                 method: "POST",
-                url: "http://localhost:3000/users",
+                url: "https://ancient-stream-97435.herokuapp.com/users",
                 data: {
                     email,
                     password,
@@ -243,7 +243,7 @@ export default {
             this.isLoading = true
             axios({
                 method: "POST",
-                url: "http://localhost:3000/tasks",
+                url: "https://ancient-stream-97435.herokuapp.com/tasks",
                 data: {
                     title,
                     category,
@@ -273,7 +273,7 @@ export default {
             this.isLoading = true
             axios({
                 method: "GET",
-                url: "http://localhost:3000/tasks",
+                url: "https://ancient-stream-97435.herokuapp.com/tasks",
                 headers: {
                     token
                 }
@@ -344,7 +344,7 @@ export default {
             // console.log(title)
             axios({
                 method: "PUT",
-                url: `http://localhost:3000/tasks/${id}`,
+                url: `https://ancient-stream-97435.herokuapp.com/tasks/${id}`,
                 headers: {
                     token
                 },
@@ -379,7 +379,7 @@ export default {
             this.isLoading = true
             axios({
                 method: "DELETE",
-                url: `http://localhost:3000/tasks/${id}`,
+                url: `https://ancient-stream-97435.herokuapp.com/tasks/${id}`,
                 headers: {
                     token
                 }
@@ -418,7 +418,7 @@ export default {
                 this.isLoading = true
                 axios({
                     method: 'POST',
-                    url: "http://localhost:3000/loginGoogle",
+                    url: "https://ancient-stream-97435.herokuapp.com/loginGoogle",
                     data: {
                         id_token
                     } 

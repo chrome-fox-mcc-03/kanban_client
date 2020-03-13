@@ -41,7 +41,7 @@ export default {
             const token = localStorage.getItem('token')
             axios({
                 method: "GET",
-                url: `http://localhost:3000/tasks/${id}`,
+                url: `https://ancient-stream-97435.herokuapp.com/tasks/${id}`,
                 headers: {
                     token
                 }
