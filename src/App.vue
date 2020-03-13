@@ -8,6 +8,7 @@
             v-if="currentPage === 'mainPage'"
             @changePage="changePage">
         </MainPage>
+        <notifications group="foo" />
     </div>
 </template>
 

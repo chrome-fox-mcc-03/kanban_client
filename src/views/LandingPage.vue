@@ -118,7 +118,9 @@ export default {
           }
       })
         .then(result => {
-            localStorage.setItem("access_token", result.data.token)
+            console.log(result);
+            localStorage.setItem("access_token", result.data.access_token);
+            this.$emit("changePage", "mainPage");
         })
         .catch(err => {
             console.log(err);

@@ -93,6 +93,11 @@ export default {
                 .then(({data}) => {
                     console.log(data);
                     this.activities = data;
+                    // this.$notify({
+                    //     group: 'foo',
+                    //     title: 'Important message',
+                    //     text: 'Hello user! This is a notification!'
+                    // });
                 })
                 .catch(err => {
                     console.log(err);
@@ -103,8 +108,6 @@ export default {
         },
         getDetail(data) {
             this.detail = data
-            // console.log(data,'dataaaa');
-            
         }
     },
     created() {
