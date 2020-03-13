@@ -35,6 +35,7 @@
       </div>
       </div>
   </div>
+
       <CreateTask @clearData="clearData" @fetch="fetch" v-if="page === 'create'" @backToBoard="changePage"></CreateTask>
       <RegisterForm v-else-if="page === 'register'" @afterRegister="changePage" @loginStatus="changeLogin"></RegisterForm>
       <LoginForm v-else-if="page === 'login'" @afterLogin="changePage" @loginStatus="changeLogin"></LoginForm>
@@ -45,6 +46,8 @@
         class="col-sm-6 col-md-4 col-xl-3 scroll"
         v-for="(data, name) in kanban" :key="data.backlog" 
         @fetch="fetch" 
+        @edit="edit"
+        @move="move"
         :name="name" 
         :data="data" 
         @pageChanging="changePage" 
@@ -54,6 +57,29 @@
     </KanbanBoard>
       </div>
      </div>
+      <div class="container" v-if="page === 'edit'">
+        <div class="row mt-5">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <h3 class="font-weight-light text-dark">Edit Task</h3>
+                <form @submit.prevent="editTask">
+                    <div class="form-group">
+                        <div class="card mb-3 bg-light">
+                            <div class="card-body p-3">
+                                <textarea v-model="description" rows="6" class="form-control mb-2"></textarea>
+                                <button type="submit" class="btn btn-secondary float-left">Edit Task</button>
+                                <button type="click" class="btn btn-secondary float-right" @click="changePage('board')">Back To Backlog</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4">
+                
+            </div>
+        </div>
+    </div>
   </div>
 </template>
 
@@ -69,6 +95,9 @@ export default {
     name: "App",
     data() {
         return {
+            id: "",
+            description: "",
+            CategoryId: "",
             page: "login",
             login: false,
             kanban: {
@@ -90,50 +119,114 @@ export default {
            this.page = page
       },
       logout() {
-          localStorage.clear()
-          this.page = 'login'
-          this.login = false
+        localStorage.clear()
+        this.page = 'login'
+        this.login = false
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+        });
       },
       changeLogin(status) {
           return (this.login = status)
       },
-        fetch() {
-            console.log('panggil fetchhhhhh');
-            
-            axios({
-                method: 'GET',
-                url: `${baseUrl}/tasks/`,
-                headers: {
-                    token: localStorage.getItem('token')
-                }
+    fetch() {        
+        axios({
+            method: 'GET',
+            url: `${baseUrl}/tasks/`,
+            headers: {
+                token: localStorage.getItem('token')
+            }
+        })
+            .then(result => {                    
+                result.data.data.forEach(el => {                                             
+                    if(el.CategoryId === 1) {
+                        this.kanban.backlog.push(el)
+                    } else if(el.CategoryId === 2) {
+                        this.kanban.progress.push(el)
+                    } else if(el.CategoryId === 3) {
+                        this.kanban.development.push(el)
+                    } else if(el.CategoryId === 4) {
+                        this.kanban.done.push(el)
+                    }
+                })
             })
-                .then(result => {                    
-                    result.data.data.forEach(el => {     
-                        console.log(el);
-                                           
-                        if(el.CategoryId === 1) {
-                            this.kanban.backlog.push(el)
-                        } else if(el.CategoryId === 2) {
-                            this.kanban.progress.push(el)
-                        } else if(el.CategoryId === 3) {
-                            this.kanban.development.push(el)
-                        } else if(el.CategoryId === 4) {
-                            this.kanban.done.push(el)
-                        }
-                    })
-                })
-                .catch(err => {
-                    console.log(err)
-                })
+            .catch(err => {
+                console.log(err)
+            })
         },
         clearData () {
             this.kanban = {
-                                backlog: [],
+                backlog: [],
                 progress: [],
                 development: [],
                 done: []
             }
-        }
+        },
+         findOne(id) {
+            axios({
+                method: "GET",
+                url: `${baseUrl}/tasks/${id}`,
+                headers: {
+                    token: localStorage.getItem('token')
+                }
+            })
+                .then(result => {    
+                    console.log(result)                
+                    this.id = result.data.data.id
+                    this.description = result.data.data.description
+                    this.CategoryId = result.data.data.CategoryId
+                })
+                .catch(err => {
+
+                })
+        },
+        edit(id) {
+            this.findOne(id)
+            console.log(id)
+            this.page = 'edit'
+        },
+        editTask() {
+            axios({
+                method: "PUT",
+                url: `${baseUrl}/tasks/${this.id}`,
+                data: {
+                    description: this.description,
+                    CategoryId: this.CategoryId
+                },
+                headers: {
+                    token: localStorage.getItem("token")
+                }
+            })
+                .then(result => {
+                    this.clearData()
+                    this.page = 'board'
+                    this.fetch();
+                })
+                .catch(err => {
+
+                })
+
+        },
+        move(id, description, CategoryId) {
+            axios({
+                method: "PUT",
+                url: `${baseUrl}/tasks/${id}`,
+                data: {
+                    description,
+                    CategoryId
+                },
+                headers: {
+                    token: localStorage.getItem("token")
+                }
+            })
+                .then(result => {
+                    this.clearData()
+                    this.fetch();
+                })
+                .catch(err => {
+
+                })
+        },
     },
     created(){
         if(localStorage.token){

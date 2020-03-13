@@ -16,6 +16,7 @@
                         </div>
                         <button type="submit" class="btn btn-secondary">Submit</button>
                       </form>
+                    <button type="button" @click.prevent="onSignIn" class="btn btn-outline-success mt-2">Google login</button>
                 </div>
                 <div class="col-md-4">
                     
@@ -54,6 +55,35 @@ export default {
                 .catch(err => {
                     console.log(err, "errorr");
                 })
+        },
+        onSignIn() {
+            this.$gAuth
+                .signIn()
+                .then(googleUser => {
+                    const token = googleUser.getAuthResponse().id_token;
+                    return axios({
+                        method : 'POST',
+                        url: `${baseUrl}/signInGoogle`,
+                        headers: {
+                            token: token
+                        }
+                    })
+                })
+                .then(result => {                    
+                    localStorage.setItem("token", result.data.token)
+                    this.$emit('afterLogin', 'board')
+                    this.$emit("loginStatus", true)
+
+                })
+                .catch(err => {
+                    console.log(err, "ini err")
+                })
+        },
+        signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+            console.log('User signed out.');
+            });
         }
     }
 

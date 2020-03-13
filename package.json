@@ -19,7 +19,9 @@
   "homepage": "https://github.com/ulfahasanah/kanban_client#readme",
   "dependencies": {
     "axios": "^0.19.2",
+    "v": "^0.3.0",
     "vue": "^2.6.11",
+    "vue-google-oauth2": "^1.4.0",
     "vue-hot-reload-api": "^2.3.4"
   },
   "devDependencies": {
