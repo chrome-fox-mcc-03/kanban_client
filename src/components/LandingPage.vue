@@ -7,7 +7,7 @@
             <a class="btn btn-primary" href="#" role="button" @click="$bvModal.show('register')">Register</a>
             <!-- <span style="cursor: pointer;" data-toggle="modal" data-target="#login">Already have account? Login
                 here</span> -->
-            <span style="cursor: pointer;" data-toggle="modal" data-target="#login" @click="changeStatus">Already have account? Login
+            <span style="cursor: pointer;" data-toggle="modal" data-target="#login" @click="showLogin">Already have account? Login
                 here</span>
             <br><br>
             <!-- <div id="google-signin-btn"></div> -->
@@ -18,8 +18,8 @@
 <script>
 export default {
     methods: {
-        changeStatus() {
-            this.$emit("changeStatus");
+        showLogin() {
+            this.$emit("showLogin");
         }
     }
     // mounted() {

@@ -3,7 +3,6 @@
 		<navbar :isLogin="isLogin" @logout="logout" @showAddCard="showAddCard"></navbar>
 		<!-- <loading :isLoading="isLoading"></loading> -->
 		<div 
-			v-if="!isLoading" 
 			class="container-fluid">
 			<div v-if="isLogin" class="flex-container row">
 				<task-list 
@@ -19,7 +18,7 @@
 				
 			</div>
 			<div v-else class="landing-page">
-				<landing-page @changeStatus="changeStatus"></landing-page>
+				<landing-page @showLogin="showLogin"></landing-page>
 				<!--------------------------- MODAL ------------------------------>
 				<b-modal id="login" title="Login" hide-footer>
     				<form @submit.prevent="login">
@@ -60,8 +59,11 @@
   				</b-modal>
 			</div>
 		</div>
-		<div v-else id="loading">
-            <img id="loading-img" src="./img/loading.gif" alt="loading">
+		<div v-if="isLoading" id="loading">
+            <lottie-player
+                src="https://assets6.lottiefiles.com/datafiles/qm9uaAEoe13l3eQ/data.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop autoplay >
+            </lottie-player>
+            <!-- <img id="loading-img" src="./img/loading.gif" alt="loading"> -->
         </div>
         <b-modal ref="add-card" title="Add a card" hide-footer>
     		<form @submit.prevent="addCard">
@@ -86,17 +88,14 @@ import TaskList from './components/Tasks.vue';
 import axios from 'axios';
 import Swal from 'sweetalert2'
 
-const URL = "http://localhost:3000";
+// const URL = "http://localhost:3000";
+const URL = "https://felix-kanban.herokuapp.com";
 const Toast = Swal.mixin({
     toast: true,
     position: 'bottom-start',
     showConfirmButton: false,
     timer: 4000,
     timerProgressBar: true,
-    // onOpen: (toast) => {
-    //     toast.addEventListener('mouseenter', Swal.stopTimer)
-    //     toast.addEventListener('mouseleave', Swal.resumeTimer)
-    // }
     onOpen: function(toast) {
         toast.addEventListener('mouseenter', Swal.stopTimer)
         toast.addEventListener('mouseleave', Swal.resumeTimer)
@@ -118,7 +117,6 @@ export default {
 			isLogin: false,
 			isGLogin: false,
             isLoading: false,
-            isInModalLogin: false,
 			taskList: [ "Backlog", "Product", "Development", "Done" ],
 			cards: [],
 			backlogs: [],
@@ -134,11 +132,11 @@ export default {
             googleSignInParams: {
                 client_id: '233221709617-5orgico3dm566bs8r9lufv5e0urh7sps.apps.googleusercontent.com'
             }
-            // 233221709617-5orgico3dm566bs8r9lufv5e0urh7sps.apps.googleusercontent.com
 		};
 	},
 	methods: {
         register() {
+            this.isLoading = true;
             axios({
                 url: URL + "/register",
                 method : 'post',
@@ -152,6 +150,10 @@ export default {
                     this.isLogin = true;
                     this.emailRegister = "";
                     this.passwordRegister = "";
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Loged in successfully'
+                    })
                     this.fetchData();
                 }).catch((err) => {
                     console.log(err.response.data.message);
@@ -160,12 +162,12 @@ export default {
                         icon: 'error',
                         title
                     })
-                }).finally(final => {
-                    
+                }).finally(_ => {
+                    this.isLoading = false;
                 })
         },
 		login() {
-			// this.isLoading = true;
+			this.isLoading = true;
 			axios({
 				url: URL + "/login",
 				method : 'post',
@@ -178,7 +180,11 @@ export default {
 					setToken(result.data.token);
 					this.isLogin = true;
 					this.emailLogin = "";
-					this.passwordLogin = "";
+                    this.passwordLogin = "";
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Loged in successfully'
+                    })
 					this.fetchData();
 				}).catch((err) => {
 					console.log(err.response.data.message);
@@ -188,8 +194,7 @@ export default {
 						title
 					})
 				}).finally(final => {
-					// this.setLoading(false);
-					// this.isLoading = false;
+					this.isLoading = false;
 				})
 		},
 		logout() {
@@ -200,13 +205,14 @@ export default {
             auth2.signOut()
                 .then(result => {
                     console.log('User signed out.');
-                    localStorage.clear();
-                    this.isGLogin = false;
-                    this.isLogin = false;
                 });
+            Toast.fire({
+                icon: 'success',
+                title: 'Loged out successfully'
+            })
         },
 		fetchData() {
-            // this.isLoading = true;
+            this.isLoading = true;
             this.cards = [];
             axios({
                 url: URL + "/tasks",
@@ -220,16 +226,16 @@ export default {
                 }).catch((err) => {
                     console.log(err.response.data.message);
                     let title = err.response.data.message;
-                    // Toast.fire({
-                    //     icon: 'error',
-                    //     title
-                    // })
+                    Toast.fire({
+                        icon: 'error',
+                        title
+                    })
                 }).finally(final => {
                     this.isLoading = false;
                 })
         },
         addCard() {
-            // this.isLoading = true;
+            this.isLoading = true;
             axios({
                 url: URL + "/tasks",
                 method : 'post',
@@ -246,6 +252,10 @@ export default {
 					this.title = "";
                     this.description = "";
                     this.hideModal();
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Card added!'
+                    })
                 }).catch((err) => {
                     console.log(err.response.data.message);
                     let title = err.response.data.message;
@@ -254,11 +264,11 @@ export default {
                         title
                     })
                 }).finally(final => {
-                    // this.isLoading = false;
+                    this.isLoading = false;
                 })
 		},
         update(obj) {
-            // this.isLoading = true;
+            this.isLoading = true;
             axios({
                 url: URL + "/tasks/" + obj.id,
                 method : 'put',
@@ -295,6 +305,10 @@ export default {
                     setTimeout(result => {
                         this.isLoading = false;
                         this.fetchData();
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Card deleted'
+                        })
                     }, 2000);
                 }).catch((err) => {
                     console.log(err.response.data.message);
@@ -303,10 +317,6 @@ export default {
                         icon: 'error',
                         title
                     })
-                }).finally(final => {
-                    // setTimeout(result => {
-                    //     this.isLoading = false;
-                    // }, 5000);
                 })
         },
 		showAddCard() {
@@ -331,10 +341,10 @@ export default {
 				}).catch((err) => {
 					console.log(err.response.data.message);
 					let title = err.response.data.message;
-					// Toast.fire({
-					// 	icon: 'error',
-					// 	title
-					// })
+					Toast.fire({
+						icon: 'error',
+						title
+					})
 				}).finally(final => {
 					this.isLoading = false;
 				})
@@ -347,18 +357,11 @@ export default {
             let id_token = googleUser.getAuthResponse().id_token;
             this.glogin(id_token);
         },
-        onSignInSuccess (googleUser) {
-            // `googleUser` is the GoogleUser object that represents the just-signed-in user.
-            // See https://developers.google.com/identity/sign-in/web/reference#users
-            let id_token = googleUser.getAuthResponse().id_token;
-            this.glogin(id_token);
-        },
         onSignInError (error) {
             // `error` contains any error occurred.
             console.log('OH NOES', error)
         },
-        changeStatus: function() {
-            this.isInModalLogin = true;
+        showLogin() {
             this.$bvModal.show('login')
             setTimeout(() => {
                 gapi.signin2.render('my-signin2', { // this is the button "id"
@@ -369,7 +372,7 @@ export default {
                     'longtitle': true,
                     'theme': 'dark',
                     'onsuccess': this.onSignIn,
-                    'onfailure': ""
+                    'onfailure': this.onSignInError
                 });
             })
         }
@@ -389,13 +392,4 @@ export default {
 </script>
 
 <style>
-    /* .g-signin-button { */
-        /* This is where you control how the button looks. Be creative! */
-        /* display: inline-block;
-        padding: 4px 8px;
-        border-radius: 3px;
-        background-color: #3c82f7;
-        color: #fff;
-        box-shadow: 0 3px 0 #0f69ff;
-    } */
 </style> 
