@@ -8,10 +8,12 @@
                 :category="kanbanCard" 
                 :activities="activities" 
                 :fetchActivities="fetchActivities"
-                @changeSubPage="changeSubPage">
+                @changeSubPage="changeSubPage"
+                @getDetail="getDetail"
+                >
             </KanbanCard>
         </div>
-        <DetailsForm @backToMainPage="changeSubPage" v-else-if="subCurrentPage === 'detailsSubPage'"></DetailsForm>
+        <DetailsForm :detail="detail" @backToMainPage="changeSubPage" v-else-if="subCurrentPage === 'detailsSubPage'"></DetailsForm>
     </div>
 </template>
 
@@ -24,7 +26,8 @@ export default {
         return {
             kanbanCards: [ 'Backlog', 'On Progress', 'Needs Review', 'Finished' ],
             activities: [], 
-            subCurrentPage: 'kanbanSubPage'
+            subCurrentPage: 'kanbanSubPage',
+            detail: ''
         }
     },
     methods: {
@@ -92,6 +95,11 @@ export default {
         },
         changeSubPage(subPage) {
             this.subCurrentPage = subPage
+        },
+        getDetail(data) {
+            this.detail = data
+            // console.log(data,'dataaaa');
+            
         }
     },
     created() {

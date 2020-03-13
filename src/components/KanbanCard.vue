@@ -68,8 +68,9 @@ export default {
             }
             this.$emit('moveRight', obj)
         },
-        showDetails() {
+        showDetails(activity) {
             this.$emit('changeSubPage', 'detailsSubPage')
+            this.$emit('getDetail',activity)
         }
     }
 }

@@ -15,7 +15,7 @@
 import LandingPage from './views/LandingPage';
 import MainPage from './views/MainPage';
 export default {
-    name: 'Kan! Ban!',
+    name: 'App',
     data: function() {
         return {
             message: 'Test',

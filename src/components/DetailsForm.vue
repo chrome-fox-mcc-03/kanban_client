@@ -5,10 +5,7 @@
                 <div class="form-title">Details</div>
                 <div class="form-body">
                 <div class="row">
-                    <input type="text" placeholder="Title">
-                </div>
-                <div class="row">
-                    <input type="text" placeholder="Category">
+                    <input v-model="title" type="text" placeholder="Title">
                 </div>
                 </div>
                 <div class="rule"></div>
@@ -25,11 +22,20 @@
 <script>
 export default {
     name: 'DetailsForm',
+    data: function() {
+        return {
+            title: ''
+        }
+    },
+    props: ['detail'],
     methods: {
         backToMainPage() {
             console.log('back to main page senpai');
             this.$emit('backToMainPage', 'kanbanSubPage')
         }
+    },
+    created () {
+        this.title = this.detail.title
     }
 }
 </script>

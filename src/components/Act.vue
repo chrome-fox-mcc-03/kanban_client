@@ -7,7 +7,7 @@
         </div>
         <!-- left button -->
     
-        <p class="actTitle" @click="showDetails">{{ activity.title }}</p>
+        <p class="actTitle" @click="showDetails(activity)">{{ activity.title }}</p>
 
         <!-- right button -->
         <div class="option-space" @click="moveRight(activity.id)">
@@ -33,9 +33,9 @@ export default {
             console.log('move right');
             this.$emit('moveRight', id)
         },
-        showDetails() {
+        showDetails(data) {
             console.log('show details senpai');
-            this.$emit('showDetails')
+            this.$emit('showDetails', data)
         }
     }
 }

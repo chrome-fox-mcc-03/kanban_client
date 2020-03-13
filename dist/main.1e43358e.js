@@ -8988,6 +8988,17 @@ var _default = {
         console.log(err);
       });
     }
+  },
+  mounted: function mounted() {
+    var signUpButton = document.getElementById('signUp');
+    var signInButton = document.getElementById('signIn');
+    var container = document.getElementById('container');
+    signUpButton.addEventListener('click', function () {
+      container.classList.add("right-panel-active");
+    });
+    signInButton.addEventListener('click', function () {
+      container.classList.remove("right-panel-active");
+    });
   }
 };
 exports.default = _default;
@@ -9390,9 +9401,9 @@ var _default = {
       console.log('move right');
       this.$emit('moveRight', id);
     },
-    showDetails: function showDetails() {
+    showDetails: function showDetails(data) {
       console.log('show details senpai');
-      this.$emit('showDetails');
+      this.$emit('showDetails', data);
     }
   }
 };
@@ -9423,9 +9434,18 @@ exports.default = _default;
       [_c("i", { staticClass: "fas fa-angle-left fa-sm" })]
     ),
     _vm._v(" "),
-    _c("p", { staticClass: "actTitle", on: { click: _vm.showDetails } }, [
-      _vm._v(_vm._s(_vm.activity.title))
-    ]),
+    _c(
+      "p",
+      {
+        staticClass: "actTitle",
+        on: {
+          click: function($event) {
+            return _vm.showDetails(_vm.activity)
+          }
+        }
+      },
+      [_vm._v(_vm._s(_vm.activity.title))]
+    ),
     _vm._v(" "),
     _c(
       "div",
@@ -9545,7 +9565,7 @@ exports.default = _default;
         on: {
           submit: function($event) {
             $event.preventDefault()
-            return _vm.addNewAct()
+            return _vm.addNewAct($event)
           }
         }
       },
@@ -9685,8 +9705,9 @@ var _default = {
       };
       this.$emit('moveRight', obj);
     },
-    showDetails: function showDetails() {
+    showDetails: function showDetails(activity) {
       this.$emit('changeSubPage', 'detailsSubPage');
+      this.$emit('getDetail', activity);
     }
   }
 };
@@ -9796,16 +9817,22 @@ exports.default = void 0;
 //
 //
 //
-//
-//
-//
 var _default = {
   name: 'DetailsForm',
+  data: function data() {
+    return {
+      title: ''
+    };
+  },
+  props: ['detail'],
   methods: {
     backToMainPage: function backToMainPage() {
       console.log('back to main page senpai');
       this.$emit('backToMainPage', 'kanbanSubPage');
     }
+  },
+  created: function created() {
+    this.title = this.detail.title;
   }
 };
 exports.default = _default;
@@ -9826,7 +9853,30 @@ exports.default = _default;
       _c("form", { staticClass: "signup" }, [
         _c("div", { staticClass: "form-title" }, [_vm._v("Details")]),
         _vm._v(" "),
-        _vm._m(0),
+        _c("div", { staticClass: "form-body" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.title,
+                  expression: "title"
+                }
+              ],
+              attrs: { type: "text", placeholder: "Title" },
+              domProps: { value: _vm.title },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.title = $event.target.value
+                }
+              }
+            })
+          ])
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "rule" }),
         _vm._v(" "),
@@ -9845,22 +9895,7 @@ exports.default = _default;
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-body" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("input", { attrs: { type: "text", placeholder: "Title" } })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("input", { attrs: { type: "text", placeholder: "Category" } })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
           return {
@@ -9924,13 +9959,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
 var _default = {
   name: 'MainSpace',
   data: function data() {
     return {
       kanbanCards: ['Backlog', 'On Progress', 'Needs Review', 'Finished'],
       activities: [],
-      subCurrentPage: 'kanbanSubPage'
+      subCurrentPage: 'kanbanSubPage',
+      detail: ''
     };
   },
   methods: {
@@ -9997,6 +10035,9 @@ var _default = {
     },
     changeSubPage: function changeSubPage(subPage) {
       this.subCurrentPage = subPage;
+    },
+    getDetail: function getDetail(data) {
+      this.detail = data; // console.log(data,'dataaaa');
     }
   },
   created: function created() {
@@ -10039,14 +10080,18 @@ exports.default = _default;
                 on: {
                   moveLeft: _vm.moveLeft,
                   moveRight: _vm.moveRight,
-                  changeSubPage: _vm.changeSubPage
+                  changeSubPage: _vm.changeSubPage,
+                  getDetail: _vm.getDetail
                 }
               })
             }),
             1
           )
         : _vm.subCurrentPage === "detailsSubPage"
-        ? _c("DetailsForm", { on: { backToMainPage: _vm.changeSubPage } })
+        ? _c("DetailsForm", {
+            attrs: { detail: _vm.detail },
+            on: { backToMainPage: _vm.changeSubPage }
+          })
         : _vm._e()
     ],
     1
@@ -10205,7 +10250,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 var _default = {
-  name: 'Kan! Ban!',
+  name: 'App',
   data: function data() {
     return {
       message: 'Test',
@@ -10418,7 +10463,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36349" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45181" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
