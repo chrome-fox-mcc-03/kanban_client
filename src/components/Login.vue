@@ -43,13 +43,18 @@
             </div>
             <!-- <b-button class="mt-3" block @click="$bvModal.hide(`register`)" style="background-color:red">Cancel</b-button> -->
         </b-modal>
-
+        
+        <lottie-player
+          v-if="isLoading"
+          src="https://assets8.lottiefiles.com/packages/lf20_C9CEE5.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop controls autoplay >
+        </lottie-player>
     </div>
     <!-- Modal Register -->
     
 </template>
 
 <script>
+import Toastify from 'toastify-js'
 import axios from 'axios'
 import GoogleLogin from 'vue-google-login';
 
@@ -77,7 +82,8 @@ export default {
         width: 250,
         height: 50,
         longtitle: true
-      }
+      },
+      isLoading : false
     }
   },
   watch: {
@@ -116,6 +122,9 @@ export default {
       console.log('MASUK ONSUCCESS')
       const id_token = googleUser.getAuthResponse().id_token;
       console.log(id_token)
+      setTimeout(function(){
+        this.isLoading = true
+      }, 5000)
       axios({
           method: "POST",
           url : "http://localhost:3000/googleSign",
@@ -127,10 +136,19 @@ export default {
             // this.reset()
             console.log(data, '>>>>>>>>>>>>')
             localStorage.access_token = data.access_token
+            localStorage.setItem('nameUser', data.name)
             this.$emit('loginSuccess')
+            Toastify({
+              text: 'Login is successfully',
+              backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+              className: "info",
+            }).showToast();
         })
         .catch(err => {
             console.log(err.response)
+        })
+        .finally(_=> {
+          this.isLoading = false
         })
     },
     

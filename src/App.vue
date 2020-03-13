@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import Toastify from 'toastify-js'
 import axios from 'axios'
 import LandingPage from './components/LandingPage.vue'
 import Dashboard from './components/Dashboard.vue'
@@ -57,10 +58,18 @@ export default {
       })
         .then(({data}) => {
           this.$bvModal.hide(`register`)
-
+          Toastify({
+            text: 'Register is successfully',
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            className: "info",
+          }).showToast();
         })
         .catch(err => {
-          console.log(err.response)
+          Toastify({
+            text: err.response.data.errors[0],
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            className: "warning",
+          }).showToast();
         })
     },
     loginProcess (payload) {
@@ -77,9 +86,18 @@ export default {
           localStorage.setItem('nameUser', data.name)
           this.checkLogin()
           this.fetchTeams()
+          Toastify({
+            text: 'Login is successfully',
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            className: "info",
+          }).showToast();
         })
         .catch(err => {
-          console.log(err)
+          Toastify({
+            text: err.response.data.errors[0],
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            className: "warning",
+          }).showToast();
         })
     },
     loginSuccess () {

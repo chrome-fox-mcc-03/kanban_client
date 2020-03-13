@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import Toastify from 'toastify-js'
 import axios from 'axios'
 
 export default {
@@ -83,6 +84,14 @@ export default {
       })
         .then(({ data }) => {
           this.$bvModal.hide(`invite-member`)
+          Toastify({
+            text: 'Invite member is successfully',
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            className: "info",
+          }).showToast();
+        })
+        .catch(err => {
+          console.log(err.response)
         })
     },
     viewMembers () {
@@ -110,6 +119,11 @@ export default {
     },
     logoutFromBoard () {
       this.$emit('logoutFromBoard')
+      Toastify({
+        text: 'Thanks You :)',
+        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+        className: "info",
+      }).showToast();
     }
   }
 }

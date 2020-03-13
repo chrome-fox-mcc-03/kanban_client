@@ -32,7 +32,7 @@ export default {
   props: ['teams'],
   data () {
     return {
-      teams : []
+  
     }
   },
   components : {

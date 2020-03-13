@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import Toastify from 'toastify-js'
 import axios from 'axios'
 import Task from './Task'
 
@@ -78,6 +79,11 @@ export default {
           this.title = '+ add another task'
           this.$emit('refetchTask')
           this.statusAdd = false
+          Toastify({
+            text: 'Add Task is successfully',
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            className: "info",
+          }).showToast();
         })
         .catch(err => {
           console.log(err)

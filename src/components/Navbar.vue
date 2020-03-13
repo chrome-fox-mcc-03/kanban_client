@@ -12,6 +12,11 @@ export default {
   methods : {
     logoutProcess() {
       this.$emit('logout')
+      Toastify({
+        text: 'Thanks You :)',
+        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+        className: "info",
+      }).showToast();
     }
   }
 }

@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import Toastify from 'toastify-js'
 import axios from 'axios'
 import ProfileTeam from './ProfileTeam.vue'
 import KanbanBoard from './KanbanBoard.vue'
@@ -97,6 +98,11 @@ export default {
         .then(({ data }) => {
           this.$bvModal.hide(`add-team`)
           this.fetchTeams()
+          Toastify({
+            text: 'Add Team is successfully',
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            className: "info",
+          }).showToast();
         })
         .catch(err => {
           console.log(err.response)

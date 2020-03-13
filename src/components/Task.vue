@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import Toastify from 'toastify-js'
 import axios from 'axios'
 
 export default {
@@ -78,6 +79,11 @@ export default {
           .then(({ data })=> {
               this.$bvModal.hide(`bv-modal-example${taskId}`)
               this.$emit('updateSuccess')
+              Toastify({
+                text: 'update task is successfully',
+                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                className: "info",
+              }).showToast();
           })
           .catch(err => {
               console.log(err)
@@ -93,6 +99,11 @@ export default {
       })
         .then(({ data }) => {
           this.$emit('deleteSuccess')
+          Toastify({
+            text: 'delete task is successfully',
+            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+            className: "info",
+          }).showToast();
         })
         .catch(err => {
           console.log(err.response)
