@@ -1,21 +1,65 @@
 <template>
   <div>
-    <Header></Header>
-    <Footer></Footer>
+    <app-header @onRegister="onRegister"></app-header>
+    <app-main></app-main>
+    <app-footer></app-footer>
   </div>
 </template>
 
 <script>
+import axios from './config/axios';
 import Header from './components/Header';
+import Main from './components/Main';
 import Footer from './components/Footer';
 export default {
   name: 'app',
   data() {
-    return {};
+    return {
+      registerStatus: '',
+      loginStatus: ''
+    };
   },
   components: {
-    Header,
-    Footer
+    'app-header': Header,
+    'app-main': Main,
+    'app-footer': Footer
+  },
+  methods: {
+    onRegister(payload) {
+      axios({
+        method: 'POST',
+        url: '/register',
+        data: {
+          email: payload.email,
+          password: payload.password
+        }
+      })
+        .then(response => {
+          this.registerStatus = 'registered';
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+
+    loginProcess(payload) {
+      // axios({
+      //   method: 'POST',
+      //   url: '/login',
+      //   data: {
+      //     email: payload.email,
+      //     password: payload.password
+      //   }
+      // })
+      //   .then(response => {
+      //     console.log(response);
+      //     this.isLogin = true;
+      //     this.isLogout = false;
+      //   })
+      //   .catch(err => {
+      //     console.log(err);
+      //   });
+    }
   }
 };
 </script>

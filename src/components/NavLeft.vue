@@ -1,16 +1,91 @@
 <template>
   <nav class="nav-left">
-    <button class="nav-btn hover">Register</button>
-    <button class="nav-btn">Login</button>
-    <button class="nav-btn logout">Logout</button>
+    <form
+      :registerStatus="registerStatus"
+      v-show="!isLogin"
+      class="reg-log-form"
+      @submit.prevent="reglogSubmit"
+    >
+      <label for="email">EMAIL</label>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        placeholder="Type Your Email"
+        v-model="input.email"
+      />
+      <label for="password">PASSWORD</label>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Type Your Password"
+        v-model="input.password"
+      />
+      <button
+        v-show="!isRegister"
+        @click.prevent="register"
+        class="nav-btn hover"
+      >
+        Register
+      </button>
+      <button v-if="isLogout" @click.prevent="login" class="nav-btn">
+        Login
+      </button>
+    </form>
+    <button v-if="isLogin" @click.prevent="logout" class="nav-btn logout">
+      Logout
+    </button>
   </nav>
 </template>
 
 <script>
 export default {
   name: 'NavLeft',
+  props: ['registerStatus'],
   data() {
-    return {};
+    return {
+      isRegister: false,
+      isLogin: false,
+      isLogout: true,
+      input: {
+        email: '',
+        password: ''
+      },
+      payload: {
+        email: '',
+        password: ''
+      }
+    };
+  },
+  components: {},
+  methods: {
+    reglogSubmit() {
+      if (!isRegister && !isLogin) {
+        register();
+      }
+
+      if (isRegister) {
+        login();
+      }
+    },
+    register() {
+      this.payload.email = this.input.email;
+      this.payload.password = this.input.password;
+      this.$emit('toRegister', this.payload);
+      console.log(this.registerStatus);
+    },
+    login() {
+      this.payload.email = this.input.email;
+      this.payload.password = this.input.password;
+
+      this.$emit('toLogin', this.payload);
+    },
+    logout() {
+      this.isRegister = false;
+      this.isLogin = false;
+      this.isLogout = true;
+    }
   }
 };
 </script>
@@ -25,7 +100,6 @@ nav {
   flex-basis: 69%;
 }
 
-
 .nav-btn {
   font-family: 'Raleway', Arial, sans-serif;
   border: none;
@@ -35,7 +109,7 @@ nav {
   cursor: pointer;
   padding: 0 1rem;
   display: inline-block;
-  margin: 1rem;
+  margin: 0.6rem;
   text-transform: uppercase;
   line-height: 2.5rem;
   font-weight: 600;
@@ -80,5 +154,19 @@ nav {
 .nav-btn:hover:after,
 .nav-btn.hover:after {
   height: 100%;
+}
+
+.reg-log-form {
+  color: cornsilk;
+  font-size: 0.7rem;
+}
+.reg-log-form input {
+  margin: 0 0.3rem;
+  padding: 0.3rem;
+  border-radius: 5px;
+}
+
+.reg-log-form label {
+  margin: 0 0.2rem;
 }
 </style>

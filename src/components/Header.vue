@@ -1,7 +1,7 @@
 <template>
   <header>
     <!-- Navigation Left -->
-    <NavLeft></NavLeft>
+    <NavLeft @toRegister="toRegister"></NavLeft>
     <!-- Navigation Right -->
     <NavRight></NavRight>
   </header>
@@ -13,11 +13,23 @@ import NavRight from './NavRight';
 export default {
   name: 'Header',
   data() {
-    return {};
+    return {
+      registerPayload: {
+        email: '',
+        password: ''
+      }
+    };
   },
   components: {
     NavLeft,
     NavRight
+  },
+  methods: {
+    toRegister(payload) {
+      this.registerPayload.email = payload.email;
+      this.registerPayload.password = payload.password;
+      this.$emit('onRegister', this.registerPayload);
+    }
   }
 };
 </script>

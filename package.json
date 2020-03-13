@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/juleshwa/kanban_client#readme",
   "dependencies": {
+    "axios": "^0.19.2",
     "vue": "^2.6.11",
-    "vue-hot-reload-api": "^2.3.4"
+    "vue-hot-reload-api": "^2.3.4",
+    "vue-ionicons": "^3.0.4"
   },
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.1.1",
