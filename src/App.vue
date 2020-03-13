@@ -57,10 +57,7 @@ export default {
           this.tasks = data.data;
         })
         .catch(err => {
-          this.$vToastify.error(
-            `${err.response.data.msg}`,
-            `Error: ${err.response.data.status}`
-          );
+          console.log(err);
         });
     },
     fetchCategories() {
@@ -75,10 +72,7 @@ export default {
           this.categories = data.data;
         })
         .catch(err => {
-          this.$vToastify.error(
-            `${err.response.data.msg}`,
-            `Error: ${err.response.data.status}`
-          );
+          console.log(err);
         });
     },
     deleteTask(id) {
@@ -94,10 +88,7 @@ export default {
           this.fetchData();
         })
         .catch(err => {
-          this.$vToastify.error(
-            `${err.response.data.msg}`,
-            `Error: ${err.response.data.status}`
-          );
+          console.log(err);
         });
     },
     nextTask(id) {
@@ -110,13 +101,9 @@ export default {
       })
         .then(({ data }) => {
           this.fetchData();
-          this.$vToastify.success(data.msg);
         })
         .catch(err => {
-          this.$vToastify.error(
-            `${err.response.data.msg}`,
-            `Error: ${err.response.data.status}`
-          );
+          console.log(err);
         });
     },
     backTask(id) {
@@ -129,13 +116,9 @@ export default {
       })
         .then(({ data }) => {
           this.fetchData();
-          this.$vToastify.success(data.msg);
         })
         .catch(err => {
-          this.$vToastify.error(
-            `${err.response.data.msg}`,
-            `Error: ${err.response.data.status}`
-          );
+          console.log(err);
         });
     },
     createTask(data) {
@@ -154,13 +137,9 @@ export default {
       })
         .then(({ data }) => {
           this.fetchData();
-          this.$vToastify.success(data.msg);
         })
         .catch(err => {
-          this.$vToastify.error(
-            `${err.response.data.msg}`,
-            `Error: ${err.response.data.status}`
-          );
+          console.log(err);
         });
     },
     editTask(data) {
@@ -178,13 +157,9 @@ export default {
       })
         .then(({ data }) => {
           this.fetchData();
-          this.$vToastify.success(data.msg);
         })
         .catch(err => {
-          this.$vToastify.error(
-            `${err.response.data.msg}`,
-            `Error: ${err.response.data.status}`
-          );
+          console.log(err);
         });
     },
     createNewUser(data) {
@@ -199,14 +174,10 @@ export default {
         }
       })
         .then(({ data }) => {
-          this.$vToastify.success("Proceed to Login");
           this.isRegistered = true;
         })
         .catch(err => {
-          this.$vToastify.error(
-            `${err.response.data.msg}`,
-            `Error: ${err.response.data.status}`
-          );
+          console.log(err);
         });
     },
     loginUser(data) {
@@ -220,24 +191,19 @@ export default {
         }
       })
         .then(({ data }) => {
-          this.$vToastify.success("Successfully logged in");
           localStorage.setItem("token", data.token);
           this.isLoggedIn = true;
           this.fetchData();
           this.fetchCategories();
         })
         .catch(err => {
-          this.$vToastify.error(
-            `${err.response.data.msg}`,
-            `Error: ${err.response.data.status}`
-          );
+          console.log(err);
         });
     },
     logOut() {
       this.isLoggedIn = false;
       let auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(function() {});
-      this.$vToastify.success("Please come back soon");
     },
     gSignIn(data) {
       let { google_token } = data;
@@ -253,13 +219,9 @@ export default {
           this.isLoggedIn = true;
           this.fetchData();
           this.fetchCategories();
-          this.$vToastify.success("Google sign-in success");
         })
         .catch(err => {
-          this.$vToastify.error(
-            `${err.response.data.msg}`,
-            `Error: ${err.response.data.status}`
-          );
+          console.log(err);
         });
     },
     resetRegister() {
