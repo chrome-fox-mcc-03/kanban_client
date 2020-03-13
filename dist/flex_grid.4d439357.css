@@ -1,0 +1,29 @@
+#crate-projects {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+}
+
+#box-backlog {
+    background-color: rgb(247, 225, 187);
+}
+
+#box-requested {
+    background-color: rgb(160, 215, 236);
+}
+
+#box-wip {
+    background-color: rgb(186, 228, 200);
+}
+
+#box-done {
+    background-color: rgb(245, 207, 225);
+}
+
+.column {
+    width:25%
+}
+
+/*# sourceMappingURL=/flex_grid.4d439357.css.map */

@@ -1,0 +1,27 @@
+/* .navbar {
+    background-color: bisque;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+}
+
+.navbar-options-list {
+    list-style-type: none;
+    display: flex;
+    cursor: pointer;
+}
+
+.navbar-option {
+    background-color: salmon;
+    border: 0.5px solid black
+}
+
+.subheader {
+    text-align: center;
+} */
+
+.navbar-header {
+    margin: 0 auto;
+    padding: 0 auto;
+}
