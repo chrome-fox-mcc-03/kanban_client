@@ -3,192 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Josefin+Sans|Overpass&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index.css">
+    <link type="text/css" rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link type="text/css" href="https://fonts.googleapis.com/css?family=Fredoka+One|Josefin+Sans|Overpass&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css" type="text/css">
     <title>Kanban</title>
 </head>
 <body>
-    <nav class="nav navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="col-md-12">
-                <div class="navbar">
-                    <a class="navbar-brand" href="https://github.com/MickeyStrike" target="_blank"> <img src="image/mickeystrike2.png" width="180" height="30"></a>
-                    <ul class="navbar nav">
-                        <li class="nav-item">
-                            <a class="nav-link login" id="login"> Login </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link register" id="register"> Register </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="navbar-collapse collapse" id="navbarSupportedContent">
-                </div>
-            </div>
-        </div>
-    </nav>
 
-    <div class="container-fluid ml-3">
-        <div class="row">
-            <div class="col">
-                <div class="row bg-custom">
-                    <div class="card-title" style="width: 100%;">
-                        <span class="card-list-title">Backlog</span>
-                    </div>
-                    <div class="content-wrapper">
-                        <div class="card-list mb-3">
-                            <div class="card-list-header">
-                                <div class="card-list-title">
-                                    <span class="labels">back-end</span>
-                                </div>
-                                <button class="content-delete-button">
-                                    x
-                                </button>
-                            </div>
-                            <div class="card-list-body">
-                                Description
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row card-bottom">
-                    <input type="text" class="form-control mr-1" style="width: 75%;" placeholder="Add Card ....">
-                    <button class="add-button btn btn-primary">+ Add</button>
-                </div>
-            </div>
-            
-            <div class="col">
-                <div class="row bg-custom">
-                    <div class="card-title" style="width: 100%;">
-                        <span class="card-list-title">Development</span>
-                    </div>
-                    <div class="content-wrapper">
-                        <div class="card-list mb-3">
-                            <div class="card-list-header">
-                                <div class="card-list-title">
-                                    <span class="labels">back-end</span>
-                                </div>
-                                <button class="content-delete-button">
-                                    x
-                                </button>
-                            </div>
-                            <div class="card-list-body">
-                                Description
-                            </div>
-                        </div>
-                        <div class="card-list mb-3">
-                            <div class="card-list-header">
-                                <div class="card-list-title">
-                                    <span class="labels">back-end</span>
-                                </div>
-                                <button class="content-delete-button">
-                                    x
-                                </button>
-                            </div>
-                            <div class="card-list-body">
-                                Description
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row card-bottom">
-                    <input type="text" class="form-control mr-1" style="width: 75%;" placeholder="Add Card ....">
-                    <button class="add-button btn btn-primary">+ Add</button>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="row bg-custom">
-                    <div class="card-title" style="width: 100%;">
-                        <span class="card-list-title">Product</span>
-                    </div>
-                    <div class="content-wrapper">
-                        
-                        <div class="card-list mb-3">
-                            <div class="card-list-header">
-                                <div class="card-list-title">
-                                    <span class="labels">back-end</span>
-                                </div>
-                                <button class="content-delete-button">
-                                    x
-                                </button>
-                            </div>
-                            <div class="card-list-body">
-                                Description
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row card-bottom">
-                    <input type="text" class="form-control mr-1" style="width: 75%;" placeholder="Add Card ....">
-                    <button class="add-button btn btn-primary">+ Add</button>
-                </div>
-            </div>
-            
-            <div class="col">
-                <div class="row bg-custom">
-                    <div class="card-title" style="width: 100%;">
-                        <span class="card-list-title">Done</span>
-                    </div>
-                    <div class="content-wrapper">
-                        <div class="card-list mb-3">
-                            <div class="card-list-header">
-                                <div class="card-list-title">
-                                    <span class="labels">back-end</span>
-                                </div>
-                                <button class="content-delete-button">
-                                    x
-                                </button>
-                            </div>
-                            <div class="card-list-body">
-                                Description
-                            </div>
-                        </div>
-                        <div class="card-list mb-3">
-                            <div class="card-list-header">
-                                <div class="card-list-title">
-                                    <span class="labels">back-end</span>
-                                </div>
-                                <button class="content-delete-button">
-                                    x
-                                </button>
-                            </div>
-                            <div class="card-list-body">
-                                Description
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row card-bottom">
-                    <input type="text" class="form-control mr-1" style="width: 75%;" placeholder="Add Card ....">
-                    <button class="add-button btn btn-primary">+ Add</button>
-                </div>
-            </div>
-
-            <!-- <div class="container mt-5">
-                <div class="box">
-                    <div class="row justify-content-center">
-                        <div class="col-md-center">
-                            <div class="row justify-content-center">
-                                <label>Add Task</label><br>
-                            </div>
-                            <div class="row justify-content-center mb-3">
-                                <input type="text" placeholder="Add new task" class="form-control" style="height: 50%;">
-                            </div>
-                            <div class="row justify-content-center">
-                                <button type="submit" class="btn btn-warning">Submit</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>      -->
-        </div>
+    <div id="app">
+        <!-- MODAL -->
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script src="./src/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
 </body>
 </html>

@@ -16,6 +16,12 @@ input {
     text-align: center;
 }
 
+.form-login-custom {
+    background-color: rgba(20, 20, 20, 0.589);
+    border-radius:10%;
+    border-color: none;
+}
+
 .form-control:focus {
     outline: none;
     border-color: yellow;
@@ -27,7 +33,7 @@ input {
     box-shadow:0 .25rem .75rem rgba(0,0,0,.2);
     /* width: 300px; */
     margin-right:1rem;
-    background-color:rgba(255, 255, 255, 0.4);
+    background-color:rgba(221, 221, 221, 0.4);
     scrollbar-width:none;
 }
 
@@ -79,7 +85,7 @@ input {
     font-size: 0.75em;
     padding: 5px;
     border-radius: 20px;
-    background-color: red;
+    /* background-color: red; */
     color: white;
 }
 
@@ -164,4 +170,46 @@ input {
     background-color:#F9F9FA;
     color:#6c757d;
     width: 99.5%;
+}
+
+.empty-card {
+    color: white;
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+.temp-label {
+    margin: 10px;
+}
+
+.label-delete-button {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    -moz-appearance: none;
+    font-weight: 700;
+    line-height: 1;
+    color: white;
+    text-shadow: 0 1px 0 #fff;
+    opacity: 0.5;
+}
+
+.labels-hover:hover {
+    font-size: 0.9em;
+}
+
+.form-update-input {
+    height:calc(1.5em + .75rem + 2px);
+    color:#495057;
+    padding:.375rem .75rem;
+    background-clip:padding-box;
+    font-size:1rem;
+    font-weight:400;
+    border:1px solid #ced4da;
+    border-radius: .25rem;
+    transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.custom-select {
+    width: auto;
 }
