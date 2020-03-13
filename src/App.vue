@@ -608,7 +608,7 @@ export default {
     width: 100vw; 
     height: 100vh; 
     position:fixed;
-    z-index: 100;
+    z-index: 10000;
     top: 0;
     left: 0;
     background-color: rgb(255, 255, 255, 0.5);
