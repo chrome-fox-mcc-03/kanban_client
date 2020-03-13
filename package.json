@@ -1,0 +1,31 @@
+{
+  "name": "kanban_client",
+  "version": "1.0.0",
+  "description": "Kanban Quest client for Hacktiv8's Phase 2 Week 2 portofolio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fadhilahm/kanban_client.git"
+  },
+  "keywords": [
+    "kanban_client"
+  ],
+  "author": "fadhilahm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fadhilahm/kanban_client/issues"
+  },
+  "homepage": "https://github.com/fadhilahm/kanban_client#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "vue": "^2.6.11",
+    "vue-hot-reload-api": "^2.3.4"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^3.1.1",
+    "vue-template-compiler": "^2.6.11"
+  }
+}
