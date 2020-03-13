@@ -1,4 +1,4 @@
-#homepage-one, #homepage-two, #homepage-three, #cards-container, #add-task-container, #login-container, #register-container {
+#loading-animation, #homepage-one, #homepage-two, #homepage-three, #cards-container, #add-task-container, #login-container, #register-container {
   width: 95vw;
   height: 100vh;
   margin-left: 5vw;
@@ -462,6 +462,17 @@
 
 .reviewer-picture {
   font-size: 3rem;
+}
+
+#loading-animation {
+  background-color: #fcf9ea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 500;
 }
 
 /*# sourceMappingURL=style.css.map */

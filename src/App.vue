@@ -8,6 +8,11 @@
             <add-task-form :categories="categories" @addTask="addTask" v-else-if="currentPage == 'addTaskDisplay'"></add-task-form>
             <homepage v-else></homepage>
             <modal @deleteTask="deleteTask" @update="update" :taskDetail="taskDetail"></modal>
+            <div v-if="isLoading" id="loading-animation">
+                <lottie-player 
+                    src="https://assets6.lottiefiles.com/datafiles/bEYvzB8QfV3EM9a/data.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop  autoplay >
+                </lottie-player>
+            </div>
         </div>
     </div>
 </template>
@@ -49,6 +54,7 @@ export default {
                 role: '',
                 disableLogin: false
             },
+            isLoading: false,
             categories: ['Backlog', 'Product', 'Development', 'Done'],
             currentPage : '',
             cards: [],
@@ -80,35 +86,39 @@ export default {
     },
     methods: {
         changePage(page) {
-            if (page === 'loginDisplay' || page === 'homepageDisplay') {
+            if (page === 'loginDisplay' || page === 'homepageDisplay' || page === 'registerDisplay') {
                 this.currentPage = page
             } else {
                 if (this.userData.isLogin) {
                     this.currentPage = page
                 } else {
                     const message = "You Are Not Authenticated!"
+                    this.currentPage = this.currentPage
                     Toast.fire({
                         icon: 'error',
                         title: message
                     })
-                    this.currentPage = this.currentPage
                 }
             }
-            
         },
         logout(){
-            if (!this.userData.isLogin) {
-                return
-            } else {
-                this.userData.isLogin = false
-                Toast.fire({
-                            icon: 'success',
-                            title: 'Logout success'
-                })
-                localStorage.clear()
-                this.changePage('homepageDisplay')
-                this.signOut()
-            }
+            this.isLoading = true
+            setTimeout(_ => {
+                if (!this.userData.isLogin) {
+                    this.isLoading = false
+                    return
+                } else {
+                    this.userData.isLogin = false
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Logout success'
+                    })
+                    localStorage.clear()
+                    this.isLoading = false
+                    this.changePage('homepageDisplay')
+                    this.signOut()
+                }
+            }, 2000)
         },
         signOut() {
             console.log(gapi)
@@ -122,35 +132,41 @@ export default {
             this.userData.password = obj.password
             const email = this.userData.email
             const password = this.userData.password
-            axios({
-                method: "POST",
-                url: "http://localhost:3000/login",
-                data: {
-                    email,
-                    password
-                }
-            })
-                .then(response => {
-                    const token = response.data.token
-                    localStorage.setItem('token', token)
-                    this.currentPage = 'homePageDisplay'
-                    this.userData.isLogin = true
-                    console.log(response)
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Login succesfully'
-                    })
-                    this.userData.email = ''
-                    this.userData.password = ''
+            this.isLoading = true
+                axios({
+                    method: "POST",
+                    url: "http://localhost:3000/login",
+                    data: {
+                        email,
+                        password
+                    }
                 })
-                
-                .catch(err => {
-                    Toast.fire({
-                        icon: 'error',
-                        title: err.response.data.error
+                    .finally(_ => {
+                        this.isLoading = false
                     })
-                    console.log(err.response.data)
-                })
+                    .then(response => {
+                        const token = response.data.token
+                        localStorage.setItem('token', token)
+                        this.currentPage = 'homePageDisplay'
+                        this.userData.isLogin = true
+                        console.log(response)
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Login succesfully'
+                        })
+                        this.userData.email = ''
+                        this.userData.password = ''
+                    })
+                    
+                    .catch(err => {
+                        Toast.fire({
+                            icon: 'error',
+                            title: err.response.data.error
+                        })
+                        console.log(err.response.data)
+                    })
+
+                    
         },
         getUserByEmail(email){
             const token = localStorage.getItem('token')
@@ -184,7 +200,7 @@ export default {
             const first_name = this.userData.first_name
             const last_name = this.userData.last_name
             const role = this.userData.role
-
+            this.isLoading = true
             axios({
                 method: "POST",
                 url: "http://localhost:3000/users",
@@ -196,6 +212,9 @@ export default {
                     role
                 }
             })
+                .finally(_ => {
+                    this.isLoading = false
+                })
                 .then(response => {
                     this.currentPage = 'loginDisplay'
                     this.userData.email = ''
@@ -221,6 +240,7 @@ export default {
             const category = this.taskData.category
             const description = this.taskData.description
             const token = localStorage.getItem('token')
+            this.isLoading = true
             axios({
                 method: "POST",
                 url: "http://localhost:3000/tasks",
@@ -233,6 +253,9 @@ export default {
                     token
                 }
             })
+                .finally( _ => {
+                    this.isLoading = false
+                })
                 .then(response => {
                     this.fetchCards()
                     console.log(response.data)
@@ -247,6 +270,7 @@ export default {
         },
         fetchCards(){
             const token = localStorage.getItem('token')
+            this.isLoading = true
             axios({
                 method: "GET",
                 url: "http://localhost:3000/tasks",
@@ -254,6 +278,9 @@ export default {
                     token
                 }
             })
+                .finally( _=> {
+                    this.isLoading = false
+                })
                 .then(response => {
                     console.log(response.data.length)
                     if (response.data.length > 0) {
@@ -349,29 +376,21 @@ export default {
             const id = el.id
             console.log(id)
             const token = localStorage.getItem('token')
+            this.isLoading = true
             axios({
                 method: "DELETE",
                 url: `http://localhost:3000/tasks/${id}`,
                 headers: {
                     token
                 }
-            }) 
-                .then(response => {
-                    return axios({
-                        method: "GET",
-                        url: "http://localhost:3000/tasks",
-                        headers: {
-                            token
-                        }
-                    })
-                    console.log(response.data)
+            })
+                .finally( _=> {
+                    this.isLoading = false
                 })
                 .then(response => {
-                    let tasks = response.data
-                    console.log('<<<<<<',response)
-                    console.log(response.data)
-                        this.fetchCards()
+                    this.fetchCards()
                         this.currentPage = 'homepageDisplay'
+                    console.log(response.data)
                 })
                 .catch(err => {
                     console.log(err.response)
@@ -386,17 +405,17 @@ export default {
         onSignIn: function(googleUser) {
             if (localStorage.getItem('token')) {
                 const profile = googleUser.getBasicProfile();
-                const id_token = googleUser.getAuthResponse().id_token
-                
+                const id_token = googleUser.getAuthResponse().id_token            
                 return
             } else {
                 const profile = googleUser.getBasicProfile();
                 const id_token = googleUser.getAuthResponse().id_token
-                console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+                console.log('ID: ' + profile.getId()); 
                 console.log('Name: ' + profile.getName());
                 console.log('Image URL: ' + profile.getImageUrl());
-                console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+                console.log('Email: ' + profile.getEmail()); 
                 console.log('id_token: ' +id_token)
+                this.isLoading = true
                 axios({
                     method: 'POST',
                     url: "http://localhost:3000/loginGoogle",
@@ -404,6 +423,9 @@ export default {
                         id_token
                     } 
                 })
+                    .finally( _=> {
+                        this.isLoading = false
+                    })
                     .then(response => {
                         const token = response.data.token
                         localStorage.setItem('token', token)
