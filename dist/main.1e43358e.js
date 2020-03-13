@@ -9378,6 +9378,12 @@ var _default = {
     };
   },
   methods: {
+    register: function register() {
+      this.$emit('post-register', {
+        email: this.email,
+        password: this.password
+      });
+    },
     login: function login() {
       this.$emit('get-login', {
         email: this.email,
@@ -9454,7 +9460,18 @@ exports.default = _default;
       _c("br"),
       _c("br"),
       _vm._v(" "),
-      _c("button", [_vm._v("Register")]),
+      _c(
+        "button",
+        {
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.register()
+            }
+          }
+        },
+        [_vm._v("Register")]
+      ),
       _vm._v(" "),
       _c(
         "button",
@@ -11330,15 +11347,69 @@ var _default = {
     LoginPage: _LoginPage.default
   },
   methods: {
+    fetchData: function fetchData() {
+      var _this = this;
+
+      (0, _axios.default)({
+        method: 'GET',
+        url: 'http://localhost:3000/todo/read',
+        headers: {
+          token: localStorage.getItem('accessToken')
+        }
+      }).then(function (response) {
+        console.log(response);
+        _this.todos = response;
+      }).catch(function (err) {
+        alert(err);
+      });
+    },
+    register: function register(userData) {
+      var _this2 = this;
+
+      (0, _axios.default)({
+        method: 'POST',
+        url: 'http://localhost:3000/register',
+        data: {
+          email: userData.email,
+          password: userData.password
+        }
+      }).then(function (response) {
+        localStorage.setItem('accessToken', response.data.accessToken);
+
+        if (localStorage.getItem('accessToken')) {
+          _this2.logStatus = true;
+
+          _this2.fetchData();
+        }
+      }).catch(function (err) {
+        alert(err);
+      });
+    },
     login: function login(userData) {
-      if (userData.password == 'secret') {
-        this.user.email = userData.email;
-        this.logStatus = true;
-      } else {
-        alert('password wrong');
-      }
+      var _this3 = this;
+
+      (0, _axios.default)({
+        method: 'POST',
+        url: 'http://localhost:3000/login',
+        data: {
+          email: userData.email,
+          password: userData.password
+        }
+      }).then(function (response) {
+        console.log(response);
+        localStorage.setItem('accessToken', response.data.accessToken);
+
+        if (localStorage.getItem('accessToken')) {
+          _this3.logStatus = true;
+
+          _this3.fetchData();
+        }
+      }).catch(function (err) {
+        alert(err);
+      });
     },
     logout: function logout() {
+      localStorage.clear();
       this.logStatus = false;
     },
     addTask: function addTask() {
@@ -11352,6 +11423,10 @@ var _default = {
     }
   },
   created: function created() {
+    if (localStorage.getItem('accessToken')) {
+      this.logStatus = true;
+    }
+
     console.log(this.logStatus);
   }
 };
@@ -11377,7 +11452,9 @@ exports.default = _default;
             attrs: { user: _vm.user, todos: _vm.todos },
             on: { "logging-out": _vm.logout }
           })
-        : _c("LoginPage", { on: { "get-login": _vm.login } })
+        : _c("LoginPage", {
+            on: { "get-login": _vm.login, "post-register": _vm.register }
+          })
     ],
     1
   )
@@ -11457,7 +11534,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50303" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60696" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

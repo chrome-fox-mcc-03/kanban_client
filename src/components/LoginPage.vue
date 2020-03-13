@@ -5,7 +5,7 @@
         <form id="login/register">
             <input type="text" id="email" v-model="email" placeholder="E-mail"><br>
             <input type="password" id="password" v-model="password" placeholder="Password"><br><br>
-            <button>Register</button>          <button v-on:click.prevent="login()">Login</button>
+            <button v-on:click.prevent="register()">Register</button>          <button v-on:click.prevent="login()">Login</button>
         </form>
     </div>
 </template>
@@ -23,6 +23,9 @@ export default {
         }
     },
     methods: {
+        register: function() {
+            this.$emit('post-register', {email: this.email, password: this.password})
+        },
         login: function() {
             this.$emit('get-login', {email: this.email, password: this.password})
         }

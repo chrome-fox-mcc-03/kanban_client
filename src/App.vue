@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <MasterBoard v-if="logStatus" v-on:logging-out="logout" v-bind:user="user" v-bind:todos="todos"></MasterBoard>
-        <LoginPage v-else v-on:get-login="login"></LoginPage>
+        <LoginPage v-else v-on:get-login="login" v-on:post-register="register"></LoginPage>
     </div>
 </template>
 
@@ -56,16 +56,62 @@ export default {
         LoginPage: LoginPage
     },
     methods: {
+        fetchData: function() {
+            axios({
+                method: 'GET',
+                url: 'http://localhost:3000/todo/read',
+                headers: {
+                    token: localStorage.getItem('accessToken')
+                }
+            }).then(response => {
+                console.log(response)
+                this.todos = response
+            })
+            .catch(err => {
+                alert(err)
+            })
+        },
+        register: function(userData) {
+            axios({
+                method: 'POST',
+                url: 'http://localhost:3000/register',
+                data: {
+                    email: userData.email,
+                    password: userData.password
+                }
+            }).then(response => {
+                localStorage.setItem('accessToken', response.data.accessToken)
+                if(localStorage.getItem('accessToken')) {
+                    this.logStatus = true
+                    this.fetchData()
+                }
+            })
+            .catch(err => {
+                alert(err)
+            })
+        },
         login: function (userData) {
-            if(userData.password == 'secret') {
-                this.user.email = userData.email
-                this.logStatus = true
-            }
-            else {
-                alert('password wrong')
-            }
+            axios({
+                method: 'POST',
+                url: 'http://localhost:3000/login',
+                data: {
+                    email: userData.email,
+                    password: userData.password
+                }
+            }).then(response => {
+                console.log(response)
+                localStorage.setItem('accessToken', response.data.accessToken)
+                if(localStorage.getItem('accessToken')) {
+                    this.logStatus = true
+                    this.fetchData()
+                }
+            })
+            .catch(err => {
+                alert(err)
+            })
         },
         logout: function() {
+            localStorage.clear()
             this.logStatus = false
         },
         addTask: function() {
@@ -79,6 +125,9 @@ export default {
         }
     },
     created() {
+        if(localStorage.getItem('accessToken')) {
+            this.logStatus = true
+        }
         console.log(this.logStatus)
     }
 }
