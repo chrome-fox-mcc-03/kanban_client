@@ -59,7 +59,7 @@
         methods: {
             login(data) {
                 this.isLoading = true;
-                axios.post('http://localhost:3000/login', data)
+                axios.post('https://kanbanize.herokuapp.com/login', data)
                     .then(response => {
                         const token = response.data.token
                         const fullname = response.data.fullname
@@ -92,7 +92,7 @@
                 this.isLoading = true
                 axios({
                         method: "POST",
-                        url: 'http://localhost:3000/googleLogin',
+                        url: 'https://kanbanize.herokuapp.com/googleLogin',
                         data: {
                             id_token
                         }
@@ -127,7 +127,7 @@
 
             register(data) {
                 this.isLoading = true;
-                axios.post('http://localhost:3000/register', data)
+                axios.post('https://kanbanize.herokuapp.com/register', data)
                     .then(response => {
                         const token = response.data.token
                         localStorage.setItem('token', token)
@@ -171,7 +171,7 @@
                 this.isLoading = true;
                 axios({
                         method: "POST",
-                        url: "http://localhost:3000/task",
+                        url: "https://kanbanize.herokuapp.com/task",
                         data: {
                             title: data.title,
                             category: data.catId
@@ -203,7 +203,7 @@
                 this.isLoading = true;
                 axios({
                         method: "GET",
-                        url: "http://localhost:3000/task",
+                        url: "https://kanbanize.herokuapp.com/task",
                         headers: {
                             token: localStorage.token
                         }
@@ -236,7 +236,7 @@
                 this.isLoading = true;
                 axios({
                         method: "DELETE",
-                        url: `http://localhost:3000/task/${id}`,
+                        url: `https://kanbanize.herokuapp.com/task/${id}`,
                         headers: {
                             token: localStorage.token
                         }
@@ -288,7 +288,7 @@
                 this.isLoading = true;
                 axios({
                         method: "PUT",
-                        url: `http://localhost:3000/task/${obj.id}`,
+                        url: `https://kanbanize.herokuapp.com/task/${obj.id}`,
                         data: {
                             category: obj.category
                         },
@@ -308,7 +308,7 @@
                 this.isLoading = true;
                 axios({
                         method: "PUT",
-                        url: `http://localhost:3000/task/${obj.id}`,
+                        url: `https://kanbanize.herokuapp.com/task/${obj.id}`,
                         data: {
                             title: obj.title,
                             desc: obj.desc,
