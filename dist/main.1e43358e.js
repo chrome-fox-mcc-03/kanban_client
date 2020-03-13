@@ -9678,34 +9678,77 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   name: "LandingPage",
   data: function data() {
     return {
       userCreds: {
-        email: '',
-        password: ''
+        email: "",
+        password: ""
       }
     };
   },
+  props: ['isLogin'],
   methods: {
-    userSignup: function userSignup() {
+    userSignup0: function userSignup0() {
       var email = this.userCreds.email;
       var password = this.userCreds.password;
       var userCreds = {
         email: email,
         password: password
       };
-      this.$emit('userSignup', userCreds);
+      this.$emit("userSignup1", userCreds);
     },
-    userLogin: function userLogin() {
+    userLogin0: function userLogin0() {
       var email = this.userCreds.email;
       var password = this.userCreds.password;
       var userCreds = {
         email: email,
         password: password
       };
-      this.$emit('userLogin', userCreds);
+      this.$emit("userLogin1", userCreds);
     }
   }
 };
@@ -9736,6 +9779,8 @@ exports.default = _default;
       attrs: { id: "pg-landing" }
     },
     [
+      _c("h1", [_vm._v("看板ページにいらっしゃいます")]),
+      _vm._v(" "),
       _c("form", { attrs: { id: "form-login" } }, [
         _c("h3", [_vm._v("PLEASE LOGIN TO CONTINUE")]),
         _vm._v(" "),
@@ -9819,7 +9864,7 @@ exports.default = _default;
               on: {
                 click: function($event) {
                   $event.preventDefault()
-                  return _vm.login()
+                  return _vm.userLogin0()
                 }
               }
             },
@@ -9836,7 +9881,7 @@ exports.default = _default;
                 "data-target": "#signupModal"
               }
             },
-            [_vm._v("\n          SIGNUP\n        ")]
+            [_vm._v("SIGNUP")]
           ),
           _vm._v(" "),
           _c("div", {
@@ -9868,7 +9913,7 @@ exports.default = _default;
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
                   _c("form", { attrs: { id: "signup-form" } }, [
-                    _vm._v("\n              Email"),
+                    _vm._v("\n            Email\n            "),
                     _c("br"),
                     _vm._v(" "),
                     _c("input", {
@@ -9899,7 +9944,7 @@ exports.default = _default;
                     }),
                     _vm._v(" "),
                     _c("br"),
-                    _vm._v("\n              Password"),
+                    _vm._v("Password\n            "),
                     _c("br"),
                     _vm._v(" "),
                     _c("input", {
@@ -9954,7 +9999,7 @@ exports.default = _default;
                       on: {
                         click: function($event) {
                           $event.preventDefault()
-                          return _vm.signup()
+                          return _vm.userSignup0()
                         }
                       }
                     },
@@ -10729,6 +10774,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   name: "App",
   data: function data() {
@@ -10754,23 +10809,48 @@ var _default = {
       },
       tasks: [],
       task: [],
-      isLogin: true,
+      isLogin: false,
       categories: ["backlog", "requested", "wip", "done"]
     };
   },
   components: {
     Navbar: _Navbar.default,
-    Dashboard: _Dashboard.default
+    Dashboard: _Dashboard.default,
+    LandingPage: _LandingPage.default
   },
   methods: {
-    login: function login(userCreds) {
+    login: function login(dataFromChild) {
+      var email = dataFromChild.email;
+      var password = dataFromChild.password;
+      axios({
+        method: "post",
+        url: "http://localhost:3000/users/signup",
+        data: {
+          email: email,
+          password: password
+        }
+      }).then(function (response) {
+        // this.isLogin = true
+        console.log("MASUK SIGNUP CLIENT");
+        console.log("RESPONSE IS");
+        console.log(response); // created()
+      }).catch(function (err) {
+        // arr = JSON.parse(err.responseText).message
+        console.log(err);
+      });
+    },
+    signup: function signup(dataFromChild) {
       var _this = this;
 
-      var email = userCreds.email;
-      var password = userCreds.password;
-      axios.post("http://localhost:3000/users/login", {
-        email: email,
-        password: email
+      var email = dataFromChild.email;
+      var password = dataFromChild.password;
+      axios({
+        method: "post",
+        url: "http://localhost:3000/users/signup",
+        data: {
+          email: email,
+          password: password
+        }
       }).then(function (response) {
         // this.isLogin = true
         console.log("MASUK LOGIN CLIENT");
@@ -10787,7 +10867,6 @@ var _default = {
         console.log(err);
       });
     },
-    signup: function signup() {},
     fetchTasks: function fetchTasks() {
       var _this2 = this;
 
@@ -10910,6 +10989,12 @@ exports.default = _default;
   return _c(
     "div",
     [
+      _vm.isLogin === false
+        ? _c("LandingPage", {
+            on: { userLogin1: _vm.login, userSignup1: _vm.signup }
+          })
+        : _vm._e(),
+      _vm._v(" "),
       _c("Navbar", {
         attrs: { token: _vm.token, isLogin: _vm.isLogin },
         on: {
@@ -12769,7 +12854,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49778" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54268" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

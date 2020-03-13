@@ -1,5 +1,15 @@
 <template>
     <div>
+
+        <LandingPage
+            @userLogin1="login"
+            @userSignup1="signup"
+            v-if="isLogin === false"
+        >
+
+        </LandingPage>
+
+
         <Navbar
             :token="token" 
             :isLogin="isLogin"
@@ -51,22 +61,53 @@ export default {
             },
             tasks: [],
             task: [],
-            isLogin: true,
+            isLogin: false,
             categories: ["backlog", "requested", "wip", "done"]
         }
     },
     components: {
         Navbar,
-        Dashboard
+        Dashboard,
+        LandingPage
     },
     methods: {
-        login(userCreds) {
-            const email = userCreds.email
-            const password = userCreds.password
+        login(dataFromChild) {
+            const email = dataFromChild.email
+            const password = dataFromChild.password
 
-            axios.post("http://localhost:3000/users/login", {
-                email: email,
-                password: email
+            axios({
+                method: "post",
+                url: "http://localhost:3000/users/signup", 
+                data: {
+                    email: email,
+                    password: password
+                }
+            })
+            .then(response => {
+                // this.isLogin = true
+                console.log("MASUK SIGNUP CLIENT");
+                console.log("RESPONSE IS");
+                console.log(response);
+                // created()
+
+            })
+            .catch(err => {
+                // arr = JSON.parse(err.responseText).message
+                console.log(err);
+            })
+        },
+
+        signup(dataFromChild) {
+            const email = dataFromChild.email
+            const password = dataFromChild.password
+
+            axios({
+                method: "post",
+                url: "http://localhost:3000/users/signup", 
+                data: {
+                    email: email,
+                    password: password
+                }
             })
             .then(response => {
                 // this.isLogin = true
@@ -85,10 +126,6 @@ export default {
                 // arr = JSON.parse(err.responseText).message
                 console.log(err);
             })
-        },
-
-        signup() {
-
         },
 
         fetchTasks() {
