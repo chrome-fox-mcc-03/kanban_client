@@ -48,7 +48,7 @@ export default {
     fetchData() {
       axios({
         method: "GET",
-        url: "http://localhost:3000/tasks",
+        url: "https://lit-peak-87737.herokuapp.com/tasks",
         headers: {
           token: localStorage.getItem("token")
         }
@@ -56,12 +56,17 @@ export default {
         .then(({ data }) => {
           this.tasks = data.data;
         })
-        .catch(err => console.log(err.response));
+        .catch(err => {
+          this.$vToastify.error(
+            `${err.response.data.msg}`,
+            `Error: ${err.response.data.status}`
+          );
+        });
     },
     fetchCategories() {
       axios({
         method: "GET",
-        url: "http://localhost:3000/categories",
+        url: "https://lit-peak-87737.herokuapp.com/categories",
         headers: {
           token: localStorage.getItem("token")
         }
@@ -69,12 +74,17 @@ export default {
         .then(({ data }) => {
           this.categories = data.data;
         })
-        .catch(err => console.log(err.response));
+        .catch(err => {
+          this.$vToastify.error(
+            `${err.response.data.msg}`,
+            `Error: ${err.response.data.status}`
+          );
+        });
     },
     deleteTask(id) {
       axios({
         method: "DELETE",
-        url: `http://localhost:3000/tasks/${id}`,
+        url: `https://lit-peak-87737.herokuapp.com/tasks/${id}`,
         headers: {
           token: localStorage.getItem("token")
         }
@@ -93,7 +103,7 @@ export default {
     nextTask(id) {
       axios({
         method: "POST",
-        url: `http://localhost:3000/tasks/${id}/next`,
+        url: `https://lit-peak-87737.herokuapp.com/tasks/${id}/next`,
         headers: {
           token: localStorage.getItem("token")
         }
@@ -112,7 +122,7 @@ export default {
     backTask(id) {
       axios({
         method: "POST",
-        url: `http://localhost:3000/tasks/${id}/back`,
+        url: `https://lit-peak-87737.herokuapp.com/tasks/${id}/back`,
         headers: {
           token: localStorage.getItem("token")
         }
@@ -132,7 +142,7 @@ export default {
       let { title, description, CategoryId } = data;
       axios({
         method: "POST",
-        url: `http://localhost:3000/tasks`,
+        url: `https://lit-peak-87737.herokuapp.com/tasks`,
         headers: {
           token: localStorage.getItem("token")
         },
@@ -157,7 +167,7 @@ export default {
       let { id, title, description } = data;
       axios({
         method: "PUT",
-        url: `http://localhost:3000/tasks/${id}`,
+        url: `https://lit-peak-87737.herokuapp.com/tasks/${id}`,
         headers: {
           token: localStorage.getItem("token")
         },
@@ -181,7 +191,7 @@ export default {
       let { username, email, password } = data;
       axios({
         method: "POST",
-        url: "http://localhost:3000/register",
+        url: "https://lit-peak-87737.herokuapp.com/register",
         data: {
           email,
           password,
@@ -203,7 +213,7 @@ export default {
       let { email, password } = data;
       axios({
         method: "POST",
-        url: "http://localhost:3000/login",
+        url: "https://lit-peak-87737.herokuapp.com/login",
         data: {
           email,
           password
@@ -233,7 +243,7 @@ export default {
       let { google_token } = data;
       axios({
         method: "POST",
-        url: "http://localhost:3000/gsignin",
+        url: "https://lit-peak-87737.herokuapp.com/gsignin",
         headers: {
           google_token
         }
