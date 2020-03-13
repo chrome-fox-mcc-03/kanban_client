@@ -1,24 +1,24 @@
 <template>
   <div  class="container" >
-        <form>
+        <form @submit.prevent="generateTask">
         <h2>Select Project :</h2> 
             <select v-model="projectselect">
-                <option v-for="(project, id) in projects" :key="id">{{project}}</option>
+                <option v-for="(project, id) in projects" :key="id" :value="project.id">{{project.Title}}</option>
                 
             </select>
-            <input type="submit">
-        
+            <input type="submit" class="btn btn-primary" value="Select Project"/>
+        </form>
         <p>Users:</p><br>
-        <div class="boxed">
+        <div class="boxed" >
          <ul >
-             <li><p> </p></li>
+             <li v-for="user in users" :key="user.User.id"><p>{{user.User.Email}} </p></li>
          </ul>
         </div>
         <br>
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#TaskModal">
+        <button type="button" v-if="isProject" class="btn btn-info" data-toggle="modal" data-target="#TaskModal">
         Create Task
         </button>
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#FriendsModal">
+        <button type="button" v-if="isProject" class="btn btn-info" data-toggle="modal" data-target="#FriendsModal">
         Add Friends 
         </button>
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ProjectModal">
@@ -29,10 +29,16 @@
 
 <script>
 export default {
-    props: ['projects', 'projectselect'],
+    props: ['projects', 'users', "isProject"] ,
     data() {
         return {
-            
+            projectselect: ''
+        }
+    },
+    methods: {
+        generateTask() {
+            console.log('generate task emit')
+            this.$emit("generateTask", this.projectselect)
         }
     }
 

@@ -22,27 +22,10 @@
 import taskboard from './taskboard.vue'
 
 export default {
-    props: ['isProject'],
+    props: ['backlog', 'development', 'product', 'done', 'categories'],
     data() {
         return {
-            project: '',
-            backlog: [],
-            product: [],
-            development: [],
-            categoryname: '',
-            categories: ["Backlog", "Product", "Development", "Done"],
             tasks: [this.backlog, this.product, this.development, this.done],
-            done: [],
-            users: [],//Kanban Board
-            data: {
-                title: '',
-                content: '',
-                category: '',
-                due_date: '',
-                userid: '',
-                projectid: '',
-                //Task Satuan Modal
-            },
         }
         
     },
@@ -56,10 +39,10 @@ export default {
                     return this.product
                     break;
                 case "Development":
-                    return this.Development
+                    return this.development
                     break;
                 case "Done":
-                    return this.Done
+                    return this.done
                     break;
             
                 default:
