@@ -15,7 +15,6 @@
             <button class="btn btn-info btn-block my-4 font-custom-roboto" type="submit" id="btn-register" @click.prevent="register()" >Register</button>       
             <div class="text-center">
                 <p class="text-white">or Login with:</p>
-                <div class="d-flex justify-content-center g-signin2" data-onsuccess="onSignIn"></div>
             </div>
         </form>
     </div>

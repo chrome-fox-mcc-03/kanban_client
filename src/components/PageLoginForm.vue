@@ -20,7 +20,12 @@
                     <a href="" class="register" >Register</a>
                 </p>
                 <p class="text-white">or Login with:</p>
-                <div class="d-flex justify-content-center g-signin2" data-onsuccess="onSignIn"></div>
+                <g-signin-button
+                    :params="googleSignInParams"
+                    @success="onSignInSuccess"
+                    @error="onSignInError">
+                    Sign in with Google
+                </g-signin-button>
             </div>
         </form>
     </div>
@@ -32,7 +37,10 @@ export default {
     data() {
         return {
             email:'',
-            password:''
+            password:'',
+            googleSignInParams: {
+                client_id: "400509604664-e9s1kqol3878hjg5bmk8dn9kgnat34i1.apps.googleusercontent.com"
+            }
         }
     },
     methods: {
@@ -41,11 +49,31 @@ export default {
             let password = this.password
             let payload = {email,password}
             this.$emit('login',payload)
+        },
+        onSignInSuccess (googleUser) {
+            // console.log(googleUser)
+            const profile = googleUser.getBasicProfile() // etc etc
+            let id_token = googleUser.getAuthResponse().id_token;
+            // console.log(id_token)
+            // console.log(profile)
+            this.$emit('loginGoogle',id_token)
+        },
+        onSignInError (error) {
+            // `error` contains any error occurred.
+            console.log('OH NOES', error)
         }
-    },
+    }
 }
 </script>
 
 <style>
-
+.g-signin-button {
+    /* This is where you control how the button looks. Be creative! */
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 3px;
+    background-color: #3c82f7;
+    color: #fff;
+    box-shadow: 0 3px 0 #0f69ff;
+}
 </style>

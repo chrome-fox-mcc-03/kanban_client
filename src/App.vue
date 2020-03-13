@@ -1,11 +1,39 @@
 <template>
-    <div> <!-- Emit biasanya berhubungan dengan method, Props biasanya berhubungan dengan data -->
-        <navbar :currentPage="currentPage" @changePage="changePage"> </navbar>  <!-- Emmit & props -->
-        <page-login :currentPage="currentPage" :token="token" @login="login"> </page-login> <!-- Emit -->
-        <page-register :currentPage="currentPage" @register="register"> </page-register>
+    <div>
+        <navbar 
+            :currentPage="currentPage"
+            @changePage="changePage">
+        </navbar>
+
+        <div v-if="loading">
+            <lottie-player
+                src="https://assets9.lottiefiles.com/datafiles/bEYvzB8QfV3EM9a/data.json" background="transparent" speed="1" style="width: 100%; height: 100%; position: fixed; top:0; left:0" loop autoplay >
+            </lottie-player>
+        </div>
+
+        <page-login 
+            :currentPage="currentPage" 
+            :token="token" @login="login"
+            @loginGoogle="loginGoogle"> 
+        </page-login>
+        
+        <page-register 
+            :currentPage="currentPage" 
+            @register="register"> 
+        </page-register>
+
         <page-dashboard
             :currentPage="currentPage"
-            @btnAdd="btnAdd" @logout="logout" :todos="todos" @deleteTodo="deleteTodo" @addLabel="addLabel" @deleteLabel="deleteLabel" @updateTodo="updateTodo"> </page-dashboard>
+            :todos="todos" 
+            @btnAdd="btnAdd" 
+            @logout="logout" 
+            @deleteTodo="deleteTodo" 
+            @addLabel="addLabel" 
+            @deleteLabel="deleteLabel" 
+            @updateTodo="updateTodo"> 
+        </page-dashboard>
+
+        <notifications group="foo"> </notifications>
     </div>
 </template>
 
@@ -14,11 +42,11 @@ import Navbar from './components/Navbar'
 import PageLogin from './components/PageLogin'
 import PageRegister from './components/PageRegister'
 import PageDashboard from './components/PageDashboard'
-
 export default {
     name:'App',
     data() {
         return {
+            loading:false,
             currentPage : 'registerPage',
             isLogin:false,
             userId:localStorage.getItem('userId'),
@@ -40,6 +68,7 @@ export default {
         },
         
         login (payload) {
+            this.loading = true
             this.email = payload.email
             this.password = payload.password
             axios({
@@ -51,7 +80,11 @@ export default {
                 }
             })
             .then((result) => {
-                console.log(result)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Login Success',
+                    text: 'success login'
+                });
                 this.isLogin = true
                 this.email = result.data.email
                 this.userId = result.data.id
@@ -61,12 +94,20 @@ export default {
                 localStorage.setItem('userId',result.data.id)
                 this.getTodos()
                 this.token = result.data.token
-                this.email = '' // pindah di login
+                this.email = ''
                 this.userId = ''
-                // this.getTodos()
-            }).catch((err) => {
-                console.log(err)
-            });
+            })
+            .catch((err) => {
+                this.$notify({
+                    group: 'foo',
+                    title: 'Login Failed',
+                    type:'warn',
+                    text: err.response.data.message
+                });
+            })
+            .finally(() => {
+                this.loading = false
+            })
         },
 
         register (payload) {
@@ -90,7 +131,12 @@ export default {
                 localStorage.setItem('userId',result.data.id)
                 this.token = result.data.token
             }).catch((err) => {
-                console.log(err)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Failed register todo',
+                    type:'warn',
+                    text: err.response.data.message
+                });
             });
         },
 
@@ -120,15 +166,22 @@ export default {
                 }
             })
             .then((result) => {
-                // this.todos[index] = [...this.todos[index],name_box,description]
                 this.getTodos()
-                console.log(this.todos)
             }).catch((err) => {
-                console.log(err)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Failed add todo',
+                    type:'warn',
+                    text: err.response.data.message
+                });
             });
         },
 
         logout(objKosong) {
+            this.$notify({
+                group: 'foo',
+                title: 'Success Logout'
+            });
             localStorage.clear()
             this.isLogin = false
             this.currentPage = 'loginPage'
@@ -152,7 +205,12 @@ export default {
                 let filteredDone = result.data.filter((el) => {return el.name_box == 'Done'})
                 this.todos = [filteredBackLog,filteredDevelopment,filteredProduct,filteredDone]
             }).catch((err) => {
-                console.log(err)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Failed get todo',
+                    type:'warn',
+                    text: err.response.data.message
+                });
             });
         },
 
@@ -169,7 +227,12 @@ export default {
             .then((result) => {
                 this.getTodos()    
             }).catch((err) => {
-                console.log(err)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Failed delete todo',
+                    type:'warn',
+                    text: err.response.data.message
+                });
             });
         },
 
@@ -189,8 +252,17 @@ export default {
             })
             .then((result) => {
                 this.getTodos()   
+                this.$notify({
+                    group: 'foo',
+                    title: 'Success update todo'
+                });
             }).catch((err) => {
-                console.log(err)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Failed update todo',
+                    type:'warn',
+                    text: err.response.data.message
+                });
             });
         },
 
@@ -211,7 +283,12 @@ export default {
             .then((result) => {
                 this.getTodos()    
             }).catch((err) => {
-                console.log(err)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Failed add label',
+                    type:'warn',
+                    text: err.response.data.message
+                });
             });
         },
 
@@ -227,19 +304,64 @@ export default {
             .then((result) => {
                 this.getTodos()
             }).catch((err) => {
-                console.log(err)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Failed delete todo',
+                    type:'warn',
+                    text: err.response.data.message
+                });
             });
+        },
+
+        loginGoogle(id_token) {
+            this.loading = true
+            console.log(id_token)
+            axios({
+                url:'http://localhost:3000/loginGoogle',
+                method:'POST',
+                data:{
+                    id_token,
+                    password:'defaultpassword'
+                }
+            })
+            .then((result) => {
+                this.$notify({
+                    group: 'foo',
+                    title: 'Login Success',
+                    text: 'success login'
+                });
+                this.isLogin = true
+                this.email = result.data.email
+                this.userId = result.data.id
+                this.currentPage = 'dashboardPage'
+                localStorage.setItem('token',result.data.token)
+                localStorage.setItem('email',result.data.email)
+                localStorage.setItem('userId',result.data.id)
+                this.getTodos()
+                this.token = result.data.token
+                this.email = ''
+                this.userId = ''
+            })
+            .catch((err) => {
+                this.$notify({
+                    group: 'foo',
+                    title: 'Login Failed',
+                    type:'warn',
+                    text: err.response.data.message
+                });
+            })
+            .finally(() => {
+                this.loading = false
+            })
         }
+
     },
     created: function() {
         if(localStorage.getItem('token')) {
             this.getTodos()
             this.currentPage = 'dashboardPage'
         }
-    },
-    // beforeMount() {
-    //     alert('test')
-    // }
+    }
 }
 </script>
 

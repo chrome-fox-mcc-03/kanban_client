@@ -85,7 +85,7 @@ input {
     font-size: 0.75em;
     padding: 5px;
     border-radius: 20px;
-    /* background-color: red; */
+    margin-right: 5px;
     color: white;
 }
 
@@ -132,7 +132,13 @@ input {
 }
 
 .card-list-title {
-    flex:1
+    flex:1;
+    white-space:nowrap;
+    overflow-x:scroll;
+    overflow-y:hidden;
+    padding-bottom:5px;
+    padding-top:5px;
+    scrollbar-width:none;
 }
 
 .card-list-body {

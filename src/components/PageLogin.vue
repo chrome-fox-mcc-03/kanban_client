@@ -2,7 +2,10 @@
     <section id="form-login" v-if="currentPage == 'loginPage' && !token">    
         <div class="container">
             <div class="row justify-content-md-center">
-                <form-login @login="login"> </form-login>
+                <form-login 
+                    @login="login"
+                    @loginGoogle="loginGoogle"> 
+                </form-login>
             </div>
         </div>
     </section>
@@ -22,6 +25,9 @@ export default {
     methods: {
         login (payload) {
             this.$emit('login',payload)
+        },
+        loginGoogle(id_token) {
+            this.$emit('loginGoogle',id_token)
         }
     },
     components: {

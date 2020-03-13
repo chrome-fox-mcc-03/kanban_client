@@ -3,7 +3,7 @@
         <navbar-dashboard @logout="logout"> </navbar-dashboard>
         <div class="container-fluid ml-3">
             <div class="row">
-                <div class="col">
+                <div class="col-3">
                     <div class="row bg-custom">
                         <div class="card-title" style="width: 100%;">
                             <span class="card-list-title">Backlog</span>
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 
-                <div class="col">
+                <div class="col-3">
                     <div class="row bg-custom">
                         <div class="card-title" style="width: 100%;">
                             <span class="card-list-title">Development</span>
@@ -67,7 +67,7 @@
                     </div>
                 </div>
 
-                <div class="col">
+                <div class="col-3">
                     <div class="row bg-custom">
                         <div class="card-title" style="width: 100%;">
                             <span class="card-list-title">Product</span>
@@ -99,7 +99,7 @@
                     </div>
                 </div>
                 
-                <div class="col">
+                <div class="col-3">
                     <div class="row bg-custom">
                         <div class="card-title" style="width: 100%;">
                             <span class="card-list-title">Done</span>
@@ -186,9 +186,6 @@ export default {
             password:'',
             inputAdd: ['','','',''],
             token: localStorage.getItem('token'),
-            // ================== NEW =========================================================================
-            // ================== NEW =========================================================================
-            // ================== NEW =========================================================================
             selectColorLabel:'',
             inputAddLabel:'',
             description: '',
@@ -210,8 +207,6 @@ export default {
             this.$emit('deleteTodo',todoId)
         },
         getTodo(todoId) {
-            console.log(todoId)
-            console.log(this.todos)
             let filterTodo = {}
             this.todos.forEach(element => {
                 element.forEach(element2 => {
@@ -220,7 +215,6 @@ export default {
                     }
                 })
             });
-            console.log(filterTodo)
             this.filteredTodos = filterTodo
             this.description = this.filteredTodos.description;
             this.name_box = this.filteredTodos.name_box
@@ -229,11 +223,12 @@ export default {
             this.$emit('deleteLabel',labelId)
         },
         addLabel(todoId) {
-            console.log(todoId)
             let inputAddLabel = this.inputAddLabel
             let selectColorLabel = this.selectColorLabel
             let payload = {inputAddLabel,selectColorLabel,todoId}
             this.$emit('addLabel',payload)
+            this.inputAddLabel = ''
+            this.selectColorLabel = ''
         },
         updateTodo(todoId) {
             let description = this.description
