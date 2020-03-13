@@ -285,7 +285,6 @@ export default {
         },
         fetchCards(){
             this.isLoading = true
-
             Axios({
                 url: `http://localhost:3000/task/${this.boardParams.id}`,
                 method: 'GET',
@@ -294,7 +293,6 @@ export default {
                 }
             })
             .then(results => {
-                console.log(results)
                 if(results.data.tasks){
                     results.data.tasks.forEach(task => {
                         this.cards[task.category].push(task)
@@ -327,7 +325,7 @@ export default {
                     title: newCard.title,
                     desc: newCard.description,
                     due_date: newCard.due_date,
-                    color: null
+                    color: newCard.color
                 }
             })
             .then(result => {

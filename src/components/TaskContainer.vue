@@ -4,7 +4,7 @@
             <h1>{{title}}</h1>
         </div>
         <div class="kanban-content overflow-auto">
-            <task-card v-for="(card, i) in cards" :key="i" :card="card" @editCard="editCard" @moveLeft="moveLeft" @moveRight="moveRight"></task-card>                              
+            <task-card v-for="(card, i) in cards" :key="i" :card="card" @editCard="editCard" @moveLeft="moveLeft" @moveRight="moveRight" v-bind:style="{'border-right':  `9px solid ${card.color}`}"></task-card>                              
         </div>
     </div>
                     

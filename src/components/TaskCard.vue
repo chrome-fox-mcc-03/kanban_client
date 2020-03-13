@@ -6,7 +6,7 @@
                 <img src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/16882276531582004488-256.png" alt="">
             </div>
             <div class="col-10">
-                <p>{{parsedDueDate}}</p>
+                <p :style="{'color': `${isItPassed()}`}">{{parsedDueDate}}</p>
             </div>
             
         </div>
@@ -29,6 +29,11 @@
 
 <script>
 export default {
+    data: () => {
+        return {
+            isPassed: false
+        }
+    },
     props: {
         card: Object,
         category: String
@@ -42,6 +47,13 @@ export default {
         },
         moveRight(){
             this.$emit('moveRight', this.card)
+        },
+        isItPassed(){
+            if(this.isPassed) {
+                return 'rgba(153, 8, 8)'
+            } else{
+                return 'black'
+            }
         }
     },
     computed: {
@@ -52,10 +64,17 @@ export default {
                 + ' ' + months[new Date(this.card.due_date).getUTCMonth()]
                 + ' ' + new Date(this.card.due_date).getUTCFullYear()
         },
+    },
+    created(){
+        if(new Date(this.card.due_date) < new Date()){
+            this.isPassed = true
+        }
     }
 }
 </script>
 
 <style>
-
+.kanban-content-card {
+    cursor: pointer;
+}
 </style>

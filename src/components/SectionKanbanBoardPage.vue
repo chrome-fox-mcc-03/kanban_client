@@ -45,13 +45,19 @@
                             <textarea type="text" id="add-kanban-desc" placeholder="Description" v-model="newCard.description">
                             </textarea>
                         <div class="form-group">
-                            <p>Select due date</p>
+                            <p>Due date:</p>
                             <input type="date" class="form-control" id="add-kanban-due-date" placeholder="Due Date" v-model="newCard.due_date" >
                         </div>
-                        <button type="button" class="bottom-icon addbtn"><img @click.prevent="addNewCard" src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/12817025351582004496-256.png" alt="" > </button>
+                        <div class="form-group">
+                            <p>Select Card Color:</p>
+                            <select v-model="newCard.color" style="width: 100%">
+                                <option v-for="(color, i) in colors" :key="i">{{colors[i]}}</option>
+                            </select>
+                        </div>
+                        <button type="button" class="bottom-icon addbtn addbtnnew"><img @click.prevent="addNewCard" src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/12817025351582004496-256.png" alt="" > </button>
                     </form>  
                 </div>
-        <div class="kanban-content" @click.prevent="resetAll">
+        <div class="kanban-content">
             <div class="row" >
                 <task-container class="col col-3" :title="'Backlog'" :cards="tasks.backlog" @editCard="editCard" @moveLeft="moveLeft" @moveRight="moveRight"></task-container>
                 <task-container class="col col-3" :title="'Todo'" :cards="tasks.todo" @editCard="editCard"  @moveLeft="moveLeft" @moveRight="moveRight"></task-container>
@@ -73,7 +79,8 @@ export default {
             newCard: {
                 title: '',
                 description:'',
-                due_date: ''
+                due_date: '',
+                color: ''
             },
             cardDetail: {
                 title: '',
@@ -88,7 +95,8 @@ export default {
             },
             editName: false,
             editDesc: false,
-            deleteConfirm: false
+            deleteConfirm: false,
+            colors: ['red', 'green', 'blue', 'gray', 'salmon', 'aqua', 'white', 'indigo']
         }
     },
     props: {
@@ -207,5 +215,10 @@ export default {
 }
 .backbtn{
     transition: transform 0.4s ease;
+}
+
+.addbtnnew {
+    align-self: flex-end;
+    margin-left: auto;
 }
 </style>
