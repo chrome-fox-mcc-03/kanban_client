@@ -11,12 +11,12 @@
                 <div class="modal-body">
                     <form @submit.prevent="login">
                         Email:<br>
-                        <input type="email" v-model="Email"><br>
+                        <input type="email" v-model="Email" required><br>
                         Password:<br>
-                        <input type="password" v-model="Password"><br>
+                        <input type="password" v-model="Password" required><br>
                         <br>
                         Or<br>
-                        <div class="g-signin2"  data-onsuccess="onSignIn"></div><br><br>
+                        <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin><br><br>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <input type="submit" class="btn btn-primary" value="Login"/>
                     </form>

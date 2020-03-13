@@ -18,6 +18,8 @@
   "homepage": "https://github.com/Baghram/kanban_client#readme",
   "dependencies": {
     "vue": "^2.6.11",
+    "vue-google-login": "^2.0.3",
+    "vue-google-signin-button": "^1.0.4",
     "vue-hot-reload-api": "^2.3.4",
     "vue-notification": "^1.3.20"
   },

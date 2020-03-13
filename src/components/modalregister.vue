@@ -9,20 +9,17 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                    <form >
-                    Email:<br>
-                    <input v-model="Email" type="email" ><br>
-                    Password:<br>
-                    <input v-model="Password" type="password"><br>
-                    </form><br>
-                    Or<br>
-                    
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    <form @submit.prevent="register">
+                        Email:<br>
+                        <input v-model="Email" type="email" ><br>
+                        Password:<br>
+                        <input v-model="Password" type="password"><br>
+                        <br>
+                        
+                    <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Register"/>
+                    </form>
                     </div>
-                <div class="modal-footer">
-                <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" @click.prevent="register" class="btn btn-primary" data-dismiss="modal">Register</button>
-                </div>
             </div>
             </div>
         </div>

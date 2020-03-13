@@ -11,18 +11,18 @@
                 <div class="modal-body">
                 <form @submit.prevent="createTask">
                     Title:<br>
-                    <input type="text" v-model="taskTitle" > <br>
+                    <input type="text" v-model="taskTitle" required> <br>
                     Content:<br>
-                    <input type="text" v-model="taskContent" ><br>
+                    <input type="text" v-model="taskContent" required><br>
                     Category:<br>
-                    <select v-model="taskCategory">
+                    <select v-model="taskCategory" required>
                         <option>Backlog</option>
                         <option>Product</option>
                         <option>Development</option>
                         <option>Done</option>
                     </select>
                     Due Date: <br>
-                    <input type="date" v-model="taskDueDate"><br><br>
+                    <input type="date" v-model="taskDueDate" required><br><br>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <input type="submit" class="btn btn-primary" value="Submit"/>
                 </form>

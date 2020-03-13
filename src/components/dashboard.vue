@@ -3,7 +3,7 @@
         <form @submit.prevent="generateTask">
         <h2>Select Project :</h2> 
             <select v-model="projectselect">
-                <option v-for="(project, id) in projects" :key="id" :value="project.id">{{project.Title}}</option>
+                <option v-for="(project, id) in projects" :key="id" :value="project.Project.id">{{project.Project.Title}}</option>
                 
             </select>
             <input type="submit" class="btn btn-primary" value="Select Project"/>

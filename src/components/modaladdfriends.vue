@@ -9,11 +9,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form @submit.prevent="addFriend">
                     Email:<br>
-                    <input type="email" value=""><br>             
+                    <input type="email" v-model="addEmail" value="" required><br> <br>            
                 <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button"  class="btn btn-primary">Submit</button>
+                <input type="submit" class="btn btn-primary" value="Submit"/>
             </div>
             </div>
         </div>
@@ -24,7 +24,14 @@
 export default {
     data() {
         return {
-
+            addEmail: ''
+        }
+    },
+    methods: {
+        addFriend() {
+            console.log('add friend start')
+            this.$emit('addFriend', this.addEmail)
+            this.addEmail= ''
         }
     }
 }

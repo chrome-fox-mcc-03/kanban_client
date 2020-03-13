@@ -6,7 +6,7 @@
                 
             <!-- template insideboard -->
                 <div id="InsideBoard">
-                    <taskboard v-for = "(category, i) in categories" :key="i" :category="category" :tasks="SelectCategories(category)" ></taskboard>
+                    <taskboard @updatethis="updatethis" @deletethis="deletethis" v-for = "(category, i) in categories" :key="i" :category="category" :tasks="SelectCategories(category)" ></taskboard>
                 </div>
 
 
@@ -48,6 +48,12 @@ export default {
                 default:
                     break;
             }
+        },
+        deletethis(data) {
+            this.$emit('deletethis', data)
+        },
+        updatethis(data) {
+            this.$emit('updatethis', data)
         }
     },
     components: {

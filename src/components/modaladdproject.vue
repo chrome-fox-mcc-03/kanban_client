@@ -11,7 +11,7 @@
             <div class="modal-body">
                 <form @submit.prevent="createproject">
                     Project Name:<br>
-                    <input type="text" v-model="projectname" value=""><br><br>             
+                    <input type="text" v-model="projectname" value="" required><br><br>             
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <input type="submit"  class="btn btn-primary" value="Submit" />
             </div>

@@ -8884,13 +8884,126 @@ function patchScopedSlots (instance) {
   }
 }
 
-},{}],"src/components/navbar.vue":[function(require,module,exports) {
+},{}],"src/components/googlesignin.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  data: function data() {
+    return {
+      /**
+       * The Auth2 parameters, as seen on
+       * https://developers.google.com/identity/sign-in/web/reference#gapiauth2initparams.
+       * As the very least, a valid client_id must present.
+       * @type {Object} 
+       */
+      googleSignInParams: {
+        client_id: '1025007694828-ihmb2m11jrfubgbkp40n244kldd1ul8u.apps.googleusercontent.com'
+      }
+    };
+  },
+  methods: {
+    onSignInSuccess: function onSignInSuccess(googleUser) {
+      // `googleUser` is the GoogleUser object that represents the just-signed-in user.
+      // See https://developers.google.com/identity/sign-in/web/reference#users
+      var profile = googleUser.getBasicProfile(); // etc etc
+    },
+    onSignInError: function onSignInError(error) {
+      // `error` contains any error occurred.
+      console.log('OH NOES', error);
+    }
+  }
+};
+exports.default = _default;
+        var $ca3cb0 = exports.default || module.exports;
+      
+      if (typeof $ca3cb0 === 'function') {
+        $ca3cb0 = $ca3cb0.options;
+      }
+    
+        /* template */
+        Object.assign($ca3cb0, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "g-signin-button",
+    {
+      attrs: { params: _vm.googleSignInParams },
+      on: { success: _vm.onSignInSuccess, error: _vm.onSignInError }
+    },
+    [_vm._v("\n  Sign in with Google\n")]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$ca3cb0', $ca3cb0);
+          } else {
+            api.reload('$ca3cb0', $ca3cb0);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/navbar.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _googlesignin = _interopRequireDefault(require("./googlesignin.vue"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -8923,12 +9036,36 @@ exports.default = void 0;
 var _default = {
   props: ["isLogin"],
   data: function data() {
-    return {};
+    return {
+      /**
+       * The Auth2 parameters, as seen on
+       * https://developers.google.com/identity/sign-in/web/reference#gapiauth2initparams.
+       * As the very least, a valid client_id must present.
+       * @type {Object} 
+       */
+      googleSignInParams: {
+        client_id: '1025007694828-ihmb2m11jrfubgbkp40n244kldd1ul8u.apps.googleusercontent.com'
+      }
+    };
   },
   methods: {
     logout: function logout() {
       this.$emit('logout');
+    },
+    onSignInSuccess: function onSignInSuccess(googleUser) {
+      console.log(googleUser);
+      this.$emit('onSignInSuccess', googleUser);
+    },
+    onSignInError: function onSignInError(error) {
+      // `error` contains any error occurred.
+      this.$emit("onSignInError", error);
+    },
+    signOut: function signOut() {
+      this.$emit('signOut');
     }
+  },
+  components: {
+    googlelogin: _googlesignin.default
   }
 };
 exports.default = _default;
@@ -8980,7 +9117,28 @@ exports.default = _default;
               [_vm._v("\n                      Login\n                  ")]
             )
           ])
-        : _vm._e()
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "li",
+        [
+          !_vm.isLogin
+            ? _c(
+                "g-signin-button",
+                {
+                  attrs: { params: _vm.googleSignInParams },
+                  on: { success: _vm.onSignInSuccess, error: _vm.onSignInError }
+                },
+                [
+                  _vm._v(
+                    "\n                      Sign in with Google\n                  "
+                  )
+                ]
+              )
+            : _vm._e()
+        ],
+        1
+      )
     ]),
     _vm._v(" "),
     _c("ul", { staticClass: "nav2" }, [
@@ -8991,12 +9149,18 @@ exports.default = _default;
               {
                 staticClass: "btn btn-primary",
                 attrs: { type: "button" },
-                on: { click: _vm.logout }
+                on: {
+                  click: function($event) {
+                    _vm.logout() + _vm.signOut()
+                  }
+                }
               },
               [_vm._v("\n                      Logout\n                  ")]
             )
           ])
-        : _vm._e()
+        : _vm._e(),
+      _vm._v(" "),
+      _c("li")
     ])
   ])
 }
@@ -9046,7 +9210,7 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/landing.vue":[function(require,module,exports) {
+},{"./googlesignin.vue":"src/components/googlesignin.vue","_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/landing.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9249,9 +9413,11 @@ exports.default = _default;
             }
           },
           _vm._l(_vm.projects, function(project, id) {
-            return _c("option", { key: id, domProps: { value: project.id } }, [
-              _vm._v(_vm._s(project.Title))
-            ])
+            return _c(
+              "option",
+              { key: id, domProps: { value: project.Project.id } },
+              [_vm._v(_vm._s(project.Project.Title))]
+            )
           }),
           0
         ),
@@ -9408,6 +9574,20 @@ var _default = {
   methods: {
     formattedDate: function formattedDate() {
       this.task.Due_date = this.task.Due_date.split('T')[0];
+    },
+    deletethis: function deletethis() {
+      console.log("this is ".concat(this.task.id));
+      this.$emit('deletethis', this.task.id);
+    },
+    updatethis: function updatethis() {
+      var data = {
+        Title: this.task.Title,
+        Content: this.task.Content,
+        Category: this.task.Category,
+        Due_Date: this.task.Due_date,
+        id: this.task.id
+      };
+      this.$emit('updatethis', data);
     }
   },
   created: function created() {
@@ -9458,7 +9638,7 @@ exports.default = _default;
                     expression: "task.Title"
                   }
                 ],
-                attrs: { type: "text" },
+                attrs: { type: "text", required: "" },
                 domProps: { value: _vm.task.Title },
                 on: {
                   input: function($event) {
@@ -9482,7 +9662,7 @@ exports.default = _default;
                     expression: "task.Content"
                   }
                 ],
-                attrs: { type: "text" },
+                attrs: { type: "text", required: "" },
                 domProps: { value: _vm.task.Content },
                 on: {
                   input: function($event) {
@@ -9508,6 +9688,7 @@ exports.default = _default;
                       expression: "task.Category"
                     }
                   ],
+                  attrs: { required: "" },
                   on: {
                     change: function($event) {
                       var $$selectedVal = Array.prototype.filter
@@ -9551,7 +9732,7 @@ exports.default = _default;
                     expression: "task.Due_date"
                   }
                 ],
-                attrs: { type: "date" },
+                attrs: { type: "date", required: "" },
                 domProps: { value: _vm.task.Due_date },
                 on: {
                   input: function($event) {
@@ -9563,29 +9744,47 @@ exports.default = _default;
                 }
               }),
               _c("br"),
-              _c("br"),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-secondary",
-                  attrs: { type: "button", "data-dismiss": "modal" }
-                },
-                [_vm._v("Close")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn btn-primary", attrs: { type: "button" } },
-                [_vm._v("Update")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn btn-primary", attrs: { type: "button" } },
-                [_vm._v("Delete")]
-              )
-            ])
+              _c("br")
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary",
+                attrs: { type: "button", "data-dismiss": "modal" }
+              },
+              [_vm._v("Close")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.updatethis($event)
+                  }
+                }
+              },
+              [_vm._v("Update")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.deletethis($event)
+                  }
+                }
+              },
+              [_vm._v("Delete")]
+            )
           ])
         ])
       ])
@@ -9676,6 +9875,14 @@ var _default = {
   data: function data() {
     return {};
   },
+  methods: {
+    deletethis: function deletethis(data) {
+      this.$emit('deletethis', data);
+    },
+    updatethis: function updatethis(data) {
+      this.$emit('updatethis', data);
+    }
+  },
   components: {
     modaltask: _modaltask.default
   }
@@ -9695,19 +9902,27 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass: "card",
-      attrs: {
-        "data-toggle": "modal",
-        "data-target": "#ContentModal" + _vm.task.id
-      }
-    },
+    { staticClass: "card" },
     [
       _c("div", { staticClass: "card1" }, [_vm._v(_vm._s(_vm.task.Title))]),
       _vm._v(" "),
-      _c("div", { staticClass: "card2" }),
+      _c("div", { staticClass: "card2" }, [
+        _c(
+          "button",
+          {
+            attrs: {
+              "data-toggle": "modal",
+              "data-target": "#ContentModal" + _vm.task.id
+            }
+          },
+          [_vm._v(" Show Info")]
+        )
+      ]),
       _vm._v(" "),
-      _c("modaltask", { attrs: { task: _vm.task } })
+      _c("modaltask", {
+        attrs: { task: _vm.task },
+        on: { updatethis: _vm.updatethis, deletethis: _vm.deletethis }
+      })
     ],
     1
   )
@@ -9771,6 +9986,14 @@ var _default = {
       categories: ["Backlog", "Product", "Development", "Done"]
     };
   },
+  methods: {
+    deletethis: function deletethis(data) {
+      this.$emit('deletethis', data);
+    },
+    updatethis: function updatethis(data) {
+      this.$emit('updatethis', data);
+    }
+  },
   components: {
     task: _task.default
   }
@@ -9807,7 +10030,11 @@ exports.default = _default;
       _c("br"),
       _vm._v(" "),
       _vm._l(_vm.tasks, function(task) {
-        return _c("task", { key: task.id, attrs: { task: task } })
+        return _c("task", {
+          key: task.id,
+          attrs: { task: task },
+          on: { updatethis: _vm.updatethis, deletethis: _vm.deletethis }
+        })
       })
     ],
     2
@@ -9907,6 +10134,12 @@ var _default = {
         default:
           break;
       }
+    },
+    deletethis: function deletethis(data) {
+      this.$emit('deletethis', data);
+    },
+    updatethis: function updatethis(data) {
+      this.$emit('updatethis', data);
     }
   },
   components: {
@@ -9940,7 +10173,11 @@ exports.default = _default;
         _vm._l(_vm.categories, function(category, i) {
           return _c("taskboard", {
             key: i,
-            attrs: { category: category, tasks: _vm.SelectCategories(category) }
+            attrs: {
+              category: category,
+              tasks: _vm.SelectCategories(category)
+            },
+            on: { updatethis: _vm.updatethis, deletethis: _vm.deletethis }
           })
         }),
         1
@@ -10089,7 +10326,7 @@ exports.default = _default;
                       expression: "Email"
                     }
                   ],
-                  attrs: { type: "email" },
+                  attrs: { type: "email", required: "" },
                   domProps: { value: _vm.Email },
                   on: {
                     input: function($event) {
@@ -10113,7 +10350,7 @@ exports.default = _default;
                       expression: "Password"
                     }
                   ],
-                  attrs: { type: "password" },
+                  attrs: { type: "password", required: "" },
                   domProps: { value: _vm.Password },
                   on: {
                     input: function($event) {
@@ -10130,9 +10367,13 @@ exports.default = _default;
                 _vm._v("\n                      Or"),
                 _c("br"),
                 _vm._v(" "),
-                _c("div", {
-                  staticClass: "g-signin2",
-                  attrs: { "data-onsuccess": "onSignIn" }
+                _c("GoogleLogin", {
+                  attrs: {
+                    params: _vm.params,
+                    renderParams: _vm.renderParams,
+                    onSuccess: _vm.onSuccess,
+                    onFailure: _vm.onFailure
+                  }
                 }),
                 _c("br"),
                 _c("br"),
@@ -10150,7 +10391,8 @@ exports.default = _default;
                   staticClass: "btn btn-primary",
                   attrs: { type: "submit", value: "Login" }
                 })
-              ]
+              ],
+              1
             )
           ])
         ])
@@ -10251,9 +10493,6 @@ exports.default = void 0;
 //
 //
 //
-//
-//
-//
 var _default = {
   data: function data() {
     return {
@@ -10305,89 +10544,82 @@ exports.default = _default;
           _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "modal-body" }, [
-            _c("form", [
-              _vm._v("\n                  Email:"),
-              _c("br"),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.Email,
-                    expression: "Email"
-                  }
-                ],
-                attrs: { type: "email" },
-                domProps: { value: _vm.Email },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.Email = $event.target.value
-                  }
-                }
-              }),
-              _c("br"),
-              _vm._v("\n                  Password:"),
-              _c("br"),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.Password,
-                    expression: "Password"
-                  }
-                ],
-                attrs: { type: "password" },
-                domProps: { value: _vm.Password },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.Password = $event.target.value
-                  }
-                }
-              }),
-              _c("br")
-            ]),
-            _c("br"),
-            _vm._v("\n                  Or"),
-            _c("br"),
-            _vm._v(" "),
-            _c("div", {
-              staticClass: "g-signin2",
-              attrs: { "data-onsuccess": "onSignIn" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "modal-footer" }, [
             _c(
-              "button",
+              "form",
               {
-                staticClass: "btn btn-secondary",
-                attrs: { type: "button", "data-dismiss": "modal" }
-              },
-              [_vm._v("Close")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary",
-                attrs: { type: "button", "data-dismiss": "modal" },
                 on: {
-                  click: function($event) {
+                  submit: function($event) {
                     $event.preventDefault()
                     return _vm.register($event)
                   }
                 }
               },
-              [_vm._v("Register")]
+              [
+                _vm._v("\n                      Email:"),
+                _c("br"),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.Email,
+                      expression: "Email"
+                    }
+                  ],
+                  attrs: { type: "email" },
+                  domProps: { value: _vm.Email },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.Email = $event.target.value
+                    }
+                  }
+                }),
+                _c("br"),
+                _vm._v("\n                      Password:"),
+                _c("br"),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.Password,
+                      expression: "Password"
+                    }
+                  ],
+                  attrs: { type: "password" },
+                  domProps: { value: _vm.Password },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.Password = $event.target.value
+                    }
+                  }
+                }),
+                _c("br"),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Close")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "btn btn-primary",
+                  attrs: { type: "submit", value: "Register" }
+                })
+              ]
             )
           ])
         ])
@@ -10574,7 +10806,7 @@ exports.default = _default;
                       expression: "taskTitle"
                     }
                   ],
-                  attrs: { type: "text" },
+                  attrs: { type: "text", required: "" },
                   domProps: { value: _vm.taskTitle },
                   on: {
                     input: function($event) {
@@ -10599,7 +10831,7 @@ exports.default = _default;
                       expression: "taskContent"
                     }
                   ],
-                  attrs: { type: "text" },
+                  attrs: { type: "text", required: "" },
                   domProps: { value: _vm.taskContent },
                   on: {
                     input: function($event) {
@@ -10625,6 +10857,7 @@ exports.default = _default;
                         expression: "taskCategory"
                       }
                     ],
+                    attrs: { required: "" },
                     on: {
                       change: function($event) {
                         var $$selectedVal = Array.prototype.filter
@@ -10663,7 +10896,7 @@ exports.default = _default;
                       expression: "taskDueDate"
                     }
                   ],
-                  attrs: { type: "date" },
+                  attrs: { type: "date", required: "" },
                   domProps: { value: _vm.taskDueDate },
                   on: {
                     input: function($event) {
@@ -10853,7 +11086,7 @@ exports.default = _default;
                       expression: "projectname"
                     }
                   ],
-                  attrs: { type: "text", value: "" },
+                  attrs: { type: "text", value: "", required: "" },
                   domProps: { value: _vm.projectname },
                   on: {
                     input: function($event) {
@@ -10978,7 +11211,16 @@ exports.default = void 0;
 //
 var _default = {
   data: function data() {
-    return {};
+    return {
+      addEmail: ''
+    };
+  },
+  methods: {
+    addFriend: function addFriend() {
+      console.log('add friend start');
+      this.$emit('addFriend', this.addEmail);
+      this.addEmail = '';
+    }
   }
 };
 exports.default = _default;
@@ -10994,91 +11236,108 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: "FriendsModal",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": "exampleModalLabel",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c("div", { staticClass: "modal-dialog", attrs: { role: "document" } }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-body" }, [
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.addFriend($event)
+                  }
+                }
+              },
+              [
+                _vm._v("\n                Email:"),
+                _c("br"),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.addEmail,
+                      expression: "addEmail"
+                    }
+                  ],
+                  attrs: { type: "email", value: "", required: "" },
+                  domProps: { value: _vm.addEmail },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.addEmail = $event.target.value
+                    }
+                  }
+                }),
+                _c("br"),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Close")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "btn btn-primary",
+                  attrs: { type: "submit", value: "Submit" }
+                })
+              ]
+            )
+          ])
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "FriendsModal",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header" }, [
-                _c(
-                  "h5",
-                  {
-                    staticClass: "modal-title",
-                    attrs: { id: "exampleModalLabel" }
-                  },
-                  [_vm._v("Add Friends")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "close",
-                    attrs: {
-                      type: "button",
-                      "data-dismiss": "modal",
-                      "aria-label": "Close"
-                    }
-                  },
-                  [
-                    _c("span", { attrs: { "aria-hidden": "true" } }, [
-                      _vm._v("×")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("form", [
-                  _vm._v("\n                Email:"),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("input", { attrs: { type: "email", value: "" } }),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-secondary",
-                      attrs: { type: "button", "data-dismiss": "modal" }
-                    },
-                    [_vm._v("Close")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { type: "button" }
-                    },
-                    [_vm._v("Submit")]
-                  )
-                ])
-              ])
-            ])
-          ]
-        )
-      ]
-    )
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Add Friends")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
   }
 ]
 render._withStripped = true
@@ -11113,7 +11372,12 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/Hello.vue":[function(require,module,exports) {
+},{"_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"node_modules/vue-google-login/dist/vue-google-login.min.js":[function(require,module,exports) {
+var define;
+!function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"function"==typeof define&&define.amd?define(["exports"],e):e((t=t||self)["vue-google-login"]={})}(this,function(t){"use strict";var e,n,o=function(t){return e?Promise.resolve(e):(n||(n=function(t){return new Promise(function(n,o){window.onGapiLoad=function(){window.gapi.load("auth2",function(){try{e=window.gapi.auth2.init(Object.assign({},t))}catch(t){o({err:"client_id missing or is incorrect, or if you added extra params maybe they are written incorrectly, did you add it to the component or plugin?"})}n(e)})}})}(t)),n)},i=function(t,e){if(t)return t[e]();return Promise.reject({err:"Script not loaded correctly, did you added the plugin or the client_id to the component?"})},r={load:function(t){return Promise.all([o(t),new Promise(function(t,e){if(!document.getElementById("auth2_script_id")){var n=document.createElement("script");n.setAttribute("src","https://apis.google.com/js/platform.js?onload=onGapiLoad"),n.setAttribute("async",!0),n.setAttribute("defer","defer"),n.setAttribute("id","auth2_script_id"),document.head.appendChild(n)}t()})]).then(function(t){return t[0]})},signIn:function(){return i(e,"signIn")},signOut:function(){return i(e,"signOut")}},s=0;var d=function(t,e,n,o,i,r,s,d,u,a){"boolean"!=typeof s&&(u=d,d=s,s=!1);var c,l="function"==typeof n?n.options:n;if(t&&t.render&&(l.render=t.render,l.staticRenderFns=t.staticRenderFns,l._compiled=!0,i&&(l.functional=!0)),o&&(l._scopeId=o),r?(c=function(t){(t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(t=__VUE_SSR_CONTEXT__),e&&e.call(this,u(t)),t&&t._registeredComponents&&t._registeredComponents.add(r)},l._ssrRegister=c):e&&(c=s?function(){e.call(this,a(this.$root.$options.shadowRoot))}:function(t){e.call(this,d(t))}),c)if(l.functional){var f=l.render;l.render=function(t,e){return c.call(e),f(t,e)}}else{var h=l.beforeCreate;l.beforeCreate=h?[].concat(h,c):[c]}return n}({render:function(){var t=this.$createElement,e=this._self._c||t;return this.renderParams&&!this.logoutButton?e("div",{attrs:{id:this.id},on:{click:this.handleClick}}):e("button",{attrs:{id:this.id},on:{click:this.handleClick}},[this._t("default")],2)},staticRenderFns:[]},void 0,{name:"GoogleLogin",props:{params:{type:Object,required:!0},onSuccess:{type:Function,default:function(){}},onFailure:{type:Function,default:function(){}},logoutButton:{type:Boolean,default:!1},renderParams:{type:Object,required:!1}},beforeCreate:function(){this.id="google-signin-btn-".concat(s++)},methods:{handleClick:function(){var t=this,e=this.logoutButton?"signOut":"signIn";r[e]().then(function(e){return t.onSuccess(e)}).catch(function(e){return t.onFailure(e)})}},mounted:function(){var t=this;r.load(this.params).then(function(){t.renderParams&&!1===t.logoutButton&&window.gapi.signin2.render(t.id,t.renderParams)}).catch(function(t){console.log(t)})}},void 0,!1,void 0,void 0,void 0),u={install:function(t,e){t.GoogleAuth=r.load(e)}};t.GoogleLogin=d,t.LoaderPlugin=u,t.default=d,Object.defineProperty(t,"__esModule",{value:!0})});
+
+
+},{}],"src/components/Hello.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11216,6 +11480,8 @@ var _modaladdproject = _interopRequireDefault(require("./components/modaladdproj
 
 var _modaladdfriends = _interopRequireDefault(require("./components/modaladdfriends.vue"));
 
+var _vueGoogleLogin = _interopRequireDefault(require("vue-google-login"));
+
 var _Hello = _interopRequireDefault(require("./components/Hello.vue"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -11247,23 +11513,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
-//
-//
 var _default = {
   name: 'App',
   data: function data() {
     return {
+      googleSignInParams: {
+        client_id: '1025007694828-ihmb2m11jrfubgbkp40n244kldd1ul8u.apps.googleusercontent.com'
+      },
       isLogin: false,
       Loading: false,
       isProject: false,
       currentProject: '',
       project: '',
-      backlog: ['test'],
-      product: ['test'],
-      development: ['test'],
+      backlog: [],
+      product: [],
+      development: [],
       categoryname: '',
-      done: ['test'],
+      done: [],
       categories: ["Backlog", "Product", "Development", "Done"],
       users: [],
       //Kanban Board
@@ -11310,6 +11576,7 @@ var _default = {
       }).then(function (result) {
         console.log('berhasil register');
         console.log("hasil register", result);
+        $('#RegisterModal').modal('hide');
       }).catch(function (err) {});
     },
     login: function login(data) {
@@ -11330,9 +11597,42 @@ var _default = {
         $('#LoginModal').modal('hide'); // console.log(self.methods())
       }).catch(function (err) {});
     },
+    onSignInSuccess: function onSignInSuccess(googleUser) {
+      var self = this; // `googleUser` is the GoogleUser object that represents the just-signed-in user.
+      // See https://developers.google.com/identity/sign-in/web/reference#users
+
+      var profile = googleUser.getBasicProfile(); // etc etc
+
+      var token = googleUser.getAuthResponse().id_token;
+      axios({
+        url: "http://localhost:3000/user/googlelogin",
+        method: "post",
+        headers: {
+          token: token
+        }
+      }).then(function (result) {
+        localStorage.setItem('access_token', result.data.access_token);
+        self.isLogin = true;
+        self.generateProject();
+        console.log(result);
+      }).catch(function (err) {});
+    },
+    onSignInError: function onSignInError(error) {
+      // `error` contains any error occurred.
+      console.log('OH NOES', error);
+    },
     logout: function logout() {
       this.isLogin = false;
-      this.IsProject = false;
+      this.isProject = false;
+      this.project = '';
+      this.projects = [];
+      localStorage.removeItem('access_token');
+    },
+    signOut: function signOut() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });
     },
     generateProject: function generateProject() {
       var self = this;
@@ -11423,7 +11723,87 @@ var _default = {
       }).catch(function (err) {
         console.log(err);
       });
+    },
+    addFriend: function addFriend(email) {
+      var self = this;
+      console.log('addfriend app.vue');
+      var data = {
+        Email: email,
+        ProjectId: this.project
+      };
+      axios({
+        url: 'http://localhost:3000/project/addfriend',
+        method: "post",
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: {
+          data: data
+        }
+      }).then(function (result) {
+        // console.log(result)
+        console.log('berhasil add friend');
+        $('#FriendsModal').modal('hide'); // self.generateProject()
+
+        self.generateTask(self.currentProject);
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    deletethis: function deletethis(data) {
+      var self = this;
+      console.log("ini adalah ".concat(data));
+      axios({
+        url: "http://localhost:3000/project/task/delete/".concat(data),
+        method: "delete",
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      }).then(function (result) {
+        console.log('berhasil delete');
+        $('.modal-backdrop').remove();
+        self.generateTask(self.currentProject);
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    updatethis: function updatethis(data) {
+      var self = this;
+      console.log("update data ".concat(data.id));
+      axios({
+        url: "http://localhost:3000/project/task/update/".concat(data.id),
+        method: "put",
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: {
+          data: data
+        }
+      }).then(function (result) {
+        console.log('berhasil update');
+        self.generateTask(self.currentProject);
+        $('.modal-backdrop').remove();
+      }).catch(function (err) {
+        console.log('gagal update');
+        console.log(err);
+      });
     }
+  },
+  created: function created() {
+    if (localStorage.getItem('access_token')) {
+      this.isLogin = true;
+      this.generateProject();
+    } else {
+      this.isLogin = false;
+    }
+  },
+  mounted: function mounted() {
+    $('#FriendsModal').modal('hide');
+    $('#ProjectModal').modal('hide');
+    $('#TaskModal').modal('hide');
+    $('#LoginModal').modal('hide');
+    $('#RegisterModal').modal('hide');
+    $('#ContentModal').modal('hide');
   }
 };
 exports.default = _default;
@@ -11444,7 +11824,12 @@ exports.default = _default;
     [
       _c("navbar", {
         attrs: { isLogin: _vm.isLogin },
-        on: { logout: _vm.logout }
+        on: {
+          logout: _vm.logout,
+          onSignInSuccess: _vm.onSignInSuccess,
+          onSignInError: _vm.onSignInError,
+          signOut: _vm.signOut
+        }
       }),
       _vm._v(" "),
       !_vm.isLogin
@@ -11470,7 +11855,8 @@ exports.default = _default;
               development: _vm.development,
               done: _vm.done,
               categories: _vm.categories
-            }
+            },
+            on: { updatethis: _vm.updatethis, deletethis: _vm.deletethis }
           })
         : _vm._e(),
       _vm._v(" "),
@@ -11485,7 +11871,7 @@ exports.default = _default;
         on: { createproject: _vm.createproject }
       }),
       _vm._v(" "),
-      _c("modaladdfriends")
+      _c("modaladdfriends", { on: { addFriend: _vm.addFriend } })
     ],
     1
   )
@@ -11523,23 +11909,31 @@ render._withStripped = true
       
       }
     })();
-},{"./components/navbar.vue":"src/components/navbar.vue","./components/landing.vue":"src/components/landing.vue","./components/dashboard.vue":"src/components/dashboard.vue","./components/outerboard.vue":"src/components/outerboard.vue","./components/modallogin.vue":"src/components/modallogin.vue","./components/modalregister.vue":"src/components/modalregister.vue","./components/modaltask.vue":"src/components/modaltask.vue","./components/modalcreatetask.vue":"src/components/modalcreatetask.vue","./components/modaladdproject.vue":"src/components/modaladdproject.vue","./components/modaladdfriends.vue":"src/components/modaladdfriends.vue","./components/Hello.vue":"src/components/Hello.vue","_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/main.js":[function(require,module,exports) {
+},{"./components/navbar.vue":"src/components/navbar.vue","./components/landing.vue":"src/components/landing.vue","./components/dashboard.vue":"src/components/dashboard.vue","./components/outerboard.vue":"src/components/outerboard.vue","./components/modallogin.vue":"src/components/modallogin.vue","./components/modalregister.vue":"src/components/modalregister.vue","./components/modaltask.vue":"src/components/modaltask.vue","./components/modalcreatetask.vue":"src/components/modalcreatetask.vue","./components/modaladdproject.vue":"src/components/modaladdproject.vue","./components/modaladdfriends.vue":"src/components/modaladdfriends.vue","vue-google-login":"node_modules/vue-google-login/dist/vue-google-login.min.js","./components/Hello.vue":"src/components/Hello.vue","_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"node_modules/vue-google-signin-button/dist/vue-google-signin-button.min.js":[function(require,module,exports) {
+var define;
+'use strict';var _typeof='function'==typeof Symbol&&'symbol'==typeof Symbol.iterator?function(obj){return typeof obj}:function(obj){return obj&&'function'==typeof Symbol&&obj.constructor===Symbol&&obj!==Symbol.prototype?'symbol':typeof obj};(function(){function a(c){'undefined'!=typeof console&&console.error('[g-signin-button] '+c)}function b(c){c.component('g-signin-button',{name:'g-signin-button',render:function render(d){return d('div',{attrs:{class:'g-signin-button'},ref:'signinBtn'},this.$slots.default)},props:{params:{type:Object,required:!0,default:function _default(){return{}}}},mounted:function mounted(){var _this=this;return window.gapi?this.params.client_id?void window.gapi.load('auth2',function(){var d=window.gapi.auth2.init(_this.params);d.attachClickHandler(_this.$refs.signinBtn,{},function(e){_this.$emit('success',e)},function(e){_this.$emit('error',e),_this.$emit('failure',e)})}):void a('params.client_id must be specified.'):void a('"https://apis.google.com/js/api:client.js" needs to be included as a <script>.')}})}'object'==('undefined'==typeof exports?'undefined':_typeof(exports))?module.exports=b:'function'==typeof define&&define.amd?define([],function(){return b}):window.Vue&&window.Vue.use(b)})();
+
+},{}],"src/main.js":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
 
 var _App = _interopRequireDefault(require("./App.vue"));
 
+var _vueGoogleSigninButton = _interopRequireDefault(require("vue-google-signin-button"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import Notifications from 'vue-notification'
+_vue.default.use(_vueGoogleSigninButton.default); // import Notifications from 'vue-notification'
 // Vue.use(Notifications)
+
+
 new _vue.default({
   render: function render(h) {
     return h(_App.default);
   }
 }).$mount('#app');
-},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","./App.vue":"src/App.vue"}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","./App.vue":"src/App.vue","vue-google-signin-button":"node_modules/vue-google-signin-button/dist/vue-google-signin-button.min.js"}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -11567,7 +11961,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60306" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52308" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

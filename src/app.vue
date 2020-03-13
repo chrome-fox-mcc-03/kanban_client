@@ -1,21 +1,18 @@
 <template>
   <div>
         <!-- Navbar -->
-        <navbar :isLogin="isLogin" @logout="logout" ></navbar>
+        <navbar :isLogin="isLogin" @logout="logout" @onSignInSuccess="onSignInSuccess" @onSignInError="onSignInError" @signOut="signOut"></navbar>
         <!-- <Hello @panggil="panggil" :msg="msg"></Hello> -->
         <!-- Navbar End -->
         <landing v-if="!isLogin" @createproject="createproject" ></landing>
         <!-- Div Dashboard Kanban -->
         <dashboard v-if="isLogin" :isProject="isProject" :projects="projects" :users="users" @generateTask="generateTask"  ></dashboard>
         <!-- template outerboard -->
-        <outerboard v-if="isProject" :backlog="backlog" :product="product" :development="development" :done="done" :categories="categories" ></outerboard>
+        <outerboard @updatethis="updatethis" @deletethis="deletethis" v-if="isProject" :backlog="backlog" :product="product" :development="development" :done="done" :categories="categories" ></outerboard>
         <!-- Modal Login-->
         <modallogin @login="login"></modallogin>
         <!-- Modal register -->
         <modalregister @register="register"></modalregister>
-        <!-- Modal Kanban Task -->
-        <!-- <modaltask></modaltask> -->
-        <!-- Modal Kanban Task Done -->
         <!-- Modal Create Task -->
         <modalcreatetask @createTask="createTask"></modalcreatetask>
         <!-- Modal Create Task Done -->
@@ -23,7 +20,7 @@
         <modaladdproject :projectname="projectname" @createproject="createproject"></modaladdproject>
         <!-- Modal Add Projects Done -->
         <!-- Modal Add Friends -->
-        <modaladdfriends></modaladdfriends>
+        <modaladdfriends @addFriend="addFriend"></modaladdfriends>
         <!-- Modal Add Friends Done -->
   </div>
 </template>
@@ -39,22 +36,25 @@ import modaltask from './components/modaltask.vue'
 import modalcreatetask from './components/modalcreatetask.vue'
 import modaladdproject from './components/modaladdproject.vue'
 import modaladdfriends from './components/modaladdfriends.vue'
-
+  import GoogleLogin from 'vue-google-login';
 import Hello from './components/Hello.vue'
 export default {
     name: 'App',
     data() {
         return {
+            googleSignInParams: {
+                client_id: '1025007694828-ihmb2m11jrfubgbkp40n244kldd1ul8u.apps.googleusercontent.com'
+            },
             isLogin: false,
             Loading: false,
             isProject: false,
             currentProject: '',
             project: '',
-            backlog: ['test'],
-            product: ['test'],
-            development: ['test'],
+            backlog: [],
+            product: [],
+            development: [],
             categoryname: '',
-            done: ['test'],
+            done: [],
             categories: ["Backlog", "Product", "Development", "Done"],
             users: [],//Kanban Board
             data: {
@@ -100,6 +100,8 @@ export default {
                 .then(function(result) {
                     console.log('berhasil register')
                     console.log("hasil register", result)
+                    $('#RegisterModal').modal('hide');
+
                     
                 })
                 .catch(function(err) {
@@ -130,9 +132,47 @@ export default {
 
                 })
         },
+        onSignInSuccess (googleUser) {
+            let self = this
+            // `googleUser` is the GoogleUser object that represents the just-signed-in user.
+            // See https://developers.google.com/identity/sign-in/web/reference#users
+            const profile = googleUser.getBasicProfile() // etc etc
+            const token = googleUser.getAuthResponse().id_token
+            axios({
+                url:"http://localhost:3000/user/googlelogin",
+                method: "post",
+                headers: {
+                    token
+                }
+
+            })
+                .then(function(result) {
+                    localStorage.setItem('access_token', result.data.access_token)
+                    self.isLogin = true;
+                    self.generateProject()
+                    console.log(result)
+                })
+                .catch(function(err) {
+
+                })
+        },
+        onSignInError (error) {
+            // `error` contains any error occurred.
+            console.log('OH NOES', error)
+        },
         logout() {
             this.isLogin = false
-            this.IsProject = false
+            this.isProject = false
+            this.project = ''
+            this.projects = []
+            localStorage.removeItem('access_token')
+  
+        },
+        signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+            console.log('User signed out.');
+            });
         },
         generateProject() {
             let self = this
@@ -148,6 +188,8 @@ export default {
                     console.log('berhasil generate projects')
                     console.log(result)
                     self.projects = result.data
+                    
+
                 })
                 .catch(function(err) {
                     console.log(err)
@@ -235,7 +277,98 @@ export default {
                 .catch(function(err) {
                     console.log(err)
                 })
+        },
+        addFriend(email) {
+            let self = this
+            console.log('addfriend app.vue')
+            let data = {
+                Email: email,
+                ProjectId: this.project
+            }
+            axios({
+                url: 'http://localhost:3000/project/addfriend',
+                method: "post",
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                data: {
+                    data
+                }
+            })
+                .then(function(result) {
+                    // console.log(result)
+                    console.log('berhasil add friend')
+                    $('#FriendsModal').modal('hide');
+                    // self.generateProject()
+                    self.generateTask(self.currentProject)
+                })
+                .catch(function(err) {
+                    console.log(err)
+                })
+        },
+        deletethis(data) {
+            let self = this
+            console.log(`ini adalah ${data}`)
+            axios({
+                url:`http://localhost:3000/project/task/delete/${data}`,
+                method: "delete",
+                headers: {
+                    access_token : localStorage.getItem('access_token')
+                }
+
+            })
+            .then(function(result) {
+                console.log('berhasil delete')
+                $('.modal-backdrop').remove()
+                self.generateTask(self.currentProject)
+                
+            })
+            .catch(function(err) {
+                console.log(err)
+            })
+        },
+        updatethis(data) {
+            let self = this
+            console.log(`update data ${data.id}`)
+            axios({
+                url:`http://localhost:3000/project/task/update/${data.id}`,
+                method: "put",
+                headers: {
+                    access_token : localStorage.getItem('access_token')
+                },
+                data: {
+                    data
+                }
+            })
+                .then(function(result) {
+                console.log('berhasil update')
+                self.generateTask(self.currentProject)
+                $('.modal-backdrop').remove()
+                })
+                .catch(function(err) {
+                    console.log('gagal update')
+                    console.log(err)
+                })
         }
+    },
+    
+    created() {
+        if(localStorage.getItem('access_token')) {
+            this.isLogin = true
+            this.generateProject()
+        }
+        else {
+            this.isLogin = false
+        }
+    },
+    mounted() {
+        $('#FriendsModal').modal('hide');
+        $('#ProjectModal').modal('hide');
+        $('#TaskModal').modal('hide');
+        $('#LoginModal').modal('hide');
+        $('#RegisterModal').modal('hide');
+        $('#ContentModal').modal('hide');
+
     }
 
 

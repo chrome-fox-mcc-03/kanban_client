@@ -11,23 +11,23 @@
                 <div class="modal-body">
                 <form>
                         Title:<br>
-                        <input type="text" v-model="task.Title"><br>
+                        <input type="text" v-model="task.Title" required><br>
                         Content:<br>
-                        <input type="text" v-model="task.Content"><br>
+                        <input type="text" v-model="task.Content" required><br>
                         Category:<br>
-                        <select v-model="task.Category">
+                        <select v-model="task.Category" required>
                         <option>Backlog</option>
                         <option>Product</option>
                         <option>Development</option>
                         <option>Done</option>
                         </select><br>
                         Due Date:<br>
-                        <input type="date" v-model="task.Due_date" ><br><br>
+                        <input type="date" v-model="task.Due_date" required><br><br>
                         
-                    <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button"  class="btn btn-primary">Update</button>
-                    <button type="button"  class="btn btn-primary">Delete</button>
                 </form>
+                    <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" @click.prevent="updatethis" class="btn btn-primary">Update</button>
+                    <button type="button" @click.prevent="deletethis" class="btn btn-primary">Delete</button>
                 </div>
             </div>
             </div>
@@ -45,6 +45,20 @@ export default {
     methods: {
         formattedDate() {
             this.task.Due_date = this.task.Due_date.split('T')[0]
+        },
+        deletethis() {
+            console.log(`this is ${this.task.id}`)
+            this.$emit('deletethis', this.task.id)
+        },
+        updatethis() {
+            let data = {
+                Title: this.task.Title,
+                Content: this.task.Content,
+                Category: this.task.Category,
+                Due_Date: this.task.Due_date,
+                id: this.task.id
+            }
+            this.$emit('updatethis', data)
         }    
     },
     created() {

@@ -1,7 +1,7 @@
 <template>
     <div class="TaskBoard" >
     <h2 style="background-color: orangered; color: white; height: 100px; padding: 10%;"> {{category}}</h2><br>
-        <task  v-for="task in tasks" :key="task.id" :task="task"></task>
+        <task @updatethis="updatethis" @deletethis="deletethis" v-for="task in tasks" :key="task.id" :task="task"></task>
     </div>
 </template>
 
@@ -12,6 +12,14 @@ export default {
     data() {
         return {
             categories: ["Backlog", "Product", "Development", "Done"]
+        }
+    },
+    methods: {
+        deletethis(data) {
+            this.$emit('deletethis', data)
+        },
+        updatethis(data) {
+            this.$emit('updatethis', data)
         }
     },
     components : {
