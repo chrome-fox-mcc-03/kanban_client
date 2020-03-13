@@ -65,6 +65,7 @@ export default {
     },
     methods: {
         changePage: function(pageToShow){
+            
             if (!this.status.args) this.status.loggedOut.onPage = pageToShow
             else if(this.status.args) {
                 this.status.loggedIn.onPage = pageToShow
@@ -312,9 +313,7 @@ export default {
 
         },
         addNewCard(newCard){
-            for(const key in newCard) console.log('====', newCard.description)
             this.isLoading = true
-
             Axios({
                 url: `http://localhost:3000/task/${this.boardParams.id}`,
                 method: 'POST',
@@ -337,6 +336,7 @@ export default {
                 },
                 this.fetchCards()
                 this.$vToastify.success('Card added!')
+                this.emitNewCard()
             })
             .catch(err => {
                 if(err.response.data.msg)  this.$vToastify.error(err.response.data.msg)
@@ -360,6 +360,7 @@ export default {
                     desc: value.description
                 }
             })
+            .then(_ => this.emitNewCard())
             .catch(err => {
                 this.$vToastify.error(err.response.data.errors[0].message)
                 }
@@ -381,6 +382,7 @@ export default {
                     title: value.title
                 }
             })
+            .then(_ => this.emitNewCard())
             .catch(err => {
                 this.$vToastify.error(err.response.data.errors[0].message)
                 }
@@ -402,6 +404,7 @@ export default {
                     due_date: new Date(value.due_date)
                 }
             })
+            .then(_ => this.emitNewCard())
             .catch(err => {
                 this.$vToastify.error(err.response.data.errors[0].message)
                 }
@@ -433,6 +436,7 @@ export default {
                     done: []
                 },
                 this.fetchCards()
+                this.emitNewCard()
             })
             .catch(err => {
                 this.$vToastify.error(err.response.data.errors[0].message)
@@ -457,13 +461,7 @@ export default {
                 }
             })
             .then(res => {
-                this.cards = {
-                    backlog: [],
-                    todo: [],
-                    ongoing: [],
-                    done: []
-                },
-                this.fetchCards()
+                this.emitNewCard()
             })
             .catch(err => {
                 this.$vToastify.error(err.response.data.errors[0].message)
@@ -491,6 +489,7 @@ export default {
                     done: []
                 },
                 this.fetchCards()
+                this.emitNewCard()
                 this.$vToastify.success('Card deleted!')
             })
             .catch(err => {
@@ -569,6 +568,9 @@ export default {
             .finally(_ => {
                 this.isLoading = false
             })
+        },
+        emitNewCard(){
+            this.$socket.emit('new_task')
         }
     },
     components: {
@@ -584,6 +586,18 @@ export default {
             this.status.args = true
             this.fetchYourBoard()
             this.fetchSharedBoard()
+        }
+    },
+    sockets: {
+        new_card_arrived(){
+            this.cards = {
+                    backlog: [],
+                    todo: [],
+                    ongoing: [],
+                    done: []
+                },
+            this.fetchCards()
+            this.$vToastify.info('Someone modify a board')
         }
     }
 

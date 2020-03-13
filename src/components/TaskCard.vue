@@ -17,10 +17,10 @@
             <p class="kanban-card-desc">{{card.description}}</p>
         </div>
         <div class="row justify-content-center icon-div">
-        <div class="col col-4" v-if="!(card.category=='backlog')" @click="moveLeft">
+        <div class="col col-4" v-if="!(card.category=='backlog')" @click.prevent="moveLeft">
             <img src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/1959125971582004485-256.png" alt="" class="bottom-icon">
         </div>
-        <div class="col col-4" v-if="!(card.category=='done')" @click="moveRight">
+        <div class="col col-4" v-if="!(card.category=='done')" @click.prevent="moveRight">
             <img  src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/4609047631582004492-256.png" alt="" class="bottom-icon">
         </div>
         </div>
@@ -76,5 +76,6 @@ export default {
 <style>
 .kanban-content-card {
     cursor: pointer;
+    transition: 500ms;
 }
 </style>
