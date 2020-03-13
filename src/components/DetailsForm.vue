@@ -12,7 +12,7 @@
                 <div class="form-footer">
                     <a>Save</a>
                     <a id="cancelEdit" @click="backToMainPage">Cancel</a>
-                <a>Delete</a>
+                <a @click="deleteAct(detail.id)">Delete</a>
                 </div>
             </form>
         </div>
@@ -27,11 +27,32 @@ export default {
             title: ''
         }
     },
-    props: ['detail'],
+    props: [
+        'detail',
+        'fetchActivities'
+    ],
     methods: {
         backToMainPage() {
             console.log('back to main page senpai');
             this.$emit('backToMainPage', 'kanbanSubPage')
+        },
+        deleteAct(id) {
+            axios({
+                method: 'delete',
+                url: `http://localhost:3000/activities/${id}`,
+                headers: {
+                    token: localStorage.getItem('access_token')
+                }
+            })
+                .then(({data}) => {
+                    console.log('Successfully deleted 1 activity');
+                    console.log(data);
+                    this.fetchActivities();
+                    this.backToMainPage();
+                })
+                .catch(err => {
+                    console.log(err);
+                })
         }
     },
     created () {

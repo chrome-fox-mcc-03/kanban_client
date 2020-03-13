@@ -7,10 +7,12 @@
                 @moveRight="moveRight" 
                 v-for="activity in filtered" :key="activity.id" 
                 :activity="activity"
-                @showDetails="showDetails">
+                @showDetails="showDetails"
+                :category="category">
             </Act>
         </div>
         <AddForm 
+            v-if="category === 'Backlog'"
             :fetchActivities="fetchActivities">
         </AddForm>
     </div>

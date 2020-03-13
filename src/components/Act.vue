@@ -1,8 +1,7 @@
 <template>
     <div class="act">
-
         <!-- left button -->
-        <div class="option-space" @click="moveLeft(activity.id)">
+        <div v-if="category !== 'Backlog'" class="option-space" @click="moveLeft(activity.id)">
             <i class="fas fa-angle-left fa-sm"></i>
         </div>
         <!-- left button -->
@@ -10,7 +9,7 @@
         <p class="actTitle" @click="showDetails(activity)">{{ activity.title }}</p>
 
         <!-- right button -->
-        <div class="option-space" @click="moveRight(activity.id)">
+        <div v-if="category !== 'Finished'" class="option-space" @click="moveRight(activity.id)">
             <i class="fas fa-angle-right fa-sm"></i>
         </div>
         <!-- right button -->
@@ -22,7 +21,8 @@
 export default {
     name: 'Act',
     props: [
-        'activity'
+        'activity',
+        'category'
     ],
     methods: {
         moveLeft(id) {

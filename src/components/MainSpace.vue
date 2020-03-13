@@ -13,7 +13,12 @@
                 >
             </KanbanCard>
         </div>
-        <DetailsForm :detail="detail" @backToMainPage="changeSubPage" v-else-if="subCurrentPage === 'detailsSubPage'"></DetailsForm>
+        <DetailsForm 
+            :detail="detail" 
+            @backToMainPage="changeSubPage" 
+            :fetchActivities="fetchActivities"
+            v-else-if="subCurrentPage === 'detailsSubPage'">
+        </DetailsForm>
     </div>
 </template>
 
