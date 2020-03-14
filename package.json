@@ -1,0 +1,34 @@
+{
+  "name": "kanban_client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hikmanisyariful/kanban_client.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hikmanisyariful/kanban_client/issues"
+  },
+  "homepage": "https://github.com/hikmanisyariful/kanban_client#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bootstrap": "^4.4.1",
+    "bootstrap-vue": "^2.6.1",
+    "jquery": "^3.4.1",
+    "toastify-js": "^1.7.0",
+    "vue": "^2.6.11",
+    "vue-google-login": "^2.0.3",
+    "vue-hot-reload-api": "^2.3.4"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^3.1.1",
+    "vue-template-compiler": "^2.6.11"
+  }
+}
