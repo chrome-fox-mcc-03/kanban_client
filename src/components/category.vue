@@ -1,6 +1,9 @@
 <template>
    <section class="lists-container">
-     <category-list v-for="(el, i) in category" :key="i" :category="el"></category-list>
+     <category-list v-for="(el, i) in category" :key="i" :category="el" 
+        @changeCategoryName="category[i].name = $event"
+        @addedNewTask="category[i].Tasks.push($event)"
+        ></category-list>
       <!-- <div class="list">
 
         <h3 class="list-title"> </h3>
@@ -11,7 +14,6 @@
         <button class="add-card-btn btn">Add a card</button>
         <input class="add-card-btn btn" placeholder="Add a card">
       </div> -->
-
       <input class="add-list-btn btn" placeholder="Add new category..." v-model="categoryName" @keyup.enter="addCategory">
     </section>
   
@@ -61,6 +63,7 @@ export default {
       }
     })
       .then(result => {
+        console.log(result.data);
         this.category = result.data;
       })
   }

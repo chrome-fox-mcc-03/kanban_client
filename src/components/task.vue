@@ -8,6 +8,7 @@
               v-model="taskTitle"
               >
     </li>
+      {{ task }}
   </ul>
 </template>
 
@@ -30,6 +31,7 @@ export default {
       this.showInput = true;
     },
     editTitle(taskId, categoryId) {
+      console.log(taskId, categoryId, '<<<<<<<<<<<<<');
       axios({
         url: `http://localhost:3000/task/${taskId}`,
         method: 'PUT',
@@ -42,7 +44,8 @@ export default {
         }
       })
         .then(result => {
-          console.log(result.data);
+          this.$emit('changeTaskTitle', result.data.title)
+          this.showInput = true;
         })
         .catch(err => {
           console.log(err);

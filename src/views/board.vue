@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import BoardHeader from '../components/boardHeader';
 import InfoBar from '../components/infobar';
 import CategoryBoard from '../components/category';

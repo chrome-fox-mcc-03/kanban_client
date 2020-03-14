@@ -6,7 +6,10 @@
               @blur="hideTitle" v-show="showInput" v-model="categoryName" 
               @keyup.enter="editCategoryName(category.id)" 
               class="list-title list-title-edit">
-        <task v-for="(el, id) in taskList" :key="id" :task="el"></task>
+        <draggable>
+
+        <task v-for="(el, index) in category.Tasks" :key="el.id" :task="el" @changeTaskTitle="category.Tasks[index].title = $event"></task>
+        </draggable>
         <input class="add-card-btn btn addCardInput" placeholder="Add a card..." 
               @keyup.enter="addTask(category.id)" 
               v-model="title">
@@ -16,10 +19,13 @@
 <script>
 import task from './task';
 import axios from 'axios';
+import draggable from 'vuedraggable';
+console.log(draggable);
 export default {
   name: 'CategoryList',
   components: {
     task,
+    draggable,
   },
   props: ['category'],
   data() {
@@ -28,7 +34,7 @@ export default {
       id: '',
       categoryName: '',
       showInput: false,
-      taskList: this.category.Tasks
+      taskList: this.category.Tasks,
     }
   },
   methods: {
@@ -45,7 +51,9 @@ export default {
         }
       })
         .then(result => {
-          this.taskList.push(result.data);
+          // this.taskList.push(result.data);
+          console.log(result.data);
+          this.$emit('addedNewTask', result.data);
           this.title = '';
         })
         .catch(err => {
@@ -67,6 +75,7 @@ export default {
         .then(result => {
           console.log(result.data);
           this.categoryName = '';
+          this.$emit('changeCategoryName', result.data.name)
           this.showInput = false;
         })
         .catch(err => {
