@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <title>Kanban</title>
+</head>
+
+<body>
+    <div id="app">
+<!-------------------------------------------------- navbar ----------------------------------------------->
+        <nav v-if="isLogin" class="navbar navbar-expand-lg navbar-dark bg-dark" style="z-index: 10;">
+            <a class="navbar-brand" href="#">Kanban</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#add-card">Add Card</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" @click.prevent="logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+<!-------------------------------------------------- kanban ----------------------------------------------->
+        <div v-if="!isLoading" class="container-fluid">
+            <div v-if="isLogin" class="flex-container row">
+                <!--------------------------------------- backlog ------------------------------------------------->
+                <div class="col-xl-3">
+                    <div class="box">
+                        <div class="kanban-header">
+                            <h4>Backlog</h4>
+                        </div>
+                        <div class="kanban-content">
+                            <div v-for="backlog in backlogs" :key="backlog.id" class="item row">
+                                <div class="col-lg-10">
+                                    <div class="item-content">
+                                        <p class="item-title">{{ backlog.title }}</p>
+                                        <p class="item-description">{{ backlog.description }}</p>
+                                    </div>
+                                    <br>
+                                    <div class="item-btn-backlog">
+                                        <div class="left">
+                                            <!-- <p><i class="fas fa-chevron-left"></i><i class="fas fa-chevron-left"></i></p> -->
+                                        </div>
+                                        <div @click="update(backlog.id, 'product')" class="right">
+                                            <p><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div @click="deleteData(backlog.id)" class="col-lg-2 delete-card">
+                                    <span aria-hidden="true"><i class="far fa-trash-alt"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="kanban-footer">
+                        <p data-toggle="modal" data-target="#add-card">Add a card...</p>
+                    </div> -->
+                    </div>
+                </div>
+                <!--------------------------------------- product ------------------------------------------------->
+                <div class="col-xl-3">
+                    <div class="box">
+                        <div class="kanban-header">
+                            <h4>Product</h4>
+                        </div>
+                        <div class="kanban-content">
+                            <div v-for="product in products" class="item row">
+                                <div class="col-lg-10">
+                                    <div class="item-content">
+                                        <p class="item-title">{{ product.title }}</p>
+                                        <p class="item-description">{{ product.description }}</p>
+                                    </div>
+                                    <br>
+                                    <div class="item-btn">
+                                        <div @click="update(product.id, 'backlog')" class="left">
+                                            <p><i class="fas fa-chevron-left"></i><i class="fas fa-chevron-left"></i>
+                                            </p>
+                                        </div>
+                                        <div @click="update(product.id, 'development')" class="right">
+                                            <p><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div @click="deleteData(product.id)" class="col-lg-2 delete-card">
+                                    <span aria-hidden="true"><i class="far fa-trash-alt"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--------------------------------------- development ------------------------------------------------->
+                <div class="col-xl-3">
+                    <div class="box">
+                        <div class="kanban-header">
+                            <h4>Development</h4>
+                        </div>
+                        <div class="kanban-content">
+                            <div v-for="development in developments" class="item row">
+                                <div class="col-lg-10">
+                                    <div class="item-content">
+                                        <p class="item-title">{{ development.title }}</p>
+                                        <p class="item-description">{{ development.description }}</p>
+                                    </div>
+                                    <br>
+                                    <div class="item-btn">
+                                        <div @click="update(development.id, 'product')" class="left">
+                                            <p><i class="fas fa-chevron-left"></i><i class="fas fa-chevron-left"></i>
+                                            </p>
+                                        </div>
+                                        <div @click="update(development.id, 'done')" class="right">
+                                            <p><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div @click="deleteData(development.id)" class="col-lg-2 delete-card">
+                                    <span aria-hidden="true"><i class="far fa-trash-alt"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--------------------------------------- done ------------------------------------------------->
+                <div class="col-xl-3">
+                    <div class="box">
+                        <div class="kanban-header">
+                            <h4>Done</h4>
+                        </div>
+                        <div class="kanban-content">
+                            <div v-for="done in dones" class="item row">
+                                <div class="col-lg-10">
+                                    <div class="item-content">
+                                        <p class="item-title">{{ done.title }}</p>
+                                        <p class="item-description">{{ done.description }}</p>
+                                    </div>
+                                    <br>
+                                    <div class="item-btn">
+                                        <div @click="update(done.id, 'development')" class="left">
+                                            <p><i class="fas fa-chevron-left"></i><i class="fas fa-chevron-left"></i>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div @click="deleteData(done.id)" class="col-lg-2 delete-card">
+                                    <span aria-hidden="true"><i class="far fa-trash-alt"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-else class="landing-page">
+                <div class="jumbotron">
+                    <h1 class="display-4">Welcome to Kanban</h1>
+                    <p class="lead">This app will help you!</p>
+                    <hr class="my-4">
+                    <a class="btn btn-primary" href="#" role="button" data-toggle="modal"
+                        data-target="#register">Register</a>
+                    <span style="cursor: pointer;" data-toggle="modal" data-target="#login">Already have account? Login
+                        here</span>
+                </div>
+            </div>
+
+<!-------------------------------------------------- modal ----------------------------------------------->
+            <div class="modal" id="login" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Login</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form @submit.prevent="login">
+                                <div class="form-group">
+                                    <label for="login-email">Email address</label>
+                                    <input v-model="emailLogin" type="email" class="form-control" id="login-email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="login-password">Password</label>
+                                    <input v-model="passwordLogin" type="password" class="form-control" id="login-password">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Login</button>
+                                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                                <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#register"> Don't have
+                                    an account?</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal" id="register" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Register</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form @submit.prevent="register">
+                                <div class="form-group">
+                                    <label for="register-email">Email address</label>
+                                    <input v-model="emailRegister" type="email" class="form-control" id="register-email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="register-password">Password</label>
+                                    <input v-model="passwordRegister" type="password" class="form-control" id="register-password">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal" id="add-card" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add a card</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form @submit.prevent="addCard">
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input v-model="title" type="text" class="form-control" id="title">
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <input v-model="description" type="text" class="form-control" id="description">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-------------------------------------------------- loading ----------------------------------------------->
+        <div v-else id="loading">
+            <img id="loading-img" src="./img/loading.gif" alt="loading">
+        </div>
+
+    </div>
+    <!-- bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <!-- axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- swal -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <!-- google oauth -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <!-- main script -->
+    <script src="main.js"></script>
+</body>
+
+</html>
