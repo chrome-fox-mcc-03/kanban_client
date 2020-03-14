@@ -9,27 +9,35 @@
       <br />
       <button>Edit</button>
     </form>
+    <loading :active.sync="isLoading" :can-cancel="false" :is-full-page="fullPage"></loading>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 export default {
   name: "AddTask",
   props: ["task"],
   data: function() {
     return {
       title: "",
-      description: ""
+      description: "",
+      isLoading: false,
+      fullPage: true
     };
   },
   created: function() {
     this.title = this.task.title;
     this.description = this.task.description;
   },
+  components: {
+    Loading
+  },
   methods: {
     formEditTask: function() {
+      this.isLoading = true;
       let data = {
         title: this.title,
         description: this.description,
@@ -43,10 +51,11 @@ export default {
           }
         })
         .then(result => {
-          console.log("Task Edited!");
-          console.log(result);
+          this.isLoading = false;
+          this.$emit('changePage', 'category')
         })
         .catch(err => {
+          this.isLoading = false;
           console.log(err);
         });
     }

@@ -10,7 +10,10 @@
       >
         <div class="card">
           <div class="card-body">
-            <button class="close" @click="deleteCollaborator(collaboration.UserId, collaboration.ProjectId)">×</button>
+            <button
+              class="close"
+              @click="deleteCollaborator(collaboration.UserId, collaboration.ProjectId)"
+            >×</button>
             <h6 class="card-title text-uppercase text-truncate py-2">{{collaboration.User.name}}</h6>
             <h6 class="card-subtitle text-truncate py-2">{{collaboration.User.email}}</h6>
           </div>
@@ -27,37 +30,51 @@
         </form>
       </div>
     </div>
+    <loading :active.sync="isLoading" :can-cancel="false" :is-full-page="fullPage"></loading>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 export default {
   name: "CollaborationPage",
   data: function() {
     return {
       email: "",
-      collaborations: []
+      collaborations: [],
+      isLoading: false,
+      fullPage: true
     };
+  },
+  components: {
+    Loading
   },
   props: ["projectId"],
   created: function() {
-    axios
-      .get(`http://localhost:3000/collaborations/${this.projectId}`, {
-        headers: {
-          access_token: localStorage.getItem("access_token")
-        }
-      })
-      .then(({ data }) => {
-        this.collaborations = data;
-        console.log(data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.loadCollaboration();
   },
   methods: {
+    loadCollaboration() {
+      this.isLoading = true;
+      axios
+        .get(`http://localhost:3000/collaborations/${this.projectId}`, {
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          }
+        })
+        .then(({ data }) => {
+          this.isLoading = false;
+          this.collaborations = data;
+        })
+        .catch(err => {
+          this.isLoading = false;
+          console.log(err);
+        });
+    },
     formSubmit: function() {
+      this.isLoading = true;
       let data = {
         ProjectId: this.projectId,
         email: this.email
@@ -70,25 +87,32 @@ export default {
           }
         })
         .then(result => {
-          console.log("Collaboration Created!");
-          console.log(result);
+          this.loadCollaboration();
+          this.isLoading = false;
+          this.email = "";
         })
         .catch(err => {
+          this.isLoading = false;
           console.log(err);
         });
     },
     deleteCollaborator(userId, projectId) {
-
+      this.isLoading = true;
       axios
-        .delete(`http://localhost:3000/collaborations?UserId=${userId}&ProjectId=${projectId}`, {
-          headers: {
-            access_token: localStorage.getItem("access_token")
+        .delete(
+          `http://localhost:3000/collaborations?UserId=${userId}&ProjectId=${projectId}`,
+          {
+            headers: {
+              access_token: localStorage.getItem("access_token")
+            }
           }
-        })
+        )
         .then(result => {
-          console.log("berhasil didelete", result);
+          this.isLoading = false;
+          this.loadCollaboration();
         })
         .catch(err => {
+          this.isLoading = false;
           console.log(err);
         });
     },

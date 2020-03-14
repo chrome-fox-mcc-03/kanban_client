@@ -9,30 +9,12 @@
             <a href class="close">×</a>
             <h6 class="card-title text-uppercase text-truncate py-2">{{category.name}}</h6>
             <div class="items border border-light">
-              <!-- <div class="card draggable" draggable="true">
-                <div class="card-body p-2 border-left border-success">
-                  <div class="card-title">
-                    <img src="//placehold.it/30" class="rounded-circle float-right" />
-                  </div>
-                  <p></p>
-                  <button class="btn btn-outline-success btn-sm">View</button>
-                </div>
-              </div>
-              <div class="card draggable" draggable="true">
-                <div class="card-body p-2 border-left border-success">
-                  <div class="card-title">
-                    <img src="//placehold.it/30" class="rounded-circle float-right" />
-                    <a href class="lead font-weight-light">TSK-148</a>
-                  </div>
-                  <p>This item an item that is actively in progress.</p>
-                  <button class="btn btn-outline-success btn-sm">View</button>
-                  <button class="btn btn-outline-success btn-sm">Add</button>
-                </div>
-              </div>-->
               <Card
+                v-if="renderComponent"
+                @forceRerender="forceRerender"
+                @editTask="editTask"
                 :firstPosition="index === 0 ? true: false"
                 :lastPosition="index === categories.length -1 ? true: false"
-                @editTask="editTask"
                 :projectId="projectId"
                 :categoryId="category.id"
                 :prevCategoryId="index == 0 ? categories[index].id : categories[index-1].id"
@@ -49,45 +31,62 @@
         </div>
       </div>
     </div>
+    <loading :active.sync="isLoading" :can-cancel="false" :is-full-page="fullPage"></loading>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 import Card from "./Card";
 export default {
   name: "CategoryPage",
   props: ["projectId"],
   components: {
-    Card
+    Card,
+    Loading
   },
   data: function() {
     return {
-      categories: []
+      categories: [],
+      isLoading: false,
+      fullPage: true,
+      renderComponent: true
     };
   },
   created: function() {
-    // pertama get dulu categorinya
-    axios
-      .get(`http://localhost:3000/categories`, {
-        headers: {
-          access_token: localStorage.getItem("access_token")
-        }
-      })
-      .then(({ data }) => {
-        console.log(data)
-        this.categories = data;
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.loadCategories();
   },
   methods: {
+    loadCategories() {
+      this.isLoading = true;
+      axios
+        .get(`http://localhost:3000/categories`, {
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          }
+        })
+        .then(({ data }) => {
+          this.isLoading = false;
+          this.categories = data;
+        })
+        .catch(err => {
+          this.isLoading = false;
+          console.log(err);
+        });
+    },
     changeCategoryId(categoryId) {
       this.$emit("changeCategoryId", categoryId);
     },
     editTask(task) {
       this.$emit("editTask", task);
+    },
+    forceRerender() {
+      this.renderComponent = false;
+      this.$nextTick().then(() => {
+        this.renderComponent = true;
+      });
     }
   }
 };

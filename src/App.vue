@@ -19,37 +19,30 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-                <a  class="nav-link" @click="changePage('signup')">
+                <a v-if="!isLogin" class="nav-link" @click="changePage('signup')">
                   <i class="fas fa-user-plus"></i> Sign Up
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
-              <li class="nav-item">
+              <li v-if="!isLogin" class="nav-item">
                 <a class="nav-link" href="#" @click="changePage('login')">
                   <i class="fa fa-user"></i> Login
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
-              <li class="nav-item">
+              <li v-if="isLogin" class="nav-item">
                 <a class="nav-link" href="#" @click="changePage('project')">
                   Project
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
 
-              <li class="nav-item">
+              <li v-if="isLogin" class="nav-item">
                 <a class="nav-link" href="#" @click="logout()">
                   Logout
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
-              <!-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Profile </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
-                                <a class="dropdown-item" href="#">My account</a>
-                                <a class="dropdown-item" href="#">Log out</a>
-                            </div>
-              </li>-->
             </ul>
           </div>
         </nav>
@@ -65,10 +58,14 @@
     ></CategoryPage>
     <CollaborationPage :projectId="projectId" v-else-if="page === 'collaboration'"></CollaborationPage>
     <LoginPage v-else-if="page === 'login'" @login="login"></LoginPage>
-    <ProjectPage @changeProjectId="changeProjectId" v-else-if="page === 'project'" @showCollaboration="showCollaboration"></ProjectPage>
+    <ProjectPage
+      @changeProjectId="changeProjectId"
+      v-else-if="page === 'project'"
+      @showCollaboration="showCollaboration"
+    ></ProjectPage>
     <SignUpPage v-else-if="page === 'signup' " @signup="signup"></SignUpPage>
-    <AddTask :projectId="projectId" :categoryId="categoryId" v-else-if="page === 'addtask'"></AddTask>
-    <EditTask :task="dataEditTask" v-else-if="page === 'edittask'"></EditTask>
+    <AddTask @changePage="changePage" :projectId="projectId" :categoryId="categoryId" v-else-if="page === 'addtask'"></AddTask>
+    <EditTask @changePage="changePage" :task="dataEditTask" v-else-if="page === 'edittask'"></EditTask>
   </div>
 </template>
 
@@ -98,11 +95,13 @@ export default {
       page: "project",
       projectId: null,
       categoryId: null,
-      dataEditTask: {}
+      dataEditTask: {},
+      isLogin: false
     };
   },
   created: function() {
-    if (localStorage.getItem("access_token")) {
+    this.isLogin = !!localStorage.getItem('access_token')
+    if (this.isLogin) {
       this.changePage("project");
     } else {
       this.changePage("login");
@@ -117,6 +116,7 @@ export default {
         .post("http://localhost:3000/users/login", data)
         .then(result => {
           localStorage.setItem("access_token", result.data.access_token);
+          this.isLogin = true
           this.changePage("project");
         })
         .catch(err => {
@@ -129,7 +129,7 @@ export default {
         .post("http://localhost:3000/users/register", data)
         .then(result => {
           localStorage.setItem("access_token", result.data.access_token);
-          // console.log("masuk dahan", result);
+          this.isLogin = true
           this.changePage("project");
         })
         .catch(err => {
@@ -138,7 +138,8 @@ export default {
     },
 
     logout() {
-      localStorage.clear();
+      this.isLogin = false
+      localStorage.removeItem('access_token');
       this.changePage("login");
     },
     changeProjectId(projectId) {

@@ -13,8 +13,14 @@
             <button class="close" @click="deleteProject(collaboration.Project.id)">×</button>
             <h6 class="card-title text-uppercase text-truncate py-2">{{collaboration.Project.name}}</h6>
             <!-- <button class="btn btn-primary">View</button> -->
-            <button class="btn btn-primary" v-on:click="changeProjectId(collaboration.Project.id)">View</button>
-            <button class="btn btn-primary" v-on:click="showCollaboration(collaboration.Project.id)">Collaborator</button>
+            <button
+              class="btn btn-primary"
+              v-on:click="changeProjectId(collaboration.Project.id)"
+            >View</button>
+            <button
+              class="btn btn-primary"
+              v-on:click="showCollaboration(collaboration.Project.id)"
+            >Collaborator</button>
           </div>
         </div>
       </div>
@@ -30,36 +36,49 @@
         </form>
       </div>
     </div>
+    <loading :active.sync="isLoading" :can-cancel="false" :is-full-page="fullPage"></loading>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 export default {
   name: "ProjectPage",
   data: function() {
     return {
       name: "",
-      collaborations: []
+      collaborations: [],
+      isLoading: false,
+      fullPage: true
     };
   },
+  components: {
+    Loading
+  },
   created: function() {
-    axios
-      .get("http://localhost:3000/projects", {
-        headers: {
-          access_token: localStorage.getItem("access_token")
-        }
-      })
-      .then(({ data }) => {
-        this.collaborations = data;
-        console.log(data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.loadProjects();
   },
   methods: {
+    loadProjects() {
+      this.isLoading = true;
+      axios
+        .get("http://localhost:3000/projects", {
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          }
+        })
+        .then(({ data }) => {
+          this.collaborations = data;
+          this.isLoading = false;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     formSubmit: function() {
+      this.isLoading = true;
       let data = {
         name: this.name
       };
@@ -71,14 +90,17 @@ export default {
           }
         })
         .then(result => {
-          console.log("Project Created!");
-          // console.log(result);
+          this.isLoading = false;
+          this.loadProjects();
+          this.name = "";
         })
         .catch(err => {
+          this.isLoading = false;
           console.log(err);
         });
     },
     deleteProject(projectId) {
+      this.isLoading = true;
       axios
         .delete(`http://localhost:3000/projects/${projectId}`, {
           headers: {
@@ -86,17 +108,19 @@ export default {
           }
         })
         .then(result => {
-          console.log("berhasil", result);
+          this.isLoading = false;
+          this.loadProjects();
         })
         .catch(err => {
+          this.isLoading = false;
           console.log(err);
         });
     },
     changeProjectId(projectId) {
-      this.$emit('changeProjectId', projectId)
+      this.$emit("changeProjectId", projectId);
     },
     showCollaboration(projectId) {
-      this.$emit('showCollaboration', projectId)
+      this.$emit("showCollaboration", projectId);
     }
   }
 };

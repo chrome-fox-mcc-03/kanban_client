@@ -10,7 +10,6 @@
           <button @click="editTask(task)" class="btn btn-secondary">Edit</button>
           <button @click="deleteTask(task.id)" class="btn btn-secondary">Delete</button>
           <div class="card-title">
-            
             <i
               v-if="!firstPosition"
               @click="changeCategory(prevCategoryId, task.id)"
@@ -25,16 +24,21 @@
         </div>
       </div>
     </div>
+    <loading :active.sync="isLoading" :can-cancel="false" :is-full-page="fullPage"></loading>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 export default {
   name: "Card",
   data: function() {
     return {
-      tasks: []
+      tasks: [],
+      isLoading: false,
+      fullPage: true
     };
   },
   props: [
@@ -45,28 +49,39 @@ export default {
     "prevCategoryId",
     "nextCategoryId"
   ],
+  components: {
+    Loading
+  },
   created: function() {
-    axios
-      .get(
-        `http://localhost:3000/tasks?ProjectId=${this.projectId}&CategoryId=${this.categoryId}`,
-        {
-          headers: {
-            access_token: localStorage.getItem("access_token")
-          }
-        }
-      )
-
-      .then(({ data }) => {
-        this.tasks = data.tasks;
-        console.log(this.tasks);
-      });
+    this.loadTasks();
   },
   methods: {
+    loadTasks() {
+      this.isLoading = true;
+      axios
+        .get(
+          `http://localhost:3000/tasks?ProjectId=${this.projectId}&CategoryId=${this.categoryId}`,
+          {
+            headers: {
+              access_token: localStorage.getItem("access_token")
+            }
+          }
+        )
+
+        .then(({ data }) => {
+          this.isLoading = false;
+          this.tasks = data.tasks;
+        })
+        .catch(err => {
+          this.isLoading = false;
+          console.log(err);
+        });
+    },
     editTask(task) {
       this.$emit("editTask", task);
     },
     changeCategory(categoryId, taskId) {
-      console.log(categoryId)
+      this.isLoading = true;
       axios
         .patch(
           `http://localhost:3000/tasks/${taskId}`,
@@ -78,13 +93,16 @@ export default {
           }
         )
         .then(response => {
-          console.log(response.data);
+          this.isLoading = false;
+          this.$emit("forceRerender");
         })
         .catch(err => {
+          this.isLoading = false;
           console.log(err);
         });
     },
     deleteTask(id) {
+      this.isLoading = true;
       axios
         .delete(`http://localhost:3000/tasks/${id}`, {
           headers: {
@@ -92,9 +110,11 @@ export default {
           }
         })
         .then(response => {
-          console.log(response.data);
+          this.isLoading = false;
+          this.$emit("forceRerender");
         })
         .catch(err => {
+          this.isLoading = true;
           console.log(err);
         });
     }
