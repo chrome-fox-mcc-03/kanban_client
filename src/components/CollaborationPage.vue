@@ -70,7 +70,14 @@ export default {
         })
         .catch(err => {
           this.isLoading = false;
-          console.log(err);
+          let status = {
+            title: "Failed!",
+            body: err.response,
+            type: "error",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.error(status);
         });
     },
     formSubmit: function() {
@@ -90,10 +97,25 @@ export default {
           this.loadCollaboration();
           this.isLoading = false;
           this.email = "";
+          let status = {
+            title: "Collaborator Added!",
+            body: "Collaborator successfully added.",
+            type: "success",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.success(status);
         })
         .catch(err => {
           this.isLoading = false;
-          console.log(err);
+          let status = {
+            title: "Failed!",
+            body: err.response,
+            type: "error",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.error(status);
         });
     },
     deleteCollaborator(userId, projectId) {
@@ -110,10 +132,25 @@ export default {
         .then(result => {
           this.isLoading = false;
           this.loadCollaboration();
+          let status = {
+            title: "Collaborator Deleted",
+            body: "Collaborator successfully deleted.",
+            type: "success",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.success(status);
         })
         .catch(err => {
           this.isLoading = false;
-          console.log(err);
+          let status = {
+            title: "Failed!",
+            body: err.response,
+            type: "error",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.error(status);
         });
     },
     changeProjectId(projectId) {

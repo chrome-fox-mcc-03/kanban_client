@@ -26,10 +26,12 @@
   "dependencies": {
     "axios": "^0.19.2",
     "toastify": "^2.0.0",
+    "toastify-js": "^1.7.0",
     "vue": "^2.6.11",
     "vue-google-login": "^2.0.3",
     "vue-hot-reload-api": "^2.3.4",
     "vue-loading-overlay": "^3.3.2",
+    "vue-toastify": "^1.6.1",
     "vuedraggable": "^2.23.2"
   }
 }

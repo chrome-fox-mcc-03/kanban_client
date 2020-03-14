@@ -100,9 +100,24 @@ export default {
         .post(`http://localhost:3000/users/googleLogin`, { id_token })
         .then(({ data }) => {
           localStorage.setItem("access_token", data.access_token);
+          let status = {
+            title: "Logged In!",
+            body: "You're successfully logged in.",
+            type: "success",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.success(status);
         })
         .catch(err => {
-          console.log(err);
+          let status = {
+            title: "Failed!",
+            body: err.response,
+            type: "error",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.error(status);
         });
     }
   }

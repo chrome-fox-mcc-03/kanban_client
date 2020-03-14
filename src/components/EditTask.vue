@@ -52,11 +52,26 @@ export default {
         })
         .then(result => {
           this.isLoading = false;
-          this.$emit('changePage', 'category')
+          let status = {
+            title: "Task Updated!",
+            body: "Task successfully updated.",
+            type: "success",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.success(status);
+          this.$emit("changePage", "category");
         })
         .catch(err => {
           this.isLoading = false;
-          console.log(err);
+          let status = {
+            title: "Failed!",
+            body: err.response,
+            type: "error",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.error(status);
         });
     }
   }

@@ -94,11 +94,26 @@ export default {
         )
         .then(response => {
           this.isLoading = false;
+          let status = {
+            title: "Category changed!",
+            body: "Category successfully changed.",
+            type: "success",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.success(status);
           this.$emit("forceRerender");
         })
         .catch(err => {
           this.isLoading = false;
-          console.log(err);
+          let status = {
+            title: "Failed!",
+            body: err.response.data.errors,
+            type: "error",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.error(status);
         });
     },
     deleteTask(id) {
@@ -111,11 +126,26 @@ export default {
         })
         .then(response => {
           this.isLoading = false;
+          let status = {
+            title: "Task Deleted!",
+            body: "Task successfully deleted.",
+            type: "success",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.success(status);
           this.$emit("forceRerender");
         })
         .catch(err => {
           this.isLoading = true;
-          console.log(err);
+          let status = {
+            title: "Failed!",
+            body: err.response,
+            type: "error",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.error(status);
         });
     }
   }

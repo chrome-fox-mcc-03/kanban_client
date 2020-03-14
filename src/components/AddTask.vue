@@ -47,12 +47,27 @@ export default {
           }
         })
         .then(result => {
-          this.$emit('changePage', 'category')
+          let status = {
+            title: "Task Created!",
+            body: "Task successfully created.",
+            type: "success",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.success(status);
+          this.$emit("changePage", "category");
           this.isLoading = false;
         })
         .catch(err => {
           this.isLoading = false;
-          console.log(err);
+          let status = {
+            title: "Failed!",
+            body: err.response,
+            type: "error",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.error(status);
         });
     }
   }

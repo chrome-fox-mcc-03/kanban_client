@@ -6,7 +6,6 @@
       <div class="col-sm-3 col-md-3" v-for="(category, index) in categories" :key="category.id">
         <div class="card">
           <div class="card-body">
-            <a href class="close">×</a>
             <h6 class="card-title text-uppercase text-truncate py-2">{{category.name}}</h6>
             <div class="items border border-light">
               <Card
@@ -73,7 +72,14 @@ export default {
         })
         .catch(err => {
           this.isLoading = false;
-          console.log(err);
+          let status = {
+            title: "Failed!",
+            body: err.response,
+            type: "error",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.error(status);
         });
     },
     changeCategoryId(categoryId) {

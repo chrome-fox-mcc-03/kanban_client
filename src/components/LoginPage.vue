@@ -1,14 +1,5 @@
 <template>
   <div>
-    <!-- <h1>Halaman Login</h1> -->
-
-    <!-- <label>Email</label>
-      <input type="text" v-model="email" placeholder="johndoe@gmail.com" />
-      <br />
-      <label>Password</label>
-      <input type="text" v-model="password" placeholder="********" />
-      <br />
-    <button>Login</button>-->
     <div class="container">
       <div class="d-flex justify-content-center h-100">
         <div class="card">
@@ -73,13 +64,12 @@ export default {
         width: 250,
         height: 50,
         longtitle: true
-      }
+      },
+      isLoading: false,
+      fullPage: true
     };
   },
   methods: {
-    submitForm: () => {
-      console.log("Submitted");
-    },
     login() {
       let data = {
         email: this.email,

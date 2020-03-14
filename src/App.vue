@@ -18,8 +18,8 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
-                <a v-if="!isLogin" class="nav-link" @click="changePage('signup')">
+              <li v-if="!isLogin" class="nav-item">
+                <a class="nav-link" href="#" @click="changePage('signup')">
                   <i class="fas fa-user-plus"></i> Sign Up
                   <span class="sr-only">(current)</span>
                 </a>
@@ -64,8 +64,14 @@
       @showCollaboration="showCollaboration"
     ></ProjectPage>
     <SignUpPage v-else-if="page === 'signup' " @signup="signup"></SignUpPage>
-    <AddTask @changePage="changePage" :projectId="projectId" :categoryId="categoryId" v-else-if="page === 'addtask'"></AddTask>
+    <AddTask
+      @changePage="changePage"
+      :projectId="projectId"
+      :categoryId="categoryId"
+      v-else-if="page === 'addtask'"
+    ></AddTask>
     <EditTask @changePage="changePage" :task="dataEditTask" v-else-if="page === 'edittask'"></EditTask>
+    <loading :active.sync="isLoading" :can-cancel="false" :is-full-page="fullPage"></loading>
   </div>
 </template>
 
@@ -79,6 +85,9 @@ import AddTask from "./components/AddTask";
 import EditTask from "./components/EditTask";
 import CollaborationPage from "./components/CollaborationPage";
 
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
+
 export default {
   name: "App",
   components: {
@@ -88,7 +97,8 @@ export default {
     ProjectPage,
     AddTask,
     EditTask,
-    CollaborationPage
+    CollaborationPage,
+    Loading
   },
   data() {
     return {
@@ -96,11 +106,13 @@ export default {
       projectId: null,
       categoryId: null,
       dataEditTask: {},
-      isLogin: false
+      isLogin: false,
+      isLoading: false,
+      fullPage: true
     };
   },
   created: function() {
-    this.isLogin = !!localStorage.getItem('access_token')
+    this.isLogin = !!localStorage.getItem("access_token");
     if (this.isLogin) {
       this.changePage("project");
     } else {
@@ -112,34 +124,70 @@ export default {
       this.page = page;
     },
     login(data) {
+      this.isLoading = true;
       axios
         .post("http://localhost:3000/users/login", data)
         .then(result => {
           localStorage.setItem("access_token", result.data.access_token);
-          this.isLogin = true
+          this.isLogin = true;
+          this.isLoading = false;
+
+          let status = {
+            title: "Logged in!",
+            body: "You're successfully logged in.",
+            type: "success",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.success(status);
           this.changePage("project");
         })
         .catch(err => {
-          console.log(err);
+          let status = {
+            title: "Failed!",
+            body: err.response.data.error,
+            type: "error",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.error(status);
+          this.isLoading = false;
         });
     },
 
     signup(data) {
+      this.isLoading = true;
       axios
         .post("http://localhost:3000/users/register", data)
         .then(result => {
           localStorage.setItem("access_token", result.data.access_token);
-          this.isLogin = true
+          this.isLogin = true;
+          this.isLoading = false;
+          let status = {
+            title: "Registered!",
+            body: "You're successfully registered.",
+            type: "success",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.success(status);
           this.changePage("project");
         })
         .catch(err => {
-          console.log(err);
+          let status = {
+            title: "Failed!",
+            body: "Error registering.",
+            type: "error",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.error(status);
         });
     },
-
     logout() {
-      this.isLogin = false
-      localStorage.removeItem('access_token');
+      this.isLogin = false;
+      this.isLoading = false;
+      localStorage.removeItem("access_token");
       this.changePage("login");
     },
     changeProjectId(projectId) {

@@ -74,7 +74,14 @@ export default {
           this.isLoading = false;
         })
         .catch(err => {
-          console.log(err);
+          let status = {
+            title: "Failed!",
+            body: err.response,
+            type: "error",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.error(status);
         });
     },
     formSubmit: function() {
@@ -91,12 +98,28 @@ export default {
         })
         .then(result => {
           this.isLoading = false;
+
+          let status = {
+            title: "Project Created!",
+            body: "Project successfully created.",
+            type: "success",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.success(status);
           this.loadProjects();
           this.name = "";
         })
         .catch(err => {
           this.isLoading = false;
-          console.log(err);
+          let status = {
+            title: "Failed!",
+            body: err.response,
+            type: "error",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.error(status);
         });
     },
     deleteProject(projectId) {
@@ -110,10 +133,26 @@ export default {
         .then(result => {
           this.isLoading = false;
           this.loadProjects();
+
+          let status = {
+            title: "Project Deleted!",
+            body: "Project successfully deleted.",
+            type: "success",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.success(status);
         })
         .catch(err => {
           this.isLoading = false;
-          console.log(err);
+          let status = {
+            title: "Failed!",
+            body: err.response,
+            type: "error",
+            canTimeout: true,
+            duration: 2000
+          };
+          this.$vToastify.error(status);
         });
     },
     changeProjectId(projectId) {
