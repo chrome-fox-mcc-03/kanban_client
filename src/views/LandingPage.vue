@@ -89,6 +89,7 @@ export default {
         .then(access_token => {
           console.log("successfully sign up", access_token.data.access_token);
           localStorage.setItem("access_token", access_token.data.access_token);
+          localStorage.setItem('current_user', access_token.data.name);
           this.$emit("changePage", "mainPage");
           this.$toasted.show("Welcome! Create your first activity!", { 
             theme: "bubble", 
@@ -159,6 +160,7 @@ export default {
         .then(result => {
             console.log(result);
             localStorage.setItem("access_token", result.data.access_token);
+            localStorage.setItem('current_user', result.data.name);
             this.$emit("changePage", "mainPage");
             this.$toasted.show("Welcome back!", { 
               theme: "bubble", 
