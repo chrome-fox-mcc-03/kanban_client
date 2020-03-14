@@ -1,0 +1,129 @@
+body {
+    background-image: url(./img/leaf.jpg);
+}
+
+.nav1 {
+    display: flex;
+    background-image: url(./img/nav_background.jpg);
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    
+}
+
+.nav2 {
+    margin: 0px;
+    display: flex;
+    flex-direction: row;
+}
+
+.container {
+    flex-direction: row;
+    text-align: center;
+}
+.card {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: 10vh;
+    width: 90%;
+    margin-bottom: 5px;
+    margin-left: 5%;
+    margin-right: 10%;
+    background-image: linear-gradient(gray,white);
+    cursor: pointer;
+}
+.card:hover {
+    background-image: radial-gradient(gray,white);
+}
+
+.card1 {
+text-align: left;
+padding-left: 5%;
+}
+.card2 {
+text-align: left;
+padding-left: 5%;
+font-size: 10px;
+}
+.TaskBoard {
+    flex-direction: column;
+    height: 60vh;
+    width: 100%;
+    text-align: center;
+    overflow: scroll    ;
+}
+#Logout {
+    margin: 0px;
+    border-radius: 5px;
+    height: 140%;
+    align-items: center;
+
+
+}
+#Home {
+    margin-left: 0px;
+    margin-right: 5px;
+    border-radius: 5px;
+    margin-bottom: -2px;
+}
+#Register {
+    
+    margin-left: 0px;
+    margin-right: 5px;
+    border-radius: 5px;
+}
+
+#KanbanBoard {
+    
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 60vh;
+    background-image: url(/img/cork-board.jpg);
+    border-width: 20px;
+}
+#OuterBoard {
+    position: relative;
+    background-size: contain;
+    margin-top: 5%;
+    background-repeat: no-repeat;
+    padding: 2% 4%;
+    width: 80vw;
+    height: 70vh;
+}
+#UserArea {
+    overflow: scroll;
+}
+
+.frame {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+}
+#InsideBoard {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+
+ul {
+    list-style: none;
+}
+ol {
+    text-align: left;
+}
+button:hover {
+    // background-color: tomato !important;
+    background-image: linear-gradient(tomato, yellow)!important;
+}
+    

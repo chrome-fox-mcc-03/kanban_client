@@ -1,0 +1,22 @@
+.g-signin-button {
+  /* This is where you control how the button looks. Be creative! */
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 3px;
+  background-color: #3c82f7;
+  color: #fff;
+  box-shadow: 0 3px 0 #0f69ff;
+  cursor: pointer;
+}
+.boxed {
+  border: 5px solid green ;
+  background-color: white;
+  width: 10vw;
+  height: 10vw;
+  overflow: scroll;
+  justify-content: center;
+  align-items: center;
+  margin-left: 40%;
+  padding: 0%;
+  text-align: left;
+}
