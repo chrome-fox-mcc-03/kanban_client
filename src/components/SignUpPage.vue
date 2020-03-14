@@ -46,13 +46,13 @@
                   placeholder="password"
                 />
               </div>
-              <div class="row align-items-center remember">
-                <input type="checkbox" />Remember Me
-              </div>
               <div class="form-group">
                 <input type="submit" value="Sign Up" class="btn float-right login_btn" />
               </div>
             </form>
+          </div>
+          <div class="card-footer">
+            <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess"></GoogleLogin>
           </div>
         </div>
       </div>
@@ -61,13 +61,28 @@
 </template>
 
 <script>
+import GoogleLogin from "vue-google-login";
+import axios from "axios";
 export default {
   name: "SignUpPage",
+  components: {
+    GoogleLogin
+  },
   data: () => {
     return {
       name: "",
       email: "",
-      password: ""
+      password: "",
+      params: {
+        client_id:
+          "625269011049-t8pijk3aed8iblvj713nlnb3rkqabdnm.apps.googleusercontent.com"
+      },
+      // only needed if you want to render the button with the google ui
+      renderParams: {
+        width: 250,
+        height: 50,
+        longtitle: true
+      }
     };
   },
   methods: {
@@ -78,6 +93,17 @@ export default {
         password: this.password
       };
       this.$emit("signup", data);
+    },
+    onSuccess(googleUser) {
+      const id_token = googleUser.getAuthResponse().id_token;
+      axios
+        .post(`http://localhost:3000/users/googleLogin`, { id_token })
+        .then(({ data }) => {
+          localStorage.setItem("access_token", data.access_token);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };

@@ -3,7 +3,7 @@
     <h3 class="font-weight-light">Kanban Board Desi</h3>
     <!-- CONTAINER -->
     <div class="row flex-row flex-sm-nowrap py-3">
-      <div class="col-sm-3 col-md-3" v-for="category in categories" :key="category.id">
+      <div class="col-sm-3 col-md-3" v-for="(category, index) in categories" :key="category.id">
         <div class="card">
           <div class="card-body">
             <a href class="close">×</a>
@@ -29,12 +29,20 @@
                   <button class="btn btn-outline-success btn-sm">Add</button>
                 </div>
               </div>-->
-              <Card @editTask="editTask" :projectId="projectId" :categoryId="category.id"></Card>
+              <Card
+                :firstPosition="index === 0 ? true: false"
+                :lastPosition="index === categories.length -1 ? true: false"
+                @editTask="editTask"
+                :projectId="projectId"
+                :categoryId="category.id"
+                :prevCategoryId="index == 0 ? categories[index].id : categories[index-1].id"
+                :nextCategoryId="index == categories.length - 1 ? categories[index].id : categories[index+1].id"
+              ></Card>
             </div>
             <br />
             <div class="container">
               <div class="row">
-                <button class="btn btn-primary"  v-on:click="changeCategoryId(category.id)">Add</button>
+                <button class="btn btn-primary" v-on:click="changeCategoryId(category.id)">Add</button>
               </div>
             </div>
           </div>
@@ -67,6 +75,7 @@ export default {
         }
       })
       .then(({ data }) => {
+        console.log(data)
         this.categories = data;
       })
       .catch(err => {
@@ -78,7 +87,7 @@ export default {
       this.$emit("changeCategoryId", categoryId);
     },
     editTask(task) {
-      this.$emit('editTask', task)
+      this.$emit("editTask", task);
     }
   }
 };

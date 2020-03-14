@@ -1,6 +1,0 @@
-HALAMAN :
-1. LOGIN
-2. REGISTER
-3. DASHBOARD => Daftar Project(ada tombol ke Collaboration sama Task)
-4. Task
-5. Collaboration

@@ -38,19 +38,13 @@
                   placeholder="password"
                 />
               </div>
-              <div class="row align-items-center remember">
-                <input type="checkbox" />Remember Me
-              </div>
               <div class="form-group">
                 <input type="submit" value="Login" class="btn float-right login_btn" />
               </div>
             </form>
           </div>
           <div class="card-footer">
-            <div class="d-flex justify-content-center links">
-              Don't have an account?
-              <a href="#">Sign Up</a>
-            </div>
+            <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess"></GoogleLogin>
           </div>
         </div>
       </div>
@@ -59,12 +53,27 @@
 </template>
 
 <script>
+import GoogleLogin from "vue-google-login";
+import axios from "axios";
 export default {
   name: "LoginPage",
+  components: {
+    GoogleLogin
+  },
   data: () => {
     return {
       email: "",
-      password: ""
+      password: "",
+      params: {
+        client_id:
+          "625269011049-t8pijk3aed8iblvj713nlnb3rkqabdnm.apps.googleusercontent.com"
+      },
+      // only needed if you want to render the button with the google ui
+      renderParams: {
+        width: 250,
+        height: 50,
+        longtitle: true
+      }
     };
   },
   methods: {
@@ -77,6 +86,17 @@ export default {
         password: this.password
       };
       this.$emit("login", data);
+    },
+    onSuccess(googleUser) {
+      const id_token = googleUser.getAuthResponse().id_token;
+      axios
+        .post(`http://localhost:3000/users/googleLogin`, { id_token })
+        .then(({ data }) => {
+          localStorage.setItem("access_token", data.access_token);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };
@@ -131,7 +151,7 @@ scoped .social_icon span:hover {
 
 .input-group-prepend span {
   width: 50px;
-  background-color:#db7928;
+  background-color: #db7928;
   color: black;
   border: 0 !important;
 }

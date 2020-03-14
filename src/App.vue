@@ -19,7 +19,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="#" @click="changePage('signup')">
+                <a  class="nav-link" @click="changePage('signup')">
                   <i class="fas fa-user-plus"></i> Sign Up
                   <span class="sr-only">(current)</span>
                 </a>
@@ -56,10 +56,16 @@
         <!--/.Navbar -->
       </main>
     </div>
-
-    <CategoryPage @editTask="editTask" :projectId="projectId" @changeCategoryId="changeCategoryId" v-if="page === 'category'"></CategoryPage>
+    <CategoryPage
+      @editTask="editTask"
+      :projectId="projectId"
+      @changeCategoryId="changeCategoryId"
+      v-if="page === 'category'"
+      @showCollaboration="showCollaboration"
+    ></CategoryPage>
+    <CollaborationPage :projectId="projectId" v-else-if="page === 'collaboration'"></CollaborationPage>
     <LoginPage v-else-if="page === 'login'" @login="login"></LoginPage>
-    <ProjectPage @changeProjectId="changeProjectId" v-else-if="page === 'project'"></ProjectPage>
+    <ProjectPage @changeProjectId="changeProjectId" v-else-if="page === 'project'" @showCollaboration="showCollaboration"></ProjectPage>
     <SignUpPage v-else-if="page === 'signup' " @signup="signup"></SignUpPage>
     <AddTask :projectId="projectId" :categoryId="categoryId" v-else-if="page === 'addtask'"></AddTask>
     <EditTask :task="dataEditTask" v-else-if="page === 'edittask'"></EditTask>
@@ -74,6 +80,7 @@ import SignUpPage from "./components/SignUpPage";
 import ProjectPage from "./components/ProjectPage";
 import AddTask from "./components/AddTask";
 import EditTask from "./components/EditTask";
+import CollaborationPage from "./components/CollaborationPage";
 
 export default {
   name: "App",
@@ -83,7 +90,8 @@ export default {
     SignUpPage,
     ProjectPage,
     AddTask,
-    EditTask
+    EditTask,
+    CollaborationPage
   },
   data() {
     return {
@@ -137,13 +145,17 @@ export default {
       this.projectId = projectId;
       this.page = "category";
     },
-    changeCategoryId(categoryId){
-      this.categoryId =categoryId
-      this.page = 'addtask'
+    changeCategoryId(categoryId) {
+      this.categoryId = categoryId;
+      this.page = "addtask";
     },
     editTask(task) {
-      this.dataEditTask = task
-      this.changePage('edittask')
+      this.dataEditTask = task;
+      this.changePage("edittask");
+    },
+    showCollaboration(projectId) {
+      this.projectId = projectId;
+      this.changePage("collaboration");
     }
   }
 };
