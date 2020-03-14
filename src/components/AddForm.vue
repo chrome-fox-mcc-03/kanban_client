@@ -16,6 +16,7 @@ export default {
   },
   methods: {
     addNewAct() {
+      this.$emit('load', true);
       axios({
         method: 'post',
         url: 'https://salty-sierra-49064.herokuapp.com/activities',
@@ -39,6 +40,9 @@ export default {
         })
         .catch(err => {
           console.log(err);
+        })
+        .finally(_ => {
+          this.$emit('load', false);
         })
     }
   },

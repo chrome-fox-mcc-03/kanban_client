@@ -10,6 +10,7 @@
                 :fetchActivities="fetchActivities"
                 @changeSubPage="changeSubPage"
                 @getDetail="getDetail"
+                @load="load"
                 >
             </KanbanCard>
         </div>
@@ -36,12 +37,16 @@ export default {
         }
     },
     methods: {
+        load(state) {
+            this.$emit('load', state)
+        },
         moveLeft(data) {
             let category;
             if (data.category === 'Finished') category = 'Needs Review'
             else if (data.category === 'Needs Review') category = 'On Progress'
             else if (data.category === 'On Progress') category = 'Backlog'
 
+            this.$emit('load', true);
             axios({
                 method: 'patch',
                 url: `https://salty-sierra-49064.herokuapp.com/activities/${data.id}`,
@@ -57,6 +62,9 @@ export default {
                 })
                 .catch(err => {
                     console.log(err);
+                })
+                .finally(_ => {
+                    this.$emit('load', false);
                 })
         },
         moveRight(data) {
@@ -65,6 +73,7 @@ export default {
             else if (data.category === 'On Progress') category = 'Needs Review'
             else if (data.category === 'Needs Review') category = 'Finished'
 
+            this.$emit('load', true);
             axios({
                 method: 'patch',
                 url: `https://salty-sierra-49064.herokuapp.com/activities/${data.id}`,
@@ -81,8 +90,12 @@ export default {
                 .catch(err => {
                     console.log(err);
                 })
+                .finally(_ => {
+                    this.$emit('load', false);
+                })
         },
         fetchActivities() {
+            this.$emit('load', true);
             axios({
                 method: 'get',
                 url: 'https://salty-sierra-49064.herokuapp.com/activities',
@@ -96,6 +109,9 @@ export default {
                 })
                 .catch(err => {
                     console.log(err);
+                })
+                .finally(_ => {
+                    this.$emit('load', false);
                 })
         },
         changeSubPage(subPage) {

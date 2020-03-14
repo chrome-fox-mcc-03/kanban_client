@@ -1,12 +1,11 @@
 <template>
     <div class="navbar">
         <div></div>
-        <div id="app-title">
-            <img src="./kanban-logo-simple (1).png" alt="Kanban">
-        </div>
+        <img src="./Kanbanium-White.svg" alt="Kanban">
+        
         <div class="account">
             <div id="account-letter">
-                E
+                {{ currentUser[0] }}
             </div>
             <div @click="signOut" class="account-menu">
                 <p>Sign Out</p>
@@ -18,6 +17,11 @@
 <script>
 export default {
     name: 'NavBar',
+    data: function() {
+        return {
+            currentUser: localStorage.getItem('current_user')
+        }
+    },
     methods: {
         signOut() {
             localStorage.clear();
@@ -27,6 +31,5 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
 </style>

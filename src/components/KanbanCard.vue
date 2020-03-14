@@ -13,6 +13,7 @@
         </div>
         <AddForm 
             v-if="category === 'Backlog'"
+            @load="load"
             :fetchActivities="fetchActivities">
         </AddForm>
     </div>
@@ -43,6 +44,9 @@ export default {
         AddForm
     },
     methods: {
+        load(state) {
+            this.$emit('load', state)
+        },
         moveLeft(id) {
             let obj = {
                 id,

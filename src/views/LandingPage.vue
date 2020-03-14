@@ -120,7 +120,9 @@ export default {
         })
         .then(access_token => {
           console.log("successfully sign in", access_token.data.access_token);
+          console.log("check this out ---> ", access_token.data.name);
           localStorage.setItem("access_token", access_token.data.access_token);
+          localStorage.setItem('current_user', access_token.data.name);
           this.$emit("changePage", "mainPage");
           this.$toasted.show("Welcome back!", { 
             theme: "bubble", 

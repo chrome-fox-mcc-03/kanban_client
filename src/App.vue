@@ -19,7 +19,7 @@ export default {
     data: function() {
         return {
             message: 'Test',
-            currentPage: 'landingPage',
+            currentPage: 'landingPage'
         }
     },
     methods: {
@@ -35,6 +35,7 @@ export default {
         if (localStorage.getItem('access_token')) {
             this.currentPage = 'mainPage'
         }
+        
     },
     mounted () {
         const signUpButton = document.getElementById('signUp');
