@@ -14,7 +14,7 @@
         </sui-button-content>
       </sui-button>
     </div>
-    <a class="header item" style="padding-left: 40vw" id="logo" @click="changePage('group')"><p>QanbaN</p></a>
+    <a class="header item" style="padding-left: 40vw" id="logo" @click="logo"><p>QanbaN</p></a>
     <div class="right menu">
       <sui-button animated="vertical" style="background:none;" @click="changePage('login')" v-if="currentPage === 'register'" >
         <sui-button-content style="color: blue;" hidden>Login</sui-button-content>
@@ -32,6 +32,12 @@
         <sui-button-content style="color: red;" hidden>Logout</sui-button-content>
         <sui-button-content visible>
           <sui-icon name="sign-out" color="red" style="background:none;" />
+        </sui-button-content>
+      </sui-button>
+      <sui-button animated="vertical" style="background:none;" @click="changePage('home')" v-else-if="currentPage === 'create' || currentPage === 'edit'" >
+        <sui-button-content style="color: orange;" hidden>Back</sui-button-content>
+        <sui-button-content visible>
+          <sui-icon name="reply" color="orange" style="background:none;" />
         </sui-button-content>
       </sui-button>
       <sui-button animated="vertical" style="background:none;" @click="changePage('group')" v-else >
@@ -57,6 +63,12 @@ export default {
     logout () {
       localStorage.clear()
       this.changePage('login')
+      this.$emit('clearMsg')
+    },
+    logo () {
+      if(this.currentPage !== 'register' || this.currentPage !== 'login') {
+        this.changePage('group')
+      }
     }
   }
 }

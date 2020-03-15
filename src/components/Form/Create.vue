@@ -60,10 +60,9 @@ export default {
     },
     createTask() {
       this.active = true
-
       axios({
         method: 'post',
-        url: 'http://localhost:3000/task',
+        url: 'https://ancient-dawn-78678.herokuapp.com/task',
         headers: {
           token: localStorage.getItem('token'),
           groupid: this.idGroup
@@ -74,13 +73,13 @@ export default {
         }
       })
         .then(({data}) => {
-          this.changePage('home')  
+          this.notification(data.message, 1)
+          this.changePage('home')
         })
         .catch(err => {
           this.visible = true
           this.title = 'ERROR!'
           this.message = err.response.data.message
-          console.log(err.response.data.message, 'error register')
         })
         .finally(_ => {
           this.active = false
@@ -88,6 +87,14 @@ export default {
     },
     handleDismiss() {
       this.visible = false
+    },
+    notification(message, catId) {
+      this.$emit('notification', {
+        action: true,
+        title: 'Success',
+        message,
+        catId
+      })
     }
   },
   props: {

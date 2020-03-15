@@ -1,17 +1,71 @@
 <template>
   <div>
     <nav>
-      <navbar @changePage="changePage" :currentPage="currentPage"></navbar>
+      <navbar
+        @changePage="changePage"
+        :currentPage="currentPage"
+        @clearMsg="clearMsg"
+      ></navbar>
     </nav>
     <div >
-      <home v-if="currentPage === 'home'" :groupId="idGroup" ></home>
-      <register v-else-if="currentPage === 'register'" @changePage="changePage" @sendMessage="sendMessage" ></register>
-      <login v-else-if="currentPage === 'login'" @changePage="changePage" :input="input" ></login>
-      <group v-else-if="currentPage === 'group'" @changePage="changePage" @groupId="groupId"></group>
-      <create v-else-if="currentPage === 'create'" @changePage="changePage" :groupId="idGroup"></create>      
-      <invite v-else-if="currentPage === 'invite'" :groupId="idGroup"></invite>
-      <edit v-else-if="currentPage === 'edit'"></edit>
-      <createg v-else  @changePage="changePage"></createg>
+      <home
+        v-if="currentPage === 'home'"
+        @clearMsg="clearMsg"
+        :groupId="idGroup"
+        @changePage="changePage"
+        @payloadEdit="edit"
+        :msg="msg"
+      ></home>
+
+      <register
+        v-else-if="currentPage === 'register'"
+        @changePage="changePage"
+        @notification="notification"
+      ></register>
+
+      <login
+        v-else-if="currentPage === 'login'"
+        @changePage="changePage"
+        :msg="msg"
+        @notification="notification"
+        @clearMsg="clearMsg"
+      ></login>
+
+      <group
+        v-else-if="currentPage === 'group'"
+        @changePage="changePage"
+        @groupId="groupId"
+        :msg="msg"
+        @clearMsg="clearMsg"
+      ></group>
+
+      <create
+        v-else-if="currentPage === 'create'"
+        @changePage="changePage"
+        @notification="notification"
+        :groupId="idGroup"
+      ></create>
+
+      <invite
+        v-else-if="currentPage === 'invite'"
+        @changePage="changePage"
+        :groupId="idGroup"
+        @notification="notification"
+      ></invite>
+
+      <edit
+        v-else-if="currentPage === 'edit'"
+        @changePage="changePage"
+        :groupId="idGroup"
+        @notification="notification"
+        :payloadEdit="payloadEdit"
+      ></edit>
+
+      <createg
+        v-else
+        @changePage="changePage"
+        @notification="notification"
+      ></createg>
     </div>
   </div>
 </template>
@@ -32,8 +86,11 @@ export default {
   data() {
     return {
       currentPage: '',
-      input: '',
-      idGroup: 0
+      idGroup: 0,
+      payloadEdit: 0,
+      msg: {
+        action: false
+      }
     };
   },
   components: {
@@ -51,11 +108,19 @@ export default {
     changePage(page) {
       this.currentPage = page
     },
-    sendMessage(message) {
-      this.input = message
-    },
     groupId(id) {
       this.idGroup = id
+    },
+    edit (payload) {
+      this.payloadEdit = payload
+    },
+    notification(message) {
+      this.msg = message
+    },
+    clearMsg () {
+      this.msg = {
+        action: false
+      }
     }
   },
   created () {

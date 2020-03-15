@@ -54,7 +54,7 @@ export default {
       this.active = true
       axios({
         method: 'post',
-        url: `http://localhost:3000/group/invite/${this.id}`,
+        url: `https://ancient-dawn-78678.herokuapp.com/group/invite/${this.id}`,
         data: {
           email: this.email
         },
@@ -64,14 +64,13 @@ export default {
       })
         .then(({data}) => {
           this.email = ''
-          console.log(data, 'wuelie')
+          this.notification(data.message)
           this.changePage('group')
         })
         .catch(err => {
           this.visible = true
           this.title = 'ERROR!'
           this.message = err.response.data.message
-          console.log(err.response.data.message, 'error register')
         })
         .finally(_ => {
           this.active = false
@@ -79,13 +78,22 @@ export default {
     },
     changePage (page) {
       this.$emit('changePage', page)
+    },
+    handleDismiss() {
+      this.visible = false
+    },
+    notification(message) {
+      this.$emit('notification', {
+        action: true,
+        title: 'Success',
+        message
+      })
     }
   },
   props: {
     groupId: Number
   },
   created () {
-    console.log(this.groupId)
     this.id = this.groupId
   }
 }

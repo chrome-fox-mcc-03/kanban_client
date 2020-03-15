@@ -16,7 +16,7 @@
         <sui-form class="ui large form" method="post">
           <h1 class="ui teal header">
             <div class="content">
-              Create new task
+              Edit Task
             </div>
           </h1>
           <sui-form-field>
@@ -30,7 +30,7 @@
             <label>Description</label>
             <textarea type="text" name="description" placeholder="Description" style="resize: none;" v-model="description" ></textarea>
           </sui-form-field>
-          <div class="ui fluid large teal submit button" type="submit" @click="updateTask">Create</div>
+          <div class="ui fluid large teal submit button" type="submit" @click="updateTask">Edit</div>
         </sui-form>
       </div>
     </div>
@@ -59,11 +59,12 @@ export default {
       this.$emit('changePage', page)
     },
     updateTask() {
+      const id = this.payloadEdit.id
       this.active = true
-
+      
       axios({
         method: 'put',
-        url: 'http://localhost:3000/task',
+        url: `https://ancient-dawn-78678.herokuapp.com/task/${id}`,
         headers: {
           token: localStorage.getItem('token'),
           groupid: this.idGroup
@@ -74,13 +75,13 @@ export default {
         }
       })
         .then(({data}) => {
-          this.changePage('home')  
+          this.notification(data.message, data.catId)
+          this.changePage('home')
         })
         .catch(err => {
           this.visible = true
           this.title = 'ERROR!'
           this.message = err.response.data.message
-          console.log(err.response.data.message, 'error register')
         })
         .finally(_ => {
           this.active = false
@@ -88,13 +89,24 @@ export default {
     },
     handleDismiss() {
       this.visible = false
+    },
+    notification(message, catId) {
+      this.$emit('notification', {
+        action: true,
+        title: 'Success',
+        message,
+        catId
+      })
     }
   },
   props: {
-    groupId: Number
+    groupId: Number,
+    payloadEdit: Object
   },
   created () {
     this.idGroup = this.groupId
+    this.titleTask = this.payloadEdit.title
+    this.description = this.payloadEdit.description
   }
 }
 </script>

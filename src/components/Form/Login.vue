@@ -33,6 +33,13 @@
           </div>
         </sui-form-field>
         <div class="ui fluid large teal submit button" type="submit" @click="login">Login</div>
+        <!-- <br> <strong>Login with Google</strong> <br>
+        <sui-button animated="vertical" style="background:none;" @click="gLogin">
+          <sui-button-content style="color: blue;" hidden>G-LogIn</sui-button-content>
+          <sui-button-content visible>
+            <sui-icon name="google" color="blue" style="background:none; width: 6vw;" />
+          </sui-button-content>
+        </sui-button> -->
       </sui-form>
     </div>
     <sui-dimmer :active="active">
@@ -49,9 +56,9 @@ export default {
       email: '',
       password: '',
       active: false,
-      title: '',
-      message: '',
-      visible: false
+      visible: this.msg.action,
+      title: this.msg.title,
+      message: this.msg.message
     }
   },
   methods: {
@@ -59,24 +66,23 @@ export default {
       this.active = true
       axios({
         method: 'post',
-        url: 'http://localhost:3000/login',
+        url: 'https://ancient-dawn-78678.herokuapp.com/login',
         data: {
           email: this.email,
           password: this.password
         }
       })
         .then(({data}) => {
-          console.log(data, 'masuk login')
           this.email = ''
           this.password = ''
           localStorage.setItem('token', data.token)
           this.changePage('group')
+          this.notification(data.message)
         })
         .catch(err => {
           this.visible = true
           this.title = 'ERROR!'
           this.message = err.response.data.message
-          console.log(err.response.data.message, 'error register')
         })
         .finally(_ => {
           this.active = false
@@ -84,13 +90,49 @@ export default {
     },
     handleDismiss() {
       this.visible = false
+      this.$emit('clearMsg')
     },
     changePage (page) {
       this.$emit('changePage', page)
+    },
+    notification(message) {
+      this.$emit('notification', {
+        action: true,
+        title: 'Success',
+        message
+      })
+    },
+    gLogin(){
+      this.active = true
+      this.$gAuth.signIn()
+        .then(authCode => {
+          const token = authCode.getAuthResponse().id_token
+          return axios({
+            method:"POST",
+            url:"https://ancient-dawn-78678.herokuapp.com/glogin",
+            headers:{
+              token
+            }
+          })
+        })
+        .then(({data})=>{
+          localStorage.setItem('token',data.token)
+          this.changePage('group')
+          this.notification(data.message)
+        })
+        .catch(err=>{
+          this.visible = true
+          this.title = 'ERROR!'
+          this.message = err.response.data.message
+        })
+        .finally(_ => {
+          this.active = false
+        })
     }
   },
   props: {
-    input: String
+    input: String,
+    msg: Object
   }
 }
 </script>

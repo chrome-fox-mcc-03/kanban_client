@@ -57,7 +57,7 @@ body {
 }
 
 .ui.buttons {
-  width: 13vw;
+  width: 25vw;
 }
 
 .ui.buttons .button {
@@ -144,4 +144,16 @@ body {
   width: 15vw;
   height: 10vh;
   border-radius: 10px;
+}
+
+.ui.active.modal {
+  width: 40vw;
+}
+
+.ui.animated.button .visible.content {
+  margin: 0;
+}
+
+.ui.animated.button {
+  padding-right: 1 !important;
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <sui-card-group v-for="({ id, title, description }, i) in tasks" :key="i">
+    <sui-card-group v-for="({ id, title, description }, i) in fetch" :key="i">
       <sui-card>
         <sui-card-content style="font-family:arial;">
           <sui-card-header style="margin-bottom: 2rem;">{{title}}</sui-card-header>
@@ -9,22 +9,13 @@
           </sui-card-description>
         </sui-card-content>
         <sui-card-content extra>
-          <sui-container text-align="center">
-            <sui-button-group>
-              <sui-button animated style="background: none;">
-                <sui-button-content visible>
-                  <sui-icon color="blue" name="edit" />
-                </sui-button-content>
-                <sui-button-content style="color: #2185d0!important;" hidden>Edit</sui-button-content>
-              </sui-button>
-              <sui-button animated style="background: none;">
-                <sui-button-content visible>
-                  <sui-icon color="red" name="trash alternate" />
-                </sui-button-content>
-                <sui-button-content style="color: red;" hidden>Delete</sui-button-content>
-              </sui-button>
-            </sui-button-group>
-          </sui-container>
+          <Option
+          @notification="notification"
+          @payloadEdit="edit"
+          @changePage="changePage"
+          :payload="{id, idGroup, idCategory}"
+          >
+          </Option>
         </sui-card-content>
       </sui-card>
     </sui-card-group>
@@ -32,6 +23,8 @@
 </template>
 
 <script>
+import Option from './Option'
+
 export default {
   name: 'Card',
   data () {
@@ -42,6 +35,7 @@ export default {
     }
   },
   components: {
+    Option
   },
   props: {
     groupId: Number,
@@ -52,7 +46,7 @@ export default {
       this.active = true
       axios({
         method: 'get',
-        url: 'http://localhost:3000/task',
+        url: 'https://ancient-dawn-78678.herokuapp.com/task',
         headers: {
           token: localStorage.getItem('token'),
           groupid: this.idGroup,
@@ -61,21 +55,32 @@ export default {
       })
         .then(({data}) => {
           this.tasks = data.data
-          console.log(this.tasks, 'fetch task')
-        })
-        .catch(err => {
-          console.log(err, 'uwaw')
         })
         .finally(_ => {
           this.active = false
         })
+    },
+    changePage (page) {
+      this.$emit('changePage', page)
+    },
+    edit (payload) {
+      this.$emit('payloadEdit', payload)
+    },
+    notification(payload) {
+      this.$emit('notification', payload)
+      this.fetchTask()
     }
   },
   created () {
     this.idGroup = this.groupId
     this.idCategory = this.categoryId
     this.fetchTask()
-    console.log(this.groupId, this.categoryId, 'task dikirim')
+  },
+  computed: {
+    fetch() {
+      this.fetchTask()
+      return this.tasks
+    }
   }
 }
 </script>

@@ -56,7 +56,7 @@ export default {
       this.active = true
       axios({
         method: 'post',
-        url: 'http://localhost:3000/group',
+        url: 'https://ancient-dawn-78678.herokuapp.com/group',
         data: {
           group_name: this.groupName
         },
@@ -67,6 +67,7 @@ export default {
         .then(({data}) => {
           this.groupName = ''
           this.changePage('group')
+          this.notification(data.message)
         })
         .catch(err => {
           this.visible = true
@@ -79,6 +80,13 @@ export default {
     },
     handleDismiss() {
       this.visible = false
+    },
+    notification(message) {
+      this.$emit('notification', {
+        action: true,
+        title: 'Success',
+        message
+      })
     }
   }
 }

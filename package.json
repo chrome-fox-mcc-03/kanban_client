@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "axios": "^0.19.2",
     "semantic-ui-vue": "^0.10.1",
     "vue": "^2.6.11",
+    "vue-google-oauth2": "^1.4.0",
     "vue-hot-reload-api": "^2.3.4"
   },
   "devDependencies": {

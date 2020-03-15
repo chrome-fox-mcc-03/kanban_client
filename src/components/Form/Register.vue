@@ -70,20 +70,19 @@ export default {
       this.active = true
       axios({
         method: 'post',
-        url: 'http://localhost:3000/register',
+        url: 'https://ancient-dawn-78678.herokuapp.com/register',
         data: {
           username: this.username,
           email: this.email,
           password: this.password
         }
       })
-        .then(data => {
-          console.log(data, 'masuk register')
+        .then(({data}) => {
           this.username = ''
           this.email = ''
           this.password = ''
           this.changePage('login')
-          this.sendMessage(data.message)
+          this.notification(data.message)
         })
         .catch(err => {
           this.visible = true
@@ -97,8 +96,12 @@ export default {
     handleDismiss() {
       this.visible = false
     },
-    sendMessage (message) {
-      this.$emit('sendMessage', message)
+    notification(message) {
+      this.$emit('notification', {
+        action: true,
+        title: 'Success',
+        message
+      })
     }
   }
 }

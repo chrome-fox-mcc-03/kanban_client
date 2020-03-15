@@ -1,6 +1,16 @@
 <template>
   <div class="home">
-    <temp v-for="{ id, category } in categories" :key="id" :category="category" :categoryId="id" :groupId="idGroup"></temp>
+    <temp
+      v-for="{ id, category } in categories"
+      @clearMsg="clearMsg"
+      :msg="msg"
+      @payloadEdit="edit"
+      @changePage="changePage"
+      :key="id"
+      :category="category"
+      :categoryId="id"
+      :groupId="idGroup"
+    ></temp>
     <sui-dimmer :active="active">
       <sui-loader indeterminate>Please wait...</sui-loader>
     </sui-dimmer>
@@ -26,17 +36,23 @@ export default {
       this.active = true
       axios({
         method: 'get',
-        url: 'http://localhost:3000/category'
+        url: 'https://ancient-dawn-78678.herokuapp.com/category'
       })
         .then(({ data }) => {
           this.categories = data.data
         })
-        .catch(err => {
-          console.log(err, 'error slur')
-        })
         .finally(_ => {
           this.active = false
         })
+    },
+    changePage (page) {
+      this.$emit('changePage', page)
+    },
+    edit (payload) {
+      this.$emit('payloadEdit', payload)
+    },
+    clearMsg () {
+      this.$emit('clearMsg')
     }
   },
   created () {
@@ -44,7 +60,8 @@ export default {
     this.idGroup = this.groupId
   },
   props: {
-    groupId: Number
+    groupId: Number,
+    msg: Object
   }
 };
 </script>
