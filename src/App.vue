@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <MasterBoard v-if="logStatus" v-on:logging-out="logout" v-bind:user="user" v-bind:todos="todos"></MasterBoard>
+        <MasterBoard v-if="logStatus" v-on:logging-out="logout" v-bind:user="user" v-bind:todos="todos" v-on:update-task="updateData()" v-on:app-add-task="addTask()" v-on:delete-task="deleteTask()"></MasterBoard>
         <LoginPage v-else v-on:get-login="login" v-on:post-register="register"></LoginPage>
     </div>
 </template>
@@ -118,19 +118,57 @@ export default {
             localStorage.clear()
             this.logStatus = false
         },
-        addTask: function() {
-            this.todos.push({
-                title: "New Task",
-                description: "Add description here.",
-                status: 1,
-                editTitle: false,
-                editDesc: false
+        addTask: function(todoData) {
+            axios({
+                method: 'POST',
+                url: 'http://localhost:3000/todo/create',
+                headers: {
+                    token: localStorage.getItem('accessToken')
+                },
+                data: {
+                    title: todoData.title,
+                    description: todoData.description,
+                    status: todoData.status
+                }
+            }).then(response => {
+                this.fetchData()
             })
+            .catch(err => alert(err))
+        },
+        deleteTask: function(todoData) {
+            axios({
+                method: 'DELETE',
+                url: `http://localhost:3000/todo/delete/${todoData.id}`,
+                headers: {
+                    token: localStorage.getItem('accessToken')
+                }
+            }).then(response => {
+                this.fetchData()
+            })
+            .catch(err => alert(err))
+        },
+        updateTask: function(todoData) {
+            axios({
+                method: 'PUT',
+                url: `http://localhost:3000/todo/update/${todoData.id}`,
+                headers: {
+                    token: localStorage.getItem('accessToken')
+                },
+                data: {
+                    title: todoData.title,
+                    description: todoData.description,
+                    status: todoData.status
+                }
+            }).then(response => {
+                this.fetchData()
+            })
+            .catch(err => alert(err))
         }
     },
     created() {
         if(localStorage.getItem('accessToken')) {
             this.logStatus = true
+            this.fetchData()
         }
         console.log(this.logStatus)
     }

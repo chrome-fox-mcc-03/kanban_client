@@ -122,6 +122,17 @@ body {
     width: 20vw;
     list-style-type: none;
 }
+.add-new-task {
+    margin: 6px;
+    padding: 6px 0;
+    background-color: white;
+    height: auto;
+    border-width: 50%;
+    color: #444d55;
+    width: 20vw;
+    list-style-type: none;
+}
+
 .task-title {
     margin: 6px 0;
     padding: 6px;
@@ -189,6 +200,29 @@ body {
     height: 25px;
     font-weight: bold;
 }
+.regress {
+    background-color: blue;
+    color: white;
+    margin: 6px 4px;
+    padding: 4px;
+    height: 25px;
+    font-weight: bold;
+    display: flex;
+    font-size: 0.75rem;
+    border-radius: 0.25rem;
+}
+.delete-task {
+    background-color: darkred;
+    color: white;
+    margin: 6px 4px;
+    padding: 4px;
+    height: 25px;
+    font-weight: bold;
+    display: flex;
+    font-size: 0.75rem;
+    border-radius: 0.25rem;
+}
+
 .move {
     display: flex
 }

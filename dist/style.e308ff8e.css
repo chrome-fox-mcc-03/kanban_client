@@ -189,6 +189,29 @@ body {
     height: 25px;
     font-weight: bold;
 }
+.regress {
+    background-color: blue;
+    color: white;
+    margin: 6px 4px;
+    padding: 4px;
+    height: 25px;
+    font-weight: bold;
+    display: flex;
+    font-size: 0.75rem;
+    border-radius: 0.25rem;
+}
+.delete-task {
+    background-color: darkred;
+    color: white;
+    margin: 6px 4px;
+    padding: 4px;
+    height: 25px;
+    font-weight: bold;
+    display: flex;
+    font-size: 0.75rem;
+    border-radius: 0.25rem;
+}
+
 .move {
     display: flex
 }

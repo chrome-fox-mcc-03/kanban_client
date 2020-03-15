@@ -12,7 +12,7 @@
                     </div>
                 </div>
             </div>
-            <WorkColumn v-for="stat in statii" :key="stat.id" :status="stat" :todos="todos"></WorkColumn>
+            <WorkColumn v-for="stat in statii" :key="stat.id" :status="stat" :todos="todos" v-on:update-task="updateTask()" v-on:add-task="addTask()" v-on:delete-task="deleteTask()"></WorkColumn>
             
         </div>
 </template>
@@ -50,6 +50,15 @@ export default {
     methods: {
         logout: function() {
             this.$emit('logging-out')
+        },
+        addTask: function(todoData) {
+            this.$emit('app-add-task', todoData)
+        },
+        deleteTask: function(todoData) {
+            this.$emit('delete-task', todoData)
+        },
+        updateTask: function(todoData) {
+            this.$emit('update-task', todoData)
         }
     },
 }

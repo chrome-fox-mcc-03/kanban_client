@@ -6,12 +6,19 @@
             <input type="text" id="email" v-model="email" placeholder="E-mail"><br>
             <input type="password" id="password" v-model="password" placeholder="Password"><br><br>
             <button v-on:click.prevent="register()">Register</button>          <button v-on:click.prevent="login()">Login</button>
-        </form>
+        </form><br>
+        <g-signin-button
+            :params="googleSignInParams"
+            @success="onSignInSuccess"
+            @error="onSignInError">
+            Sign in with Google
+        </g-signin-button>
     </div>
 </template>
 
 <script>
 // import axios from 'axios'
+
 
 export default {
     name: "LoginPage",
@@ -19,7 +26,10 @@ export default {
         return {
             email: '',
             password: '',
-            logStatus: true
+            logStatus: true,
+            params: {
+                client_id: 'CLIENT_ID.apps.googleusercontent.com'
+            }
         }
     },
     methods: {
@@ -35,5 +45,13 @@ export default {
 </script>
 
 <style>
-
-</style>
+.g-signin-button {
+  /* This is where you control how the button looks. Be creative! */
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 3px;
+  background-color: #3c82f7;
+  color: #fff;
+  box-shadow: 0 3px 0 #0f69ff;
+}
+</style> 
