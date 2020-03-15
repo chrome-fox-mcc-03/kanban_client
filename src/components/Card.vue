@@ -1,7 +1,7 @@
 <template>
         <div class="card-body">
-            <div class="card mb-3 bg-light">
-                <div class="card-body p-3">
+            <main class="card mb-3 bg-light">
+                <article class="card-body p-3 moveTo">
                     <p>{{list.description}}</p>
                     <div class="float-right mr-n1">
                         <button class="btn" @click="deleteTask(list.id)"><i class="fa fa-trash"></i></button>
@@ -13,8 +13,8 @@
                         <button class="btn" v-on:click="move(list.id, list.description, list.CategoryId-1)" v-if="list.CategoryId-1 > 0"><i class="fa fa-angle-double-left"></i></button>
                         <button class="btn" v-on:click="move(list.id, list.description, list.CategoryId+1)" v-if="list.CategoryId+1 < 5"><i class="fa fa-angle-double-right"></i></button>
                     </div>
-                </div>
-            </div>
+                </article>
+            </main>
         </div>
 </template>
 

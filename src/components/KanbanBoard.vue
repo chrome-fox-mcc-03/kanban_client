@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="card card-border-secondary">
+    <div class="card card-border-secondary" id="drag-scope" v-drag-and-drop:options="options">
         <div class="card-header">
             <h5 class="card-title text-uppercase">{{ name }}</h5>
             <h6 class="card-subtitle text-muted" v-if="name === 'backlog'">Upcoming Task</h6>
@@ -10,6 +10,7 @@
         </div>
 
         <Card @move="move" @edit="edit" @deleteTask="deleteTask" v-for="list in data" :key="list.id" :list="list"></Card>
+
     </div>
 </div>
  
@@ -17,20 +18,20 @@
 
 <script>
 
-import axios from 'axios'
 import Card from './Card'
-
-const baseUrl = `https://shielded-cove-72197.herokuapp.com`
 
 export default {
     name: 'KanbanBoard',
-    props: ['page','kanban','name','data'],
+    props: ['name','data'],
     components: {
         Card
     },
     data() {
         return {
-         
+         options: {
+                dropzoneSelector: 'main',
+                draggableSelector: 'article'
+            }
         }
     },
     methods: {
@@ -58,12 +59,6 @@ export default {
                 .catch(err => {
 
                 })
-        }
-    },
-    created() {
-        if(localStorage.token) {
-        } else {
-            this.$emit("pageChanging", "login")
         }
     }
 }

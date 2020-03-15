@@ -36,9 +36,9 @@
       </div>
   </div>
 
-      <CreateTask @clearData="clearData" @fetch="fetch" v-if="page === 'create'" @backToBoard="changePage"></CreateTask>
-      <RegisterForm v-else-if="page === 'register'" @afterRegister="changePage" @loginStatus="changeLogin"></RegisterForm>
-      <LoginForm v-else-if="page === 'login'" @afterLogin="changePage" @loginStatus="changeLogin"></LoginForm>
+      <CreateTask @clearData="clearData" @fetch="fetch" v-if="page === 'create'" @changePage="changePage" @changeLoading="changeLoading"></CreateTask>
+      <RegisterForm v-else-if="page === 'register'" @changePage="changePage" @changeLogin="changeLogin" @changeLoading="changeLoading"></RegisterForm>
+      <LoginForm v-else-if="page === 'login'" @changePage="changePage" @changeLogin="changeLogin" @fetch="fetch" @changeLoading="changeLoading"></LoginForm>
      <div class="container p-3" v-if="page === 'board'">
       <div class="row flex-row flex-sm-nowrap py-3">
       <KanbanBoard 
@@ -49,11 +49,7 @@
         @edit="edit"
         @move="move"
         :name="name" 
-        :data="data" 
-        @pageChanging="changePage" 
-        @fromBoard="changePage" 
-        @fromEdit="changePage" 
-        :page="page">
+        :data="data">
     </KanbanBoard>
       </div>
      </div>
@@ -67,7 +63,7 @@
                     <div class="form-group">
                         <div class="card mb-3 bg-light">
                             <div class="card-body p-3">
-                                <textarea v-model="description" rows="6" class="form-control mb-2"></textarea>
+                                <textarea v-model="description" rows="6" class="form-control mb-2" required></textarea>
                                 <button type="submit" class="btn btn-secondary float-left">Edit Task</button>
                                 <button type="click" class="btn btn-secondary float-right" @click="changePage('board')">Back To Backlog</button>
                             </div>
@@ -77,6 +73,18 @@
             </div>
             <div class="col-md-4">
                 
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container" v-if="isLoading">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <lottie-player
+                    src="https://assets6.lottiefiles.com/datafiles/17CHBxWA6xYyj94/data.json"  background="transparent"  speed="1"  style="width: 280px; height: 150px;"  loop  autoplay >
+                </lottie-player>
+                <h3 class="text-info font-weight-light">Loading...</h3>
             </div>
         </div>
     </div>
@@ -91,6 +99,7 @@ import KanbanBoard from './components/KanbanBoard'
 import axios from 'axios'
 
 const baseUrl = `https://shielded-cove-72197.herokuapp.com`
+// const baseUrl = `http://localhost:3000`
 export default {
     name: "App",
     data() {
@@ -105,7 +114,8 @@ export default {
                 progress: [],
                 development: [],
                 done: []
-            }
+            },
+            isLoading: false
         }
     },
     components: {
@@ -115,45 +125,50 @@ export default {
         KanbanBoard
     },
     methods: {
-      changePage(page) {
-           this.page = page
-      },
-      logout() {
-        localStorage.clear()
-        this.page = 'login'
-        this.login = false
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-        });
-      },
-      changeLogin(status) {
-          return (this.login = status)
-      },
-    fetch() {        
-        axios({
-            method: 'GET',
-            url: `${baseUrl}/tasks/`,
-            headers: {
-                token: localStorage.getItem('token')
-            }
-        })
-            .then(result => {                    
-                result.data.data.forEach(el => {                                             
-                    if(el.CategoryId === 1) {
-                        this.kanban.backlog.push(el)
-                    } else if(el.CategoryId === 2) {
-                        this.kanban.progress.push(el)
-                    } else if(el.CategoryId === 3) {
-                        this.kanban.development.push(el)
-                    } else if(el.CategoryId === 4) {
-                        this.kanban.done.push(el)
-                    }
-                })
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        changePage(page) {
+            this.page = page
         },
+        logout() {
+            localStorage.clear()
+            this.page = 'login'
+            this.login = false
+            this.clearData()
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+            });
+        },
+        changeLogin(status) {
+            this.login = status
+        },
+        changeLoading() {
+            this.isLoading = !this.isLoading
+        },
+        fetch() {   
+            this.changeLoading()     
+            axios({
+                method: 'GET',
+                url: `${baseUrl}/tasks/`,
+                headers: {
+                    token: localStorage.getItem('token')
+                }
+            })
+                .then(result => {  
+                    this.changeLoading()                  
+                    result.data.data.forEach(el => {                                             
+                        if(el.CategoryId === 1) {
+                            this.kanban.backlog.push(el)
+                        } else if(el.CategoryId === 2) {
+                            this.kanban.progress.push(el)
+                        } else if(el.CategoryId === 3) {
+                            this.kanban.development.push(el)
+                        } else if(el.CategoryId === 4) {
+                            this.kanban.done.push(el)
+                        }
+                    })
+                })
+                .catch(err => {
+                })
+            },
         clearData () {
             this.kanban = {
                 backlog: [],
@@ -163,6 +178,7 @@ export default {
             }
         },
          findOne(id) {
+            this.changeLoading()
             axios({
                 method: "GET",
                 url: `${baseUrl}/tasks/${id}`,
@@ -171,7 +187,7 @@ export default {
                 }
             })
                 .then(result => {    
-                    console.log(result)                
+                    this.changeLoading()               
                     this.id = result.data.data.id
                     this.description = result.data.data.description
                     this.CategoryId = result.data.data.CategoryId
@@ -182,10 +198,10 @@ export default {
         },
         edit(id) {
             this.findOne(id)
-            console.log(id)
             this.page = 'edit'
         },
         editTask() {
+            this.changeLoading()
             axios({
                 method: "PUT",
                 url: `${baseUrl}/tasks/${this.id}`,
@@ -198,6 +214,7 @@ export default {
                 }
             })
                 .then(result => {
+                    this.changeLoading()
                     this.clearData()
                     this.page = 'board'
                     this.fetch();
@@ -208,6 +225,7 @@ export default {
 
         },
         move(id, description, CategoryId) {
+            this.changeLoading()
             axios({
                 method: "PUT",
                 url: `${baseUrl}/tasks/${id}`,
@@ -220,6 +238,7 @@ export default {
                 }
             })
                 .then(result => {
+                    this.changeLoading()
                     this.clearData()
                     this.fetch();
                 })

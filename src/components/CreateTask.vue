@@ -9,7 +9,7 @@
                 <div class="form-group">
                     <div class="card mb-3 bg-light">
                         <div class="card-body p-3">
-                            <textarea v-model="task" rows="6" class="form-control mb-2"></textarea>
+                            <textarea v-model="task" rows="6" class="form-control mb-2" required></textarea>
                             <button type="submit" class="btn btn-secondary float-left">Add New Task</button>
                             <button type="click" class="btn btn-secondary float-right" @click.prevent="backlog">Back To Backlog</button>
                         </div>
@@ -27,6 +27,7 @@
 <script>
 import axios from 'axios'
 const baseUrl = `https://shielded-cove-72197.herokuapp.com`
+// const baseUrl = `http://localhost:3000`
 
 export default {
     name: "CreateTask",
@@ -37,9 +38,10 @@ export default {
     },
     methods: {
         backlog(){
-            this.$emit('backToBoard', 'board')
+            this.$emit('changePage', 'board')
         },
         create() {
+            this.$emit('changeLoading')
             axios({
                 method: "POST",
                 url: `${baseUrl}/tasks/`,
@@ -50,13 +52,13 @@ export default {
                     token: localStorage.getItem("token")
                 }
             })
-             .then(result => {              
+             .then(result => { 
+                    this.$emit('changeLoading')             
                     this.backlog()
                     this.$emit('clearData')
                     this.$emit('fetch')
                 })
                 .catch(err => {
-                    console.log(err);
                 })
         }
     }

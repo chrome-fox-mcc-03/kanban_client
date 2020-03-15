@@ -13,6 +13,7 @@
                         <div class="form-group">
                           <label for="exampleInputPassword1">Password</label>
                           <input v-model="password" type="password" class="form-control" id="exampleInputPassword1">
+                          <p class="text-danger font-weight-light" v-if="error">{{ error }}</p>
                         </div>
                         <button type="submit" class="btn btn-secondary">Submit</button>
                       </form>
@@ -28,16 +29,19 @@
 <script>
 import axios from 'axios'
 const baseUrl = `https://shielded-cove-72197.herokuapp.com`
+// const baseUrl = `http://localhost:3000`
 export default {
     name: "LoginForm",
     data () {
         return {
             email: "",
-            password: ""
+            password: "",
+            error: ""
         }
     },
     methods: {
-        login() {            
+        login() {    
+            this.$emit('changeLoading')        
             let data = {
                 email: this.email,
                 password: this.password
@@ -47,16 +51,21 @@ export default {
                 url: `${baseUrl}/login`,
                 data: data
             })
-                .then(result => {              
+                .then(result => {  
+                    this.$emit('changeLoading')            
                     localStorage.setItem("token", result.data.token)
-                    this.$emit("afterLogin", "board")
-                    this.$emit("loginStatus", true)
+                    this.$emit("changePage", "board")
+                    this.$emit("changeLogin", true)
+                    this.$emit("fetch")
                 })
                 .catch(err => {
-                    console.log(err, "errorr");
+                    this.error = ""
+                    this.$emit('changeLoading')
+                    this.error = err.response.data.error
                 })
         },
         onSignIn() {
+            this.$emit('changeLoading')
             this.$gAuth
                 .signIn()
                 .then(googleUser => {
@@ -69,14 +78,17 @@ export default {
                         }
                     })
                 })
-                .then(result => {                    
+                .then(result => {  
+                    this.$emit('changeLoading')                  
                     localStorage.setItem("token", result.data.token)
-                    this.$emit('afterLogin', 'board')
-                    this.$emit("loginStatus", true)
+                    this.$emit('changePage', 'board')
+                    this.$emit("changeLogin", true)
+                    this.$emit("fetch")
 
                 })
                 .catch(err => {
-                    console.log(err, "ini err")
+                    this.$emit('changeLoading')
+                    this.error = err.response.data.error
                 })
         },
         signOut() {

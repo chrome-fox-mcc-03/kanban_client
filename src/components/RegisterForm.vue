@@ -14,8 +14,8 @@
                           <label for="exampleInputPassword1">Password</label>
                           <input type="password" v-model="password" class="form-control" id="exampleInputPassword1">
                         </div>
+                          <p class="text-danger font-weight-light" v-for="data in error" :key="data">{{ String(data)  }}</p>
                         <button type="submit" class="btn btn-secondary">Submit</button>
-                        <p class="text-danger" v-if="error"> error nih</p>
                       </form>
                 </div>
                 <div class="col-md-4">
@@ -28,17 +28,19 @@
 <script>
 import axios from 'axios'
 const baseUrl = `https://shielded-cove-72197.herokuapp.com`
+// const baseUrl = `http://localhost:3000`
 export default {
     name: "RegisterForm",
      data () {
         return {
             email: "",
             password: "",
-            error: false
+            error: []
         }
     },
     methods: {
-        register() {            
+        register() {     
+            this.$emit('changeLoading')       
             let data = {
                 email: this.email,
                 password: this.password
@@ -49,13 +51,19 @@ export default {
                 data: data
             })
                 .then(result => {   
+                  this.$emit('changeLoading')
                   localStorage.setItem("token", result.data.token)
-                  this.$emit("afterRegister", "board")
-                  this.$emit("loginStatus", true)
+                  this.$emit("changePage", "board")
+                  this.$emit("changeLogin", true)
                 })
-                .catch(err => {
-                  this.error = true
-                  console.log(err.response, "ini errorr");
+                .catch(err => {        
+                  this.error = []                       
+                  this.$emit('changeLoading')
+                  if(typeof err.response.data.error === Array) {
+                      this.error = err.response.data.error
+                    } else {
+                      this.error.push(err.response.data.error)
+                  }
                 })
         }
     }
