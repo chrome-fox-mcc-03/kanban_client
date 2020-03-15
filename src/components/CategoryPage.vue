@@ -61,7 +61,7 @@ export default {
     loadCategories() {
       this.isLoading = true;
       axios
-        .get(`http://localhost:3000/categories`, {
+        .get(`https://still-basin-93678.herokuapp.com/categories`, {
           headers: {
             access_token: localStorage.getItem("access_token")
           }

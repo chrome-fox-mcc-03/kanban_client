@@ -59,7 +59,7 @@ export default {
     loadCollaboration() {
       this.isLoading = true;
       axios
-        .get(`http://localhost:3000/collaborations/${this.projectId}`, {
+        .get(`https://still-basin-93678.herokuapp.com/collaborations/${this.projectId}`, {
           headers: {
             access_token: localStorage.getItem("access_token")
           }
@@ -88,7 +88,7 @@ export default {
       };
 
       axios
-        .post("http://localhost:3000/collaborations", data, {
+        .post("https://still-basin-93678.herokuapp.com/collaborations", data, {
           headers: {
             access_token: localStorage.getItem("access_token")
           }
@@ -122,7 +122,7 @@ export default {
       this.isLoading = true;
       axios
         .delete(
-          `http://localhost:3000/collaborations?UserId=${userId}&ProjectId=${projectId}`,
+          `https://still-basin-93678.herokuapp.com/collaborations?UserId=${userId}&ProjectId=${projectId}`,
           {
             headers: {
               access_token: localStorage.getItem("access_token")

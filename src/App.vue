@@ -57,13 +57,13 @@
       @showCollaboration="showCollaboration"
     ></CategoryPage>
     <CollaborationPage :projectId="projectId" v-else-if="page === 'collaboration'"></CollaborationPage>
-    <LoginPage v-else-if="page === 'login'" @login="login"></LoginPage>
+    <LoginPage v-else-if="page === 'login'" @login="login" @loginWithGoogle="loginWithGoogle"></LoginPage>
     <ProjectPage
       @changeProjectId="changeProjectId"
       v-else-if="page === 'project'"
       @showCollaboration="showCollaboration"
     ></ProjectPage>
-    <SignUpPage v-else-if="page === 'signup' " @signup="signup"></SignUpPage>
+    <SignUpPage v-else-if="page === 'signup' " @signup="signup" @loginWithGoogle="loginWithGoogle"></SignUpPage>
     <AddTask
       @changePage="changePage"
       :projectId="projectId"
@@ -126,7 +126,7 @@ export default {
     login(data) {
       this.isLoading = true;
       axios
-        .post("http://localhost:3000/users/login", data)
+        .post("https://still-basin-93678.herokuapp.com/users/login", data)
         .then(result => {
           localStorage.setItem("access_token", result.data.access_token);
           this.isLogin = true;
@@ -158,7 +158,7 @@ export default {
     signup(data) {
       this.isLoading = true;
       axios
-        .post("http://localhost:3000/users/register", data)
+        .post("https://still-basin-93678.herokuapp.com/users/register", data)
         .then(result => {
           localStorage.setItem("access_token", result.data.access_token);
           this.isLogin = true;
@@ -183,6 +183,10 @@ export default {
           };
           this.$vToastify.error(status);
         });
+    },
+    loginWithGoogle(page) {
+      this.page = page;
+      this.isLogin = true;
     },
     logout() {
       this.isLogin = false;

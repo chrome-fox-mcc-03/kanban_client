@@ -64,7 +64,7 @@ export default {
     loadProjects() {
       this.isLoading = true;
       axios
-        .get("http://localhost:3000/projects", {
+        .get("https://still-basin-93678.herokuapp.com/projects", {
           headers: {
             access_token: localStorage.getItem("access_token")
           }
@@ -91,7 +91,7 @@ export default {
       };
 
       axios
-        .post("http://localhost:3000/projects", data, {
+        .post("https://still-basin-93678.herokuapp.com/projects", data, {
           headers: {
             access_token: localStorage.getItem("access_token")
           }
@@ -125,7 +125,7 @@ export default {
     deleteProject(projectId) {
       this.isLoading = true;
       axios
-        .delete(`http://localhost:3000/projects/${projectId}`, {
+        .delete(`https://still-basin-93678.herokuapp.com/projects/${projectId}`, {
           headers: {
             access_token: localStorage.getItem("access_token")
           }

@@ -41,7 +41,7 @@ export default {
         CategoryId: this.categoryId
       };
       axios
-        .post("http://localhost:3000/tasks", data, {
+        .post("https://still-basin-93678.herokuapp.com/tasks", data, {
           headers: {
             access_token: localStorage.getItem("access_token")
           }

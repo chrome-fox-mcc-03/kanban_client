@@ -60,7 +60,7 @@ export default {
       this.isLoading = true;
       axios
         .get(
-          `http://localhost:3000/tasks?ProjectId=${this.projectId}&CategoryId=${this.categoryId}`,
+          `https://still-basin-93678.herokuapp.com/tasks?ProjectId=${this.projectId}&CategoryId=${this.categoryId}`,
           {
             headers: {
               access_token: localStorage.getItem("access_token")
@@ -84,7 +84,7 @@ export default {
       this.isLoading = true;
       axios
         .patch(
-          `http://localhost:3000/tasks/${taskId}`,
+          `https://still-basin-93678.herokuapp.com/tasks/${taskId}`,
           { CategoryId: categoryId },
           {
             headers: {
@@ -119,7 +119,7 @@ export default {
     deleteTask(id) {
       this.isLoading = true;
       axios
-        .delete(`http://localhost:3000/tasks/${id}`, {
+        .delete(`https://still-basin-93678.herokuapp.com/tasks/${id}`, {
           headers: {
             access_token: localStorage.getItem("access_token")
           }

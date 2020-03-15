@@ -45,7 +45,7 @@ export default {
         CategoryId: this.task.CategoryId
       };
       axios
-        .put(`http://localhost:3000/tasks/${this.task.id}`, data, {
+        .put(`https://still-basin-93678.herokuapp.com/tasks/${this.task.id}`, data, {
           headers: {
             access_token: localStorage.getItem("access_token")
           }
