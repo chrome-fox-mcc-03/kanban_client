@@ -23,6 +23,7 @@
     "vue": "^2.6.11",
     "vue-google-signin-button": "^1.0.4",
     "vue-hot-reload-api": "^2.3.4",
+    "vue-socket.io": "^3.0.7",
     "vue-toasted": "^1.1.28"
   },
   "devDependencies": {

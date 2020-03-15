@@ -17,7 +17,8 @@
     import LandingPage from './views/LandingPage.vue'
     import Kanban from './views/Kanban.vue'
     import Axios from 'axios';
-
+    // let baseurl = 'http://localhost:3000'
+    let baseurl = 'https://kanban-hacktiv8.herokuapp.com'
     export default {
         name: 'App',
         data() {
@@ -37,7 +38,7 @@
                 this.isLoading = true
                 Axios({
                         method: 'POST',
-                        url: 'https://kanban-hacktiv8.herokuapp.com/login',
+                        url: baseurl+'/login',
                         data
                     })
                     .then(response => {
@@ -61,7 +62,7 @@
                 this.isLoading = true
                 Axios({
                         method: 'POST',
-                        url: 'https://kanban-hacktiv8.herokuapp.com/register',
+                        url: baseurl+'/register',
                         data
                     })
                     .then(response => {
@@ -97,7 +98,7 @@
                 this.isLoading = true
                 Axios({
                         method: 'GET',
-                        url: 'https://kanban-hacktiv8.herokuapp.com/tasks',
+                        url: baseurl+'/tasks',
                         headers: {
                             token: localStorage.token
                         }
@@ -116,7 +117,7 @@
                 this.isLoading = true
                 Axios({
                         method: 'POST',
-                        url: 'https://kanban-hacktiv8.herokuapp.com/tasks',
+                        url: baseurl+'/tasks',
                         headers: {
                             token: localStorage.token
                         },
@@ -127,6 +128,7 @@
                         this.$toasted.success(`${response.data.title} has been Added!!!`, {
                             position: 'bottom-right'
                         })
+                        this.emitNewTask()
                     })
                     .catch(err => {
                         this.$toasted.error(`${err.response.data.message}`, {
@@ -145,7 +147,7 @@
                 this.isLoading = true
                 Axios({
                         method: 'PUT',
-                        url: `https://kanban-hacktiv8.herokuapp.com/tasks/${data.id}`,
+                        url: baseurl+`/tasks/${data.id}`,
                         headers: {
                             token: localStorage.token
                         },
@@ -155,6 +157,7 @@
                     })
                     .then(response => {
                         this.fetchTask()
+                        this.emitNewTask()
                     })
                     .catch(err => {
                         this.$toasted.error(`${err.response.data.message}`, {
@@ -173,7 +176,7 @@
                 this.isLoading = true
                 Axios({
                         method: 'PUT',
-                        url: `https://kanban-hacktiv8.herokuapp.com/tasks/${data.id}`,
+                        url: baseurl+`/tasks/${data.id}`,
                         headers: {
                             token: localStorage.token
                         },
@@ -183,6 +186,7 @@
                     })
                     .then(response => {
                         this.fetchTask()
+                        this.emitNewTask()
                     })
                     .catch(err => {
                         this.$toasted.error(`${err.response.data.message}`, {
@@ -197,7 +201,7 @@
                 this.isLoading = true
                 Axios({
                         method: 'DELETE',
-                        url: `https://kanban-hacktiv8.herokuapp.com/tasks/${id}`,
+                        url: baseurl+`/tasks/${id}`,
                         headers: {
                             token: localStorage.token
                         }
@@ -207,6 +211,7 @@
                         this.$toasted.success(`Task Deleted`, {
                             position: 'bottom-right'
                         })
+                        this.emitNewTask()
                     })
                     .catch(err => {
                         this.$toasted.error(`${err.response.data.message}`, {
@@ -221,7 +226,7 @@
                 this.isLoading = true
                 Axios({
                         method: 'POST',
-                        url: 'https://kanban-hacktiv8.herokuapp.com/googleLogin',
+                        url: baseurl+'/googleLogin',
                         data: {
                             token: id_token
                         }
@@ -241,6 +246,9 @@
                     .finally(_ => {
                         this.isLoading = false
                     })
+            },
+            emitNewTask() {
+                this.$socket.emit('new_task')
             }
         },
         created() {
@@ -249,6 +257,11 @@
                 this.fetchTask()
                 this.$toasted.success(`Welcome Back, ${this.userName}`)
 
+            }
+        },
+        sockets: {
+            new_task_arrived() {
+                this.fetchTask()
             }
         }
     };
