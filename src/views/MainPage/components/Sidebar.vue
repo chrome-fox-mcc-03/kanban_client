@@ -1,10 +1,20 @@
 <template>
   <section>
     <div class="sidebar">
-      <a class="active" href="#home">Home</a>
-      <a href="#news">News</a>
-      <a href="#contact">Contact</a>
-      <a href="#about">About</a>
+      <b-form id="invite-user" @submit.prevent="invite">
+        <b-form-group
+            label="Invite Others"
+            label-for="select-user"
+          >  
+          <b-form-select 
+            id="select-user" 
+            v-model="selected" 
+            :options="users"
+            required
+          ></b-form-select>
+        </b-form-group>
+        <b-button type="submit" variant="warning" pill>Invite</b-button>
+      </b-form>
     </div>
   </section>
 </template>
@@ -12,6 +22,23 @@
 <script>
 export default {
   name: 'Sidebar',
+  data () {
+    return {
+      selected: null,
+      users: [
+          { value: null, text: 'Choose a user' },
+          { value: 'id-1', text: 'ane' },
+          { value: 'id-2', text: 'ana' },
+          { value: 'id-3', text: 'ani' },
+          { value: 'id-4', text: 'anoa'}
+        ]
+    }
+  },
+  methods: {
+    invite (){
+      console.log(this.selected)
+    }
+  }
 
 }
 </script>

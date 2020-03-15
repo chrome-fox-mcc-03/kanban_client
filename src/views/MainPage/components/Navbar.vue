@@ -1,10 +1,9 @@
 <template>
   <div>
     <b-navbar id="navbar" toggleable="sm" type="light" variant="light">
-      <b-navbar-nav align="end">
-        <b-nav-item-dropdown text="User" right>
-          <b-dropdown-item href="#">Account</b-dropdown-item>
-          <b-dropdown-item href="#">Settings</b-dropdown-item>
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item-dropdown :text="username">
+          <b-dropdown-item href="#" @click.prevent="logout">Logout</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-navbar>
@@ -13,7 +12,19 @@
 
 <script>
 export default {
-  name: 'Navbar'
+  name: 'Navbar',
+  data () {
+    return {
+      username: localStorage.getItem('username')
+    }
+  },
+  methods: {
+    logout () {
+      const user = this.username
+      localStorage.clear()
+      this.$emit('changeCurrentPage', 'landing')
+    }
+  }
 }
 </script>
 
