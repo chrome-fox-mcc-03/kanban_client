@@ -1,9 +1,10 @@
 <template>
-  <!-- <div> -->
+  <div>
     <!-- <board></board> -->
+    <notifications group="foo" />
     <router-view></router-view>
     <!-- <landing-page></landing-page> -->
-  <!-- </div> -->
+  </div>
 </template>
 
 <script>

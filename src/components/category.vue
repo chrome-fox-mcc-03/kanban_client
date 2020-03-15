@@ -1,19 +1,10 @@
 <template>
    <section class="lists-container">
-     <category-list v-for="(el, i) in category" :key="i" :category="el" 
+     <category-list v-for="(el, i) in category" :key="el.id" :categoryId="el.id" :category="el" 
         @changeCategoryName="category[i].name = $event"
         @addedNewTask="category[i].Tasks.push($event)"
+        @deleteCategory="category.splice(i, 1)"
         ></category-list>
-      <!-- <div class="list">
-
-        <h3 class="list-title"> </h3>
-        <input type="text" value="Tasks to Do" class="list-title list-title-edit">
-
-     
-        <task></task>
-        <button class="add-card-btn btn">Add a card</button>
-        <input class="add-card-btn btn" placeholder="Add a card">
-      </div> -->
       <input class="add-list-btn btn" placeholder="Add new category..." v-model="categoryName" @keyup.enter="addCategory">
     </section>
   

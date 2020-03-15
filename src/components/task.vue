@@ -1,14 +1,21 @@
 <template>
   <ul class="list-items">
-    <li v-show="showInput" @click="inputToggle">{{ task.title }}</li>
-    <li v-show="!showInput">
+    <v-dialog></v-dialog>
+    <li v-if="showInput" class="row justify-content-between no-gutters">
+      <div  @click="inputToggle" class="col-auto">
+      {{ task.title }}
+      </div>
+      <a @click="showButtonsDialog(task.id)" class="col-auto" href="#">
+        <i class="fas fa-trash-alt"></i>
+      </a>
+      </li>
+    <li v-else>
      <input type="text" placeholder="Edit title..."  
               @blur="inputBlur"  
               @keyup.enter="editTitle(task.id, task.CategoryId)" 
               v-model="taskTitle"
               >
     </li>
-      {{ task }}
   </ul>
 </template>
 
@@ -50,7 +57,41 @@ export default {
         .catch(err => {
           console.log(err);
         })
-    }
+    },
+    showButtonsDialog (id) {
+      this.$modal.show('dialog', {
+        title: 'Delete confirmation',
+        text: 'Are you sure to delete this task?',
+        buttons: [
+          {
+            title: 'Cancel',
+            handler: () => {
+              this.$modal.hide('dialog')
+            }
+          },
+          {
+            title: 'Delete',
+            handler: () => {
+              axios({
+                url: `http://localhost:3000/task/${id}`,
+                method: 'delete',
+                headers: {
+                  access_token: localStorage.getItem('access_token'),
+                },
+              })
+                .then(result => {
+                  this.$emit('deleteTask');
+                  this.$modal.hide('dialog')
+                })
+                .catch(err => {
+                  console.log(err.response);
+                  this.$modal.hide('dialog');
+                })
+            }
+          }
+        ]
+      })
+  },
   }
 }
 </script>
