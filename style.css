@@ -1,0 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#body {
+    background-image: url('./src/assets/Artboard 1.svg');
+    height: 100vh;
+    width: 100vw;
+    background-position: center;
+    background-size: cover;
+}
