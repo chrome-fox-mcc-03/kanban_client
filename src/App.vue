@@ -185,6 +185,7 @@
                     .then(response => {
                         let newTask = response.data.response
                         this.categories[newTask.category].tasks.push(newTask)
+                        this.updatingTask()
 
                     })
                     .catch(err => {
@@ -251,6 +252,7 @@
                             pos: 'top-right',
                             timeout: 500
                         });
+                        this.updatingTask()
                     })
                     .catch(err => {
                         console.log(err);
@@ -300,6 +302,7 @@
                     })
                     .then(response => {
                         this.getCard()
+                        this.updatingTask()
                     })
                     .finally(_ => {
                         this.isLoading = false
@@ -323,6 +326,7 @@
                     })
                     .then(response => {
                         this.getCard()
+                        this.updatingTask()
                     })
                     .catch(err => {
                         console.log(err);
@@ -330,14 +334,25 @@
                     .finally(_ => {
                         this.isLoading = false
                     })
+            },
+
+            updatingTask(){
+                this.$socket.emit('changingTask')
             }
 
+        },
+        sockets: {
+            changesOnTask() {
+                console.log("masuk sockets");
+                this.getCard()
+            } 
         },
         components: {
             WebHeader,
             WebLanding,
             WebMain
         },
+
         created() {
             if (localStorage.token) {
                 this.isLogin = true

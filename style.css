@@ -65,6 +65,7 @@ body {
     /* Canvas */
 .canvas {
     display: flex;
+    overflow: auto;
 }
 
 .cards-container {

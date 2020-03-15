@@ -7,7 +7,8 @@
     "axios": "^0.19.2",
     "vue": "^2.6.11",
     "vue-google-signin-button": "^1.0.4",
-    "vue-hot-reload-api": "^2.3.4"
+    "vue-hot-reload-api": "^2.3.4",
+    "vue-socket.io": "^3.0.7"
   },
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.1.1",
