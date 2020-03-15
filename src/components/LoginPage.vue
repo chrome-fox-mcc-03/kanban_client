@@ -27,8 +27,8 @@ export default {
             email: '',
             password: '',
             logStatus: true,
-            params: {
-                client_id: 'CLIENT_ID.apps.googleusercontent.com'
+            googleSignInParams: {
+                client_id: "509743617150-nb3g135j53hnv6bdjk3rl7e384tcbqmb.apps.googleusercontent.com"
             }
         }
     },
@@ -38,6 +38,17 @@ export default {
         },
         login: function() {
             this.$emit('get-login', {email: this.email, password: this.password})
+        },
+        onSignInSuccess: function(googleUser) {
+            // `googleUser` is the GoogleUser object that represents the just-signed-in user.
+            // See https://developers.google.com/identity/sign-in/web/reference#users
+            const profile = googleUser.getBasicProfile() // etc etc
+            let gtoken = googleUser.getAuthResponse().id_token;
+            this.$emit('google-sign', {token: gtoken})
+        },
+        onSignInError: function(error) {
+        // `error` contains any error occurred.
+        console.log('OH NOES', error)
         }
     }
 

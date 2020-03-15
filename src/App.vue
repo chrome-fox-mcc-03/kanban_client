@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <MasterBoard v-if="logStatus" v-on:logging-out="logout" v-bind:user="user" v-bind:todos="todos" v-on:update-task="updateData()" v-on:app-add-task="addTask()" v-on:delete-task="deleteTask()"></MasterBoard>
-        <LoginPage v-else v-on:get-login="login" v-on:post-register="register"></LoginPage>
+        <LoginPage v-else v-on:get-login="login" v-on:post-register="register" v-on:google-sign="googleLogin()"></LoginPage>
     </div>
 </template>
 
@@ -17,6 +17,7 @@ export default {
             user: {
                 email: ''
             },
+            localhost: `http://localhost:3000`,
             logStatus: false,
             todos: [
                 {
@@ -117,6 +118,10 @@ export default {
         logout: function() {
             localStorage.clear()
             this.logStatus = false
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+            console.log('User signed out.');
+            });
         },
         addTask: function(todoData) {
             axios({
@@ -163,6 +168,25 @@ export default {
                 this.fetchData()
             })
             .catch(err => alert(err))
+        },
+        googleLogin: function(loginData) {
+            axios({
+                method: 'POST',
+                url: 'http://localhost:3000/googleSignIn',
+                headers: {
+                    token: loginData.token
+                }
+            }).then(response => {
+                console.log(response)
+                localStorage.setItem('accessToken', response.data.accessToken)
+                if(localStorage.getItem('accessToken')) {
+                    this.logStatus = true
+                    this.fetchData()
+                }
+            })
+            .catch(err => {
+                alert(err)
+            })
         }
     },
     created() {
