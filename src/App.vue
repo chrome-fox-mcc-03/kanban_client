@@ -25,8 +25,8 @@
 </template>
 
 <script>
-const URL = "http://localhost:3000";
-// const URL = "https://ancient-inlet-76462.herokuapp.com"
+// const URL = "http://localhost:3000";
+const URL = "https://ancient-inlet-76462.herokuapp.com"
 import Navbar from "./components/Navbar.vue";
 import LandingPage from "./components/LandingPage.vue";
 import Dashboard from "./components/Dashboard.vue";
@@ -162,9 +162,6 @@ export default {
       console.log(dataFromChild);
       console.log("SANITY CHECK OF DECODING DATA FROM CHILD");
       console.log(dataFromChild.title);
-      this.title = dataFromChild.title
-      this.category = dataFromChild.category
-      this.due_date = dataFromChild.due_date
       axios({
         method: "post",
         url: `${URL}/tasks/`,
@@ -172,9 +169,9 @@ export default {
           token : localStorage.getItem('token')
         },
         data: {
-          title: this.title,
-          category: this.category,
-          due_date: this.due_date
+          title: dataFromChild.title,
+          category: dataFromChild.category,
+          due_date: dataFromChild.due_date
         }
       })
         .then(response => {
@@ -202,9 +199,13 @@ export default {
         url: `${URL}/tasks/${dataFromChild.id}`,
         headers: {
           // token : localStorage.getItem('token')
-          token: this.token
+          token: localStorage.getItem('token')
         },
-        data: dataFromChild
+         data: {
+          title: dataFromChild.title,
+          category: dataFromChild.category,
+          due_date: dataFromChild.due_date
+        }
       })
         .then(response => {
           console.log("EDIT SUCCESS");
@@ -234,9 +235,9 @@ export default {
         url: `${URL}/tasks/${dataFromChild}`,
         headers: {
           // token : localStorage.getItem('token')
-          token: this.token
+          token: localStorage.getItem('token')
         },
-        data: dataFromChild
+        data: dataFromChild 
       })
         .then(({ data }) => {
           console.log("DELETE SUCCESS");
