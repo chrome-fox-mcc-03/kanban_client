@@ -27,7 +27,6 @@
 <script>
 import axios from 'axios'
 const baseUrl = `https://shielded-cove-72197.herokuapp.com`
-// const baseUrl = `http://localhost:3000`
 
 export default {
     name: "CreateTask",
