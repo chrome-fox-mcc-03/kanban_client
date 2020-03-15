@@ -33,7 +33,7 @@ export default {
                   onCancel: this.onCancel,
                 });
       axios({
-        url: 'http://localhost:3000/category',
+        url: 'https://secure-mountain-34530.herokuapp.com/category',
         method: 'POST',
         headers: {
           access_token: localStorage.getItem('access_token'),
@@ -66,7 +66,7 @@ export default {
                 });
     axios({
       method: 'GET',
-      url: 'http://localhost:3000/category',
+      url: 'https://secure-mountain-34530.herokuapp.com/category',
       headers: {
         access_token: localStorage.getItem('access_token'),
       }

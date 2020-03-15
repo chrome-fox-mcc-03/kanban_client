@@ -23,7 +23,7 @@ export default {
       const token = user.getAuthResponse().id_token;
       axios({
         method: "POST",
-        url: "http://localhost:3000/googleSignIn",
+        url: "https://secure-mountain-34530.herokuapp.com/googleSignIn",
         headers: {
           token
         }

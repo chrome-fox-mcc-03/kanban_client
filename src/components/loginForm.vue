@@ -55,7 +55,7 @@ export default {
                 });
       axios({
         method: 'POST',
-        url: 'http://localhost:3000/login',
+        url: 'https://secure-mountain-34530.herokuapp.com/login',
         data: {
           email: this.email,
           password: this.password,

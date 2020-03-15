@@ -45,7 +45,7 @@ export default {
         onCancel: this.onCancel,
       });
       axios({
-          url: `http://localhost:3000/task/${taskId}`,
+          url: `https://secure-mountain-34530.herokuapp.com/task/${taskId}`,
           method: 'PUT',
           headers: {
             access_token: localStorage.getItem('access_token'),
@@ -89,7 +89,7 @@ export default {
                 onCancel: this.onCancel,
               });
               axios({
-                  url: `http://localhost:3000/task/${id}`,
+                  url: `https://secure-mountain-34530.herokuapp.com/task/${id}`,
                   method: 'delete',
                   headers: {
                     access_token: localStorage.getItem('access_token'),

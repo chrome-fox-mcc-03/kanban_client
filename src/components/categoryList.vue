@@ -60,7 +60,7 @@ export default {
         onCancel: this.onCancel,
       });
       axios({
-          url: 'http://localhost:3000/task',
+          url: 'https://secure-mountain-34530.herokuapp.com/task',
           method: 'POST',
           headers: {
             access_token: localStorage.getItem('access_token'),
@@ -93,7 +93,7 @@ export default {
         onCancel: this.onCancel,
       });
       axios({
-          url: `http://localhost:3000/category/${id}`,
+          url: `https://secure-mountain-34530.herokuapp.com/category/${id}`,
           method: 'PUT',
           headers: {
             access_token: localStorage.getItem('access_token'),
@@ -127,7 +127,7 @@ export default {
       const CategoryId = +evt.to.parentElement.attributes.categoryid.value;
       const task = evt.draggedContext.element;
       axios({
-          url: `http://localhost:3000/task/${task.id}`,
+          url: `https://secure-mountain-34530.herokuapp.com/task/${task.id}`,
           method: 'PUT',
           headers: {
             access_token: localStorage.getItem('access_token'),
@@ -172,8 +172,8 @@ export default {
                 onCancel: this.onCancel,
               });
               axios({
-                  url: `http://localhost:3000/category/${this.$attrs.categoryId}`,
-                  method: 'DELETE',
+                  url: `https://secure-mountain-34530.herokuapp.com/category/${this.$attrs.categoryId}`,
+                  method: 'delete',
                   headers: {
                     access_token: localStorage.getItem('access_token'),
                   }
