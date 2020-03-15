@@ -1,8 +1,7 @@
 <template>
   <div id="main">
-
     <board-header></board-header>
-    <info-bar></info-bar>
+    <!-- <info-bar></info-bar> -->
     <category-board></category-board>
   </div>
 </template>
@@ -24,11 +23,9 @@ export default {
   },
   beforeRouteEnter: function (to, from, next) {
     if (localStorage.getItem('access_token')) {
-      console.log('masuk ada token beforeRouteEnter');
       next();
     } else {
-      console.log('masuk di tidak ada token beforeRouteEnter');
-          console.log(to);
+     next(false)
     }
   },
   created() {

@@ -18,20 +18,7 @@
 
       </div>
 
-      <div class="user-settings">
-
-        <button class="user-settings-btn btn" aria-label="Create">
-          <i class="fas fa-plus" aria-hidden="true"></i>
-        </button>
-
-        <button class="user-settings-btn btn" aria-label="Information">
-          <i class="fas fa-info-circle" aria-hidden="true"></i>
-        </button>
-
-        <button class="user-settings-btn btn" aria-label="Notifications">
-          <i class="fas fa-bell" aria-hidden="true"></i>
-        </button>
-
+      <div class="user-settings">  
         <button @click="logout" class="user-settings-btn btn" aria-label="User Settings">
           <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
         </button>
@@ -47,8 +34,11 @@ export default {
   methods: {
     logout() {
       localStorage.clear();
+      let auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+       });
       this.$router.push('/');
-    }
+    },
   }
 }
 </script>

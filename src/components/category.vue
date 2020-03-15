@@ -26,6 +26,12 @@ export default {
   },
   methods: {
     addCategory() {
+      let loader = this.$loading.show({
+                  // Optional parameters
+                  container: this.fullPage ? null : this.$refs.formContainer,
+                  canCancel: true,
+                  onCancel: this.onCancel,
+                });
       axios({
         url: 'http://localhost:3000/category',
         method: 'POST',
@@ -37,15 +43,27 @@ export default {
         }
       })
         .then(result => {
+          loader.hide();
           this.category.push(result.data)
           this.categoryName = '';
         })
         .catch(err => {
-          console.log(err.response);
+          loader.hide();
+           this.$toasted.show(err.response.data.errors[0], { 
+                              theme: "bubble", 
+                              position: "top-right", 
+                              duration : 3000
+                            });
         })
     }
   },
   created() {
+    let loader = this.$loading.show({
+                  // Optional parameters
+                  container: this.fullPage ? null : this.$refs.formContainer,
+                  canCancel: true,
+                  onCancel: this.onCancel,
+                });
     axios({
       method: 'GET',
       url: 'http://localhost:3000/category',
@@ -54,8 +72,16 @@ export default {
       }
     })
       .then(result => {
-        console.log(result.data);
+        loader.hide();
         this.category = result.data;
+      })
+      .catch(err => {
+        loader.hide();
+        this.$toasted.show(err.response.data.errors[0], { 
+                              theme: "bubble", 
+                              position: "top-right", 
+                              duration : 3000
+                            });
       })
   }
 }

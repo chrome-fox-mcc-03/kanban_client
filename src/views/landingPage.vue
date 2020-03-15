@@ -3,7 +3,6 @@
     <div class="row">
       <div class="col-4"></div>
       <div class="col-4">
-        <!-- <login-form></login-form> -->
         <router-view></router-view>
       </div>
       

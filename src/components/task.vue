@@ -38,32 +38,42 @@ export default {
       this.showInput = true;
     },
     editTitle(taskId, categoryId) {
-      console.log(taskId, categoryId, '<<<<<<<<<<<<<');
+      let loader = this.$loading.show({
+        // Optional parameters
+        container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: true,
+        onCancel: this.onCancel,
+      });
       axios({
-        url: `http://localhost:3000/task/${taskId}`,
-        method: 'PUT',
-        headers: {
-          access_token: localStorage.getItem('access_token'),
-        },
-        data: {
-          title: this.taskTitle,
-          CategoryId: categoryId,
-        }
-      })
+          url: `http://localhost:3000/task/${taskId}`,
+          method: 'PUT',
+          headers: {
+            access_token: localStorage.getItem('access_token'),
+          },
+          data: {
+            title: this.taskTitle,
+            CategoryId: categoryId,
+          }
+        })
         .then(result => {
+          loader.hide();
           this.$emit('changeTaskTitle', result.data.title)
           this.showInput = true;
         })
         .catch(err => {
-          console.log(err);
+          loader.hide();
+          this.$toasted.show(err.response, {
+            theme: "bubble",
+            position: "top-right",
+            duration: 3000
+          });
         })
     },
-    showButtonsDialog (id) {
+    showButtonsDialog(id) {
       this.$modal.show('dialog', {
         title: 'Delete confirmation',
         text: 'Are you sure to delete this task?',
-        buttons: [
-          {
+        buttons: [{
             title: 'Cancel',
             handler: () => {
               this.$modal.hide('dialog')
@@ -72,26 +82,43 @@ export default {
           {
             title: 'Delete',
             handler: () => {
+              let loader = this.$loading.show({
+                // Optional parameters
+                container: this.fullPage ? null : this.$refs.formContainer,
+                canCancel: true,
+                onCancel: this.onCancel,
+              });
               axios({
-                url: `http://localhost:3000/task/${id}`,
-                method: 'delete',
-                headers: {
-                  access_token: localStorage.getItem('access_token'),
-                },
-              })
+                  url: `http://localhost:3000/task/${id}`,
+                  method: 'delete',
+                  headers: {
+                    access_token: localStorage.getItem('access_token'),
+                  },
+                })
                 .then(result => {
+                  loader.hide();
                   this.$emit('deleteTask');
-                  this.$modal.hide('dialog')
+                  this.$modal.hide('dialog');
+                  this.$toasted.show('Success deleted task', {
+                    theme: "outline",
+                    position: "top-right",
+                    duration: 3000
+                  });
                 })
                 .catch(err => {
-                  console.log(err.response);
+                  loader.hide();
                   this.$modal.hide('dialog');
+                  this.$toasted.show('Failed deleting task', {
+                    theme: "bubble",
+                    position: "top-right",
+                    duration: 3000
+                  });
                 })
             }
           }
         ]
       })
-  },
+    },
   }
 }
 </script>

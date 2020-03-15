@@ -53,44 +53,68 @@ export default {
   },
   methods: {
     addTask(id) {
+      let loader = this.$loading.show({
+        // Optional parameters
+        container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: true,
+        onCancel: this.onCancel,
+      });
       axios({
-        url: 'http://localhost:3000/task',
-        method: 'POST',
-        headers: {
-          access_token: localStorage.getItem('access_token'),
-        },
-        data: {
-          title: this.title,
-          CategoryId: id,
-        }
-      })
+          url: 'http://localhost:3000/task',
+          method: 'POST',
+          headers: {
+            access_token: localStorage.getItem('access_token'),
+          },
+          data: {
+            title: this.title,
+            CategoryId: id,
+          }
+        })
         .then(result => {
+          loader.hide();
           this.$emit('addedNewTask', result.data);
           this.title = '';
         })
         .catch(err => {
-          console.log(err);
+          loader.hide();
+          this.$toasted.show(err.response.data.errors[0], {
+            theme: "bubble",
+            position: "top-right",
+            duration: 3000
+          });
           this.title = '';
         })
     },
     editCategoryName(id) {
+      let loader = this.$loading.show({
+        // Optional parameters
+        container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: true,
+        onCancel: this.onCancel,
+      });
       axios({
-        url: `http://localhost:3000/category/${id}`,
-        method: 'PUT',
-        headers: {
-          access_token: localStorage.getItem('access_token'),
-        },
-        data: {
-          name: this.categoryName,
-        }
-      })
+          url: `http://localhost:3000/category/${id}`,
+          method: 'PUT',
+          headers: {
+            access_token: localStorage.getItem('access_token'),
+          },
+          data: {
+            name: this.categoryName,
+          }
+        })
         .then(result => {
+          loader.hide();
           this.categoryName = '';
           this.$emit('changeCategoryName', result.data.name)
           this.showInput = false;
         })
         .catch(err => {
-          console.log(err.response);
+          loader.hide();
+          this.$toasted.show(err.response.data.errors[0], {
+            theme: "bubble",
+            position: "top-right",
+            duration: 3000
+          });
         })
     },
     hideInput() {
@@ -103,29 +127,36 @@ export default {
       const CategoryId = +evt.to.parentElement.attributes.categoryid.value;
       const task = evt.draggedContext.element;
       axios({
-        url: `http://localhost:3000/task/${task.id}`,
-        method: 'PUT',
-        headers: {
-          access_token: localStorage.getItem('access_token'),
-        },
-        data: {
-          title: task.title,
-          CategoryId: +CategoryId,
-        }
-      })
+          url: `http://localhost:3000/task/${task.id}`,
+          method: 'PUT',
+          headers: {
+            access_token: localStorage.getItem('access_token'),
+          },
+          data: {
+            title: task.title,
+            CategoryId: +CategoryId,
+          }
+        })
         .then(result => {
-          console.log(result.data);
+          this.$toasted.show(`Moved ${result.data.title} to category ${CategoryId}`, {
+            theme: "outline",
+            position: "top-right",
+            duration: 3000
+          });
         })
         .catch(err => {
-          console.log(err.response);
+          this.$toasted.show(err.response.data.errors[0], {
+            theme: "bubble",
+            position: "top-right",
+            duration: 3000
+          });
         })
     },
-    showButtonsDialog () {
+    showButtonsDialog() {
       this.$modal.show('dialog', {
         title: 'Delete confirmation',
         text: 'Are you sure to delete this category?',
-        buttons: [
-          {
+        buttons: [{
             title: 'Cancel',
             handler: () => {
               this.$modal.hide('dialog')
@@ -134,19 +165,31 @@ export default {
           {
             title: 'Delete',
             handler: () => {
+              let loader = this.$loading.show({
+                // Optional parameters
+                container: this.fullPage ? null : this.$refs.formContainer,
+                canCancel: true,
+                onCancel: this.onCancel,
+              });
               axios({
-                url: `http://localhost:3000/category/${this.$attrs.categoryId}`,
-                method: 'DELETE',
-                headers: {
-                  access_token: localStorage.getItem('access_token'),
-                }
-              })
+                  url: `http://localhost:3000/category/${this.$attrs.categoryId}`,
+                  method: 'DELETE',
+                  headers: {
+                    access_token: localStorage.getItem('access_token'),
+                  }
+                })
                 .then(result => {
+                  loader.hide();
                   this.$emit('deleteCategory');
                   this.$modal.hide('dialog');
                 })
                 .catch(err => {
-                  console.log(err.response);
+                  loader.hide();
+                  this.$toasted.show(err.response.data.errors[0], {
+                    theme: "bubble",
+                    position: "top-right",
+                    duration: 3000
+                  });
                 })
             }
           }
