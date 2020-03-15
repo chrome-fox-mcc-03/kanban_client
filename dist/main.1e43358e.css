@@ -1,4 +1,4 @@
-.g-signin-button[data-v-0a5211] {
+.g-signin-button[data-v-e965f0] {
   /* This is where you control how the button looks. Be creative! */
   display: inline-block;
   padding: 4px 8px;
@@ -7,21 +7,21 @@
   color: #fff;
   box-shadow: 0 3px 0 #0f69ff;
 }
-.bg-box[data-v-dc03d9] {
+.bg-box[data-v-34fa35] {
   color: white;
 }
-.bg-box[data-v-dc03d9]:nth-child(1) {
+.bg-box[data-v-34fa35]:nth-child(1) {
   background-color: red;
 }
-.bg-box[data-v-dc03d9]:nth-child(2) {
+.bg-box[data-v-34fa35]:nth-child(2) {
   background-color: green;
 }
-.bg-box[data-v-dc03d9]:nth-child(3) {
+.bg-box[data-v-34fa35]:nth-child(3) {
   background-color: orange;
 }
-.bg-box[data-v-dc03d9]:nth-child(4) {
+.bg-box[data-v-34fa35]:nth-child(4) {
   background-color: blue;
 }
-.card-body[data-v-02726c] {
+.card-body[data-v-1bd19f] {
   color: black;
 }

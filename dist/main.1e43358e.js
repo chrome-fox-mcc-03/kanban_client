@@ -9050,14 +9050,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $e8c8ad = exports.default || module.exports;
+        var $4de067 = exports.default || module.exports;
       
-      if (typeof $e8c8ad === 'function') {
-        $e8c8ad = $e8c8ad.options;
+      if (typeof $4de067 === 'function') {
+        $4de067 = $4de067.options;
       }
     
         /* template */
-        Object.assign($e8c8ad, (function () {
+        Object.assign($4de067, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -9380,9 +9380,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$e8c8ad', $e8c8ad);
+            api.createRecord('$4de067', $4de067);
           } else {
-            api.reload('$e8c8ad', $e8c8ad);
+            api.reload('$4de067', $4de067);
           }
         }
 
@@ -9561,14 +9561,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $0a5211 = exports.default || module.exports;
+        var $e965f0 = exports.default || module.exports;
       
-      if (typeof $0a5211 === 'function') {
-        $0a5211 = $0a5211.options;
+      if (typeof $e965f0 === 'function') {
+        $e965f0 = $e965f0.options;
       }
     
         /* template */
-        Object.assign($0a5211, (function () {
+        Object.assign($e965f0, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -9864,7 +9864,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-0a5211",
+            _scopeId: "data-v-e965f0",
             functional: undefined
           };
         })());
@@ -9877,9 +9877,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$0a5211', $0a5211);
+            api.createRecord('$e965f0', $e965f0);
           } else {
-            api.reload('$0a5211', $0a5211);
+            api.reload('$e965f0', $e965f0);
           }
         }
 
@@ -9950,14 +9950,14 @@ var _default = {
   components: {}
 };
 exports.default = _default;
-        var $02726c = exports.default || module.exports;
+        var $1bd19f = exports.default || module.exports;
       
-      if (typeof $02726c === 'function') {
-        $02726c = $02726c.options;
+      if (typeof $1bd19f === 'function') {
+        $1bd19f = $1bd19f.options;
       }
     
         /* template */
-        Object.assign($02726c, (function () {
+        Object.assign($1bd19f, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -10007,7 +10007,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-02726c",
+            _scopeId: "data-v-1bd19f",
             functional: undefined
           };
         })());
@@ -10020,9 +10020,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$02726c', $02726c);
+            api.createRecord('$1bd19f', $1bd19f);
           } else {
-            api.reload('$02726c', $02726c);
+            api.reload('$1bd19f', $1bd19f);
           }
         }
 
@@ -10075,14 +10075,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $02c1ae = exports.default || module.exports;
+        var $f4036e = exports.default || module.exports;
       
-      if (typeof $02c1ae === 'function') {
-        $02c1ae = $02c1ae.options;
+      if (typeof $f4036e === 'function') {
+        $f4036e = $f4036e.options;
       }
     
         /* template */
-        Object.assign($02c1ae, (function () {
+        Object.assign($f4036e, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -10128,9 +10128,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$02c1ae', $02c1ae);
+            api.createRecord('$f4036e', $f4036e);
           } else {
-            api.reload('$02c1ae', $02c1ae);
+            api.reload('$f4036e', $f4036e);
           }
         }
 
@@ -10322,14 +10322,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $dc03d9 = exports.default || module.exports;
+        var $34fa35 = exports.default || module.exports;
       
-      if (typeof $dc03d9 === 'function') {
-        $dc03d9 = $dc03d9.options;
+      if (typeof $34fa35 === 'function') {
+        $34fa35 = $34fa35.options;
       }
     
         /* template */
-        Object.assign($dc03d9, (function () {
+        Object.assign($34fa35, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -10566,7 +10566,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-dc03d9",
+            _scopeId: "data-v-34fa35",
             functional: undefined
           };
         })());
@@ -10579,9 +10579,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$dc03d9', $dc03d9);
+            api.createRecord('$34fa35', $34fa35);
           } else {
-            api.reload('$dc03d9', $dc03d9);
+            api.reload('$34fa35', $34fa35);
           }
         }
 
@@ -10634,14 +10634,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
-var URL = "http://localhost:3000";
+var URL = "http://localhost:3000"; // const URL = "https://ancient-inlet-76462.herokuapp.com"
+
 var _default = {
   name: "App",
   data: function data() {
     return {
-      // token: "",
-      token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ0ZXN0QG1haWwuY29tIiwiaWF0IjoxNTg0MDkyOTI0fQ.bc0sRTcQrgurWTe3g5JN-5tPKZfHRfaUs9B05vZGVcY",
+      token: "",
+      title: "",
+      category: "",
+      due_date: "",
+      // token:
+      //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ0ZXN0QG1haWwuY29tIiwiaWF0IjoxNTg0MDkyOTI0fQ.bc0sRTcQrgurWTe3g5JN-5tPKZfHRfaUs9B05vZGVcY",
       taskCreds: {
         id: 0,
         title: "",
@@ -10673,6 +10677,8 @@ var _default = {
   methods: {
     login: function login(dataFromChild) {
       var _this = this;
+
+      console.log("+++CLIENT LOGIN+++"); // alert('masuk login') 
 
       var email = dataFromChild.email;
       var password = dataFromChild.password;
@@ -10707,6 +10713,7 @@ var _default = {
     signup: function signup(dataFromChild) {
       var _this2 = this;
 
+      console.log("+++CLIENT SIGNUP+++");
       var email = dataFromChild.email;
       var password = dataFromChild.password;
       axios({
@@ -10760,14 +10767,22 @@ var _default = {
       console.log(">>ENTERING APP.VUE CREATE TASK<<");
       console.log("CHILD EMITS");
       console.log(dataFromChild);
+      console.log("SANITY CHECK OF DECODING DATA FROM CHILD");
+      console.log(dataFromChild.title);
+      this.title = dataFromChild.title;
+      this.category = dataFromChild.category;
+      this.due_date = dataFromChild.due_date;
       axios({
         method: "post",
         url: "".concat(URL, "/tasks/"),
         headers: {
-          // token : localStorage.getItem('token')
-          token: this.token
+          token: localStorage.getItem('token')
         },
-        data: dataFromChild
+        data: {
+          title: this.title,
+          category: this.category,
+          due_date: this.due_date
+        }
       }).then(function (response) {
         console.log("CREATE SUCCESS");
         _this4.task = response.data;
@@ -10851,7 +10866,9 @@ var _default = {
     onSignInSuccess: function onSignInSuccess(id_token) {
       var _this7 = this;
 
+      // alert('masuk google')
       console.log("ENTERING GOOGLE AUTH");
+      console.log(id_token, 'id token');
       axios({
         method: "post",
         url: "".concat(URL, "/users/googleLogin"),
@@ -10860,14 +10877,17 @@ var _default = {
         }
       }).then(function (response) {
         console.log("GOOGLE OAUTH SUCCESS");
-        localStorage.setItem('token', response.token);
+        console.log("RESPONSE IS");
+        console.log(response);
+        localStorage.setItem('token', response.data.token);
         _this7.isLogin = true;
 
         _this7.fetchTasks();
       }).catch(function (err) {
         console.log("GOOGLE OAUTH FAILS"); // console.log(error.response.data.errorMessage);
+        // console.log(err.response,'-----------');
 
-        console.log(err.response.data);
+        console.log(error.response.data);
 
         _this7.$toasted.error(err.response.data.message, {
           position: "bottom-center"
@@ -10886,14 +10906,14 @@ var _default = {
 
 };
 exports.default = _default;
-        var $03f71d = exports.default || module.exports;
+        var $6f087e = exports.default || module.exports;
       
-      if (typeof $03f71d === 'function') {
-        $03f71d = $03f71d.options;
+      if (typeof $6f087e === 'function') {
+        $6f087e = $6f087e.options;
       }
     
         /* template */
-        Object.assign($03f71d, (function () {
+        Object.assign($6f087e, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -10913,11 +10933,7 @@ exports.default = _default;
       _vm._v(" "),
       _c("Navbar", {
         attrs: { token: _vm.token, isLogin: _vm.isLogin },
-        on: {
-          addNewTask: _vm.createTask,
-          dropTaskFromList: _vm.deleteTask,
-          logout: _vm.logout
-        }
+        on: { addNewTask: _vm.createTask, logout: _vm.logout }
       }),
       _vm._v(" "),
       _vm.isLogin === true
@@ -10950,9 +10966,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$03f71d', $03f71d);
+            api.createRecord('$6f087e', $6f087e);
           } else {
-            api.reload('$03f71d', $03f71d);
+            api.reload('$6f087e', $6f087e);
           }
         }
 
@@ -12760,7 +12776,7 @@ new _vue.default({
     return h(_App.default);
   }
 }).$mount('#app');
-},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","./App.vue":"src/App.vue","axios":"node_modules/axios/index.js","vue-toasted":"node_modules/vue-toasted/dist/vue-toasted.min.js","vue-google-signin-button":"node_modules/vue-google-signin-button/dist/vue-google-signin-button.min.js"}],"../../../../.nvm/versions/node/v13.11.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","./App.vue":"src/App.vue","axios":"node_modules/axios/index.js","vue-toasted":"node_modules/vue-toasted/dist/vue-toasted.min.js","vue-google-signin-button":"node_modules/vue-google-signin-button/dist/vue-google-signin-button.min.js"}],"../../../../../.nvm/versions/node/v13.11.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -12788,7 +12804,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49514" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62591" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -12964,5 +12980,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../.nvm/versions/node/v13.11.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/main.js"], null)
+},{}]},{},["../../../../../.nvm/versions/node/v13.11.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/main.js"], null)
 //# sourceMappingURL=/main.1e43358e.js.map

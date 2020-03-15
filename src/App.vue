@@ -11,7 +11,6 @@
       :token="token"
       :isLogin="isLogin"
       @addNewTask="createTask"
-      @dropTaskFromList="deleteTask"
       @logout="logout"
     ></Navbar>
 
@@ -27,6 +26,7 @@
 
 <script>
 const URL = "http://localhost:3000";
+// const URL = "https://ancient-inlet-76462.herokuapp.com"
 import Navbar from "./components/Navbar.vue";
 import LandingPage from "./components/LandingPage.vue";
 import Dashboard from "./components/Dashboard.vue";
@@ -34,9 +34,12 @@ export default {
   name: "App",
   data() {
     return {
-      // token: "",
-      token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ0ZXN0QG1haWwuY29tIiwiaWF0IjoxNTg0MDkyOTI0fQ.bc0sRTcQrgurWTe3g5JN-5tPKZfHRfaUs9B05vZGVcY",
+      token: "",
+      title: "",
+      category: "",
+      due_date: "",
+      // token:
+      //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ0ZXN0QG1haWwuY29tIiwiaWF0IjoxNTg0MDkyOTI0fQ.bc0sRTcQrgurWTe3g5JN-5tPKZfHRfaUs9B05vZGVcY",
       taskCreds: {
         id: 0,
         title: "",
@@ -67,6 +70,8 @@ export default {
   },
   methods: {
     login(dataFromChild) {
+      console.log("+++CLIENT LOGIN+++");
+      // alert('masuk login') 
       const email = dataFromChild.email;
       const password = dataFromChild.password;
 
@@ -99,6 +104,7 @@ export default {
     },
 
     signup(dataFromChild) {
+      console.log("+++CLIENT SIGNUP+++");
       const email = dataFromChild.email;
       const password = dataFromChild.password;
 
@@ -154,14 +160,22 @@ export default {
       console.log(">>ENTERING APP.VUE CREATE TASK<<");
       console.log("CHILD EMITS");
       console.log(dataFromChild);
+      console.log("SANITY CHECK OF DECODING DATA FROM CHILD");
+      console.log(dataFromChild.title);
+      this.title = dataFromChild.title
+      this.category = dataFromChild.category
+      this.due_date = dataFromChild.due_date
       axios({
         method: "post",
         url: `${URL}/tasks/`,
         headers: {
-          // token : localStorage.getItem('token')
-          token: this.token
+          token : localStorage.getItem('token')
         },
-        data: dataFromChild
+        data: {
+          title: this.title,
+          category: this.category,
+          due_date: this.due_date
+        }
       })
         .then(response => {
           console.log("CREATE SUCCESS");
@@ -244,7 +258,10 @@ export default {
     },
 
     onSignInSuccess(id_token) {
+      // alert('masuk google')
       console.log("ENTERING GOOGLE AUTH");
+      console.log(id_token,'id token');
+      
       axios({
         method: "post",
         url: `${URL}/users/googleLogin`,
@@ -254,7 +271,9 @@ export default {
       })
       .then(response => {
           console.log("GOOGLE OAUTH SUCCESS");
-          localStorage.setItem('token', response.token)
+          console.log("RESPONSE IS");
+          console.log(response);
+          localStorage.setItem('token', response.data.token)
           this.isLogin = true
           this.fetchTasks()
 
@@ -262,7 +281,8 @@ export default {
       .catch(err => {
           console.log("GOOGLE OAUTH FAILS");
           // console.log(error.response.data.errorMessage);
-          console.log(err.response.data);
+          // console.log(err.response,'-----------');
+          console.log(error.response.data)
           this.$toasted.error(err.response.data.message, {
             position: "bottom-center"
           });
