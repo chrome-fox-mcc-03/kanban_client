@@ -21,10 +21,19 @@
                             <!-- <div class="d-flex justify-content-center"> -->
                                 <a href="#" @click="registerPanel">Register</a>
                                 <button type="submit" class="btn btn-success">Submit</button>
-                             <!-- <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin> -->
                             <!-- </div> -->
+                            
+                                <!-- <button type="button" class="btn btn-link" @click="onSuccess">Google Login</button>                            -->
                         </form>
-                        <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin>
+                        <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>
+                        
+                        <!-- <g-signin-button
+                            :params="googleSignInParams"
+                            @success="onSignInSuccess"
+                            @error="onSignInError">
+                            Sign in with Google
+                          </g-signin-button> -->
+                        <!-- <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin> -->
                     </div>
                 </div>
             </div>
@@ -42,17 +51,13 @@ export default {
         return {
             emailLogin: '',
             passwordLogin: '',
-            params: {
-                    client_id: "194565501537-qmb464ef83ic0suedoturuv0urp3s4jp.apps.googleusercontent.com"
-                },
-            renderParams: {
-                    width: 250,
-                    height: 50,
-                    longtitle: true
-                }
+            googleSignInParams: {
+                client_id: '194565501537-qmb464ef83ic0suedoturuv0urp3s4jp.apps.googleusercontent.com'
+            }
         }
     },
     components: {
+        // GSignInButton
         GoogleLogin
     },
     methods: {
@@ -79,26 +84,28 @@ export default {
                     console.log(err.response.data.message)
                 })
         },
-        onSuccess(googleUser){
+        onSuccess(){
             console.log('KE HOT NIHHHH')
-            // this.$gAuth.signIn()
-            //     .then(googleUser => {
-            //         let access_token = googleUser.getAuthResponse().id_token
-            //         return axiosKanban({
-            //             url: `/googleSignIn`,
-            //             method: `post`,
-            //             headers: {
-            //                 access_token : access_token
-            //             }
-            //         })
-            //     })
-            //     .then(({ data }) => {
-            //         localStorage.setItem('access_token', data.access_token)
-            //         this.$emit('changePage', 'dashboard')
-            //     })
-            //     .catch(error => {
-            //         this.$vToastify.error(err.response.data.message);
-            //     })
+            this.$gAuth.signIn()
+                .then(googleUser => {
+                    let access_token = googleUser.getAuthResponse().id_token
+                    return axiosKanban({
+                        method: 'post',
+                        url: '/googleSignIn',
+                        headers: {
+                            access_token : access_token
+                        }
+                    })
+                })
+                .then(({ data }) => {
+                    console.log(data)
+                    localStorage.setItem('access_token', data.access_token)
+                    this.$emit('changePage', 'dashboard')
+                })
+                .catch(err => {
+                    console.log(err)
+                    this.$vToastify.error(err.response.data.message);
+                })
         }
     }
 }

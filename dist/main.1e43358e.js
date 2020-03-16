@@ -10322,6 +10322,7 @@ var _axios = _interopRequireDefault(require("axios"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var axiosKanban = _axios.default.create({
+  // baseURL: 'https://murmuring-tor-80696.herokuapp.com/'
   baseURL: 'http://localhost:3000'
 });
 
@@ -13670,23 +13671,28 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   name: "LoginPanel",
   data: function data() {
     return {
       emailLogin: '',
       passwordLogin: '',
-      params: {
-        client_id: "194565501537-qmb464ef83ic0suedoturuv0urp3s4jp.apps.googleusercontent.com"
-      },
-      renderParams: {
-        width: 250,
-        height: 50,
-        longtitle: true
+      googleSignInParams: {
+        client_id: '194565501537-qmb464ef83ic0suedoturuv0urp3s4jp.apps.googleusercontent.com'
       }
     };
   },
   components: {
+    // GSignInButton
     GoogleLogin: _vueGoogleLogin.default
   },
   methods: {
@@ -13716,25 +13722,30 @@ var _default = {
         console.log(err.response.data.message);
       });
     },
-    onSuccess: function onSuccess(googleUser) {
-      console.log('KE HOT NIHHHH'); // this.$gAuth.signIn()
-      //     .then(googleUser => {
-      //         let access_token = googleUser.getAuthResponse().id_token
-      //         return axiosKanban({
-      //             url: `/googleSignIn`,
-      //             method: `post`,
-      //             headers: {
-      //                 access_token : access_token
-      //             }
-      //         })
-      //     })
-      //     .then(({ data }) => {
-      //         localStorage.setItem('access_token', data.access_token)
-      //         this.$emit('changePage', 'dashboard')
-      //     })
-      //     .catch(error => {
-      //         this.$vToastify.error(err.response.data.message);
-      //     })
+    onSuccess: function onSuccess() {
+      var _this2 = this;
+
+      console.log('KE HOT NIHHHH');
+      this.$gAuth.signIn().then(function (googleUser) {
+        var access_token = googleUser.getAuthResponse().id_token;
+        return (0, _index.default)({
+          method: 'post',
+          url: '/googleSignIn',
+          headers: {
+            access_token: access_token
+          }
+        });
+      }).then(function (_ref2) {
+        var data = _ref2.data;
+        console.log(data);
+        localStorage.setItem('access_token', data.access_token);
+
+        _this2.$emit('changePage', 'dashboard');
+      }).catch(function (err) {
+        console.log(err);
+
+        _this2.$vToastify.error(err.response.data.message);
+      });
     }
   }
 };
@@ -13848,17 +13859,14 @@ exports.default = _default;
                 ]
               ),
               _vm._v(" "),
-              _c(
-                "GoogleLogin",
-                {
-                  attrs: {
-                    params: _vm.params,
-                    onSuccess: _vm.onSuccess,
-                    onFailure: _vm.onFailure
-                  }
-                },
-                [_vm._v("Login")]
-              )
+              _c("GoogleLogin", {
+                attrs: {
+                  params: _vm.params,
+                  renderParams: _vm.renderParams,
+                  onSuccess: _vm.onSuccess,
+                  onFailure: _vm.onFailure
+                }
+              })
             ],
             1
           )
@@ -14461,13 +14469,17 @@ var _vueGoogleOauth = _interopRequireDefault(require("vue-google-oauth2"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// import GoogleLogin from 'vue-google-login';
 var gauthOption = {
   clientId: '194565501537-qmb464ef83ic0suedoturuv0urp3s4jp.apps.googleusercontent.com',
   scope: 'profile email',
   prompt: 'select_account'
-};
+}; // import GSignInButton from 'vue-google-signin-button'
+// Vue.use(GSignInButton)
 
-_vue.default.use(_vueToastify.default, _vueGoogleOauth.default, gauthOption);
+_vue.default.use(_vueGoogleOauth.default, gauthOption);
+
+_vue.default.use(_vueToastify.default);
 
 new _vue.default({
   render: function render(h) {
@@ -14502,7 +14514,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33193" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37039" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
