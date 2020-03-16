@@ -1,58 +1,62 @@
 <template>
 
   <div>
-      <div class="container-fluid bg-secondary" id="menu">
-    <div class="container">
-      <div class="row">
-          <div class="col-md-12">
-              <nav class="navbar navbar-expand-lg navbar-light bg-transparent px-0">
-                  <button class="navbar-brand text-white bg-transparent btn font-weight-light" id="home">Kanban</button>
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                      <ul class="navbar-nav mr-auto"></ul>
-                    <ul class="navbar-nav">
-                        <li v-if="login === false" class="nav-item">
-                             <button class="nav-link text-white btn bg-transparent mr-auto" v-on:click="changePage('register')">Sign Up</button>
-                        </li>
-                        <li v-if="login === false" class="nav-item">
-                             <button class="nav-link text-white btn bg-transparent mr-auto" v-on:click="changePage('login')">Log In</button>
-                        </li>
-                        <li v-if="login === true" class="nav-item">
-                            <button class="nav-link text-white btn bg-transparent mr-auto" v-on:click="changePage('create')">Create A Task</button>
-                        </li>
-                         <li v-if="login === true" class="nav-item">
-                            <button class="nav-link text-white btn bg-transparent mr-auto" v-on:click="changePage('board')">Kanban Board</button>
-                        </li>
-                        <li v-if="login" class="nav-item">
-                            <button class="nav-link text-white btn bg-transparent mr-auto" v-on:click="logout()">Log Out</button>
-                        </li>
-                    </ul>
-                  </div>
-             </nav>
-          </div>
-      </div>
-      </div>
-  </div>
+    <div class="container-fluid bg-secondary">
+        <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar navbar-expand-lg navbar-light bg-transparent px-0">
+                    <button class="navbar-brand text-white bg-transparent btn font-weight-light" id="home">Kanban</button>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav mr-auto"></ul>
+                        <ul class="navbar-nav">
+                            <li v-if="login === false" class="nav-item">
+                                <button class="nav-link text-white btn bg-transparent mr-auto" v-on:click="changePage('register')">Sign Up</button>
+                            </li>
+                            <li v-if="login === false" class="nav-item">
+                                <button class="nav-link text-white btn bg-transparent mr-auto" v-on:click="changePage('login')">Log In</button>
+                            </li>
+                            <li v-if="login === true" class="nav-item">
+                                <button class="nav-link text-white btn bg-transparent mr-auto" v-on:click="changePage('create')">Create A Task</button>
+                            </li>
+                            <li v-if="login === true" class="nav-item">
+                                <button class="nav-link text-white btn bg-transparent mr-auto" v-on:click="changePage('board')">Kanban Board</button>
+                            </li>
+                            <li v-if="login" class="nav-item">
+                                <button class="nav-link text-white btn bg-transparent mr-auto" v-on:click="logout()">Log Out</button>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        </div>
+    </div>
 
       <CreateTask @clearData="clearData" @fetch="fetch" v-if="page === 'create'" @changePage="changePage" @changeLoading="changeLoading"></CreateTask>
       <RegisterForm v-else-if="page === 'register'" @changePage="changePage" @changeLogin="changeLogin" @changeLoading="changeLoading"></RegisterForm>
       <LoginForm v-else-if="page === 'login'" @changePage="changePage" @changeLogin="changeLogin" @fetch="fetch" @changeLoading="changeLoading"></LoginForm>
+
      <div class="container p-3" v-if="page === 'board'">
       <div class="row flex-row flex-sm-nowrap py-3">
+          
       <KanbanBoard 
         @clearData="clearData" 
         class="col-sm-6 col-md-4 col-xl-3 scroll"
-        v-for="(data, name) in kanban" :key="data.backlog" 
+        v-for="data in kanban" :key="data.id" 
         @fetch="fetch" 
         @edit="edit"
         @move="move"
-        :name="name" 
-        :data="data">
+        :name="data.name" 
+        :tasks="data.tasks"
+        :kanban="kanban">
     </KanbanBoard>
       </div>
      </div>
+
       <div class="container" v-if="page === 'edit'">
         <div class="row mt-5">
             <div class="col-md-4">
@@ -89,6 +93,8 @@
         </div>
     </div>
   </div>
+
+
 </template>
 
 <script>
@@ -108,12 +114,24 @@ export default {
             CategoryId: "",
             page: "login",
             login: false,
-            kanban: {
-                backlog: [],
-                progress: [],
-                development: [],
-                done: []
-            },
+            kanban: [
+                {
+                    name: "backlog",
+                    tasks: []
+                },
+                {
+                    name: "progress",
+                    tasks: []
+                },
+                {
+                    name: "development",
+                    tasks: []
+                },
+                {
+                    name: "done",
+                    tasks: []
+                }
+            ],
             isLoading: false
         }
     },
@@ -155,13 +173,13 @@ export default {
                     this.changeLoading()                  
                     result.data.data.forEach(el => {                                             
                         if(el.CategoryId === 1) {
-                            this.kanban.backlog.push(el)
+                            this.kanban[0].tasks.push(el)
                         } else if(el.CategoryId === 2) {
-                            this.kanban.progress.push(el)
+                            this.kanban[1].tasks.push(el)
                         } else if(el.CategoryId === 3) {
-                            this.kanban.development.push(el)
+                            this.kanban[2].tasks.push(el)
                         } else if(el.CategoryId === 4) {
-                            this.kanban.done.push(el)
+                            this.kanban[3].tasks.push(el)
                         }
                     })
                 })
@@ -169,12 +187,24 @@ export default {
                 })
             },
         clearData () {
-            this.kanban = {
-                backlog: [],
-                progress: [],
-                development: [],
-                done: []
-            }
+            this.kanban = [
+                {
+                    name: "backlog",
+                    tasks: []
+                },
+                {
+                    name: "progress",
+                    tasks: []
+                },
+                {
+                    name: "development",
+                    tasks: []
+                },
+                {
+                    name: "done",
+                    tasks: []
+                }
+            ]
         },
          findOne(id) {
             this.changeLoading()

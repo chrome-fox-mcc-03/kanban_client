@@ -1,7 +1,7 @@
 <template>
         <div class="card-body">
-            <main class="card mb-3 bg-light">
-                <article class="card-body p-3 moveTo">
+            <div class="card card-hover mb-3 bg-light">
+                <div class="card-body p-3 moveTo">
                     <p>{{list.description}}</p>
                     <div class="float-right mr-n1">
                         <button class="btn" @click="deleteTask(list.id)"><i class="fa fa-trash"></i></button>
@@ -13,8 +13,11 @@
                         <button class="btn" v-on:click="move(list.id, list.description, list.CategoryId-1)" v-if="list.CategoryId-1 > 0"><i class="fa fa-angle-double-left"></i></button>
                         <button class="btn" v-on:click="move(list.id, list.description, list.CategoryId+1)" v-if="list.CategoryId+1 < 5"><i class="fa fa-angle-double-right"></i></button>
                     </div>
-                </article>
-            </main>
+                     <div class="reveal bg-light p-0 text-center">
+                        draggable here
+                    </div>
+                </div>
+            </div>
         </div>
 </template>
 
@@ -37,6 +40,19 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
+.card-hover .reveal {
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    padding: 0;
+}
+
+.card-hover:hover .reveal {
+    height: auto;
+    visibility: visible;
+    opacity: 10;
+    transition: opacity 1s ease;
+}
 </style>
