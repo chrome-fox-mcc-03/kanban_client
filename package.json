@@ -1,0 +1,37 @@
+{
+  "name": "kanban_client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ramadesi1/kanban_client.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ramadesi1/kanban_client/issues"
+  },
+  "homepage": "https://github.com/ramadesi1/kanban_client#readme",
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^3.1.1",
+    "parcel-bundler": "^1.12.4",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "toastify": "^2.0.0",
+    "toastify-js": "^1.7.0",
+    "vue": "^2.6.11",
+    "vue-google-login": "^2.0.3",
+    "vue-hot-reload-api": "^2.3.4",
+    "vue-loading-overlay": "^3.3.2",
+    "vue-toastify": "^1.6.1",
+    "vuedraggable": "^2.23.2"
+  }
+}
