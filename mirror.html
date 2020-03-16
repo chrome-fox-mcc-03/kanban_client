@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-signin-client_id"
+    content="983929968666-kbp86jo4o6053em2ioo0u6hbspvpnm4e.apps.googleusercontent.com">
+  <link rel="stylesheet" type="text/css" href="css/main_style.css">
+  <link rel="stylesheet" type="text/css" href="css/flex_grid.css">
+  <link rel="stylesheet" type="text/css" href="css/headers.css">
+  <link rel="stylesheet" type="text/css" href="css/tables.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <title>KANBAN</title>
+</head>
+
+<body>
+
+  <div id="app">
+
+    
+
+
+
+
+
+
+    <!-- <div id="pg-landing" v-show="!isLogin"> -->
+    
+
+
+
+
+
+      <!-- <span v-model="printSuccessMsg(event)" class="msg-success"> {{msgSuccess}} </span>
+      <span v-model="printErrorMsg(event)" class="msg-error"> {{msgError}} </span>  -->
+    </div>
+
+
+
+
+
+    <div id="pg-dashboard" v-show="isLogin">
+
+      <h3 class="header">MY TASKS</h3>
+
+
+      <div id="crate-projects" v-for="(category, index) in categories">
+
+
+        <div id="box-" v-bind:id="category">
+          <div>
+
+          </div>
+        </div>
+
+<!-- 
+        <div id="box-done" class=column>
+          <h4 class="subheader">DONE</h4>
+          <p class="tbl-tasks">
+
+            <ul class="task-entry">
+              <li>1</li>
+              <li v-for="(task, idx) in tasks" :key="idx"> {{ task.id }} </li>
+              <li>
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editTaskModal">
+                  EDIT
+                </button>
+
+                <button type="button" class="btn btn-danger" v-on:click="deleteTask(taskId, event)">DELETE</button>
+              </li>
+            </ul>
+          </p>
+        </div> -->
+
+
+        
+        <div class="modal fade" id="editTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" 
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">EDIT TASK</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="editTask-form">
+                  Title<br>
+                  <input v-model="taskCreds.title" type="text" class="form-control" id="edit-task-type"
+                    placeholder="Enter Task Title">
+                  <br>
+                  Category<br>
+                  <select v-model="taskCreds.category" class="task-category">
+                    <option value="backlog" selected>BACKLOG</option>
+                    <option value="requested" selected>REQUESTED</option>
+                    <option value="wip">IN PROGRESS</option>
+                    <option value="done">DONE</option>
+                  </select>
+                  <br>
+                  Due Date<br>
+                  <input v-model="taskCreds.dueDate" type="date" class="form-control" id="edit-task-due-date">
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" form="signup-form"
+                  v-on:click="editTask(taskId, event)">EDIT
+                  TASK</button>
+              </div>
+            </div>
+          </div>
+          <!-- <span v-model="printSuccessMsg()" class="msg-success"> {{msgSuccess}} </span>
+          <span v-model="printErrorMsg()" class="msg-error"> {{msgError}} </span> -->
+        </div>
+
+      </div>
+
+
+      <!-- <span v-model="printSuccessMsg()" class="msg-success"> {{msgSuccess}} </span>
+      <span v-model="printErrorMsg()" class="msg-error"> {{msgError}} </span> -->
+    </div>
+
+  </div>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+  </script>
+  <script src="/src/main.js"></script>
+</body>
+
+</html>
