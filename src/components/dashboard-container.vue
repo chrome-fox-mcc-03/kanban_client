@@ -13,22 +13,30 @@
 
 <script>
 import ColumnContainer from './column';
+import axios from 'axios';
 
 export default {
     methods: {
         create(obj) {
-            // console.log(obj, "create");
             this.$emit('create', obj);
+        },
+        fetchItems() {
+            this.$emit('fetchItems');
         }
     },
     props: {
         items: Array,
         categories: Array,
         prioritylist: Array, 
+        storage: Object,
     },
     name: 'dashboard-container',
     components: {
         'column-container': ColumnContainer,
+    },
+    mounted() {
+        console.log(this.categories);
+        console.log(this.items);
     },
 }
 </script>

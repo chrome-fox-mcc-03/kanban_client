@@ -10,7 +10,7 @@
                 <input v-model="regPass" type="password" class="form-control" id="register-password">
                 <small class="form-text text-white">Password</small>
             </div>
-            <div id="register-message"></div>
+            <div class="text-white" id="register-message">{{ message }}</div>
             <input @click.prevent="register" type="submit" class="btn status-green" value="Register">
         </form>
     </div>
@@ -25,11 +25,12 @@ export default {
             regPass: '',
         }
     },
+    props: {
+        message: String,
+    },
     name: "register-page",
     methods: {
         register() {
-            console.log('register')
-            console.log(this.regEmail, this.regPass);
             this.$emit('register', {email: this.regEmail, password: this.regPass})
             this.regEmail = ''
             this.regPass = ''

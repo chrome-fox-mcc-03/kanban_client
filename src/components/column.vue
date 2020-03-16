@@ -9,6 +9,7 @@
         <!--  -->
         <card v-for="(card, i) in items" :key="i"
             v-if="card.status === title"
+            :card="card"
         ></card>
     </div>
     <div class="column-footer mt-1 mb-4">
@@ -51,13 +52,16 @@ import Card from './card';
 export default {
     methods: {
         create() {
-            console.log('create');
             let obj = {
                 date: this.date,
                 description: this.description,
                 priority: this.priority
             }
+            this.date = '';
+            this.description = '';
+            this.priority = '';
             console.log(obj);
+            this.toggleForm();
             this.$emit('create', obj);
         },
         log(a) {
