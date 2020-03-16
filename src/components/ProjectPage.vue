@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="font-weight-light">Project Board Desi</h3>
+    <h3 class="font-weight-light">Project Board</h3>
     <!-- CONTAINER -->
     <div class="row flex-row flex-sm-nowrap py-3">
       <div
