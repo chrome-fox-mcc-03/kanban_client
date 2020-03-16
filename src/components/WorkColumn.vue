@@ -4,16 +4,16 @@
                     <h3><b>{{ status.status }}</b></h3>
                 </div>
                 <div class="column-content">
-                    <Item v-for="todo in selector" :key="todo.title" :todo="todo" v-on:delete-task="deleteTask()" v-on:update-task="updateTask()"></Item>
+                    <Item v-for="todo in selector" :key="todo.title" :todo="todo" v-on:delete-task="deleteTask" v-on:update-task="updateTask"></Item>
                 </div>
                 <div class="list-footer">
-                    <div class="add-new-task">
+                    <!-- <div class="add-new-task">
                         <input v-if="todo.editTitle" class="title-editor" v-model="title">
                         <textarea v-if="todo.editDesc" v-model="description" class="task-description" cols="33">
                             
                         </textarea>
-                    </div>
-                    <div class="add-button" v-on:click="addTask()"> + </div>
+                    </div> -->
+                    <div class="add-button" v-on:click="addTask"> + </div>
                 </div>
     </div>
 </template>

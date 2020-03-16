@@ -8907,12 +8907,76 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   name: "Item",
   props: {
     todo: Object
   },
-  methods: {}
+  body: function body() {
+    return {
+      title: '',
+      description: '',
+      canEdit: false
+    };
+  },
+  methods: {
+    deleteTask: function deleteTask() {
+      this.$emit('delete-task', {
+        id: this.todo.id
+      });
+    },
+    incrementStatus: function incrementStatus() {
+      if (this.todo.status < 4) {
+        this.todo.status += 1;
+        this.$emit('update-task', {
+          id: this.todo.id,
+          title: this.todo.title,
+          description: this.todo.description,
+          status: this.todo.status
+        });
+      } else {
+        alert('Task already done!');
+      }
+    },
+    decrementStatus: function decrementStatus() {
+      if (this.todo.status > 1) {
+        this.todo.status -= 1;
+        this.$emit('update-task', {
+          id: this.todo.id,
+          title: this.todo.title,
+          description: this.todo.description,
+          status: this.todo.status
+        });
+      } else {
+        alert("We've only just beguuun...");
+      }
+    },
+    showEdit: function showEdit() {
+      this.canEdit = true;
+    },
+    cancelEdit: function cancelEdit() {
+      this.canEdit = false;
+    },
+    saveEdit: function saveEdit() {
+      this.$emit('update-task', {
+        id: this.todo.id,
+        title: this.title,
+        description: this.description,
+        status: this.todo.status
+      });
+      this.title = '';
+      this.description = '';
+    }
+  }
 };
 exports.default = _default;
         var $114936 = exports.default || module.exports;
@@ -9012,23 +9076,141 @@ exports.default = _default;
           [_vm._v(_vm._s(_vm.todo.description))]
         ),
     _vm._v(" "),
-    _vm._m(0)
+    _vm.canEdit
+      ? _c("div", { staticClass: "edit-form" }, [
+          _vm.todo.editTitle
+            ? _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.title,
+                    expression: "title"
+                  }
+                ],
+                staticClass: "title-editor",
+                domProps: { value: _vm.title },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.title = $event.target.value
+                  }
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.todo.editDesc
+            ? _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.description,
+                    expression: "description"
+                  }
+                ],
+                staticClass: "task-description",
+                attrs: { cols: "33" },
+                domProps: { value: _vm.description },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.description = $event.target.value
+                  }
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "progress",
+              on: {
+                click: function($event) {
+                  return _vm.saveEdit()
+                }
+              }
+            },
+            [_vm._v("Update")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "delete-task",
+              on: {
+                click: function($event) {
+                  return _vm.cancelEdit()
+                }
+              }
+            },
+            [_vm._v("Cancel")]
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("div", { staticClass: "move" }, [
+      _c(
+        "div",
+        {
+          staticClass: "regress",
+          on: {
+            click: function($event) {
+              return _vm.decrementStatus()
+            }
+          }
+        },
+        [_vm._v("Regress")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "progress",
+          on: {
+            click: function($event) {
+              return _vm.incrementStatus()
+            }
+          }
+        },
+        [_vm._v("Progress")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "delete-task",
+          on: {
+            click: function($event) {
+              return _vm.deleteTask()
+            }
+          }
+        },
+        [_vm._v("Delete")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "progress",
+          on: {
+            click: function($event) {
+              return _vm.showEdit()
+            }
+          }
+        },
+        [_vm._v("Edit")]
+      )
+    ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "move" }, [
-      _c("div", { staticClass: "regress" }, [_vm._v("Regress")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "progress" }, [_vm._v("Progress")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "delete-task" }, [_vm._v("Delete")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
           return {
@@ -9087,24 +9269,49 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var _default = {
   name: 'WorkColumn',
   props: {
     status: Object,
     todos: Array
   },
+  data: function data() {
+    return {
+      title: '',
+      description: ''
+    };
+  },
   components: {
     Item: _Item.default
   },
   methods: {
     addTask: function addTask() {
-      this.todos.push({
-        title: "New Task",
-        description: "Add description here.",
-        status: this.status.id,
-        editTitle: false,
-        editDesc: false
+      // this.todos.push({
+      //     title: "New Task",
+      //     description: "Add description here.",
+      //     status: this.status.id,
+      //     editTitle: false,
+      //     editDesc: false
+      // })
+      this.$emit('add-task', {
+        title: this.title,
+        description: this.description,
+        status: this.status.id
       });
+      this.title = '';
+      this.description = '';
+    },
+    deleteTask: function deleteTask(todoData) {
+      this.$emit('delete-task', todoData);
+    },
+    updateTask: function updateTask(todoData) {
+      this.$emit('update-task', todoData);
     }
   },
   computed: {
@@ -9139,24 +9346,19 @@ exports.default = _default;
       "div",
       { staticClass: "column-content" },
       _vm._l(_vm.selector, function(todo) {
-        return _c("Item", { key: todo.title, attrs: { todo: todo } })
+        return _c("Item", {
+          key: todo.title,
+          attrs: { todo: todo },
+          on: { "delete-task": _vm.deleteTask, "update-task": _vm.updateTask }
+        })
       }),
       1
     ),
     _vm._v(" "),
     _c("div", { staticClass: "list-footer" }, [
-      _c(
-        "div",
-        {
-          staticClass: "add-button",
-          on: {
-            click: function($event) {
-              return _vm.addTask()
-            }
-          }
-        },
-        [_vm._v(" + ")]
-      )
+      _c("div", { staticClass: "add-button", on: { click: _vm.addTask } }, [
+        _vm._v(" + ")
+      ])
     ])
   ])
 }
@@ -9224,6 +9426,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 var _default = {
   name: "MasterBoard",
   props: {
@@ -9253,6 +9456,15 @@ var _default = {
   methods: {
     logout: function logout() {
       this.$emit('logging-out');
+    },
+    addTask: function addTask(todoData) {
+      this.$emit('app-add-task', todoData);
+    },
+    deleteTask: function deleteTask(todoData) {
+      this.$emit('delete-task', todoData);
+    },
+    updateTask: function updateTask(todoData) {
+      this.$emit('update-task', todoData);
     }
   }
 };
@@ -9308,7 +9520,18 @@ exports.default = _default;
       _vm._l(_vm.statii, function(stat) {
         return _c("WorkColumn", {
           key: stat.id,
-          attrs: { status: stat, todos: _vm.todos }
+          attrs: { status: stat, todos: _vm.todos },
+          on: {
+            "update-task": function($event) {
+              return _vm.updateTask()
+            },
+            "add-task": function($event) {
+              return _vm.addTask()
+            },
+            "delete-task": function($event) {
+              return _vm.deleteTask()
+            }
+          }
         })
       })
     ],
@@ -9367,6 +9590,15 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // import axios from 'axios'
 var _default = {
   name: "LoginPage",
@@ -9374,7 +9606,10 @@ var _default = {
     return {
       email: '',
       password: '',
-      logStatus: true
+      logStatus: true,
+      googleSignInParams: {
+        client_id: "509743617150-nb3g135j53hnv6bdjk3rl7e384tcbqmb.apps.googleusercontent.com"
+      }
     };
   },
   methods: {
@@ -9389,6 +9624,20 @@ var _default = {
         email: this.email,
         password: this.password
       });
+    },
+    onSignInSuccess: function onSignInSuccess(googleUser) {
+      // `googleUser` is the GoogleUser object that represents the just-signed-in user.
+      // See https://developers.google.com/identity/sign-in/web/reference#users
+      var profile = googleUser.getBasicProfile(); // etc etc
+
+      var gtoken = googleUser.getAuthResponse().id_token;
+      this.$emit('google-sign', {
+        token: gtoken
+      });
+    },
+    onSignInError: function onSignInError(error) {
+      // `error` contains any error occurred.
+      console.log('OH NOES', error);
     }
   }
 };
@@ -9485,10 +9734,36 @@ exports.default = _default;
         },
         [_vm._v("Login")]
       )
-    ])
+    ]),
+    _c("br"),
+    _c("br"),
+    _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      [
+        _c(
+          "g-signin-button",
+          {
+            attrs: { params: _vm.googleSignInParams },
+            on: { success: _vm.onSignInSuccess, error: _vm.onSignInError }
+          },
+          [_vm._v("\n              Sign in with Google\n          ")]
+        )
+      ],
+      1
+    )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("br")])
+  }
+]
 render._withStripped = true
 
           return {
@@ -11314,6 +11589,7 @@ var _default = {
       user: {
         email: ''
       },
+      localhost: "http://localhost:3000",
       logStatus: false,
       todos: [{
         title: "First Task",
@@ -11324,13 +11600,13 @@ var _default = {
       }, {
         title: "Second Task",
         description: "Second task is even more awesome.",
-        status: 3,
+        status: 2,
         editTitle: false,
         editDesc: false
       }, {
         title: "Third Task",
         description: "Second task is even more awesome.",
-        status: 4,
+        status: 3,
         editTitle: false,
         editDesc: false
       }, {
@@ -11357,11 +11633,13 @@ var _default = {
           token: localStorage.getItem('accessToken')
         }
       }).then(function (response) {
-        _this.todos = response.data;
+        if (response.data.length > 0) {
+          _this.todos = response.data;
 
-        _this.todos.forEach(function (el) {
-          el.editTitle = false, el.editDesc = false;
-        });
+          _this.todos.forEach(function (el) {
+            el.editTitle = false, el.editDesc = false;
+          });
+        }
       }).catch(function (err) {
         alert(err);
       });
@@ -11414,14 +11692,86 @@ var _default = {
     logout: function logout() {
       localStorage.clear();
       this.logStatus = false;
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });
     },
-    addTask: function addTask() {
-      this.todos.push({
-        title: "New Task",
-        description: "Add description here.",
-        status: 1,
-        editTitle: false,
-        editDesc: false
+    addTask: function addTask(todoData) {
+      var _this4 = this;
+
+      (0, _axios.default)({
+        method: 'POST',
+        url: 'http://localhost:3000/todo/create',
+        headers: {
+          token: localStorage.getItem('accessToken')
+        },
+        data: {
+          title: todoData.title,
+          description: todoData.description,
+          status: todoData.status
+        }
+      }).then(function (response) {
+        _this4.fetchData();
+      }).catch(function (err) {
+        return alert(err);
+      });
+    },
+    deleteTask: function deleteTask(todoData) {
+      var _this5 = this;
+
+      (0, _axios.default)({
+        method: 'DELETE',
+        url: "http://localhost:3000/todo/delete/".concat(todoData.id),
+        headers: {
+          token: localStorage.getItem('accessToken')
+        }
+      }).then(function (response) {
+        _this5.fetchData();
+      }).catch(function (err) {
+        return alert(err);
+      });
+    },
+    updateTask: function updateTask(todoData) {
+      var _this6 = this;
+
+      (0, _axios.default)({
+        method: 'PUT',
+        url: "http://localhost:3000/todo/update/".concat(todoData.id),
+        headers: {
+          token: localStorage.getItem('accessToken')
+        },
+        data: {
+          title: todoData.title,
+          description: todoData.description,
+          status: todoData.status
+        }
+      }).then(function (response) {
+        _this6.fetchData();
+      }).catch(function (err) {
+        return alert(err);
+      });
+    },
+    googleLogin: function googleLogin(loginData) {
+      var _this7 = this;
+
+      (0, _axios.default)({
+        method: 'POST',
+        url: 'http://localhost:3000/googleSignIn',
+        headers: {
+          token: loginData.token
+        }
+      }).then(function (response) {
+        console.log(response);
+        localStorage.setItem('accessToken', response.data.accessToken);
+
+        if (localStorage.getItem('accessToken')) {
+          _this7.logStatus = true;
+
+          _this7.fetchData();
+        }
+      }).catch(function (err) {
+        alert(err);
       });
     }
   },
@@ -11454,10 +11804,25 @@ exports.default = _default;
       _vm.logStatus
         ? _c("MasterBoard", {
             attrs: { user: _vm.user, todos: _vm.todos },
-            on: { "logging-out": _vm.logout }
+            on: {
+              "logging-out": _vm.logout,
+              "update-task": function($event) {
+                return _vm.updateData()
+              },
+              "app-add-task": function($event) {
+                return _vm.addTask()
+              },
+              "delete-task": function($event) {
+                return _vm.deleteTask()
+              }
+            }
           })
         : _c("LoginPage", {
-            on: { "get-login": _vm.login, "post-register": _vm.register }
+            on: {
+              "get-login": _vm.login,
+              "post-register": _vm.register,
+              "google-sign": _vm.googleLogin
+            }
           })
     ],
     1
@@ -11496,12 +11861,18 @@ render._withStripped = true
       
       }
     })();
-},{"./components/MasterBoard.vue":"src/components/MasterBoard.vue","./components/LoginPage.vue":"src/components/LoginPage.vue","axios":"node_modules/axios/index.js","_css_loader":"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/main.js":[function(require,module,exports) {
+},{"./components/MasterBoard.vue":"src/components/MasterBoard.vue","./components/LoginPage.vue":"src/components/LoginPage.vue","axios":"node_modules/axios/index.js","_css_loader":"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"node_modules/vue-google-signin-button/dist/vue-google-signin-button.min.js":[function(require,module,exports) {
+var define;
+'use strict';var _typeof='function'==typeof Symbol&&'symbol'==typeof Symbol.iterator?function(obj){return typeof obj}:function(obj){return obj&&'function'==typeof Symbol&&obj.constructor===Symbol&&obj!==Symbol.prototype?'symbol':typeof obj};(function(){function a(c){'undefined'!=typeof console&&console.error('[g-signin-button] '+c)}function b(c){c.component('g-signin-button',{name:'g-signin-button',render:function render(d){return d('div',{attrs:{class:'g-signin-button'},ref:'signinBtn'},this.$slots.default)},props:{params:{type:Object,required:!0,default:function _default(){return{}}}},mounted:function mounted(){var _this=this;return window.gapi?this.params.client_id?void window.gapi.load('auth2',function(){var d=window.gapi.auth2.init(_this.params);d.attachClickHandler(_this.$refs.signinBtn,{},function(e){_this.$emit('success',e)},function(e){_this.$emit('error',e),_this.$emit('failure',e)})}):void a('params.client_id must be specified.'):void a('"https://apis.google.com/js/api:client.js" needs to be included as a <script>.')}})}'object'==('undefined'==typeof exports?'undefined':_typeof(exports))?module.exports=b:'function'==typeof define&&define.amd?define([],function(){return b}):window.Vue&&window.Vue.use(b)})();
+
+},{}],"src/main.js":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
 
 var _App = _interopRequireDefault(require("./App.vue"));
+
+var _vueGoogleSigninButton = _interopRequireDefault(require("vue-google-signin-button"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11510,7 +11881,9 @@ new _vue.default({
     return h(_App.default);
   }
 }).$mount('#app');
-},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","./App.vue":"src/App.vue"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+_vue.default.use(_vueGoogleSigninButton.default);
+},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","./App.vue":"src/App.vue","vue-google-signin-button":"node_modules/vue-google-signin-button/dist/vue-google-signin-button.min.js"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -11538,7 +11911,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52618" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58553" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

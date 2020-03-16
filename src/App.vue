@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <MasterBoard v-if="logStatus" v-on:logging-out="logout" v-bind:user="user" v-bind:todos="todos" v-on:update-task="updateData()" v-on:app-add-task="addTask()" v-on:delete-task="deleteTask()"></MasterBoard>
-        <LoginPage v-else v-on:get-login="login" v-on:post-register="register" v-on:google-sign="googleLogin()"></LoginPage>
+        <LoginPage v-else v-on:get-login="login" v-on:post-register="register" v-on:google-sign="googleLogin"></LoginPage>
     </div>
 </template>
 
@@ -30,14 +30,14 @@ export default {
                 {
                     title: "Second Task",
                     description: "Second task is even more awesome.",
-                    status: 3,
+                    status: 2,
                     editTitle: false,
                     editDesc: false
                 },
                 {
                     title: "Third Task",
                     description: "Second task is even more awesome.",
-                    status: 4,
+                    status: 3,
                     editTitle: false,
                     editDesc: false
                 },
@@ -65,12 +65,13 @@ export default {
                     token: localStorage.getItem('accessToken')
                 }
             }).then(response => {
-                
-                this.todos = response.data
-                this.todos.forEach(el => {
-                    el.editTitle = false,
-                    el.editDesc = false
-                });
+                if(response.data.length > 0) {
+                    this.todos = response.data
+                    this.todos.forEach(el => {
+                        el.editTitle = false,
+                        el.editDesc = false
+                    });
+                }
             })
             .catch(err => {
                 alert(err)

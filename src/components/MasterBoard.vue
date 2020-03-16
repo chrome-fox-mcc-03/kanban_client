@@ -12,6 +12,7 @@
                     </div>
                 </div>
             </div>
+            
             <WorkColumn v-for="stat in statii" :key="stat.id" :status="stat" :todos="todos" v-on:update-task="updateTask()" v-on:add-task="addTask()" v-on:delete-task="deleteTask()"></WorkColumn>
             
         </div>
