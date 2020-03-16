@@ -1,0 +1,169 @@
+body {
+    /* background-color: #b63434; */
+    height: 100vh;
+}
+
+#landing-page {
+    background-image: url(./img/asset1.svg);
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#dashboard {
+    background-color: #004E8C;
+    height: 100vh;
+}
+
+.landing-items {
+    height: 100vh;
+    display: flex;
+    /* justify-content: space-around; */
+    align-items: center;
+    /* flex-wrap: wrap; */
+}
+
+.kiri {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #0AA4C1; */
+    text-align: center;
+    width: 100%;
+    height: 50%;
+}
+
+.kiri form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.field {
+    width: 50%;
+}
+
+.field button {
+    background-color: #0AA4C1;
+}
+
+.kanan {
+    width: 40%;
+    height: 70%;
+
+}
+
+.nav-menu {
+    padding: 10px 15px;
+    background-color: white;
+}
+
+.header {
+    background-color: #0AA4C1;
+    color: #f4f4f4;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.layout-column {
+    /* background: whitesmoke; */
+    margin-bottom: 5px;
+    /* margin-right: 10px; */
+    height: 70vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.layout-box {
+    display: flex;
+    max-height: 50vh;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+    width: 20vw;
+    margin-bottom: 10px;
+}
+
+.list-content {
+    /* opacity: 0.5px; */
+    /* width: 100vw; */
+    margin-top: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box {
+    background-color: #f4f4f4;
+    width: 90%;
+    text-align: left;
+}
+
+.form-addTask {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+.form-addTask button{
+    margin-top: 5px;
+}
+
+.delete-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete {
+    margin-left: 20px;
+}
+
+.delete:hover {
+    color: tomato;
+}
+
+.footer-todo {
+    margin-top: 10px;
+    margin-bottom: 0;
+    /* background-color: darkcyan; */
+    display: flex;
+    flex-direction: row;
+    /* padding: 0 5px; */
+    justify-content: space-around;
+}
+
+.tombol {
+    cursor: pointer;
+}
+
+.tombol:hover {
+    color: #0AA4C1;
+}
+
+.tombol-new {
+    cursor: pointer;
+}
+
+.tombol-new:hover {
+    color: #0AA4C1;
+}
+
+@media screen and (max-width: 768px) {
+    .layout-box {
+        width: 100vw;
+        height: 100%;
+    }
+
+    #dashboard {
+        height: 100%;
+    }
+}
