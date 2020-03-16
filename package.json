@@ -1,0 +1,30 @@
+{
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^3.1.1",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "vue": "^2.6.11",
+    "vue-google-login": "^2.0.3",
+    "vue-google-signin-button": "^1.0.4",
+    "vue-hot-reload-api": "^2.3.4"
+  },
+  "name": "kanban_client",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryanadhi/kanban_client.git"
+  },
+  "author": "ryanadhi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryanadhi/kanban_client/issues"
+  },
+  "homepage": "https://github.com/ryanadhi/kanban_client#readme"
+}

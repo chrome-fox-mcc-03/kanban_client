@@ -1,0 +1,143 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* background-color: #21D4FD
+    background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%); */
+    background-image: url("https://assets.website-files.com/5bfd1275cc56e15ce750b18e/5c289afb9a15758624893a33_11.%20Fuchsia.jpg");
+    background-size: 100%;
+}
+
+#page-register {
+    padding: 2px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.6)	;
+}
+
+#page-login {
+    padding: 2px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.6)	;
+}
+
+#page-landing {
+    padding: 26px;
+    display: flex;
+    flex-direction: row;
+    height: 80vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+}
+
+#illustration {
+    width: 45vw;
+    margin: 10px;
+    padding-top: 50px;
+
+}
+
+.container-landing {
+    background-color: rgba(255, 255, 255, 0.4)	;
+    display: flex;
+    flex-direction: column  ;
+    justify-content: center;
+    height: 480px;
+    width: 640px;
+    margin: auto;
+    padding: 50px;
+    font-size: 20px;
+}
+
+.container {
+    display: flex;
+    height: 72vh;
+    width: 100vw;
+    justify-content: space-evenly;
+}
+
+.col.s3 {
+    display: flex;
+    flex-direction: column;
+    margin-top: 6px;
+}
+
+.col.s2 {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.column-container {
+    margin: 4px;
+    padding: 4px;
+    width: 24vw;
+}
+
+.column-body {
+    padding-left: 12px;
+    overflow-y: auto;
+    height: 90%;
+}
+
+.column-header {
+    font-size: 22px;
+}
+
+#btn-create{
+    position: fixed;
+    bottom: 4px;
+    right: 4px;
+}
+
+.waves-effect.waves-yellow.btn-small {
+    background-color: tomato;
+}
+
+.waves-effect.waves-teal.btn-small {
+    background-color: limegreen
+}
+
+.nav-wrapper {
+    background-image: linear-gradient(90deg, #020024 0%, #090979 35%, #00d4ff 100%);
+}
+
+#btn-register {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#btn-login {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#btn-logout {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#logo {
+    padding-left: 8px;
+    padding-top: 8px;
+}
+
+div.row {
+    margin: 0;
+    padding: 0;
+}
+
+.input-field.col.s6 {
+    margin: 0;
+    width : 25% ;
+}
+
+.error-message {
+    text-align: center;
+    background-color: #FFE53B;
+    background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 74%);
+    width: 100vw;
+    font-size: 16px;
+}
