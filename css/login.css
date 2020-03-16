@@ -1,0 +1,100 @@
+.login_container, .sign_up_container {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 'text form';
+    height: 100vh;
+    background-color: rgb(246, 190, 190);
+}
+
+#login_left, #sign_up_left {
+    grid-area: text;
+    background-color: rgb(241, 211, 150);
+    display:flex;
+    flex-direction: column;
+    align-items: flex-end;
+    /* justify-content: center; */
+    padding: 5vw;
+    font-size: 2vh;
+}
+
+#login_text, #sign_up_text {
+    margin-top: 33vh;
+    font-size: 3vw;
+}
+
+#signup_container {
+    display: flex;
+    /* background-color: red; */
+    align-items: center;
+    height: 4vh;
+}
+
+#signup_button, #signin_button {
+    /* margin-left: 0.5vw; */
+    width: 4vw;
+    height: 4vh;
+    border: solid 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#signup_button:hover {
+        border: 1px solid rgb(85, 114, 85);
+        background-color: rgb(85, 114, 85);
+        color: rgb(241, 211, 150);
+}
+
+#signin_button:hover {
+    border: 1px solid  rgb(241, 211, 150);
+    background-color: rgb(241, 211, 150);
+    color: rgb(85, 114, 85);
+}
+
+#login-right, #sign_up_right {
+    grid-area: form;
+    background-color: rgb(85, 114, 85);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5vw;
+}
+
+#sign_in_email, #sign_up_email {
+        width: 15vw;
+        height: 2vh;
+        /* border-radius: 30px; */
+        /* background-color: #222222; */
+        border: rgb(85, 114, 85) solid 1px;
+        color: rgb(85, 114, 85);
+        padding: 2vh;
+        font-size: 2vh;
+}
+
+#sign_up_name {
+    width: 15vw;
+    height: 2vh;
+    /* border-radius: 30px; */
+    /* background-color: #222222; */
+    border: rgb(85, 114, 85) solid 1px;
+    color: rgb(85, 114, 85);
+    padding: 2vh;
+    font-size: 2vh;
+}
+
+#sign_in_password, #sign_up_password {
+    width: 15vw;
+    height: 2vh;
+    /* border-radius: 30px; */
+    /* background-color: #222222; */
+    border: #222222 solid 1px;
+    color: #222222;
+    padding: 2vh;
+    font-size: 2vh;
+}
+
+#sign_in_header, #sign_up_header {
+    font-size: 3vw;
+    color: rgb(241, 211, 150);
+}
