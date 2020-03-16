@@ -1,13 +1,25 @@
 <template>
   <div>
     <form @submit.prevent="formAddTask">
-      <label for>Title</label>
-      <input type="text" v-model="title" />
-      <br />
-      <label for>Description</label>
-      <input type="text" v-model="description" />
-      <br />
-      <button>Add</button>
+      <div class="form-group">
+        <label>Title</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter title"
+          v-model="title"
+        />
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter description"
+          v-model="description"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Add Task</button>
     </form>
     <loading :active.sync="isLoading" :can-cancel="false" :is-full-page="fullPage"></loading>
   </div>
@@ -73,6 +85,3 @@ export default {
   }
 };
 </script>
-
-<style>
-</style>

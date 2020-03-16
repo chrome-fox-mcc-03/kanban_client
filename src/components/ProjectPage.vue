@@ -30,9 +30,11 @@
       <div class="col-sm-4 col-md-3">
         <h6>Add new Project</h6>
         <form @submit.prevent="formSubmit">
-          <label>Project Name</label>
-          <input type="text" v-model="name" />
-          <button class="btn btn-secondary">Save</button>
+          <div class="form-group">
+            <label>Project Name</label>
+            <input type="text" class="form-control" placeholder="Enter project name" v-model="name" />
+          </div>
+          <button class="btn btn-primary">Save</button>
         </form>
       </div>
     </div>
@@ -125,11 +127,14 @@ export default {
     deleteProject(projectId) {
       this.isLoading = true;
       axios
-        .delete(`https://still-basin-93678.herokuapp.com/projects/${projectId}`, {
-          headers: {
-            access_token: localStorage.getItem("access_token")
+        .delete(
+          `https://still-basin-93678.herokuapp.com/projects/${projectId}`,
+          {
+            headers: {
+              access_token: localStorage.getItem("access_token")
+            }
           }
-        })
+        )
         .then(result => {
           this.isLoading = false;
           this.loadProjects();

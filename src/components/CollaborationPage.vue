@@ -24,9 +24,16 @@
       <div class="col-sm-3">
         <h6>Add Collaborator</h6>
         <form @submit.prevent="formSubmit">
-          <label>Collaborator Email</label>
-          <input type="text" v-model="email" />
-          <button class="btn btn-secondary">Add</button>
+          <div class="form-group">
+            <label>Collaborator email</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter email"
+              v-model="email"
+            />
+          </div>
+          <button class="btn btn-primary">Add Collaborator</button>
         </form>
       </div>
     </div>
@@ -59,11 +66,14 @@ export default {
     loadCollaboration() {
       this.isLoading = true;
       axios
-        .get(`https://still-basin-93678.herokuapp.com/collaborations/${this.projectId}`, {
-          headers: {
-            access_token: localStorage.getItem("access_token")
+        .get(
+          `https://still-basin-93678.herokuapp.com/collaborations/${this.projectId}`,
+          {
+            headers: {
+              access_token: localStorage.getItem("access_token")
+            }
           }
-        })
+        )
         .then(({ data }) => {
           this.isLoading = false;
           this.collaborations = data;
