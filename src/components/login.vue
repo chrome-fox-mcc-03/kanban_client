@@ -30,6 +30,12 @@
             <input type="password" placeholder="Password" v-model="passwordLogin" />
             <a href="#">Forgot your password?</a>
             <button>Sign In</button>
+           <g-signin-button
+            :params="googleSignInParams"
+             @success="onSignInSuccess"
+             @error="onSignInError">
+             Sign in with Google
+            </g-signin-button>
           </form>
         </div>
       </article>
@@ -37,10 +43,12 @@
 
 <script>
 import axios from 'axios'
+import GSignInButton from 'vue-google-signin-button'
 export default {
     name : 'Login',
-    props : {
-    }, 
+    components: {
+            GSignInButton
+        }, 
     data() {
         return {
             name : '',
@@ -48,7 +56,10 @@ export default {
             password : '',
             emailLogin : '',
             passwordLogin : '',
-            signUp: false
+            signUp: false,
+            googleSignInParams: {
+              client_id: '572723180428-759mrmtuddaipef9u0bv9vneo46ap6nb.apps.googleusercontent.com'
+            }
         }
     },
     methods : {
@@ -61,13 +72,33 @@ export default {
               password : this.passwordLogin
             }
           })
-                .then(({data}) => {
+              .then(({data}) => {
                   localStorage.setItem("token", data.token)
                   this.emailLogin = ""
                   this.passwordLogin = ""
-                  this.$emit('loginSucess')
+                  this.$emit('loginSuccess')
                 })
               .catch(({err})=> console.log(err.response))
+        },
+        onSignInSuccess(googleUser) {
+            const idtoken = googleUser.getAuthResponse().id_token;
+            axios({
+                method: 'POST',
+                url: 'http://localhost:3000/google',
+                data: {
+                  idtoken
+                }
+              })
+              .then(res => {
+                localStorage.setItem('token', res.data.token)
+                this.$emit('loginSuccess')
+              })
+              .catch(err => {
+                console.log(err)
+              })
+          },
+        onSignInError(error) {
+            console.log('OH NOES', error)
         },
         register(){
           axios({
@@ -286,6 +317,20 @@ form {
     z-index: 10;
   }
 }
-  
+
+.g-signin-button {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 3px;
+  background-color: #3c82f7;
+  color: #fff;
+  box-shadow: 0 3px 0 #0f69ff;
+  width: 100%;
+  text-align: center;
+  height: 2rem;
+}
+.g-signin-button:hover{
+  cursor: pointer;
+}
 
 </style>

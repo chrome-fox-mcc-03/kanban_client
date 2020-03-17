@@ -1,11 +1,8 @@
 <template>
     <div id="main">
-        <nav v-if="!login" class="navbar navbar-light bg-light">
-            <button class="btn btn-primary navbar-brand home">Home</button>
-        </nav>
-        <nav v-else class="navbar navbar-light bg-light">
-            <button class="btn btn-primary navbar-brand home">Home</button>
-            <button class="btn btn-danger navbar-brand logout" @click="logout">Logout</button>
+        <nav class="navbar navbar-light bg-light">
+            <button class="btn btn-primary navbar-brand home" v-if="!checklogin">Home</button>
+            <button class="btn btn-danger navbar-brand logout" @click="logout" v-else-if="checklogin">Logout</button>
         </nav>
     </div>
 </template>
@@ -13,22 +10,34 @@
 <script>
 export default {
   name: 'Navbar',
-  props: { 
-
-  },
+  props: [
+      'login'
+  ],
   data(){
-      return {
-        login: false
+      return { 
+        projectId : localStorage.getItem('projectId'),
+        checklogin : this.login
       }
   },
   methods: {
-    loginProcess(){
-        this.login = true
-    },
     logout(){
         this.login = false
-        this.$emit('logout')
+        localStorage.clear()
+        this.$emit('logoutSuccess')
+    },
+    changeProject(){
+        localStorage.clear('projectId')
+    },
+    check (){
+        if(localStorage.getItem('token')) {
+          this.checklogin = true
+      }else{
+          this.checklogin = false
+      }
     }
+  },
+  created() {
+      this.check()
   }
 }
 </script>

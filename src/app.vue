@@ -1,17 +1,19 @@
 <template>
     <div>
-        <Navbar></Navbar>
+        <Navbar 
+        :login="login"
+        @logoutSuccess='logoutSuccess'
+        ></Navbar>
         <Login 
             v-if="currentPage == 'loginPage'" 
-            @loginSucess='loginSucess'
+            @loginSuccess='loginSuccess'
             ></Login>
-            <project-vue
+        <project-vue
             v-else-if="currentPage == 'dashboardPage'"
             @projectId='project'></project-vue>
         <kanbanBoardVue v-else-if="currentPage == 'taskPage'"></kanbanBoardVue>
     </div>
 </template>
-
 <script>
 import axios from 'axios'
 import Navbar from './components/navbar.vue'
@@ -22,7 +24,8 @@ export default {
     name: 'App',
   data(){
       return {
-          currentPage : 'loginPage'
+          currentPage : 'loginPage',
+          login : false
           };
   },
   components: {
@@ -41,11 +44,16 @@ export default {
               this.currentPage = 'loginPage'
           }
       },
-      loginSucess(){
+      loginSuccess(){
           this.currentPage = 'dashboardPage'
+          this.login = true
       },
       project(){
           this.currentPage = 'taskPage'
+      },
+      logoutSuccess(){
+          this.currentPage= 'loginPage'
+          this.login = false
       }
   },
   created() {
