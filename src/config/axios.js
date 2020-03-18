@@ -1,8 +1,7 @@
 import axios from 'axios';
 
-// const url = 'http://localhost:3000';
-
-const url = 'http://kanban-server-juleshwa.herokuapp.com'
+const url = 'https://kanban-server-juleshwa.herokuapp.com/';
+const localhost = 'http://localhost:3000';
 
 const instance = axios.create({
     baseURL: url
