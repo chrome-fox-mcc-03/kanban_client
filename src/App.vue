@@ -1,7 +1,12 @@
 <template>
   <div>
-    <app-header @onRegister="onRegister" @onLogin="onLogin" :appStatus="appStatus"></app-header>
-    <app-main :listData="listData" :taskData="taskData"></app-main>
+    <app-header
+      @onRegister="onRegister"
+      @onLogin="onLogin"
+      :appStatus="appStatus"
+      @onLogout="onLogout"
+    ></app-header>
+    <app-main :appStatus="appStatus" :listData="listData" :taskData="taskData"></app-main>
     <app-footer></app-footer>
   </div>
 </template>
@@ -54,7 +59,25 @@ export default {
         }
       })
         .then(response => {
+          localStorage.setItem("access_token", response.data.access_token);
           this.appStatus = true;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+
+    onLogout(value) {
+      this.appStatus = value;
+    },
+
+    onAddList(payload) {
+      axios({
+        method: "POST",
+        url: "/lists/addCategory"
+      })
+        .then(response => {
+          console.log(response);
         })
         .catch(err => {
           console.log(err);
@@ -100,7 +123,11 @@ export default {
         });
     }
   },
-  created() {}
+  created() {
+    if (localStorage.access_token) {
+      this.appStatus = true;
+    }
+  }
 };
 </script>
 

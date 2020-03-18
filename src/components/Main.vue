@@ -1,14 +1,14 @@
 <template>
   <main>
-    <main-list :listData="listData" :taskData="taskData"></main-list>
+    <main-list :listData="listData" :taskData="taskData" :appStatus="appStatus"></main-list>
   </main>
 </template>
 
 <script>
 import List from "./List";
 export default {
-  name: "main",
-  props: ["listData", "taskData"],
+  name: "Main",
+  props: ["appStatus", "listData", "taskData"],
   data() {
     return {
       message: `ini main area`

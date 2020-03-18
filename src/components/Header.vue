@@ -8,7 +8,7 @@
       @toLogout="toLogout"
     ></NavLeft>
     <!-- Navigation Right -->
-    <NavRight v-if="showNav"></NavRight>
+    <NavRight v-if="appStatus === true"></NavRight>
   </header>
 </template>
 
@@ -20,7 +20,6 @@ export default {
   props: ["appStatus"],
   data() {
     return {
-      showNav: false,
       registerPayload: {
         email: "",
         password: ""
@@ -45,13 +44,9 @@ export default {
       this.loginPayload.email = payload.email;
       this.loginPayload.password = payload.password;
       this.$emit("onLogin", this.loginPayload);
-
-      if (this.appStatus) {
-        this.showNav = true;
-      }
     },
     toLogout(value) {
-      this.showNav = value;
+      this.$emit("onLogout", value);
     }
   }
 };

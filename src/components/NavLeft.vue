@@ -56,6 +56,8 @@ export default {
       if (this.appStatus) {
         this.isLogout = false;
       }
+      this.input.email = "";
+      this.input.password = "";
     },
     login() {
       this.payload.email = this.input.email;
@@ -68,6 +70,7 @@ export default {
     logout() {
       this.input.email = "";
       this.input.password = "";
+      localStorage.removeItem("access_token");
       this.isLogout = true;
       this.$emit("toLogout", false);
     }
