@@ -1,19 +1,21 @@
 <template>
   <main>
-    <main-list></main-list>
+    <main-list :listData="listData" :taskData="taskData"></main-list>
   </main>
 </template>
 
 <script>
-import List from './List';
+import List from "./List";
 export default {
+  name: "main",
+  props: ["listData", "taskData"],
   data() {
     return {
       message: `ini main area`
     };
   },
   components: {
-    'main-list': List
+    "main-list": List
   }
 };
 </script>

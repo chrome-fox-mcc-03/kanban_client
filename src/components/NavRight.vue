@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'NavRight',
+  name: "NavRight",
   data() {
     return {};
   }

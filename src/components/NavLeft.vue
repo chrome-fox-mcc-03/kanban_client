@@ -1,6 +1,6 @@
 <template>
   <nav class="nav-left">
-    <form v-show="!isLogin" class="reg-log-form" @submit.prevent="reglogSubmit">
+    <form v-show="!appStatus" class="reg-log-form" @submit.prevent="reglogSubmit">
       <label for="email">EMAIL</label>
       <input
         type="email"
@@ -17,78 +17,59 @@
         placeholder="Type Your Password"
         v-model="input.password"
       />
-      <button
-        v-show="!isRegister"
-        @click.prevent="register"
-        class="nav-btn hover"
-      >
-        Register
-      </button>
-      <button v-if="isLogout" @click.prevent="login" class="nav-btn">
-        Login
-      </button>
+      <button v-show="!appStatus" @click.prevent="register" class="nav-btn hover">Register</button>
+      <button v-if="!appStatus" @click.prevent="login" class="nav-btn">Login</button>
     </form>
-    <button v-if="isLogin" @click.prevent="logout" class="nav-btn logout">
-      Logout
-    </button>
+    <button v-if="appStatus" @click.prevent="logout" class="nav-btn logout">Logout</button>
   </nav>
 </template>
 
 <script>
 export default {
-  name: 'NavLeft',
-  props: ['appStatus'],
+  name: "NavLeft",
+  props: ["appStatus"],
   data() {
     return {
-      isRegister: false,
-      isLogin: false,
       isLogout: true,
       input: {
-        email: '',
-        password: ''
+        email: "",
+        password: ""
       },
       payload: {
-        email: '',
-        password: ''
+        email: "",
+        password: ""
       }
     };
   },
   components: {},
   methods: {
     reglogSubmit() {
-      if (!isRegister && !isLogin) {
+      if (!this.appStatus) {
         register();
-      }
-
-      if (isRegister) {
         login();
       }
     },
     register() {
       this.payload.email = this.input.email;
       this.payload.password = this.input.password;
-      this.$emit('toRegister', this.payload);
-
-      if (this.appStatus === 'registered') {
-        this.isRegister = true;
+      this.$emit("toRegister", this.payload);
+      if (this.appStatus) {
+        this.isLogout = false;
       }
     },
     login() {
       this.payload.email = this.input.email;
       this.payload.password = this.input.password;
-      this.$emit('toLogin', this.payload);
-
-      if (this.appStatus === 'login') {
-        this.isLogin = true;
+      this.$emit("toLogin", this.payload);
+      if (this.appStatus) {
         this.isLogout = false;
       }
     },
     logout() {
-      this.input.email = '';
-      this.input.password = '';
-      this.isRegister = false;
-      this.isLogin = false;
+      this.input.email = "";
+      this.input.password = "";
       this.isLogout = true;
+      this.$emit("toLogout", false);
     }
   }
 };
@@ -105,7 +86,7 @@ nav {
 }
 
 .nav-btn {
-  font-family: 'Raleway', Arial, sans-serif;
+  font-family: "Raleway", Arial, sans-serif;
   border: none;
   background-color: #20638f;
   border-radius: 5px;
@@ -129,7 +110,7 @@ nav {
 }
 
 .nav-btn:after {
-  content: '';
+  content: "";
   position: absolute;
   height: 0;
   left: 0;
@@ -142,7 +123,7 @@ nav {
 }
 
 .nav-btn:before {
-  content: '';
+  content: "";
   position: absolute;
   height: 100%;
   width: 100%;

@@ -5,27 +5,29 @@
       @toRegister="toRegister"
       :appStatus="appStatus"
       @toLogin="toLogin"
+      @toLogout="toLogout"
     ></NavLeft>
     <!-- Navigation Right -->
-    <NavRight></NavRight>
+    <NavRight v-if="showNav"></NavRight>
   </header>
 </template>
 
 <script>
-import NavLeft from './NavLeft';
-import NavRight from './NavRight';
+import NavLeft from "./NavLeft";
+import NavRight from "./NavRight";
 export default {
-  name: 'Header',
-  props: ['appStatus'],
+  name: "Header",
+  props: ["appStatus"],
   data() {
     return {
+      showNav: false,
       registerPayload: {
-        email: '',
-        password: ''
+        email: "",
+        password: ""
       },
       loginPayload: {
-        email: '',
-        password: ''
+        email: "",
+        password: ""
       }
     };
   },
@@ -37,12 +39,19 @@ export default {
     toRegister(payload) {
       this.registerPayload.email = payload.email;
       this.registerPayload.password = payload.password;
-      this.$emit('onRegister', this.registerPayload);
+      this.$emit("onRegister", this.registerPayload);
     },
     toLogin(payload) {
       this.loginPayload.email = payload.email;
       this.loginPayload.password = payload.password;
-      this.$emit('onLogin', this.loginPayload);
+      this.$emit("onLogin", this.loginPayload);
+
+      if (this.appStatus) {
+        this.showNav = true;
+      }
+    },
+    toLogout(value) {
+      this.showNav = value;
     }
   }
 };
