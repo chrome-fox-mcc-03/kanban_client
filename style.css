@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap');
+
+body {
+    /* padding: 6px; */
+    background-color: #1d1d1d;
+}
+.logo-head {
+    font-family: 'Permanent Marker', cursive;
+    margin: 2px 6px;
+}
+.logo {
+    color: #a11043;
+    font-family: 'Permanent Marker', cursive;
+}
+.bar-item {
+    margin: 2px 6px;
+}
+#logout {
+    margin-left: 12px;
+}
+
+#navbar {
+    position: absolute;
+    color: whitesmoke;
+    width: 5vw;
+    height: 100%;
+    /* padding: 12px; */
+    top: 0;
+    left: 0;
+    /* border-right: tomato solid 6px; */
+}
+#daleman {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f1f2f6;
+    border: 0 6px solid #444d55;
+    border-radius: 6px;
+    color: #444d55;
+    font-weight: bold;
+    margin: 0.5vw;
+    width: 96vw;
+    /* padding: 24px; */
+    margin-left: 1vw;
+    margin-right: 1vw;
+    padding: 6px;
+}
+
+#login-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1f2f6;
+    min-height: 50vw;
+}
+
+#master-board {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 4vw;
+    /* margin-left: 2vw; */
+    margin-bottom: 4vw;
+    color: whitesmoke;
+}
+
+#login-page h1 {
+    margin: 36px;
+}
+
+.work-column {
+    background-color: #f1f2f6;
+    margin: 12px;
+    border-radius: 6px;
+    width: 22vw;
+}
+
+.column-header {
+    display: flex;
+    flex-direction: row;
+    background-color: #f1f2f6;
+    color: #444d55;
+    padding: 6px;
+    margin: 6px;
+}
+
+.column-unused {
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    padding: 6px;
+    margin: 6px;
+    justify-content: left;
+}
+.column-content {
+    height: 65vh;
+    overflow-y: scroll;
+}
+
+.container {
+    background-color: red!important;
+}
+.second-column {
+    display: flex;
+    flex-direction: column;
+}
+.first-column {
+    margin: 6px;
+    padding: 6px 10px;
+    background-color: teal;
+    color: white;
+
+}
+
+.item {
+    margin: 6px;
+    padding: 6px 0;
+    background-color: white;
+    height: auto;
+    border-width: 50%;
+    color: #444d55;
+    width: 20vw;
+    list-style-type: none;
+}
+.add-new-task {
+    margin: 6px;
+    padding: 6px 0;
+    background-color: white;
+    height: auto;
+    border-width: 50%;
+    color: #444d55;
+    width: 20vw;
+    list-style-type: none;
+}
+
+.task-title {
+    margin: 6px 0;
+    padding: 6px;
+    border-left: #fd3279 6px solid;
+    font-weight: bold;
+}
+.task-description {
+    background-color: #f1f2f6;
+    font-size: smaller;
+    height: 10vh;
+    border-radius: 6px;
+    color: #636880;
+    margin: 6px;
+    padding: 6px;
+    overflow-y: scroll;
+
+}
+.box {
+    justify-content: start;
+    /* text-align: start; */
+}
+.list-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.add-button {
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 6px;
+    width: 25px;
+    font-size: 24px;
+    color: #5e6368;
+    border-radius: 50%;
+}
+.g-signin-button {
+    /* This is where you control how the button looks. Be creative! */
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 3px;
+    background-color: #3c82f7;
+    color: #fff;
+    box-shadow: 0 3px 0 #0f69ff;
+  }
+
+.add-button:hover {
+    color: #7c858f;
+    cursor: pointer;
+}
+
+.g-signin-button:hover {
+    background-color: #7dabfa;
+    cursor: pointer;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
+
+.title-editor {
+    border: none;
+    margin: 6px 0;
+    padding: 6px;
+    border-left: #fd3279 6px solid;
+    outline: none;
+    border-bottom: 2px solid rgb(236, 8, 122);
+    font-weight: bold;
+}
+
+.progress {
+    background-color: springgreen;
+    color: white;
+    margin: 6px 4px;
+    padding: 4px;
+    height: 25px;
+    font-weight: bold;
+}
+.regress {
+    background-color: blue;
+    color: white;
+    margin: 6px 4px;
+    padding: 4px;
+    height: 25px;
+    font-weight: bold;
+    display: flex;
+    font-size: 0.75rem;
+    border-radius: 0.25rem;
+}
+.delete-task {
+    background-color: darkred;
+    color: white;
+    margin: 6px 4px;
+    padding: 4px;
+    height: 25px;
+    font-weight: bold;
+    display: flex;
+    font-size: 0.75rem;
+    border-radius: 0.25rem;
+}
+
+.move {
+    display: flex
+}

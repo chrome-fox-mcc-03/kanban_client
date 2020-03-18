@@ -1,0 +1,27 @@
+{
+    "users": [
+        {
+            "id": 1, "email": "something@mail.com", "password": "secret"
+        },
+        {
+            "id": 2, "email": "naufal@mail.com", "password": "secret"
+        },
+        {
+            "id": 3, "email": "adam@mail.com", "password": "secret"
+        }
+    ],
+    "todo": [
+        {
+            "id": 1, "title": "Makan", "description": "Makan enak", "status": "Backlog"
+        },
+        {
+            "id": 2, "title": "Tidur", "description": "Tidur enak", "status": "Product"
+        },
+        {
+            "id": 3, "title": "Minum", "description": "Minum enak", "status": "Development"
+        },
+        {
+            "id": 4, "title": "Mandi", "description": "Mandi enak", "status": "Done"
+        }
+    ]
+}
