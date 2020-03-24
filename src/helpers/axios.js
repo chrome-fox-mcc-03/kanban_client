@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 const hitAPI = axios.create({
-  baseURL: "http://localhost:3000"
+  baseURL: "https://kanban-quest.herokuapp.com"
 });
 
 module.exports = hitAPI;

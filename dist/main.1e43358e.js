@@ -10309,7 +10309,7 @@ module.exports = require('./lib/axios');
 var axios = require("axios");
 
 var hitAPI = axios.create({
-  baseURL: "http://localhost:3000"
+  baseURL: "https://kanban-quest.herokuapp.com"
 });
 module.exports = hitAPI;
 },{"axios":"node_modules/axios/index.js"}],"../../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
@@ -16397,7 +16397,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40265" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46511" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
