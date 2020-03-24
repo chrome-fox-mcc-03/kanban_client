@@ -12,7 +12,7 @@
                 <h5 class="card-title text-center">to...</h5>
                 <div style="height:100%" class="d-flex justify-content-center">
                   <img
-                    src="./assets/shield.png"
+                    src="../../assets/shield.png"
                     alt="landing-image"
                     width="200px"
                   />
@@ -29,7 +29,6 @@
                       id="register-email"
                       class="form-control"
                       placeholder="Email address"
-                      required
                       autofocus
                       v-model="registerEmail"
                     />
@@ -42,7 +41,6 @@
                       id="register-username"
                       class="form-control"
                       placeholder="Username"
-                      required
                       autofocus
                       v-model="registerUsername"
                     />
@@ -55,7 +53,6 @@
                       id="register-password"
                       class="form-control"
                       placeholder="Password"
-                      required
                       v-model="registerPassword"
                     />
                     <label for="register-password">Password</label>
@@ -94,9 +91,9 @@
                 <h5 class="card-title text-center">to...</h5>
                 <div style="height:100%" class="d-flex justify-content-center">
                   <img
-                    src="./assets/shield.png"
                     alt="landing-image"
                     width="200px"
+                    src="../../assets/shield.png"
                   />
                 </div>
                 <h5 class="card-title text-center">
@@ -110,7 +107,6 @@
                       id="login-email"
                       class="form-control"
                       placeholder="Email address"
-                      required
                       v-model="loginEmail"
                     />
                     <label for="login-email">Email address</label>
@@ -122,7 +118,6 @@
                       id="login-password"
                       class="form-control"
                       placeholder="Password"
-                      required
                       v-model="loginPassword"
                     />
                     <label for="login-password">Password</label>

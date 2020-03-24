@@ -1,17 +1,17 @@
 <template>
   <div class="card kanban">
-    <div class="card-header">
-      <div class="row justify-content-between d-flex px-2">
-        <div>
-          <h5>Add a new task</h5>
-        </div>
-        <div>
-          <i class="fas fa-times" @click="closeAdd"></i>
+    <form @submit.prevent="createTask">
+      <div class="card-header">
+        <div class="row justify-content-between d-flex px-2">
+          <div>
+            <h5>Add a new task</h5>
+          </div>
+          <div>
+            <i class="fas fa-times" @click="closeAdd"></i>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="card-body pt-1 pb-2">
-      <form @submit.prevent="createTask">
+      <div class="card-body pt-1 pb-2">
         <div class="form-group">
           <label for="add-title">Title</label>
           <input
@@ -32,13 +32,11 @@
             rows="3"
           ></textarea>
         </div>
-        <input
-          type="submit"
-          class="btn btn-primary btn-block"
-          value="Add"
-        >
-      </form>
-    </div>
+      </div>
+      <button class="btn btn-primary btn-block" type="submit">
+        <i class="fas fa-folder-plus"></i>
+      </button>
+    </form>
   </div>
 </template>
 
@@ -60,8 +58,7 @@ export default {
         title: this.title,
         description: this.description
       });
-      this.title = null,
-      this.description = null
+      (this.title = null), (this.description = null);
     }
   }
 };

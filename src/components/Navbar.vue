@@ -1,17 +1,18 @@
 <template>
   <nav
-    class="navbar navbar-custom fixed-top justify-content-between align-items-centers pr-0"
+    class="navbar navbar-custom justify-content-between align-items-centers pr-0"
   >
     <div class="row" style="width: 100%;">
       <div class="col d-flex justify-content-start align-items-start">
         <button type="button" class="btn btn-danger btn-sm" @click="logOut">
           Log Out
+          <i class="fas fa-sign-out-alt"></i>
         </button>
       </div>
       <div class="col justify-content-center d-flex">
         <a class="navbar-brand">
           <img
-            src="/assets/shield.png"
+          src="../../assets/shield.png"
             width="30"
             height="30"
             alt="kanban-quest-logo"

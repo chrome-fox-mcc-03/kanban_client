@@ -1,33 +1,36 @@
 <template>
   <div>
-    <LandingPage
-      v-show="!isLoggedIn"
-      @create-new-user="createNewUser"
-      @login-user="loginUser"
-      @google-signin="gSignIn"
-      @reset-register="resetRegister"
-      :isRegistered="isRegistered"
-    ></LandingPage>
-    <main v-show="isLoggedIn">
-      <Navbar @log-out="logOut"></Navbar>
-      <KanbanBoard
-        :tasks="tasks"
-        :categories="categories"
-        @delete-task="deleteTask"
-        @next-task="nextTask"
-        @back-task="backTask"
-        @create-task="createTask"
-        @edit-task="editTask"
-      ></KanbanBoard>
-    </main>
+    <Loading v-if="isLoading"></Loading>
+    <div>
+      <LandingPage
+        v-show="!isLoggedIn"
+        @create-new-user="createNewUser"
+        @login-user="loginUser"
+        @google-signin="gSignIn"
+      ></LandingPage>
+      <main v-show="isLoggedIn">
+        <Navbar @log-out="logOut"></Navbar>
+        <KanbanBoard
+          :tasks="tasks"
+          :categories="categories"
+          @delete-task="deleteTask"
+          @next-task="nextTask"
+          @back-task="backTask"
+          @create-task="createTask"
+          @edit-task="editTask"
+        ></KanbanBoard>
+      </main>
+    </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import hitAPI from "./helpers/axios";
 import Navbar from "./components/Navbar";
 import KanbanBoard from "./components/KanbanBoard";
 import LandingPage from "./components/LandingPage";
+import Loading from "./components/Loading";
+import Swal from "sweetalert2";
 
 export default {
   name: "App",
@@ -36,196 +39,347 @@ export default {
       tasks: [],
       categories: [],
       isLoggedIn: false,
-      isRegistered: false
+      isRegistered: false,
+      isLoading: false,
+      Toast: Swal.mixin({
+        toast: true,
+        position: "bottom-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        onOpen: toast => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        }
+      })
     };
   },
   components: {
     Navbar,
     KanbanBoard,
-    LandingPage
+    LandingPage,
+    Loading
   },
   methods: {
     fetchData() {
-      axios({
-        method: "GET",
-        url: "https://lit-peak-87737.herokuapp.com/tasks",
-        headers: {
-          token: localStorage.getItem("token")
-        }
-      })
+      this.isLoading = true;
+      hitAPI
+        .get("/tasks", {
+          headers: {
+            token: localStorage.getItem("token")
+          }
+        })
         .then(({ data }) => {
           this.tasks = data.data;
         })
-        .catch(err => {
-          console.log(err);
+        .catch(() => {
+          this.Toast.fire({
+            icon: "error",
+            title: "Fetching data failed"
+          });
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     fetchCategories() {
-      axios({
-        method: "GET",
-        url: "https://lit-peak-87737.herokuapp.com/categories",
-        headers: {
-          token: localStorage.getItem("token")
-        }
-      })
+      this.isLoading = true;
+      hitAPI
+        .get("/categories", {
+          headers: {
+            token: localStorage.getItem("token")
+          }
+        })
         .then(({ data }) => {
           this.categories = data.data;
         })
-        .catch(err => {
-          console.log(err);
+        .catch(() => {
+          this.Toast.fire({
+            icon: "error",
+            title: "Fetching categories failed"
+          });
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     deleteTask(id) {
-      axios({
-        method: "DELETE",
-        url: `https://lit-peak-87737.herokuapp.com/tasks/${id}`,
-        headers: {
-          token: localStorage.getItem("token")
-        }
-      })
+      this.isLoading = true;
+      hitAPI
+        .delete(`/tasks/${id}`, {
+          headers: {
+            token: localStorage.getItem("token")
+          }
+        })
         .then(({ data }) => {
-          this.$vToastify.success(data.msg);
+          this.Toast.fire({
+            icon: "success",
+            title: data.msg
+          });
           this.fetchData();
         })
-        .catch(err => {
-          console.log(err);
+        .catch(({ response }) => {
+          if (response.data.msg.length > 0) {
+            response.data.msg.forEach(el => {
+              this.Toast.fire({
+                icon: "error",
+                title: el
+              });
+            });
+          } else {
+            this.Toast.fire({
+              icon: "error",
+              title: response.data.msg
+            });
+          }
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     nextTask(id) {
-      axios({
-        method: "POST",
-        url: `https://lit-peak-87737.herokuapp.com/tasks/${id}/next`,
-        headers: {
-          token: localStorage.getItem("token")
-        }
-      })
+      this.isLoading = true;
+      hitAPI
+        .post(
+          `/tasks/${id}/next`,
+          {},
+          {
+            headers: {
+              token: localStorage.getItem("token")
+            }
+          }
+        )
         .then(({ data }) => {
+          this.Toast.fire({
+            icon: "success",
+            title: data.msg
+          });
           this.fetchData();
         })
-        .catch(err => {
-          console.log(err);
+        .catch(({ response }) => {
+          this.Toast.fire({
+            icon: "error",
+            title: response.data.msg
+          });
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     backTask(id) {
-      axios({
-        method: "POST",
-        url: `https://lit-peak-87737.herokuapp.com/tasks/${id}/back`,
-        headers: {
-          token: localStorage.getItem("token")
-        }
-      })
+      this.isLoading = true;
+      hitAPI
+        .post(
+          `/tasks/${id}/back`,
+          {},
+          {
+            headers: {
+              token: localStorage.getItem("token")
+            }
+          }
+        )
         .then(({ data }) => {
+          this.Toast.fire({
+            icon: "success",
+            title: data.msg
+          });
           this.fetchData();
         })
-        .catch(err => {
-          console.log(err);
+        .catch(({ response }) => {
+          this.Toast.fire({
+            icon: "error",
+            title: response.data.msg
+          });
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     createTask(data) {
+      this.isLoading = true;
       let { title, description, CategoryId } = data;
-      axios({
-        method: "POST",
-        url: `https://lit-peak-87737.herokuapp.com/tasks`,
-        headers: {
-          token: localStorage.getItem("token")
-        },
-        data: {
-          title,
-          description,
-          CategoryId
-        }
-      })
+      hitAPI
+        .post(
+          `/tasks`,
+          {
+            title,
+            description,
+            CategoryId
+          },
+          {
+            headers: {
+              token: localStorage.getItem("token")
+            }
+          }
+        )
         .then(({ data }) => {
+          this.Toast.fire({
+            icon: "success",
+            title: data.msg
+          });
           this.fetchData();
         })
-        .catch(err => {
-          console.log(err);
+        .catch(({ response }) => {
+          if (response.data.msg.length > 0) {
+            response.data.msg.forEach(el => {
+              this.Toast.fire({
+                icon: "error",
+                title: el
+              });
+            });
+          } else {
+            this.Toast.fire({
+              icon: "error",
+              title: response.data.msg
+            });
+          }
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     editTask(data) {
+      this.isLoading = true;
       let { id, title, description } = data;
-      axios({
-        method: "PUT",
-        url: `https://lit-peak-87737.herokuapp.com/tasks/${id}`,
-        headers: {
-          token: localStorage.getItem("token")
-        },
-        data: {
-          title,
-          description
-        }
-      })
+      hitAPI
+        .put(
+          `/tasks/${id}`,
+          {
+            title,
+            description
+          },
+          {
+            headers: {
+              token: localStorage.getItem("token")
+            }
+          }
+        )
         .then(({ data }) => {
+          this.Toast.fire({
+            icon: "success",
+            title: data.msg
+          });
           this.fetchData();
         })
-        .catch(err => {
-          console.log(err);
+        .catch(({ response }) => {
+          if (response.data.msg.length > 0) {
+            response.data.msg.forEach(el => {
+              this.Toast.fire({
+                icon: "error",
+                title: el
+              });
+            });
+          } else {
+            this.Toast.fire({
+              icon: "error",
+              title: response.data.msg
+            });
+          }
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     createNewUser(data) {
+      this.isLoading = true;
       let { username, email, password } = data;
-      axios({
-        method: "POST",
-        url: "https://lit-peak-87737.herokuapp.com/register",
-        data: {
+      hitAPI
+        .post(`/register`, {
           email,
           password,
           username
-        }
-      })
-        .then(({ data }) => {
-          this.isRegistered = true;
         })
-        .catch(err => {
-          console.log(err);
+        .then(({ data }) => {
+          this.Toast.fire({
+            icon: "success",
+            title: "Successfully created a new account"
+          });
+          this.loginUser({
+            email,
+            password
+          });
+        })
+        .catch(({ response }) => {
+          response.data.msg.forEach(el => {
+            this.Toast.fire({
+              icon: "error",
+              title: el
+            });
+          });
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     loginUser(data) {
+      this.isLoading = true;
       let { email, password } = data;
-      axios({
-        method: "POST",
-        url: "https://lit-peak-87737.herokuapp.com/login",
-        data: {
+      hitAPI
+        .post(`/login`, {
           email,
           password
-        }
-      })
+        })
         .then(({ data }) => {
+          this.Toast.fire({
+            icon: "success",
+            title: "Successfully logged in "
+          });
           localStorage.setItem("token", data.token);
           this.isLoggedIn = true;
           this.fetchData();
           this.fetchCategories();
         })
-        .catch(err => {
-          console.log(err);
+        .catch(({ response }) => {
+          this.Toast.fire({
+            icon: "error",
+            title: response.data.msg
+          });
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     logOut() {
+      this.Toast.fire({
+        icon: "success",
+        title: "Successfully logged out"
+      });
       this.isLoggedIn = false;
       let auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(function() {});
     },
     gSignIn(data) {
+      this.isLoading = true;
       let { google_token } = data;
-      axios({
-        method: "POST",
-        url: "https://lit-peak-87737.herokuapp.com/gsignin",
-        headers: {
-          google_token
-        }
-      })
+      hitAPI
+        .post(
+          `/gsignin`,
+          {},
+          {
+            headers: {
+              google_token
+            }
+          }
+        )
         .then(({ data }) => {
+          this.Toast.fire({
+            icon: "success",
+            title: "Successfully logged in through google"
+          });
           localStorage.setItem("token", data.token);
           this.isLoggedIn = true;
           this.fetchData();
           this.fetchCategories();
         })
-        .catch(err => {
-          console.log(err);
+        .catch(({ response }) => {
+          this.Toast.fire({
+            icon: "error",
+            title: response.data.msg
+          });
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
-    },
-    resetRegister() {
-      this.isRegistered = false;
     }
   },
   created: function() {
@@ -240,14 +394,10 @@ export default {
 
 <style>
 body {
-  background: url("/assets/rpgbackground.gif") no-repeat center center fixed;
+  background: url("../assets/rpgbackground.gif") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
-}
-
-main {
-  margin-top: 80px;
 }
 </style>

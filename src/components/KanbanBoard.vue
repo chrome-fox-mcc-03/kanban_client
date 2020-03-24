@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid row">
+  <div class="container-fluid row mt-5">
     <KanbanColumn
       v-for="category in categories"
       :key="category.id"

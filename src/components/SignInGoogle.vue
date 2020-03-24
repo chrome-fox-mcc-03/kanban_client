@@ -4,11 +4,25 @@
     @success="onSignInSuccess"
     @error="onSignInError"
   >
+    <i class="fab fa-google mr-3"></i>
     Sign in with Google
   </g-signin-button>
 </template>
 
 <script>
+import Swal from "sweetalert2";
+const Toast = Swal.mixin({
+  toast: true,
+  position: "bottom-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  onOpen: toast => {
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  }
+});
+
 export default {
   name: "GSignIn",
   data() {
@@ -21,18 +35,16 @@ export default {
   },
   methods: {
     onSignInSuccess(googleUser) {
-      //   let id_token = googleUser.getAuthResponse().id_token;
-
-      const profile = googleUser.getBasicProfile();
-      let email = profile.zu;
-      let username = profile.vW + profile.wU;
       let google_token = googleUser.getAuthResponse().id_token;
       this.$emit("google-signin", {
         google_token
       });
     },
     onSignInError(err) {
-      console.log("OH NOES", err);
+      Toast.fire({
+        icon: "error",
+        title: "Failed connecting to google"
+      });
     }
   }
 };

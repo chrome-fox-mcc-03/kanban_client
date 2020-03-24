@@ -4,7 +4,7 @@
   >
     <div class="card column">
       <div
-        class="card-header d-flex justify-content-between"
+        class="card-header d-flex justify-content-center"
         style="background-color:#f67575; opacity: 0.85;"
       >
         <h5>{{ category }}</h5>

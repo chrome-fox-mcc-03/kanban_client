@@ -37,7 +37,9 @@
           />
         </div>
       </div>
-      <input type="submit" class="btn btn-primary btn-block" value="Edit" />
+      <button class="btn btn-primary btn-block" type="submit">
+        <i class="fas fa-edit"></i>
+      </button>
     </div>
   </form>
 </template>
@@ -81,11 +83,6 @@ export default {
 
 p {
   text-align: right;
-}
-
-button {
-  width: 25%;
-  background-color: #b5bdb9;
 }
 
 i {
