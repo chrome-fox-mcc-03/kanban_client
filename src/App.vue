@@ -74,7 +74,7 @@ export default {
             this.email = payload.email
             this.password = payload.password
             axios({
-                url:'http://localhost:3000/login',
+                url:'https://cryptic-retreat-74489.herokuapp.com/login',
                 method:'POST',
                 data:{
                     email:this.email,
@@ -118,7 +118,7 @@ export default {
             this.email = payload.email
             this.password = payload.password
             axios({
-                url:'http://localhost:3000/register',
+                url:'https://cryptic-retreat-74489.herokuapp.com/register',
                 method:'POST',
                 data:{
                     email:this.email,
@@ -161,7 +161,7 @@ export default {
 
             axios({
                 method:'POST',
-                url:'http://localhost:3000/todos',
+                url:'https://cryptic-retreat-74489.herokuapp.com/todos',
                 data: {
                     name_box,
                     description,
@@ -199,7 +199,7 @@ export default {
             let token = this.token
             axios({
                 method:'GET',
-                url:`http://localhost:3000/todos/${userId}`,
+                url:`https://cryptic-retreat-74489.herokuapp.com/todos/${userId}`,
                 headers: {
                     token
                 }
@@ -225,7 +225,7 @@ export default {
             let token = this.token
             axios({
                 method:'DELETE',
-                url:`http://localhost:3000/todos/${todoId}`,
+                url:`https://cryptic-retreat-74489.herokuapp.com/todos/${todoId}`,
                 headers: {
                     token
                 }
@@ -248,7 +248,7 @@ export default {
             let {todoId,description} = payload
             axios({
                 method: 'PUT',
-                url:`http://localhost:3000/todos/${todoId}`,
+                url:`https://cryptic-retreat-74489.herokuapp.com/todos/${todoId}`,
                 headers: {
                     token
                 },
@@ -276,7 +276,7 @@ export default {
             let {id} = data
             axios ({
                 method: 'PUT',
-                url: `http://localhost:3000/todos/${id}`,
+                url: `https://cryptic-retreat-74489.herokuapp.com/todos/${id}`,
                 headers: {
                     token: localStorage.getItem('token')
                 },
@@ -296,7 +296,7 @@ export default {
             let {id} = data
             axios ({
                 method: 'PUT',
-                url: `http://localhost:3000/todos/${id}`,
+                url: `https://cryptic-retreat-74489.herokuapp.com/todos/${id}`,
                 headers: {
                     token: localStorage.getItem('token')
                 },
@@ -316,7 +316,7 @@ export default {
             let {inputAddLabel,selectColorLabel,todoId} = payload
             axios({
                 method: 'POST',
-                url:`http://localhost:3000/label/${todoId}`,
+                url:`https://cryptic-retreat-74489.herokuapp.com/label/${todoId}`,
                 data: {
                     inputAddLabel,
                     selectColorLabel
@@ -341,7 +341,7 @@ export default {
             let token = this.token
             axios({
                 method: 'DELETE',
-                url:`http://localhost:3000/label/${id}`,
+                url:`https://cryptic-retreat-74489.herokuapp.com/label/${id}`,
                 headers:{
                     token
                 }
@@ -361,7 +361,7 @@ export default {
         loginGoogle(id_token) {
             this.loading = true
             axios({
-                url:'http://localhost:3000/loginGoogle',
+                url:'https://cryptic-retreat-74489.herokuapp.com/loginGoogle',
                 method:'POST',
                 data:{
                     id_token,
