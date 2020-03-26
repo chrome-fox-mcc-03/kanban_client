@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="sidebar">
-      <b-form id="invite-user" @submit.prevent="invite">
+      <b-form v-if="mainPage === 'tasks'" id="invite-user" @submit.prevent="invite">
         <b-form-group
             label="Invite Others"
             label-for="select-user"
@@ -33,6 +33,9 @@ export default {
           { value: 'id-4', text: 'anoa'}
         ]
     }
+  },
+  props: {
+    mainPage: String
   },
   methods: {
     invite (){

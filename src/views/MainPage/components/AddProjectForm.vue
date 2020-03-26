@@ -34,6 +34,7 @@ export default {
   methods: {
     onSubmit() {
       console.log(this.projectName)
+      this.$emit('addProject', this.projectName)
     },
     onReset() {
       this.form.email = ''

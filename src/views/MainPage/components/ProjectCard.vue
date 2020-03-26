@@ -1,13 +1,12 @@
 <template>
   <b-col id="project-card" cols="6">
       <b-card
-        header="Project"
+        :header="`${project.id}`"
         header-tag="header"
-        title="Project Name"
+        :title="project.name"
         border-variant="warning"
       >
-        <b-card-text>Project Description</b-card-text>
-        <b-button @click.prevent="chooseProject" variant="warning">Choose Project</b-button>
+        <b-button @click.prevent="chooseProject(project.id)" variant="warning">Choose Project</b-button>
       </b-card>
   </b-col>
 </template>
@@ -20,10 +19,12 @@ export default {
 
     }
   },
-  
+props: {
+  project: Object
+},
   methods: {
-    chooseProject () {
-      console.log('masook')
+    chooseProject (projectId) {
+      this.$emit('chooseProject', projectId)
     }
   }
 
