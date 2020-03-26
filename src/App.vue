@@ -7,26 +7,28 @@
         @registerPage="registerPage"
     ></navbar>
     <loading
-        v-if="loading"
+        v-if="loading || page === 'loading'"
     ></loading>
     <register-page
-        v-if="!loading && !userlogin && page==='register'"
+        v-if="!loading && !userlogin && page === 'register'"
         :message="message"
         @register="register"
     ></register-page>
     <login-page
-        v-else-if="!loading && !userlogin && page==='login'"
+        v-else-if="!loading && !userlogin && page === 'login'"
         :message="message"
         @login="login"
     ></login-page>
     <dashboard-container
-        v-if="!loading && userlogin && page==='dashboard'"
+        v-if="!loading && userlogin && page === 'dashboard'"
         :categories="categories"
         :prioritylist="prioritylist"
         :items="items"
         :storage="storage"
         @create="create"
         @fetchItems="fetchItems"
+        @submitEdit="submitEdit"
+        @deleteItem="deleteItem"
     ></dashboard-container>
 </div>
 </template>
@@ -41,14 +43,21 @@ import Dashboard from './components/dashboard-container';
 import LoginPage from './components/login-page';
 
 export default {
+    computed: {
+        items: function() {
+            return this.fetchedItems
+        }
+    },
     data() {
         return {
             appName: "kanban-app",
+            // serverUrl: "http://localhost:3000",
+            serverUrl: "https://sleepy-cliffs-63071.herokuapp.com",
             page: "register",
             loading: false,
             userlogin: false,
             message: '',
-            items: [],
+            fetchedItems: [],
             storage: {},
             categories: ['Backlog', 'Product', 'Development', 'Done'],
             prioritylist: ["Task", "Important", "Urgent", "Done"],
@@ -63,13 +72,9 @@ export default {
     },
     methods: {
         create(obj) {
-            console.log(obj);
-            // date: "2021-12-31"
-            // description: "testing 02"
-            // priority: "Urgent"
             this.loading = true;
             axios({
-                url: `http://localhost:3000/item`,
+                url: `${this.serverUrl}/item`,
                 method: `POST`,
                 data: {
                     description: obj.description,
@@ -81,7 +86,6 @@ export default {
                 }
             })
             .then(result => {
-                console.log(result.data);
                 this.fetchItems();
             })
             .catch(err => {
@@ -96,7 +100,7 @@ export default {
             this.loading = true;
             this.message = '';
             axios({
-                url: "http://localhost:3000/register",
+                url: `${this.serverUrl}/register`,
                 method: "POST",
                 data: obj
             })
@@ -107,9 +111,9 @@ export default {
                 this.storage.email = result.data.email;
                 localStorage.setItem(this.appName, JSON.stringify(this.storage));
                 this.userlogin = true;
+                this.page = 'dashboard'
             })
             .catch(err => {
-                console.log(err);
                 this.page = 'register';
             })
             .finally(_ => {
@@ -120,15 +124,11 @@ export default {
             this.loading = true;
             this.message = '';
             axios({
-                url: 'http://localhost:3000/login',
+                url: `${this.serverUrl}/login`,
                 method: "POST",
                 data: obj,
             })
             .then(result=> {
-                // token: ""
-                // name: "test01"
-                // avaurl: "https://api.adorable.io/avatars/40/test01@mail.com.png"
-                // email: "test01@mail.com"
                 this.storage.access_token = result.data.token;
                 this.storage.name = result.data.name;
                 this.storage.avaurl = result.data.avaurl;
@@ -139,7 +139,6 @@ export default {
                 this.page = 'dashboard';
             })
             .catch(err => {
-                // console.log(err.response);
                 this.page = 'login';
             })
             .finally(_ => {
@@ -154,7 +153,7 @@ export default {
             if (storage) {
                 token = storage.access_token;
                 axios({
-                    url: `http://localhost:3000/cekLogin`,
+                    url: `${this.serverUrl}/cekLogin`,
                     method: `GET`,
                     headers: {
                         token,
@@ -171,7 +170,6 @@ export default {
                     this.page = 'dashboard';
                 })
                 .catch(err => {
-                    console.log('err');
                     this.page = 'register';
                 })
                 .finally(_ => {
@@ -196,24 +194,88 @@ export default {
         fetchItems() {
             this.loading = true;
             axios({
-                url: `http://localhost:3000/item`,
+                url: `${this.serverUrl}/item`,
                 method: `GET`,
                 headers: {
                     token: this.storage.access_token,
                 }
             })
-            .then(result => {
-                console.log(result.data);
-                this.items = result.data;
-            })
-            .catch(err => {
-                console.log(err);
-            })
-            .finally(_ => {
-                this.loading = false;
-                console.log(this.items);
-            });
+                .then(result => {
+                    // console.log(result.data);
+                    this.fetchedItems = result.data;
+                })
+                .catch(err => {
+                    console.log(err.response);
+                })
+                .finally(_ => {
+                    this.loading = false;
+                    // console.log(this.items);
+                });
         },
+        submitEdit(editObj) {
+            // console.log(editObj)
+            const { id } = editObj;
+            let body = {...editObj}
+            delete body.id;
+            this.loading = true;
+            // console.log('edit', id, body)
+            axios({
+                url: `${this.serverUrl}/item/${id}`,
+                method: 'PUT',
+                headers: {
+                    token: this.storage.access_token
+                },
+                data: {...body}
+            })
+                .then(_ => {
+                    return axios({
+                        url: `${this.serverUrl}/item`,
+                        method: `GET`,
+                        headers: {
+                            token: this.storage.access_token,
+                        }
+                    })
+                })
+                .then(result => {
+                    // console.log(result.data);
+                    this.fetchedItems = result.data;
+                })
+                .catch(err => {
+                    console.log(err.response)
+                })
+                .finally(_ => {
+                    this.loading = false;
+                })
+        },
+        deleteItem(id) {
+            this.loading = true;
+            axios({
+                url: `${this.serverUrl}/item/${id}`,
+                method: 'DELETE',
+                headers: {
+                    token: this.storage.access_token
+                }
+            })
+                .then(_ => {
+                    return axios({
+                        url: `${this.serverUrl}/item`,
+                        method: `GET`,
+                        headers: {
+                            token: this.storage.access_token,
+                        }
+                    })
+                })
+                .then(result => {
+                    this.fetchedItems = result.data;
+                    this.page = 'dashboard'
+                })
+                .catch(err => {
+                    console.log(err.response);
+                })
+                .finally(_ => {
+                    this.loading = false;
+                })
+        }
     },
     created() {
         this.cekLogin();
