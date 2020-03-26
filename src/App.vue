@@ -221,7 +221,6 @@ export default {
         },
 
         deleteTodo(todoId) {
-            console.log(todoId)
             let token = this.token
             axios({
                 method:'DELETE',
@@ -243,7 +242,6 @@ export default {
         },
 
         updateTodo(payload) {
-            console.log(payload)
             let token = this.token
             let {todoId,description} = payload
             axios({
@@ -292,7 +290,6 @@ export default {
         },
 
         rightAction (data, newBox) {
-            console.log('MASUK APP LEFT')
             let {id} = data
             axios ({
                 method: 'PUT',

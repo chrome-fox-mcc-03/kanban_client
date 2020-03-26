@@ -18,7 +18,7 @@
                                 @rightAction="rightAction"
                                 @leftAction="leftAction"> </Todos>
                             </div>
-                            <div class="empty-card" style="text-align: center;" v-else>
+                            <div class="empty-card" style="text-align: center;" v-if="!todo[0]">
                                 <span>Card is empty.</span>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                                 @rightAction="rightAction"
                                 @leftAction="leftAction"> </Todos>
                             </div>
-                            <div class="empty-card" style="text-align: center;" v-else>
+                            <div class="empty-card" style="text-align: center;" v-if="!todo[1]">
                                 <span>Card is empty.</span>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                                 @rightAction="rightAction"
                                 @leftAction="leftAction"> </Todos>
                             </div>
-                            <div class="empty-card" style="text-align: center;" v-else>
+                            <div class="empty-card" style="text-align: center;" v-if="!todo[2]">
                                 <span>Card is empty.</span>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
                                 @rightAction="rightAction"
                                 @leftAction="leftAction"> </Todos>
                             </div>
-                            <div class="empty-card" style="text-align: center;" v-else>
+                            <div class="empty-card" style="text-align: center;" v-if="!todo[3]">
                                 <span>Card is empty.</span>
                             </div>
                         </div>
