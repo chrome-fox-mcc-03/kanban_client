@@ -10778,14 +10778,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $10c177 = exports.default || module.exports;
+        var $61363e = exports.default || module.exports;
       
-      if (typeof $10c177 === 'function') {
-        $10c177 = $10c177.options;
+      if (typeof $61363e === 'function') {
+        $61363e = $61363e.options;
       }
     
         /* template */
-        Object.assign($10c177, (function () {
+        Object.assign($61363e, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -10979,7 +10979,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-10c177",
+            _scopeId: "data-v-61363e",
             functional: undefined
           };
         })());
@@ -10992,9 +10992,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$10c177', $10c177);
+            api.createRecord('$61363e', $61363e);
           } else {
-            api.reload('$10c177', $10c177);
+            api.reload('$61363e', $61363e);
           }
         }
 
@@ -11054,14 +11054,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $2eec90 = exports.default || module.exports;
+        var $0a9c8e = exports.default || module.exports;
       
-      if (typeof $2eec90 === 'function') {
-        $2eec90 = $2eec90.options;
+      if (typeof $0a9c8e === 'function') {
+        $0a9c8e = $0a9c8e.options;
       }
     
         /* template */
-        Object.assign($2eec90, (function () {
+        Object.assign($0a9c8e, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -11132,9 +11132,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$2eec90', $2eec90);
+            api.createRecord('$0a9c8e', $0a9c8e);
           } else {
-            api.reload('$2eec90', $2eec90);
+            api.reload('$0a9c8e', $0a9c8e);
           }
         }
 
@@ -11162,14 +11162,14 @@ var _default = {
   name: "FooterSection"
 };
 exports.default = _default;
-        var $b56272 = exports.default || module.exports;
+        var $f3e18e = exports.default || module.exports;
       
-      if (typeof $b56272 === 'function') {
-        $b56272 = $b56272.options;
+      if (typeof $f3e18e === 'function') {
+        $f3e18e = $f3e18e.options;
       }
     
         /* template */
-        Object.assign($b56272, (function () {
+        Object.assign($f3e18e, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -11207,7 +11207,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-b56272",
+            _scopeId: "data-v-f3e18e",
             functional: undefined
           };
         })());
@@ -11220,9 +11220,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$b56272', $b56272);
+            api.createRecord('$f3e18e', $f3e18e);
           } else {
-            api.reload('$b56272', $b56272);
+            api.reload('$f3e18e', $f3e18e);
           }
         }
 
@@ -11309,14 +11309,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $b8c0c9 = exports.default || module.exports;
+        var $ba8b35 = exports.default || module.exports;
       
-      if (typeof $b8c0c9 === 'function') {
-        $b8c0c9 = $b8c0c9.options;
+      if (typeof $ba8b35 === 'function') {
+        $ba8b35 = $ba8b35.options;
       }
     
         /* template */
-        Object.assign($b8c0c9, (function () {
+        Object.assign($ba8b35, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -11501,9 +11501,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$b8c0c9', $b8c0c9);
+            api.createRecord('$ba8b35', $ba8b35);
           } else {
-            api.reload('$b8c0c9', $b8c0c9);
+            api.reload('$ba8b35', $ba8b35);
           }
         }
 
@@ -11583,14 +11583,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $b9ee3d = exports.default || module.exports;
+        var $119331 = exports.default || module.exports;
       
-      if (typeof $b9ee3d === 'function') {
-        $b9ee3d = $b9ee3d.options;
+      if (typeof $119331 === 'function') {
+        $119331 = $119331.options;
       }
     
         /* template */
-        Object.assign($b9ee3d, (function () {
+        Object.assign($119331, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -11640,7 +11640,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-b9ee3d",
+            _scopeId: "data-v-119331",
             functional: undefined
           };
         })());
@@ -11653,9 +11653,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$b9ee3d', $b9ee3d);
+            api.createRecord('$119331', $119331);
           } else {
-            api.reload('$b9ee3d', $b9ee3d);
+            api.reload('$119331', $119331);
           }
         }
 
@@ -11678,6 +11678,7 @@ var _axios = _interopRequireDefault(require("axios"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
 //
 //
 //
@@ -11729,7 +11730,6 @@ var _default = {
           access_token: access_token
         }
       }).then(function (result) {
-        // console.log(result);
         _this.$emit('fetchTodo');
       }).catch(function (err) {
         console.log(err);
@@ -11738,7 +11738,6 @@ var _default = {
     editTask: function editTask(task, whereTo) {
       var _this2 = this;
 
-      // console.log(task.category);
       var editTitle = '';
       var access_token = localStorage.getItem('access_token');
       var categories = ['backlog', 'product', 'development', 'done'];
@@ -11769,7 +11768,6 @@ var _default = {
       }).then(function (_ref) {
         var data = _ref.data;
 
-        // console.log(data);
         _this2.$emit('fetchTodo');
 
         _this2.editForm = false;
@@ -11780,128 +11778,139 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $6ac8b8 = exports.default || module.exports;
+        var $9c9b92 = exports.default || module.exports;
       
-      if (typeof $6ac8b8 === 'function') {
-        $6ac8b8 = $6ac8b8.options;
+      if (typeof $9c9b92 === 'function') {
+        $9c9b92 = $9c9b92.options;
       }
     
         /* template */
-        Object.assign($6ac8b8, (function () {
+        Object.assign($9c9b92, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "main-card-container" }, [
-    _c("div", { staticClass: "card mb-3 border border-5 border-primary" }, [
-      _c("div", { staticClass: "left-content" }, [
-        _vm.editForm === false
-          ? _c("h5", { on: { click: _vm.editChanger } }, [
-              _vm._v(_vm._s(_vm.task.title))
-            ])
-          : _vm.editForm === true
-          ? _c("form", [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.title,
-                    expression: "title"
-                  }
-                ],
-                staticClass: "editField",
-                attrs: {
-                  type: "text",
-                  placeholder: "edit your data..",
-                  value: "[edited]"
-                },
-                domProps: { value: _vm.title },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+    _c("br"),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "card mt-1 border border-5 border-primary",
+        attrs: { "popover-top": "Click on title to edit" }
+      },
+      [
+        _c("div", { staticClass: "left-content" }, [
+          _vm.editForm === false
+            ? _c("h6", { on: { click: _vm.editChanger } }, [
+                _vm._v(_vm._s(_vm.task.title))
+              ])
+            : _vm.editForm === true
+            ? _c("form", [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.title,
+                      expression: "title"
                     }
-                    _vm.title = $event.target.value
+                  ],
+                  staticClass: "editField",
+                  attrs: {
+                    type: "text",
+                    placeholder: "edit your data..",
+                    value: "[edited]"
+                  },
+                  domProps: { value: _vm.title },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.title = $event.target.value
+                    }
                   }
-                }
-              })
-            ])
-          : _vm._e()
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "right-content" }, [
-        _c(
-          "form",
-          {
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.deleteTask(_vm.task.id)
-              }
-            }
-          },
-          [
-            _c(
-              "button",
-              { staticClass: "btn-small", attrs: { type: "submit" } },
-              [_vm._v("delete")]
-            )
-          ]
-        ),
+                })
+              ])
+            : _vm._e()
+        ]),
         _vm._v(" "),
-        _c(
-          "form",
-          {
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.editTask(_vm.task, "none")
+        _c("div", { staticClass: "right-content" }, [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.deleteTask(_vm.task.id)
+                }
               }
-            }
-          },
-          [
-            _c(
-              "button",
-              { staticClass: "btn-small", attrs: { type: "submit" } },
-              [_vm._v("edit")]
-            )
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", [
-        _vm.task.category !== "backlog"
-          ? _c(
-              "a",
-              {
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    return _vm.editTask(_vm.task, "prev")
-                  }
+            },
+            [
+              _c(
+                "button",
+                { staticClass: "btn-small", attrs: { type: "submit" } },
+                [_vm._v("delete")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.editTask(_vm.task, "none")
                 }
-              },
-              [_c("h6", [_vm._v(" prev ")])]
-            )
-          : _vm._e(),
+              }
+            },
+            [
+              _c(
+                "button",
+                { staticClass: "btn-small", attrs: { type: "submit" } },
+                [_vm._v("edit")]
+              )
+            ]
+          )
+        ]),
         _vm._v(" "),
-        _vm.task.category !== "done"
-          ? _c(
-              "a",
-              {
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    return _vm.editTask(_vm.task, "next")
+        _c("div", [
+          _vm.task.category !== "backlog"
+            ? _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.editTask(_vm.task, "prev")
+                    }
                   }
-                }
-              },
-              [_c("h6", [_vm._v(" next ")])]
-            )
-          : _vm._e()
-      ])
-    ])
+                },
+                [_c("h6", [_vm._v(" prev ")])]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.task.category !== "done"
+            ? _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.editTask(_vm.task, "next")
+                    }
+                  }
+                },
+                [_c("h6", [_vm._v(" next ")])]
+              )
+            : _vm._e()
+        ])
+      ]
+    )
   ])
 }
 var staticRenderFns = []
@@ -11911,7 +11920,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-6ac8b8",
+            _scopeId: "data-v-9c9b92",
             functional: undefined
           };
         })());
@@ -11924,9 +11933,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$6ac8b8', $6ac8b8);
+            api.createRecord('$9c9b92', $9c9b92);
           } else {
-            api.reload('$6ac8b8', $6ac8b8);
+            api.reload('$9c9b92', $9c9b92);
           }
         }
 
@@ -11965,9 +11974,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var _default = {
   name: "OuterCard",
   props: ['category', 'showTasks'],
-  data: function data() {
-    return {};
-  },
   components: {
     Card: _Card.default
   },
@@ -11978,14 +11984,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $79482c = exports.default || module.exports;
+        var $05be6b = exports.default || module.exports;
       
-      if (typeof $79482c === 'function') {
-        $79482c = $79482c.options;
+      if (typeof $05be6b === 'function') {
+        $05be6b = $05be6b.options;
       }
     
         /* template */
-        Object.assign($79482c, (function () {
+        Object.assign($05be6b, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -12028,7 +12034,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-79482c",
+            _scopeId: "data-v-05be6b",
             functional: undefined
           };
         })());
@@ -12041,9 +12047,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$79482c', $79482c);
+            api.createRecord('$05be6b', $05be6b);
           } else {
-            api.reload('$79482c', $79482c);
+            api.reload('$05be6b', $05be6b);
           }
         }
 
@@ -12113,14 +12119,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $7fdc98 = exports.default || module.exports;
+        var $a2cfc6 = exports.default || module.exports;
       
-      if (typeof $7fdc98 === 'function') {
-        $7fdc98 = $7fdc98.options;
+      if (typeof $a2cfc6 === 'function') {
+        $a2cfc6 = $a2cfc6.options;
       }
     
         /* template */
-        Object.assign($7fdc98, (function () {
+        Object.assign($a2cfc6, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -12206,9 +12212,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$7fdc98', $7fdc98);
+            api.createRecord('$a2cfc6', $a2cfc6);
           } else {
-            api.reload('$7fdc98', $7fdc98);
+            api.reload('$a2cfc6', $a2cfc6);
           }
         }
 
@@ -12235,7 +12241,6 @@ var _axios = _interopRequireDefault(require("axios"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//
 //
 //
 //
@@ -12277,14 +12282,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $1228b3 = exports.default || module.exports;
+        var $67513c = exports.default || module.exports;
       
-      if (typeof $1228b3 === 'function') {
-        $1228b3 = $1228b3.options;
+      if (typeof $67513c === 'function') {
+        $67513c = $67513c.options;
       }
     
         /* template */
-        Object.assign($1228b3, (function () {
+        Object.assign($67513c, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -12331,9 +12336,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$1228b3', $1228b3);
+            api.createRecord('$67513c', $67513c);
           } else {
-            api.reload('$1228b3', $1228b3);
+            api.reload('$67513c', $67513c);
           }
         }
 
@@ -12377,14 +12382,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $85b236 = exports.default || module.exports;
+        var $f70899 = exports.default || module.exports;
       
-      if (typeof $85b236 === 'function') {
-        $85b236 = $85b236.options;
+      if (typeof $f70899 === 'function') {
+        $f70899 = $f70899.options;
       }
     
         /* template */
-        Object.assign($85b236, (function () {
+        Object.assign($f70899, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -12421,9 +12426,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$85b236', $85b236);
+            api.createRecord('$f70899', $f70899);
           } else {
-            api.reload('$85b236', $85b236);
+            api.reload('$f70899', $f70899);
           }
         }
 
@@ -12554,14 +12559,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $5f1983 = exports.default || module.exports;
+        var $c19dd4 = exports.default || module.exports;
       
-      if (typeof $5f1983 === 'function') {
-        $5f1983 = $5f1983.options;
+      if (typeof $c19dd4 === 'function') {
+        $c19dd4 = $c19dd4.options;
       }
     
         /* template */
-        Object.assign($5f1983, (function () {
+        Object.assign($c19dd4, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -12608,9 +12613,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$5f1983', $5f1983);
+            api.createRecord('$c19dd4', $c19dd4);
           } else {
-            api.reload('$5f1983', $5f1983);
+            api.reload('$c19dd4', $c19dd4);
           }
         }
 
@@ -12671,7 +12676,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40725" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40887" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

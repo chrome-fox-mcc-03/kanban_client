@@ -1,8 +1,9 @@
 <template>
-<div class="main-card-container">
-    <div class="card mb-3 border border-5 border-primary">
-        <div class="left-content">
-            <h5 v-on:click="editChanger" v-if="editForm === false">{{task.title}}</h5>
+<div class="main-card-container" >
+    <br>
+    <div popover-top="Click on title to edit" class="card mt-1 border border-5 border-primary">
+        <div class="left-content" >
+            <h6  v-on:click="editChanger" v-if="editForm === false">{{task.title}}</h6>
             <form v-else-if="editForm === true">
                 <input class="editField" type="text" v-model="title" placeholder="edit your data.." value="[edited]">
             </form>
@@ -16,8 +17,8 @@
             </form>
         </div>
     <div>
-        <a v-if="task.category !== 'backlog'" href="#" v-on:click="editTask(task, 'prev')" ><h6> prev </h6></a>
-        <a v-if="task.category !== 'done'" href="#" v-on:click="editTask(task, 'next')"><h6> next </h6></a>
+        <a v-if="task.category !== 'backlog'" href="#" v-on:click.prevent="editTask(task, 'prev')" ><h6> prev </h6></a>
+        <a v-if="task.category !== 'done'" href="#" v-on:click.prevent="editTask(task, 'next')"><h6> next </h6></a>
     </div>
     </div>
 </div>
@@ -54,16 +55,13 @@ export default {
                 }
             })
             .then((result) => {
-                // console.log(result);
                 this.$emit('fetchTodo')
                 
             }).catch((err) => {
                 console.log(err);
-                
             });
         },
         editTask : function(task, whereTo){
-            // console.log(task.category);
             let editTitle = ''
             const access_token = localStorage.getItem('access_token')
             const categories = [
@@ -93,7 +91,6 @@ export default {
                 }
             })
             .then(({data}) => {
-                // console.log(data);
                 this.$emit('fetchTodo')
                 this.editForm = false
                 

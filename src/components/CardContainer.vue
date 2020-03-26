@@ -18,11 +18,6 @@ import Card from './Card'
 export default {
     name : "OuterCard",
     props: ['category', 'showTasks'],
-    data () {
-      return {
-       
-      }
-    },
     components :{
       Card
     },

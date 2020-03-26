@@ -53,12 +53,12 @@ export default {
                     password
                 }
             })
-            .then((response) => {
-                this.$emit('showAlert', 'success')
-                this.$emit('changePage', 'login')
-            }).catch((err) => {
-                console.log(err);
-            });
+                .then((response) => {
+                    this.$emit('showAlert', 'success')
+                    this.$emit('changePage', 'login')
+                }).catch((err) => {
+                    console.log(err);
+                });
 
         },
         

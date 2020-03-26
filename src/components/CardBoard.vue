@@ -3,7 +3,6 @@
         <add-todo @fetchTodo='fetchTodo'></add-todo>
         <div class="card-board">
                 <card-container  @fetchTodo='fetchTodo' v-for="(category, index) in categories" :key="index" :category="category" :showTasks='showTasks'>
-                    
                 </card-container>
         </div>
     </div>
@@ -26,19 +25,19 @@ export default {
     data () {
         return {
             categories : [
-                          { 
-                              id : 0,
-                              phase : 'Backlog' }, 
-                          { 
-                              id : 1,
-                              phase : 'Product' }, 
-                          { 
-                              id : 2,
-                              phase : 'Development' },
-                          { 
-                              id : 3,
-                              phase : 'Done' }
-                        ]
+                { 
+                    id : 0,
+                    phase : 'Backlog' }, 
+                { 
+                    id : 1,
+                    phase : 'Product' }, 
+                { 
+                    id : 2,
+                    phase : 'Development' },
+                { 
+                    id : 3,
+                    phase : 'Done' }
+            ]
         }
     },
     methods : {
