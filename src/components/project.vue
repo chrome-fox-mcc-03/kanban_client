@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import Axios from 'axios'
+import Axios from '../config/axios'
 export default {
   name: "Project",
   data() {
@@ -34,7 +34,7 @@ export default {
   methods: {
     fetchProject() {
       Axios({
-          url: "http://localhost:3000/project",
+          url: "/project",
           method: "get",
           headers: {
             token: localStorage.getItem('token')
@@ -53,7 +53,7 @@ export default {
     },
     createProject(){
       Axios({
-        url : "http://localhost:3000/addproject",
+        url : "/addproject",
         method : "post",
         headers : {
           token : localStorage.getItem('token')

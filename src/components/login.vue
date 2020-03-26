@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import Axios from '../config/axios'
 import GSignInButton from 'vue-google-signin-button'
 export default {
     name : 'Login',
@@ -65,7 +65,7 @@ export default {
     methods : {
         login(){
           axios({
-            url : "http://localhost:3000/login",
+            url : "/login",
             method : "POST",
             data : {
               email : this.emailLogin,
@@ -84,7 +84,7 @@ export default {
             const idtoken = googleUser.getAuthResponse().id_token;
             axios({
                 method: 'POST',
-                url: 'http://localhost:3000/google',
+                url: '/google',
                 data: {
                   idtoken
                 }
@@ -102,7 +102,7 @@ export default {
         },
         register(){
           axios({
-            url : "http://localhost:3000/register",
+            url : "/register",
             method : "POST",
             data : {
               name : this.name,

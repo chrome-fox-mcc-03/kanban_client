@@ -15,7 +15,6 @@
     </div>
 </template>
 <script>
-import axios from 'axios'
 import Navbar from './components/navbar.vue'
 import Login from './components/login.vue'
 import projectVue from './components/project.vue'

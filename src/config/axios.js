@@ -1,10 +1,10 @@
-import axios from 'axios';
+import Axios from 'axios';
 
-const heroku = '';
+const heroku = 'https://infinite-mesa-38360.herokuapp.com';
 const localhost = 'http://localhost:3000';
 
-const instance = axios.create({
-  baseURL: localhost
+const instance = Axios.create({
+  baseURL: heroku
 });
 
 export default instance
