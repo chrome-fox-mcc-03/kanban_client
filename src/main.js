@@ -1,6 +1,13 @@
 import Vue from 'vue';
 import App from './App.vue';
 import GSignInButton from 'vue-google-signin-button'
+import Toasted from 'vue-toasted';
+
+Vue.use(Toasted, {
+  duration: 2000,
+  position: 'top-right',
+  theme: 'bubble'
+})
 Vue.use(GSignInButton)
 
 

@@ -36,7 +36,7 @@ import modaltask from './components/modaltask.vue'
 import modalcreatetask from './components/modalcreatetask.vue'
 import modaladdproject from './components/modaladdproject.vue'
 import modaladdfriends from './components/modaladdfriends.vue'
-  import GoogleLogin from 'vue-google-login';
+import GoogleLogin from 'vue-google-login';
 import Hello from './components/Hello.vue'
 export default {
     name: 'App',
@@ -101,7 +101,7 @@ export default {
                     console.log('berhasil register')
                     console.log("hasil register", result)
                     $('#RegisterModal').modal('hide');
-
+                    self.$toasted.show('Register Success')
                     
                 })
                 .catch(function(err) {
@@ -125,7 +125,8 @@ export default {
                     console.log('berhasil login')
                     self.isLogin = true;
                     self.generateProject()
-                    $('#LoginModal').modal('hide');
+                    $('#LoginModal').modal('hide')
+                    self.$toasted.show('Login Success')
                     // console.log(self.methods())
                 })
                 .catch(function(err) {
@@ -150,7 +151,7 @@ export default {
                     localStorage.setItem('access_token', result.data.access_token)
                     self.isLogin = true;
                     self.generateProject()
-                    console.log(result)
+                    self.$toasted.show('Login Success')
                 })
                 .catch(function(err) {
 
@@ -185,11 +186,7 @@ export default {
                 }
             })
                 .then(function(result) {
-                    console.log('berhasil generate projects')
-                    console.log(result)
                     self.projects = result.data
-                    
-
                 })
                 .catch(function(err) {
                     console.log(err)
@@ -211,8 +208,7 @@ export default {
                 }
             })
                 .then(function(result) {
-                    console.log('berhasil create project')
-                    console.log(result)
+                    self.$toasted.show('Project Created')
                     self.generateProject()
                     $('#ProjectModal').modal('hide');
                     this.projects = result.data
@@ -269,9 +265,8 @@ export default {
             })
                 .then(function(result) {
                     $('#TaskModal').modal('hide');
-                    console.log(result)
-                    console.log(self.project)
                     self.generateTask(self.project)
+                    self.$toasted.show('Task Created')
                     
                 })
                 .catch(function(err) {
@@ -296,11 +291,9 @@ export default {
                 }
             })
                 .then(function(result) {
-                    // console.log(result)
-                    console.log('berhasil add friend')
                     $('#FriendsModal').modal('hide');
-                    // self.generateProject()
                     self.generateTask(self.currentProject)
+                    self.$toasted.show('Friend Added')
                 })
                 .catch(function(err) {
                     console.log(err)
@@ -310,7 +303,7 @@ export default {
             let self = this
             console.log(`ini adalah ${data}`)
             axios({
-                url:`https://glacial-waters-19885.herokuapp.com//project/task/delete/${data}`,
+                url:`https://glacial-waters-19885.herokuapp.com/project/task/delete/${data}`,
                 method: "delete",
                 headers: {
                     access_token : localStorage.getItem('access_token')
@@ -318,10 +311,10 @@ export default {
 
             })
             .then(function(result) {
-                console.log('berhasil delete')
+                self.$toasted.show('Delete Success')
                 $('.modal-backdrop').remove()
                 self.generateTask(self.currentProject)
-                
+                $(`#ContentModal${data.id}`).modal('hide');
             })
             .catch(function(err) {
                 console.log(err)
@@ -341,9 +334,10 @@ export default {
                 }
             })
                 .then(function(result) {
-                console.log('berhasil update')
+                self.$toasted.show('Update Success')
                 self.generateTask(self.currentProject)
                 $('.modal-backdrop').remove()
+                $(`#ContentModal${data.id}`).modal('hide');
                 })
                 .catch(function(err) {
                     console.log('gagal update')
