@@ -96,8 +96,6 @@ export default {
                 localStorage.setItem('userId',result.data.id)
                 this.token = result.data.token
                 this.getTodos()
-                this.email = ''
-                this.userId = ''
             })
             .catch((err) => {
                 console.log(err.response)
@@ -134,6 +132,7 @@ export default {
                 localStorage.setItem('email',result.data.email)
                 localStorage.setItem('userId',result.data.id)
                 this.token = result.data.token
+                this.getTodos()
             }).catch((err) => {
                 this.$notify({
                     group: 'foo',
@@ -165,10 +164,10 @@ export default {
                 data: {
                     name_box,
                     description,
-                    UserId:this.userId
+                    UserId: localStorage.getItem('userId')
                 },
                 headers: {
-                    token:this.token
+                    token: localStorage.getItem('token')
                 }
             })
             .then((result) => {
@@ -195,13 +194,13 @@ export default {
         },
 
         getTodos() {
-            let userId = this.userId
+            let userId = localStorage.getItem('userId')
             let token = this.token
             axios({
                 method:'GET',
                 url:`https://cryptic-retreat-74489.herokuapp.com/todos/${userId}`,
                 headers: {
-                    token
+                    token: localStorage.getItem('token')
                 }
             })
             .then((result) => {

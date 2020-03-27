@@ -1,13 +1,19 @@
 <template>
   <div>
       <div class="row bg-custom">
-        <div class="card-title" style="width: 100%;">
-            <span class="card-list-title"> {{todos[0].name_box}} </span>
+        <div class="card-title" style="width: 100%;" v-if="index == 0">
+            <span class="card-list-title"> Backlog </span>
+        </div>
+        <div class="card-title" style="width: 100%;" v-if="index == 1">
+            <span class="card-list-title"> Development </span>
+        </div>
+        <div class="card-title" style="width: 100%;" v-if="index == 2">
+            <span class="card-list-title"> Production </span>
+        </div>
+        <div class="card-title" style="width: 100%;" v-if="index == 3">
+            <span class="card-list-title"> Done </span>
         </div>
         <div class="content-wrapper">
-            <div class="empty-card" style="text-align: center;" v-if="todos[0].length < 1 || todos[0] == undefined">
-                <span>Card is empty.</span>
-            </div>
             <div v-if="todos[0]">
                 <Todos :data="todos" 
                 @deleteTodo="deleteTodo" 
@@ -16,6 +22,9 @@
                 @deleteLabel="deleteLabel"
                 @rightAction="rightAction"
                 @leftAction="leftAction"> </Todos>
+            </div>
+            <div class="empty-card" style="text-align: center;" v-else>
+                <span>Card is empty.</span>
             </div>
         </div>
     </div>
