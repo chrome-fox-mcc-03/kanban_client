@@ -1,12 +1,6 @@
 <template>
   <sui-container text-align="center" style="display: flex; justify-content: space-around;">
     <sui-button-group>
-      <sui-button animated style="background: none;" v-if="payload.idCategory !== 1" @click="move('left')">
-        <sui-button-content visible>
-          <sui-icon color="black" name="angle double left" />
-        </sui-button-content>
-        <sui-button-content style="color: black;" hidden>{{left}}</sui-button-content>
-      </sui-button>
       <sui-button animated style="background: none;" @click="fetchEdit">
         <sui-button-content visible>
           <sui-icon color="blue" name="edit" />
@@ -18,12 +12,6 @@
           <sui-icon color="red" name="trash alternate" />
         </sui-button-content>
         <sui-button-content style="color: red;" hidden>Delete</sui-button-content>
-      </sui-button>
-      <sui-button animated style="background: none;" v-if="payload.idCategory !== 4" @click="move('right')">
-        <sui-button-content visible>
-          <sui-icon color="black" name="angle double right" />
-        </sui-button-content>
-        <sui-button-content style="color: black;" hidden>{{right}}</sui-button-content>
       </sui-button>
     </sui-button-group>
     <sui-dimmer :active="active">

@@ -66,9 +66,7 @@ export default {
       this.$emit('clearMsg')
     },
     logo () {
-      if(this.currentPage !== 'register' || this.currentPage !== 'login') {
-        this.changePage('group')
-      }
+      this.changePage('group')
     }
   }
 }

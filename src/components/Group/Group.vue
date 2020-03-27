@@ -135,7 +135,11 @@ export default {
     }
   },
   created () {
-    this.listGroup()
+    if(localStorage.getItem('token')) {
+      this.listGroup()
+    } else {
+      this.changePage('login')
+    }
   },
   props: {
     msg: Object

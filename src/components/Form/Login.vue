@@ -1,17 +1,7 @@
 <template>
   <div class="login">
+    <img :src="img">
     <div class="column">
-      <transition name="fade">
-        <sui-message
-          v-if="visible"
-          :header=title
-          :content=message
-          dismissable
-          @dismiss="handleDismiss"
-          id="message"
-          style=":color:color"
-        />
-      </transition>
       <sui-form class="ui large form" method="post">
         <h1 class="ui teal header">
           <div class="content">
@@ -33,13 +23,6 @@
           </div>
         </sui-form-field>
         <div class="ui fluid large teal submit button" type="submit" @click="login">Login</div>
-        <!-- <br> <strong>Login with Google</strong> <br>
-        <sui-button animated="vertical" style="background:none;" @click="gLogin">
-          <sui-button-content style="color: blue;" hidden>G-LogIn</sui-button-content>
-          <sui-button-content visible>
-            <sui-icon name="google" color="blue" style="background:none; width: 6vw;" />
-          </sui-button-content>
-        </sui-button> -->
       </sui-form>
     </div>
     <sui-dimmer :active="active">
@@ -109,7 +92,7 @@ export default {
           const token = authCode.getAuthResponse().id_token
           return axios({
             method:"POST",
-            url:"https://ancient-dawn-78678.herokuapp.com/glogin",
+            url:"http://localhost:3000/glogin",
             headers:{
               token
             }
