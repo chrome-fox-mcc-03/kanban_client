@@ -69,13 +69,10 @@ export default {
                 },
             })
             .then(({data}) => {
-                
-                console.log(data);
                 this.showTasks = data
                 
             }).catch((err) => {
                 console.log(err);
-                
             });
 
         },

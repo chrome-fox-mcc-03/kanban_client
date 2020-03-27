@@ -11704,6 +11704,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   name: 'Card',
   props: ['task'],
@@ -11712,12 +11722,22 @@ var _default = {
       showBacklogs: [],
       title: '',
       category: '',
-      editForm: false
+      editForm: false,
+      deleteForm: false
     };
   },
   methods: {
     editChanger: function editChanger() {
       this.editForm = true;
+    },
+    deleteChanger: function deleteChanger() {
+      this.deleteForm = true;
+    },
+    cancelDelete: function cancelDelete() {
+      this.deleteForm = false;
+    },
+    cancelEdit: function cancelEdit() {
+      this.editForm = false;
     },
     deleteTask: function deleteTask(id) {
       var _this = this;
@@ -11731,6 +11751,8 @@ var _default = {
         }
       }).then(function (result) {
         _this.$emit('fetchTodo');
+
+        _this.deleteForm = false;
       }).catch(function (err) {
         console.log(err);
       });
@@ -11793,124 +11815,165 @@ exports.default = _default;
   return _c("div", { staticClass: "main-card-container" }, [
     _c("br"),
     _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "card mt-1 border border-5 border-primary",
-        attrs: { "popover-top": "Click on title to edit" }
-      },
-      [
-        _c("div", { staticClass: "left-content" }, [
-          _vm.editForm === false
-            ? _c("h6", { on: { click: _vm.editChanger } }, [
-                _vm._v(_vm._s(_vm.task.title))
-              ])
-            : _vm.editForm === true
-            ? _c("form", [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.title,
-                      expression: "title"
-                    }
-                  ],
-                  staticClass: "editField",
-                  attrs: {
-                    type: "text",
-                    placeholder: "edit your data..",
-                    value: "[edited]"
-                  },
-                  domProps: { value: _vm.title },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.title = $event.target.value
-                    }
+    _c("div", { staticClass: "card mt-1 border border-5 border-primary" }, [
+      _c("div", { staticClass: "left-content" }, [
+        _vm.editForm === false
+          ? _c("div", { staticClass: "title-container" }, [
+              _c("h6", [_vm._v(_vm._s(_vm.task.title))])
+            ])
+          : _vm.editForm === true
+          ? _c("form", [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.title,
+                    expression: "title"
                   }
-                })
-              ])
-            : _vm._e()
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "right-content" }, [
-          _c(
-            "form",
-            {
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                  return _vm.deleteTask(_vm.task.id)
-                }
-              }
-            },
-            [
-              _c(
-                "button",
-                { staticClass: "btn-small", attrs: { type: "submit" } },
-                [_vm._v("delete")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "form",
-            {
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                  return _vm.editTask(_vm.task, "none")
-                }
-              }
-            },
-            [
-              _c(
-                "button",
-                { staticClass: "btn-small", attrs: { type: "submit" } },
-                [_vm._v("edit")]
-              )
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", [
-          _vm.task.category !== "backlog"
-            ? _c(
-                "a",
-                {
-                  attrs: { href: "#" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.editTask(_vm.task, "prev")
-                    }
-                  }
+                ],
+                staticClass: "editField",
+                attrs: {
+                  type: "text",
+                  placeholder: "type...",
+                  value: "[edited]"
                 },
-                [_c("h6", [_vm._v(" prev ")])]
+                domProps: { value: _vm.title },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.title = $event.target.value
+                  }
+                }
+              })
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { staticClass: "d-flex flex-row" }, [
+          _vm.deleteForm === false && _vm.editForm === false
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn-small",
+                  attrs: { type: "submit" },
+                  on: { click: _vm.deleteChanger }
+                },
+                [_vm._v("delete")]
               )
             : _vm._e(),
           _vm._v(" "),
-          _vm.task.category !== "done"
+          _vm.editForm === false && _vm.deleteForm === false
             ? _c(
-                "a",
+                "button",
                 {
-                  attrs: { href: "#" },
+                  staticClass: "btn-small",
+                  attrs: { type: "submit" },
+                  on: { click: _vm.editChanger }
+                },
+                [_vm._v("edit")]
+              )
+            : _vm.editForm === true
+            ? _c(
+                "form",
+                {
                   on: {
-                    click: function($event) {
+                    submit: function($event) {
                       $event.preventDefault()
-                      return _vm.editTask(_vm.task, "next")
+                      return _vm.editTask(_vm.task, "none")
                     }
                   }
                 },
-                [_c("h6", [_vm._v(" next ")])]
+                [
+                  _c(
+                    "button",
+                    { staticClass: "btn-small", on: { click: _vm.cancelEdit } },
+                    [_vm._v("cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    { staticClass: "btn-small", attrs: { type: "submit" } },
+                    [_vm._v("save")]
+                  )
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.deleteForm === true
+            ? _c(
+                "form",
+                {
+                  staticClass: "d-flex flex-row",
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.deleteTask(_vm.task.id)
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn-small",
+                      on: { click: _vm.cancelDelete }
+                    },
+                    [_vm._v("cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    { staticClass: "btn-small", attrs: { type: "submit" } },
+                    [_vm._v("delete")]
+                  )
+                ]
               )
             : _vm._e()
         ])
-      ]
-    )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "right-content d-flex flex-column ml-5 pl-3" }, [
+        _vm.task.category !== "backlog"
+          ? _c(
+              "span",
+              {
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.editTask(_vm.task, "prev")
+                  }
+                }
+              },
+              [
+                _c("h6", { staticClass: "paper-btn btn-small" }, [
+                  _vm._v(" prev ")
+                ])
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.task.category !== "done"
+          ? _c(
+              "span",
+              {
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.editTask(_vm.task, "next")
+                  }
+                }
+              },
+              [
+                _c("h6", { staticClass: "paper-btn btn-small" }, [
+                  _vm._v(" next ")
+                ])
+              ]
+            )
+          : _vm._e()
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
@@ -12524,7 +12587,6 @@ var _default = {
         }
       }).then(function (_ref) {
         var data = _ref.data;
-        console.log(data);
         _this.showTasks = data;
       }).catch(function (err) {
         console.log(err);

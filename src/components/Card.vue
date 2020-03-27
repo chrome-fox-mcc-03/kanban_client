@@ -1,25 +1,35 @@
 <template>
 <div class="main-card-container" >
     <br>
-    <div popover-top="Click on title to edit" class="card mt-1 border border-5 border-primary">
-        <div class="left-content" >
-            <h6  v-on:click="editChanger" v-if="editForm === false">{{task.title}}</h6>
+    <div class="card mt-1 border border-5 border-primary">
+        <div class="left-content">
+            <div v-if="editForm === false" class="title-container">
+                <h6>{{task.title}}</h6>
+            </div>
             <form v-else-if="editForm === true">
-                <input class="editField" type="text" v-model="title" placeholder="edit your data.." value="[edited]">
+                <input class="editField" type="text" v-model="title" placeholder="type..." value="[edited]">
             </form>
+            <div class="d-flex flex-row">
+                    <button v-if="deleteForm === false && editForm === false" type="submit" class="btn-small" @click="deleteChanger">delete</button>
+                    
+                    <button v-if="editForm === false && deleteForm === false" type="submit" class="btn-small" @click="editChanger">edit</button>
+                <form @submit.prevent="editTask(task, 'none')" v-else-if="editForm === true">
+                    <button class="btn-small" @click="cancelEdit">cancel</button>
+                    <button type="submit" class="btn-small">save</button>
+                </form>
+
+                <form v-if="deleteForm === true" class="d-flex flex-row" @submit.prevent="deleteTask(task.id)">
+                    <button class="btn-small" @click="cancelDelete">cancel</button>
+                    <button type="submit" class="btn-small">delete</button>
+                </form>
+
+            </div>
         </div>
-        <div class="right-content">
-            <form @submit.prevent="deleteTask(task.id)">
-                <button type="submit" class="btn-small">delete</button>
-            </form>
-            <form @submit.prevent="editTask(task, 'none')">
-                <button type="submit" class="btn-small">edit</button>
-            </form>
+
+        <div class="right-content d-flex flex-column ml-5 pl-3">
+            <span v-if="task.category !== 'backlog'" v-on:click.prevent="editTask(task, 'prev')"><h6 class="paper-btn btn-small"> prev </h6></span>
+            <span v-if="task.category !== 'done'" v-on:click.prevent="editTask(task, 'next')"><h6 class="paper-btn btn-small"> next </h6></span>
         </div>
-    <div>
-        <a v-if="task.category !== 'backlog'" href="#" v-on:click.prevent="editTask(task, 'prev')" ><h6> prev </h6></a>
-        <a v-if="task.category !== 'done'" href="#" v-on:click.prevent="editTask(task, 'next')"><h6> next </h6></a>
-    </div>
     </div>
 </div>
 </template>
@@ -27,7 +37,6 @@
 <script>
 
 import axios from 'axios'
-
 export default {
     name : 'Card',
     props : ['task'],
@@ -36,12 +45,22 @@ export default {
             showBacklogs : [],
             title : '',
             category : '',
-            editForm : false
+            editForm : false,
+            deleteForm : false
          }
     },
     methods : {
         editChanger : function() {
             this.editForm = true
+        },
+        deleteChanger : function() {
+            this.deleteForm = true
+        },
+        cancelDelete : function() {
+            this.deleteForm = false
+        },
+        cancelEdit : function() {
+            this.editForm = false
         },
         deleteTask : function(id){
             
@@ -56,6 +75,7 @@ export default {
             })
             .then((result) => {
                 this.$emit('fetchTodo')
+                this.deleteForm = false
                 
             }).catch((err) => {
                 console.log(err);
@@ -112,28 +132,40 @@ export default {
 
 .card {
     width: 15vw;
-    height: 10vh;
-    max-width: 50rem;
+    height: 15vh;
+    max-width: 50vw;
     max-height: fit-content;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-evenly;
+    margin-bottom: 5%;
+}
+
+.title-container {
+    justify-self: start;
+    padding-bottom: 1.5rem;
 }
 
 .left-content {
+    max-width: 10vw;
     display: flex;
     flex-direction: column;
-    align-items: baseline;
-    justify-content: flex-start;
+    justify-content: flex-end;
+    overflow: auto;
+    text-overflow: ellipsis;
+    margin-left: 5%;
+    padding-bottom: 10px;
 }
 
 .right-content {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     padding-top: 10px;
+    margin-right: 5%;
+    width: fit-content;
 }
 
 .user-photo{
@@ -144,7 +176,6 @@ export default {
 .phase-body {
     margin-top: 0px;
     height: 85vh;
-    padding-top: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
