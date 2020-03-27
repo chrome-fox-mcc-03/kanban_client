@@ -10731,7 +10731,7 @@ var _default = {
       console.log(profile);
       (0, _axios.default)({
         method: 'POST',
-        url: 'http://localhost:3000/loginGoogle',
+        url: 'https://thawing-hollows-08155.herokuapp.com/loginGoogle',
         headers: {
           'token': g_idToken
         }
@@ -10758,7 +10758,7 @@ var _default = {
       this.loading = true;
       (0, _axios.default)({
         method: 'POST',
-        url: 'http://localhost:3000/login',
+        url: 'https://thawing-hollows-08155.herokuapp.com/login',
         data: {
           email: email,
           password: password
@@ -11031,7 +11031,6 @@ exports.default = void 0;
 //
 //
 //
-//
 var _default = {
   name: "TopNavbar",
   data: function data() {
@@ -11077,15 +11076,9 @@ exports.default = _default;
         _vm._v(" "),
         _c("div", { staticClass: "collapsible" }, [
           _c("ul", { staticClass: "inline" }, [
-            _c("li", { staticClass: "paper-btn btn-small" }, [
-              _vm._v("Documentation")
-            ]),
+            _vm._m(1),
             _vm._v(" "),
-            _c("li", { staticClass: "paper-btn btn-small" }, [_vm._v("About")]),
-            _vm._v(" "),
-            _c("li", { staticClass: "paper-btn btn-small" }, [
-              _vm._v("Github")
-            ]),
+            _vm._m(2),
             _vm._v(" "),
             _vm.isLogin
               ? _c(
@@ -11110,6 +11103,30 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "navbar-brand" }, [
       _c("p", [_vm._v("KANBAN - PROJECT 51")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "paper-btn btn-small pb-0 pt-0" }, [
+      _c("h5", [
+        _c("a", { attrs: { href: "https://kanban4.docs.apiary.io/" } }),
+        _vm._v("Documentation")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "paper-btn btn-small pb-0 pt-0" }, [
+      _c("h6", [
+        _c("a", {
+          attrs: { href: "https://github.com/bhaktitud/kanban_client" }
+        }),
+        _vm._v("Github")
+      ])
     ])
   }
 ]
@@ -11292,7 +11309,7 @@ var _default = {
       var password = this.registerInput.password;
       (0, _axios.default)({
         method: 'POST',
-        url: 'http://localhost:3000/register',
+        url: 'https://thawing-hollows-08155.herokuapp.com/register',
         data: {
           name: name,
           email: email,
@@ -11745,7 +11762,7 @@ var _default = {
       var access_token = localStorage.getItem('access_token');
       (0, _axios.default)({
         method: 'DELETE',
-        url: "http://localhost:3000/task/".concat(id),
+        url: "https://thawing-hollows-08155.herokuapp.com/task/".concat(id),
         headers: {
           access_token: access_token
         }
@@ -11779,7 +11796,7 @@ var _default = {
 
       (0, _axios.default)({
         method: 'PUT',
-        url: "http://localhost:3000/task/".concat(task.id),
+        url: "https://thawing-hollows-08155.herokuapp.com/task/".concat(task.id),
         headers: {
           access_token: access_token
         },
@@ -12164,7 +12181,7 @@ var _default = {
       var access_token = localStorage.getItem('access_token');
       (0, _axios.default)({
         method: 'POST',
-        url: "http://localhost:3000/task",
+        url: "https://thawing-hollows-08155.herokuapp.com/task",
         headers: {
           access_token: access_token
         },
@@ -12300,8 +12317,6 @@ var _CardContainer = _interopRequireDefault(require("./CardContainer"));
 
 var _AddTodo = _interopRequireDefault(require("./AddTodo"));
 
-var _axios = _interopRequireDefault(require("axios"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //
@@ -12412,7 +12427,7 @@ render._withStripped = true
       
       }
     })();
-},{"./CardContainer":"src/components/CardContainer.vue","./AddTodo":"src/components/AddTodo.vue","axios":"node_modules/axios/index.js","_css_loader":"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/Content.vue":[function(require,module,exports) {
+},{"./CardContainer":"src/components/CardContainer.vue","./AddTodo":"src/components/AddTodo.vue","_css_loader":"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/Content.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12581,7 +12596,7 @@ var _default = {
       var access_token = localStorage.getItem('access_token');
       (0, _axios.default)({
         method: 'GET',
-        url: 'http://localhost:3000/task',
+        url: 'https://thawing-hollows-08155.herokuapp.com/task',
         headers: {
           access_token: access_token
         }
@@ -12599,7 +12614,7 @@ var _default = {
       var access_token = localStorage.getItem('access_token');
       (0, _axios.default)({
         method: 'POST',
-        url: "http://localhost:3000/task",
+        url: "https://thawing-hollows-08155.herokuapp.com/task",
         headers: {
           access_token: access_token
         },
@@ -12738,7 +12753,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40887" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42001" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

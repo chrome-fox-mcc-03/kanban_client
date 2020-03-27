@@ -71,7 +71,7 @@ export default {
             console.log(profile);
             axios({
                 method: 'POST',
-                url: 'http://localhost:3000/loginGoogle',
+                url: 'https://thawing-hollows-08155.herokuapp.com/loginGoogle',
                 headers: {
                         'token': g_idToken
                     }
@@ -96,7 +96,7 @@ export default {
             this.loading = true
             axios({
                 method: 'POST',
-                url: 'http://localhost:3000/login',
+                url: 'https://thawing-hollows-08155.herokuapp.com/login',
                 data : {
                     email,
                     password

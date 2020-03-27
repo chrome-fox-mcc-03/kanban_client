@@ -13,8 +13,6 @@
 import CardContainer from "./CardContainer"
 import AddTodo from "./AddTodo"
 
-import axios from 'axios'
-
 export default {
     name : "CardBoard",
     props:['showTasks'],

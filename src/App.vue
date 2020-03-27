@@ -63,7 +63,7 @@ export default {
             const access_token = localStorage.getItem('access_token')
             axios({
                 method : 'GET',
-                url : 'http://localhost:3000/task',
+                url : 'https://thawing-hollows-08155.herokuapp.com/task',
                 headers : {
                     access_token
                 },
@@ -84,7 +84,7 @@ export default {
             const access_token = localStorage.getItem('access_token')
             axios({
                 method : 'POST',
-                url : `http://localhost:3000/task`,
+                url : `https://thawing-hollows-08155.herokuapp.com/task`,
                 headers : {
                     access_token
                 },

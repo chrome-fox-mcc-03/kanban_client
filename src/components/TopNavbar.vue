@@ -7,9 +7,8 @@
             </div>
             <div class="collapsible">
                 <ul class="inline">
-                    <li class="paper-btn btn-small">Documentation</li>
-                    <li class="paper-btn btn-small">About</li>
-                    <li class="paper-btn btn-small">Github</li>
+                    <li class="paper-btn btn-small pb-0 pt-0"><h5><a href="https://kanban4.docs.apiary.io/"></a>Documentation</h5></li>
+                    <li class="paper-btn btn-small pb-0 pt-0"><h6><a href="https://github.com/bhaktitud/kanban_client"></a>Github</h6></li>
                     <li v-if="isLogin" v-on:click="logout" class="logout-btn paper-btn btn-small">Logout</li>
                 </ul>
             </div>

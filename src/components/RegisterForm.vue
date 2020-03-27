@@ -46,7 +46,7 @@ export default {
 
             axios({
                 method : 'POST',
-                url : 'http://localhost:3000/register',
+                url : 'https://thawing-hollows-08155.herokuapp.com/register',
                 data : {
                     name,
                     email,

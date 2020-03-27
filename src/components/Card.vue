@@ -68,7 +68,7 @@ export default {
             
             axios({
                 method : 'DELETE',
-                url : `http://localhost:3000/task/${id}`,
+                url : `https://thawing-hollows-08155.herokuapp.com/task/${id}`,
                 headers : {
                     access_token
                 }
@@ -101,7 +101,7 @@ export default {
             }
             axios({
                 method: 'PUT',
-                url : `http://localhost:3000/task/${task.id}`,
+                url : `https://thawing-hollows-08155.herokuapp.com/task/${task.id}`,
                 headers : {
                     access_token
                 },
