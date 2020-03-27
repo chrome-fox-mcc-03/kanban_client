@@ -9639,6 +9639,16 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   name: 'Login',
   data: function data() {
@@ -9745,12 +9755,30 @@ exports.default = _default;
     "div",
     { staticClass: "login" },
     [
-      _c("img", { attrs: { src: _vm.img } }),
-      _vm._v(" "),
       _c(
         "div",
         { staticClass: "column" },
         [
+          _c(
+            "transition",
+            { attrs: { name: "fade" } },
+            [
+              _vm.visible
+                ? _c("sui-message", {
+                    staticStyle: { "": "color:color" },
+                    attrs: {
+                      header: _vm.title,
+                      content: _vm.message,
+                      dismissable: "",
+                      id: "message"
+                    },
+                    on: { dismiss: _vm.handleDismiss }
+                  })
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
           _c(
             "sui-form",
             { staticClass: "ui large form", attrs: { method: "post" } },
@@ -17647,39 +17675,6 @@ var _default = {
         title: 'Success',
         message: message,
         catId: catId
-      });
-    },
-    move: function move(direction) {
-      var _this3 = this;
-
-      this.active = true;
-      var CategoryId = this.payload.idCategory;
-
-      if (direction === 'right') {
-        CategoryId++;
-      } else {
-        CategoryId--;
-      }
-
-      axios({
-        method: 'put',
-        url: "https://ancient-dawn-78678.herokuapp.com/task/".concat(this.payload.id),
-        headers: {
-          token: localStorage.getItem('token'),
-          categoryid: this.payload.idCategory,
-          groupid: this.payload.idGroup
-        },
-        data: {
-          CategoryId: CategoryId
-        }
-      }).then(function (_) {
-        _this3.$emit('notification', {
-          action: false
-        });
-      }).catch(function (err) {
-        _this3.notification(err.response.data.message, _this3.payload.idCategory);
-      }).finally(function (_) {
-        _this3.active = false;
       });
     }
   },
@@ -27102,7 +27097,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43093" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37781" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

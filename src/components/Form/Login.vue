@@ -1,7 +1,17 @@
 <template>
   <div class="login">
-    <img :src="img">
     <div class="column">
+      <transition name="fade">
+        <sui-message
+          v-if="visible"
+          :header=title
+          :content=message
+          dismissable
+          @dismiss="handleDismiss"
+          id="message"
+          style=":color:color"
+        />
+      </transition>
       <sui-form class="ui large form" method="post">
         <h1 class="ui teal header">
           <div class="content">

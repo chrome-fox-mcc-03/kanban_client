@@ -99,38 +99,6 @@ export default {
         message,
         catId
       })
-    },
-    move(direction) {
-      this.active = true
-      let CategoryId = this.payload.idCategory
-      if(direction === 'right') {
-        CategoryId++
-      } else {
-        CategoryId--
-      }
-      axios({
-        method: 'put',
-        url: `https://ancient-dawn-78678.herokuapp.com/task/${this.payload.id}`,
-        headers: {
-          token: localStorage.getItem('token'),
-          categoryid: this.payload.idCategory,
-          groupid: this.payload.idGroup
-        },
-        data: {
-          CategoryId
-        }
-      })
-        .then(_ => {
-          this.$emit('notification', {
-            action: false
-          })
-        })
-        .catch(err => {
-          this.notification(err.response.data.message, this.payload.idCategory)
-        })
-        .finally(_ => {
-          this.active = false
-        })
     }
   },
   props: {
