@@ -86,7 +86,7 @@
         <div class="row">
             <div class="col-md-12 text-center">
                 <lottie-player
-                    src="https://assets6.lottiefiles.com/datafiles/17CHBxWA6xYyj94/data.json"  background="transparent"  speed="1"  style="width: 280px; height: 150px;"  loop  autoplay >
+                    src="https://assets6.lottiefiles.com/datafiles/17CHBxWA6xYyj94/data.json"  background="transparent"  speed="1" class="mx-auto"  style="width: 280px; height: 150px;"  loop  autoplay >
                 </lottie-player>
                 <h3 class="text-info font-weight-light">Loading...</h3>
             </div>
