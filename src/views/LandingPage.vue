@@ -7,7 +7,7 @@
           <input v-model="userData.regName" type="text" placeholder="Name" />
           <input v-model="userData.regEmail" type="email" placeholder="Email" />
           <input v-model="userData.regPassword" type="password" placeholder="Password" />
-          <input class="sign-button" type="submit" value="Sign Up" />
+          <input class="sign-button pointer hover-special" type="submit" value="Sign Up" />
         </form>
       </div>
       <div class="form-container sign-in-container">
@@ -18,12 +18,13 @@
               :params="googleSignInParams"
               @success="onSignInSuccess"
               @error="onSignInError"
+              style="cursor: pointer;"
             >Sign in with Google</g-signin-button>
           </div>
           <span>or use your account</span>
           <input v-model="userData.logEmail" type="email" placeholder="Email" />
           <input v-model="userData.logPassword" type="password" placeholder="Password" />
-          <input class="sign-button" type="submit" value="Sign In" />
+          <input class="sign-button pointer hover-special" type="submit" value="Sign In" />
         </form>
       </div>
       <div class="overlay-container">
@@ -31,12 +32,12 @@
           <div class="overlay-panel overlay-left">
             <h1>Welcome Back!</h1>
             <p>To keep connected with us please login with your personal info</p>
-            <button class="ghost" id="signIn">Sign In</button>
+            <button class="ghost pointer" id="signIn">Sign In</button>
           </div>
           <div class="overlay-panel overlay-right">
             <h1>Get Started!</h1>
             <p>Start journey with us and level up your way of organizing tasks</p>
-            <button class="ghost" id="signUp">Sign Up</button>
+            <button class="ghost pointer" id="signUp">Sign Up</button>
           </div>
         </div>
       </div>
@@ -98,12 +99,15 @@ export default {
           })
         })
         .catch(err => {
-          this.$toasted.show(`${err.response.data.message}`, { 
-            theme: "bubble", 
-            position: "bottom-center", 
-            duration : 2000
-          })
-          console.log(err);
+          const errorMessages = err.response.data.err.errors
+          for (let i = 0; i < errorMessages.length; i++) {
+            this.$toasted.show(errorMessages[i].message, { 
+              theme: "bubble", 
+              position: "bottom-center", 
+              duration : 2000
+            })
+          }
+          console.log(err.response.data.err.errors);
         })
         .finally(_ => {
           this.isLoading = false
@@ -211,5 +215,16 @@ export default {
       position: absolute;
       left: 2rem;
       top: 2rem
+    }
+    .pointer {
+      cursor: pointer;
+    }
+    .hover-special {
+      border-radius: 30px;
+      transition: .3s;
+    }
+    .hover-special:hover {
+      background: linear-gradient(90deg, rgba(239,131,84,1) 0%, rgba(233,132,88,1) 50%, rgba(200,76,70,1) 100%);
+      color: white;
     }
 </style>

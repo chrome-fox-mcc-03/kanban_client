@@ -10,9 +10,9 @@
                 </div>
                 <div class="rule"></div>
                 <div class="form-footer">
-                    <a @click="saveChanges(detail.id)">Save</a>
-                    <a id="cancelEdit" @click="backToMainPage">Cancel</a>
-                <a @click="deleteAct(detail.id)">Delete</a>
+                    <a class="pointer" @click="saveChanges(detail.id)">Save</a>
+                    <a class="pointer" id="cancelEdit" @click="backToMainPage">Cancel</a>
+                <a class="pointer" @click="deleteAct(detail.id)">Delete</a>
                 </div>
             </form>
         </div>
