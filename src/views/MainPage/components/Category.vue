@@ -1,11 +1,16 @@
 <template>
   <b-col id="category" cols="3">
-    <h3 class="text-center">{{category}}</h3>
+    <h3 class="text-center">{{category.name}}</h3>
     <b-row>
       <b-col cols="12" class="mx-auto">
         <task-card
-          v-for="(coba, i) in 3"
-          :key="i"
+          v-for="task in tasksFilter"
+          :key="task.id"
+          :task="task"
+          :CategoryId="category.id"
+          @changeCategory="changeCategory"
+          @editTask="editTask"
+          @deleteTask="deleteTask"
         ></task-card>
       </b-col>
     </b-row>
@@ -17,10 +22,27 @@ import TaskCard from './TaskCard'
 export default {
   name: 'Category',
   props: {
-    category: String
+    category: Object,
+    tasks: Array
   },
   components: {
     TaskCard
+  },
+  computed: {
+    tasksFilter () {
+      return this.tasks.filter(task => task.CategoryId === this.category.id) 
+    }
+  },
+  methods: {
+    changeCategory (taskId, newCategoryId) {
+      this.$emit('changeCategory', taskId, newCategoryId)
+    },
+    editTask (taskId) {
+      this.$emit('editTask', taskId)
+    },
+    deleteTask (taskId) {
+      this.$emit('deleteTask', taskId)
+    }
   }
 }
 </script>

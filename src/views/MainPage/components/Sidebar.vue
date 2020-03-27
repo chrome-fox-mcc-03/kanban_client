@@ -9,7 +9,7 @@
           <b-form-select 
             id="select-user" 
             v-model="selected" 
-            :options="users"
+            :options="options"
             required
           ></b-form-select>
         </b-form-group>
@@ -24,22 +24,27 @@ export default {
   name: 'Sidebar',
   data () {
     return {
-      selected: null,
-      users: [
-          { value: null, text: 'Choose a user' },
-          { value: 'id-1', text: 'ane' },
-          { value: 'id-2', text: 'ana' },
-          { value: 'id-3', text: 'ani' },
-          { value: 'id-4', text: 'anoa'}
-        ]
+      selected: null
     }
   },
   props: {
-    mainPage: String
+    mainPage: String,
+    members: Array
+  },
+  computed: {
+    options () {
+      let options = [
+        { value: null, text: 'Choose a user' }
+      ]
+      this.members.forEach(member => {
+        options.push({ value: member.id, text: member.username })
+      })
+      return options
+    }
   },
   methods: {
     invite (){
-      console.log(this.selected)
+      console.log('Not available at this moment')
     }
   }
 
