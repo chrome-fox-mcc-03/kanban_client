@@ -9,6 +9,9 @@
                             <span class="card-list-title">Backlog</span>
                         </div>
                         <div class="content-wrapper">
+                            <div class="empty-card" style="text-align: center;" v-if="todos[0].length < 1 || todos[0] == undefined">
+                                <span>Card is empty.</span>
+                            </div>
                             <div v-if="todos[0]">
                                 <Todos :data="todos[0]" 
                                 @deleteTodo="deleteTodo" 
@@ -17,9 +20,6 @@
                                 @deleteLabel="deleteLabel"
                                 @rightAction="rightAction"
                                 @leftAction="leftAction"> </Todos>
-                            </div>
-                            <div class="empty-card" style="text-align: center;" v-if="!todos[0]">
-                                <span>Card is empty.</span>
                             </div>
                         </div>
                     </div>
@@ -35,6 +35,9 @@
                             <span class="card-list-title">Development</span>
                         </div>
                         <div class="content-wrapper">
+                            <div class="empty-card" style="text-align: center;" v-if="todos[1].length < 1 || todos[1] == undefined">
+                                <span>Card is empty.</span>
+                            </div>
                             <div v-if="todos[1]">
                                 <Todos :data="todos[1]" 
                                 @deleteTodo="deleteTodo" 
@@ -43,9 +46,6 @@
                                 @deleteLabel="deleteLabel"
                                 @rightAction="rightAction"
                                 @leftAction="leftAction"> </Todos>
-                            </div>
-                            <div class="empty-card" style="text-align: center;" v-if="!todos[1]">
-                                <span>Card is empty.</span>
                             </div>
                         </div>
                     </div>
@@ -61,6 +61,9 @@
                             <span class="card-list-title">Product</span>
                         </div>
                         <div class="content-wrapper">
+                            <div class="empty-card" style="text-align: center;" v-if="todos[2].length < 1 || todos[2] == undefined">
+                                <span>Card is empty.</span>
+                            </div>
                             <div v-if="todos[2]">
                                 <Todos :data="todos[2]" 
                                 @deleteTodo="deleteTodo" 
@@ -69,9 +72,6 @@
                                 @deleteLabel="deleteLabel"
                                 @rightAction="rightAction"
                                 @leftAction="leftAction"> </Todos>
-                            </div>
-                            <div class="empty-card" style="text-align: center;" v-if="!todos[2]">
-                                <span>Card is empty.</span>
                             </div>
                         </div>
                     </div>
@@ -87,6 +87,9 @@
                             <span class="card-list-title">Done</span>
                         </div>
                         <div class="content-wrapper">
+                            <div class="empty-card" style="text-align: center;" v-if="todos[3].length < 1 || todos[3] == undefined">
+                                <span>Card is empty.</span>
+                            </div>
                             <div v-if="todos[3]">
                                 <Todos :data="todos[3]" 
                                 @deleteTodo="deleteTodo" 
@@ -95,9 +98,6 @@
                                 @deleteLabel="deleteLabel"
                                 @rightAction="rightAction"
                                 @leftAction="leftAction"> </Todos>
-                            </div>
-                            <div class="empty-card" style="text-align: center;" v-if="!todos[3]">
-                                <span>Card is empty.</span>
                             </div>
                         </div>
                     </div>
