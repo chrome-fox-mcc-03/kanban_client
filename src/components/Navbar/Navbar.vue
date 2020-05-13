@@ -1,5 +1,5 @@
 <template>
-  <div class="ui inverted menu" id="navbar">
+  <sui-menu secondary id="navbar">
     <div class="left menu">
       <sui-button animated="vertical" style="background:none;" @click="changePage('create')" v-if="currentPage === 'home'" >
         <sui-button-content style="color: green;" hidden>Create</sui-button-content>
@@ -14,7 +14,24 @@
         </sui-button-content>
       </sui-button>
     </div>
-    <a class="header item" style="padding-left: 40vw" id="logo" @click="logo"><p>QanbaN</p></a>
+    <p
+      class="header item"
+      style="margin-left: 36vw"
+      id="logo"
+      v-if="currentPage === 'group'"
+    >QanbaN</p>
+    <p
+      class="header item"
+      style="margin-left: 39vw"
+      id="logo"
+      v-else-if="currentPage === 'home'"
+    >QanbaN</p>
+    <p
+      class="header item"
+      style="margin-left: 46vw"
+      id="logo"
+      v-else
+    >QanbaN</p>
     <div class="right menu">
       <sui-button animated="vertical" style="background:none;" @click="changePage('login')" v-if="currentPage === 'register'" >
         <sui-button-content style="color: blue;" hidden>Login</sui-button-content>
@@ -47,7 +64,7 @@
         </sui-button-content>
       </sui-button>
     </div>
-  </div>
+  </sui-menu>
 </template>
 
 <script>
