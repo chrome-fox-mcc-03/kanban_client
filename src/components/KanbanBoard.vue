@@ -25,6 +25,7 @@
 import axios from 'axios'
 import Card from './Card'
 import draggable from "vuedraggable";
+const baseUrl = `https://shielded-cove-72197.herokuapp.com`
 
 
 export default {
