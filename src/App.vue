@@ -20,7 +20,7 @@
                                 <button class="nav-link text-white btn bg-transparent mr-auto" v-on:click="changePage('login')">Log In</button>
                             </li>
                             <li v-if="login === true" class="nav-item">
-                                <button class="nav-link text-white btn bg-transparent mr-auto" v-on:click="changePage('create')">Create A Task</button>
+                                <button class="nav-link text-white btn bg-transparent mr-auto" v-on:click="changePage('create')">Create a task</button>
                             </li>
                             <li v-if="login === true" class="nav-item">
                                 <button class="nav-link text-white btn bg-transparent mr-auto" v-on:click="changePage('board')">Kanban Board</button>
